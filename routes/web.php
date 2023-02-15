@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use app\Http\Controllers\admin\FilmController;
+use app\Http\Controllers\admin\AreasController;
+use app\Http\Controllers\admin\CinemaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,56 +21,24 @@ Route::get('/', function () {
 
 Route::prefix('admin')->group(function () {
     Route::prefix('film')->group(function () {
-        Route::get('index',function(){
-            return view('admin.film.index');
-        });
-        Route::post('add',function(){
-            return view('admin.film.AddFilm');
-        });
-        Route::delete('delete/{id}',function(){
-            return view('ShowFilm');
-        });
-        
-        Route::put('update/{id}',function(){
-            return view('Updatefilm');
-        });
-        Route::get('edit',function(){
-            return view('ShowFilm');
-        });
+        Route::get('index',[FilmController::class,'index']);
+        Route::post('add',[FilmController::class,'add']);
+        Route::delete('delete/{id}',[FilmController::class,'delete']);
+        Route::put('update/{id}',[FilmController::class,'update']);
+        Route::get('edit',[FilmController::class,'edit']);
     });
     Route::prefix('Areas')->group(function () {
-        Route::get('index',function(){
-            return view('admin.area.ShowAreas');
-        });
-        Route::post('add',function(){
-            return view('admin.area.AddArea');
-        });
-        Route::delete('delete/{id}',function(){
-            return view('admin.area.ShowAreas');
-        });
-        
-        Route::put('update/{id}',function(){
-            return view('admin.area.UpdateArea');
-        });
-        Route::get('edit',function(){
-            return view('admin.area.ShowAreas');
-        });
+        Route::get('index',[AreasController::class,'index']);
+        Route::post('add',[AreasController::class,'add']);
+        Route::delete('delete/{id}',[AreasController::class,'delete']);
+        Route::put('update/{id}',[AreasController::class,'update']);
+        Route::get('edit',[AreasController::class,'edit']);
     });
     Route::prefix('cinema')->group(function() {
-        Route::get('index',function(){
-            return view('admin.cinema.index');
-        });
-        Route::post('add',function(){
-            return view('admin.cinema.add');
-        });
-        Route::delete('delete/{id}',function(){
-            return view('admin.cinema.index');
-        });
-        Route::get('edit/{id}',function(){
-            return view('admin.cinema.edit');
-        });
-        Route::put('update',function(){
-            return view('admin.cinema.index');
-        });
+        Route::get('index',[CinemaController::class,'index']);
+        Route::post('add',[CinemaController::class,'add']);
+        Route::delete('delete/{id}',[CinemaController::class,'delete']);
+        Route::get('edit/{id}',[CinemaController::class,'edit']);
+        Route::put('update',[CinemaController::class,'update']);
     });
 });
