@@ -156,30 +156,14 @@
                         <!-- account -->
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold">Account</div>
-                            </div><a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use
-                                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-envelope-open">
-                                    </use>
-                                </svg> Messages<span class="badge badge-sm bg-success ms-2">42</span></a><a
-                                class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use
-                                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-comment-square">
-                                    </use>
-                                </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span></a>
-                            <div class="dropdown-header bg-light py-2">
                                 <div class="fw-semibold">Settings</div>
                             </div><a class="dropdown-item" href="">
                                 <svg class="icon me-2">
-                                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                                </svg> Profile</a><a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
                                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-settings">
                                     </use>
-                                </svg> Settings</a><a class="dropdown-item" href="#">
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="/logout">
+                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div><a class="dropdown-item"
+                                    href="{{ route('logout') }}">
                                     <svg class="icon me-2">
                                         <use
                                             xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-account-logout">
