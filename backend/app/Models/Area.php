@@ -10,6 +10,10 @@ class Area extends Model
     use HasFactory;
 
     protected $fillable = [
-        
+        'name',
     ];
+    
+    public function cinemas() {
+        return $this->hasMany(Cinema::class, 'area_id');
+    }
 }
