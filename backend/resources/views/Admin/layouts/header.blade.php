@@ -111,7 +111,7 @@
 
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                     <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
+                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie"></use>
                     </svg> Phim</a>
                 <ul class="nav-group-items">
                     <li class="nav-item"><a class="nav-link" href="/admin/film/index">Danh sách</a></li>
@@ -121,7 +121,9 @@
             </li>
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                     <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
+                        <use
+                            xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-room">
+                        </use>
                     </svg> Phòng</a>
                 <ul class="nav-group-items">
                     <li class="nav-item"><a class="nav-link" href="/admin/room/index">Danh sách</a></li>
@@ -131,7 +133,27 @@
             </li>
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                     <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
+                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-map"></use>
+                    </svg> Khu vực</a>
+                <ul class="nav-group-items">
+                    <li class="nav-item"><a class="nav-link" href="/admin/area/">Danh sách</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/area/create">Thêm Khu vực<span
+                                class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                    <svg class="nav-icon">
+                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-building"></use>
+                    </svg>Rạp Chiếu</a>
+                <ul class="nav-group-items">
+                    <li class="nav-item"><a class="nav-link" href="/admin/cinema/">Danh sách</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/cinema/create">Thêm Rạp Chiếu Phim<span
+                                class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+                </ul>
+            </li>
+            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                    <svg class="nav-icon">
+                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-calendar"></use>
                     </svg> Lịch chiếu</a>
                 <ul class="nav-group-items">
                     <li class="nav-item"><a class="nav-link" href="/admin/schedule/index">Danh sách</a></li>
