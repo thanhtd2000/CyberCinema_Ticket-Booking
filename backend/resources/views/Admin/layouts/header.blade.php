@@ -58,7 +58,7 @@
     <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
         <div class="sidebar-brand d-none d-md-flex">
             <a href="{{ route('admin.index') }}">
-                <img class="sidebar-brand-full" width="100" height="40" src="../uploads/logo/cgv.png"
+                <img class="sidebar-brand-full" width="100" height="40" src="../../uploads/logo/cgv.png"
                     alt="">
             </a>
             <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
@@ -150,7 +150,7 @@
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
                             href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="../../../uploads/{{ Auth::user()->avatar }}" alt="user@email.com">
+                                    src="../../../uploads/avatar/{{ Auth::user()->image }}" alt="user@email.com">
                             </div>
                         </a>
                         <!-- account -->
