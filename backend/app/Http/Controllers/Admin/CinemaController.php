@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Area;
 use App\Models\Cinema;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CinemaController extends Controller
 {
