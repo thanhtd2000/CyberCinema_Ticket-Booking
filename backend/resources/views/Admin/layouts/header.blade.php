@@ -58,7 +58,7 @@
     <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
         <div class="sidebar-brand d-none d-md-flex">
             <a href="{{ route('admin.index') }}">
-                <img class="sidebar-brand-full" width="100" height="40" src="../uploads/logo/cgv.png"
+                <img class="sidebar-brand-full" width="100" height="40" src="../../uploads/logo/cgv.png"
                     alt="">
             </a>
             <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
@@ -150,36 +150,20 @@
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
                             href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="../../../uploads/{{ Auth::user()->avatar }}" alt="user@email.com">
+                                    src="../../../uploads/avatar/{{ Auth::user()->image }}" alt="user@email.com">
                             </div>
                         </a>
                         <!-- account -->
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold">Account</div>
-                            </div><a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use
-                                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-envelope-open">
-                                    </use>
-                                </svg> Messages<span class="badge badge-sm bg-success ms-2">42</span></a><a
-                                class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use
-                                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-comment-square">
-                                    </use>
-                                </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span></a>
-                            <div class="dropdown-header bg-light py-2">
                                 <div class="fw-semibold">Settings</div>
                             </div><a class="dropdown-item" href="">
                                 <svg class="icon me-2">
-                                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                                </svg> Profile</a><a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
                                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-settings">
                                     </use>
-                                </svg> Settings</a><a class="dropdown-item" href="#">
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="/logout">
+                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div><a class="dropdown-item"
+                                    href="{{ route('logout') }}">
                                     <svg class="icon me-2">
                                         <use
                                             xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-account-logout">
