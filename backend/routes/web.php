@@ -1,11 +1,10 @@
 <?php
 
-use App\Http\Controllers\AreaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CinemaController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
