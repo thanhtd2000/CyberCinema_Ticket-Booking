@@ -4,6 +4,7 @@ use App\Http\Controllers\AreaController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CinemaController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 
 /*
@@ -57,5 +58,13 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [CinemaController::class, 'edit'])->name('admin.cinema.edit');
         Route::put('/update/{id}', [CinemaController::class, 'update'])->name('admin.cinema.update');
         Route::get('/delete/{id}', [CinemaController::class, 'delete'])->name('admin.cinema.delete');
+    });
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class,'index'])->name('admin.product');
+        Route::get('/create', [ProductController::class,'create'])->name('admin.product.create');
+        Route::post('/store', [ProductController::class,'store'])->name('admin.product.store');
+        Route::get('/edit/{id}', [ProductController::class,'edit'])->name('admin.product.edit');
+        Route::put('/update/{id}', [ProductController::class,'update'])->name('admin.product.update');
+        Route::get('/delete/{id}', [ProductController::class,'delete'])->name('admin.product.delete');
     });
 });
