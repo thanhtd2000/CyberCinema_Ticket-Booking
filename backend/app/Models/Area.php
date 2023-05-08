@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Cinema;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Area extends Model
 {
@@ -13,7 +15,7 @@ class Area extends Model
         'name',
     ];
     
-    public function cinemas() {
+    public function cinemas(): HasMany {
         return $this->hasMany(Cinema::class, 'area_id');
     }
 }
