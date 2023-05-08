@@ -88,6 +88,28 @@
             </li>
 
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
+                </svg> Khu vực</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/area/">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/area/create">Thêm khu vực<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+            </li>
+
+            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
+                </svg> Rạp chiếu phim</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/cinema/">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/cinema/create">Thêm rạp<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+            </li>
+
+            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                     <svg class="nav-icon">
                         <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
                     </svg> Phim</a>

@@ -19,8 +19,6 @@ class CinemaController extends Controller
     }
 
     public function store(Request $request) {
-        $areas = Area::all();
-        
         $formFields = $request->validate([
             'name' => 'required',
             'area_id' => 'required',
@@ -40,8 +38,6 @@ class CinemaController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $areas = Area::all();
-
         $formFields = $request->validate([
             'name' => 'required',
             'area_id' => 'required',
