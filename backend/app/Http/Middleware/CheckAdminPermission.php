@@ -25,7 +25,7 @@ class CheckAdminPermission
         } else if (Auth::check()) {
             return redirect('/');
         } else {
-            return redirect('/login')->with('message', 'Yêu cầu đăng nhập');
+            return redirect()->route('login')->with('message', 'Yêu cầu đăng nhập');
         }
     }
 }
