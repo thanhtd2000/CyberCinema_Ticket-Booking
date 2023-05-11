@@ -27,8 +27,10 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function () {
     Route::get("/login", [AuthController::class, 'getLogin'])->name('login');
     Route::post("/login", [AuthController::class, 'checkLogin'])->name('checkLogin');
-    Route::get("/logout", [AuthController::class, 'logout'])->name('logout');
-});
+
+    Route::get("/logout", [AuthController::class, 'Logout'])->name('logout');
+    
+
 //admin routes
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [UserController::class, 'index'])->name('admin.index');
@@ -43,6 +45,11 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/permise", [UserController::class, 'permise'])->name('users.permise');
         Route::middleware('checkAdminPermission')->get("/permise1", [UserController::class, 'permise_admin'])->name('users.permise1');
     });
+
+    Route::prefix('director')->group(function () {
+        Route::get("/",)    ;
+     });
+  
     Route::prefix('area')->group(function () {
         Route::get('/', [AreaController::class, 'index'])->name('admin.area');
         Route::get('/create', [AreaController::class, 'create'])->name('admin.area.create');
