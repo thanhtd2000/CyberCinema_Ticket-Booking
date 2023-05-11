@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -54,8 +55,8 @@ class AuthController extends Controller
     }
     public function logout()
     {
-        Auth::logout();
         session()->flush();
-        return back()->with('message', 'Đăng xuất thành công');
+        Auth::logout();
+        return redirect()->route('login')->with('message', 'Đăng xuất thành công');
     }
 }

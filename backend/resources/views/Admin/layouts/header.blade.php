@@ -55,71 +55,7 @@
 </head>
 
 <body>
-    <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
-        <div class="sidebar-brand d-none d-md-flex">
-            <a href="{{ route('admin.index') }}">
-                <img class="sidebar-brand-full" width="100" height="40" src="../uploads/logo/cgv.png"
-                    alt="">
-            </a>
-            <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
-                <use xlink:href="../../../dist/assets/brand/coreui.svg#signet"></use>
-            </svg>
-        </div>
-        <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
-            <li class="nav-item"><a class="nav-link" href="/admin/index">
-                    <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-speedometer"></use>
-                    </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
-            <li class="nav-title">Quản lý</li>
-
-            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                    <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                    </svg> Người Dùng</a>
-                <ul class="nav-group-items">
-                    <li class="nav-item"><a class="nav-link" href="{{ route('users.show') }}"> Danh sách</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('users.create') }}"><span
-                                class="nav-icon"></span>
-                            Thêm người dùng<span class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('users.permise') }}"><span
-                                class="nav-icon"></span>
-                            Phân quyền</a></li>
-                </ul>
-            </li>
-
-            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                    <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
-                    </svg> Phim</a>
-                <ul class="nav-group-items">
-                    <li class="nav-item"><a class="nav-link" href="/admin/film/index">Danh sách</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin/film/create">Thêm phim<span
-                                class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
-                </ul>
-            </li>
-            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                    <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
-                    </svg> Phòng</a>
-                <ul class="nav-group-items">
-                    <li class="nav-item"><a class="nav-link" href="/admin/room/index">Danh sách</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin/room/create">Thêm phòng<span
-                                class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
-                </ul>
-            </li>
-            <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                    <svg class="nav-icon">
-                        <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-star"></use>
-                    </svg> Lịch chiếu</a>
-                <ul class="nav-group-items">
-                    <li class="nav-item"><a class="nav-link" href="/admin/schedule/index">Danh sách</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/admin/schedule/create">Thêm lịch chiếu<span
-                                class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
-                </ul>
-            </li>
-        </ul>
-        <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
-    </div>
+  @include('Admin.layouts.sidebar')
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <header class="header header-sticky mb-4">
             <div class="container-fluid">
@@ -150,36 +86,20 @@
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
                             href="#" role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="../../../uploads/{{ Auth::user()->avatar }}" alt="user@email.com">
+                                    src="../../../uploads/avatar/{{ Auth::user()->image }}" alt="user@email.com">
                             </div>
                         </a>
                         <!-- account -->
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
-                                <div class="fw-semibold">Account</div>
-                            </div><a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use
-                                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-envelope-open">
-                                    </use>
-                                </svg> Messages<span class="badge badge-sm bg-success ms-2">42</span></a><a
-                                class="dropdown-item" href="#">
-                                <svg class="icon me-2">
-                                    <use
-                                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-comment-square">
-                                    </use>
-                                </svg> Comments<span class="badge badge-sm bg-warning ms-2">42</span></a>
-                            <div class="dropdown-header bg-light py-2">
                                 <div class="fw-semibold">Settings</div>
                             </div><a class="dropdown-item" href="">
                                 <svg class="icon me-2">
-                                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
-                                </svg> Profile</a><a class="dropdown-item" href="#">
-                                <svg class="icon me-2">
                                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-settings">
                                     </use>
-                                </svg> Settings</a><a class="dropdown-item" href="#">
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="/logout">
+                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div><a class="dropdown-item"
+                                    href="{{ route('logout') }}">
                                     <svg class="icon me-2">
                                         <use
                                             xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-account-logout">
