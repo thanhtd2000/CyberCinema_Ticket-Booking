@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRoomSeatsTable extends Migration
+class AlterInvoiceDetailsRenameColumnTimeIdToScheduleIdTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRoomSeatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('room_seats', function (Blueprint $table) {
-            $table->id();
-            $table->integer('room_id');
-            $table->integer('seat_id');
-            $table->timestamps();
+        Schema::table('invoice_details', function (Blueprint $table) {
+            $table->renameColumn('time_id', 'schedule_id');
         });
     }
 
@@ -28,6 +25,8 @@ class CreateRoomSeatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('room_seats');
+        Schema::table('invoice_details', function (Blueprint $table) {
+            $table->renameColumn('schedule_id', 'time_id');
+        });
     }
 }
