@@ -52,6 +52,7 @@
         gtag('config', 'UA-118965717-5');
     </script>
     <link href="../../../dist/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>

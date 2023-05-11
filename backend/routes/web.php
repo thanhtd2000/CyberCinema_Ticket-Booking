@@ -29,8 +29,7 @@ Route::prefix('admin')->group(function () {
     Route::post("/login", [AuthController::class, 'checkLogin'])->name('checkLogin');
 
     Route::get("/logout", [AuthController::class, 'Logout'])->name('logout');
-    
-
+});
 //admin routes
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [UserController::class, 'index'])->name('admin.index');
@@ -45,11 +44,10 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/permise", [UserController::class, 'permise'])->name('users.permise');
         Route::middleware('checkAdminPermission')->get("/permise1", [UserController::class, 'permise_admin'])->name('users.permise1');
     });
-
     Route::prefix('director')->group(function () {
-        Route::get("/",)    ;
-     });
-  
+        Route::get("/",);
+    });
+
     Route::prefix('area')->group(function () {
         Route::get('/', [AreaController::class, 'index'])->name('admin.area');
         Route::get('/create', [AreaController::class, 'create'])->name('admin.area.create');
@@ -58,7 +56,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put('/update/{id}', [AreaController::class, 'update'])->name('admin.area.update');
         Route::get('/delete/{id}', [AreaController::class, 'delete'])->name('admin.area.delete');
     });
-    Route::prefix('cinema')->group(function () { 
+    Route::prefix('cinema')->group(function () {
         Route::get('/', [CinemaController::class, 'index'])->name('admin.cinema');
         Route::get('/create', [CinemaController::class, 'create'])->name('admin.cinema.create');
         Route::post('/store', [CinemaController::class, 'store'])->name('admin.cinema.store');
