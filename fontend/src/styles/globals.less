@@ -1,0 +1,202 @@
+@import url('https://fonts.cdnfonts.com/css/sf-ui-display');
+@import url('https://fonts.cdnfonts.com/css/sf-ui-text-2');
+@import '~nprogress/nprogress.css';
+@import 'react-toastify/dist/ReactToastify.css';
+@import './theme.less';
+@import './layouts/';
+@import './pages/';
+@import './components/';
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+* {
+  padding: 0;
+  margin: 0;
+  font-family: 'SF UI Display', sans-serif;
+}
+.ant-select-selector {
+  padding: 0 !important;
+  border: none !important;
+  background-color: rgba(0, 0, 0, 0) !important;
+}
+.LoginStyle{
+      .ant-form-item .ant-form-item-explain-error{
+            color: #e87c03;
+            font-size: 13px;
+            padding: 6px 3px;
+      }
+      .ant-checkbox-checked .ant-checkbox-inner{
+            background-color: #595959;
+            color: #000;
+            border-color: #595959;
+      }
+      .ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner{
+            border-color: #595959;
+      }
+      .ant-form-item-control-input-content{
+            display: flex;
+            justify-content: space-between;
+      }
+}
+.RegisterStyle{
+      .ant-radio-wrapper .ant-radio-checked .ant-radio-inner{
+            background-color: #e87c03;
+            border-color: #e87c03;
+      }
+      .ant-form-item .ant-form-item-explain-error{
+            color: #e87c03;
+            font-size: 13px;
+            padding: 6px 3px;
+      }
+      .ant-checkbox-checked .ant-checkbox-inner{
+            background-color: #595959;
+            color: #000;
+            border-color: #595959;
+      }
+      .ant-checkbox-wrapper:not(.ant-checkbox-wrapper-disabled):hover .ant-checkbox-checked:not(.ant-checkbox-disabled) .ant-checkbox-inner{
+            border-color: #595959;
+      }
+      .ant-form-item-control-input-content{
+            display: flex;
+            justify-content: space-between;
+      }
+      .ant-select-single.ant-select-show-arrow .ant-select-selection-item{
+                  background-color: #333;
+                  padding-left: 10px;
+                  border-radius: 5px;
+                  color: #8c8c8c;
+                  border-color: #333;
+      }
+      .ant-select .ant-select-arrow .anticon{
+            color: white;
+      }
+}
+.banner {
+  .ant-select-selector {
+    background: #fff !important;
+  }
+  .ant-select-selection-item {
+    color: #595959 !important;
+    padding: 0 16px !important;
+  }
+  .ant-select-selector {
+    height: 38px !important;
+    display: flex;
+    align-items: center;
+  }
+}
+.ant-menu-light .ant-menu-item-selected {
+  border-right: 3px solid #2f61e6;
+  border-radius: 0;
+  font-family: 'SF UI Display', sans-serif;
+  color: #2f61e6 !important;
+}
+.ant-menu .ant-menu-item {
+  color: #595959;
+}
+.Post {
+  .ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+    color: #2f61e6 !important;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'SF UI Display', sans-serif;
+  }
+  .ant-menu-light.ant-menu-root.ant-menu-vertical {
+    border: none;
+  }
+  .ant-select-arrow {
+    color: #2f61e6;
+  }
+  .ant-menu-light .ant-menu-item-selected {
+    background-color: rgba(47, 97, 230, 0.1);
+  }
+}
+.swiper-pagination-bullet {
+  width: 25px !important;
+  border-radius: 0px !important;
+  height: 3px !important;
+  background: #fff !important;
+}
+.ant-pagination .ant-pagination-next .ant-pagination-item-link,
+.ant-pagination .ant-pagination-prev .ant-pagination-item-link,
+.ant-pagination .ant-pagination-disabled .ant-pagination-item-link {
+  background: rgba(47, 97, 230, 0.8) !important;
+  span {
+    color: #fff;
+  }
+}
+.ant-pagination-item {
+  border: 1px solid rgba(47, 97, 230, 0.6) !important;
+  a {
+    color: #2f61e6 !important;
+  }
+}
+.ant-pagination-item-active {
+  background: rgba(47, 97, 230, 0.1) !important;
+  border-color: #2f61e6;
+}
+.ant-pagination-item .ant-pagination-item-2 {
+  background-color: #2f61e6;
+}
+.ant-select {
+  width: 100%;
+}
+.ant-select-single.ant-select-show-arrow .ant-select-selection-item {
+  padding-inline-end: 0px;
+  color: #595959 !important;
+}
+.ant-input-wrapper {
+  height: 40px;
+  border-radius: 8px;
+  .ant-input-affix-wrapper,
+  .ant-btn {
+    height: 100%;
+  }
+}
+.ant-input-group-addon {
+  button {
+    background-color: #2f61e6;
+  }
+}
+.ant-drawer-header-title {
+  flex-direction: row-reverse;
+  button {
+    span {
+      color: #072a88;
+      font-size: 20px;
+    }
+  }
+}
+.ant-input {
+  width: 100%;
+  height: 100%;
+}
+.Company {
+  .ant-input-affix-wrapper {
+    height: 40px;
+    border: none;
+    outline: none;
+    .ant-input-suffix {
+      padding-right: 40px;
+    }
+  }
+  .ant-select-selector {
+    .ant-select-selection-item {
+      padding: 0px 12px;
+      display: flex;
+      align-items: center;
+      height: 38px;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      font-family: 'SF UI  Text', sans-serif;
+      color: #595959;
+    }
+  }
+  @media screen and (max-width: 991.98px) {
+    .css-dev-only-do-not-override-1mqg3i0 .ant-affix {
+      top: 34px !important;
+    }
+  }
+}
