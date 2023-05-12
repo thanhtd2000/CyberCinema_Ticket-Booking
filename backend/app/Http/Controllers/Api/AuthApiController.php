@@ -25,8 +25,10 @@ class AuthApiController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8',
-            'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'role' => 'required',
+            'sex' => 'required',
+            'birthday' => 'required',
+            'phone' => 'required',
+            // 'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -37,16 +39,18 @@ class AuthApiController extends Controller
             ], 422);
         } else {
 
-            if ($request->hasFile('image')) {
-                $file = $request->image;
-                $fileExtension = $file->getClientOriginalExtension();
-                $file->move("uploads", $request->email . "." . $fileExtension);
-                $newUser['image'] = $request->email . "." . $fileExtension;
-            }
+            // if ($request->hasFile('image')) {
+            //     $file = $request->image;
+            //     $fileExtension = $file->getClientOriginalExtension();
+            //     $file->move("uploads", $request->email . "." . $fileExtension);
+            //     $newUser['image'] = $request->email . "." . $fileExtension;
+            // }
             $newUser['name'] = $request->name;
             $newUser['email'] = $request->email;
-            $newUser['role'] = $request->role;
             $newUser['password'] = bcrypt($request->password);
+            $newUser['sex'] = $request->sex;
+            $newUser['phone'] = $request->phone;
+            $newUser['birthday'] = $request->birthday;
             User::create($newUser);
 
             return response()->json([
@@ -99,7 +103,7 @@ class AuthApiController extends Controller
                 return response()->json([
                     'status_code' => 401,
                     'message' => 'Unauthorized'
-                ], status: 401);
+                ], 401);
             }
 
             $user = $request->user();
@@ -111,7 +115,15 @@ class AuthApiController extends Controller
                 'message' => 'Login Success',
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-            ], status: 200);
+                'data' => [
+                    'name' =>  $user->name,
+                    'email' => $user->email,
+                    'sex' => $user->sex,
+                    'phone' => $user->phone,
+                    'birthday' => $user->birthday,
+                    'image' => $user->image,
+                ]
+            ],  200);
         } catch (ValidationException $error) {
             return response()->json([
                 'status_code' => 422,
@@ -142,12 +154,12 @@ class AuthApiController extends Controller
             return response()->json([
                 'status_code' => 200,
                 'message' => 'Logout Success',
-            ], status: 200);
+            ], 200);
         } else {
             return response()->json([
                 'status_code' => 409,
                 'message' => 'Logout Fail Or Account not Exist!!',
-            ], status: 409);
+            ], 409);
         }
     }
 }
