@@ -7,10 +7,12 @@ import Image from 'next/image';
 import { TRegister } from '@/modules';
 import { useRouter } from 'next/router';
 import { useRegister } from '@/queries/hooks';
+import { RangePickerProps } from 'antd/es/date-picker';
 const { Title } = Typography;
 function RegisterScreen() {
       const router = useRouter();
       // const [step, setStep] = useState(1);
+      const dateFormat = 'YYYY/MM/DD';
       const { mutate: register } = useRegister();
       const onFinish = (values: TRegister) => {
             register(values, {
@@ -20,6 +22,18 @@ function RegisterScreen() {
                   },
             });
       };
+      const range = (start: number, end: number) => {
+            const result = [];
+            for (let i = start; i < end; i++) {
+              result.push(i);
+            }
+            return result;
+          };
+          const disabledDateTime = () => ({
+            disabledHours: () => range(0, 24).splice(4, 20),
+            disabledMinutes: () => range(30, 60),
+            disabledSeconds: () => [55, 56],
+          });
 
       const onFinishFailed = (errorInfo: any) => {
             console.log('Failed:', errorInfo);
@@ -45,10 +59,17 @@ function RegisterScreen() {
                                                 autoComplete='off'
                                           >
                                                 <Form.Item
-                                                      name='username'
+                                                      name='name'
                                                       rules={[{ required: true, message: 'Vui lòng nhập tên hợp lệ.' }]}
                                                 >
                                                       <Input className={style.input} placeholder='Tên' />
+                                                </Form.Item>
+
+                                                <Form.Item
+                                                      name='email'
+                                                      rules={[{ required: true, message: 'Email của bạn phải chứa từ 4 đến 60 ký tự.' }]}
+                                                >
+                                                      <Input className={style.input} placeholder='Email' />
                                                 </Form.Item>
 
                                                 <Form.Item
@@ -60,10 +81,10 @@ function RegisterScreen() {
                                                 <div style={{ display: 'flex' }}>
                                                       <Form.Item
                                                             style={{ width: '50%', marginRight: '10px' }}
-                                                            name='birth'
+                                                            name='birthday'
                                                             rules={[{ required: true, message: 'Vui lòng chọn ngày sinh' }]}
                                                       >
-                                                            <DatePicker />
+                                                            <DatePicker disabledTime={disabledDateTime} format={dateFormat} />
                                                       </Form.Item>
                                                       <Form.Item
                                                             style={{ width: '50%' }}
@@ -81,12 +102,6 @@ function RegisterScreen() {
                                                       rules={[{ required: true, message: 'Mật khẩu của bạn phải chứa từ 4 đến 60 ký tự.' }]}
                                                 >
                                                       <Input className={style.input} placeholder='Password' />
-                                                </Form.Item>
-                                                <Form.Item style={{ color: 'white' }} name='favorite' rules={[{ required: true, message: 'Vui lòng chọn rạp yêu thích' }]}>
-                                                      <Select defaultValue="defaut">
-                                                            <Select.Option style={{ color: '#333' }} value="defaut">Rạp yêu thích</Select.Option>
-                                                            <Select.Option style={{ color: '#333' }} value="demo">Demo</Select.Option>
-                                                      </Select>
                                                 </Form.Item>
 
                                                 <Form.Item style={{ margin: '0px' }} name='remember' valuePropName='checked'>

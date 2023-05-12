@@ -11,7 +11,6 @@ function LoginScreen() {
       const { mutate: signIn } = useMutationSignIn();
       const router = useRouter();
       const onFinish = (values: TSignIn) => {
-      console.log(values);
         signIn(values, {
           onSuccess: () => {
             router.push({ pathname: '/' });
@@ -39,7 +38,7 @@ function LoginScreen() {
                                                 autoComplete='off'
                                           >
                                                 <Form.Item
-                                                      name='username'
+                                                      name='email'
                                                       rules={[{ required: true, message: 'Vui lòng nhập email hoặc số điện thoại hợp lệ.' }]}
                                                 >
                                                       <Input className={style.input} placeholder='Email hoặc số điện thoại' />
