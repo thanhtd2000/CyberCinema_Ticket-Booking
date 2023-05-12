@@ -46,5 +46,6 @@
       // Bootstrap ID
       gtag('config', 'UA-118965717-5');
     </script>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
   </head>
   <body>
