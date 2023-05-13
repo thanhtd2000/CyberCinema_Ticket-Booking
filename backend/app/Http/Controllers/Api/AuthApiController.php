@@ -39,7 +39,6 @@ class AuthApiController extends Controller
                         'errors' => $validator->errors(),
                   ], 422);
             } else {
-
                   // if ($request->hasFile('image')) {
                   //     $file = $request->image;
                   //     $fileExtension = $file->getClientOriginalExtension();
@@ -118,6 +117,7 @@ class AuthApiController extends Controller
                         'message' => 'Login Success',
                         'access_token' => $tokenResult,
                         'token_type' => 'Bearer',
+                        'expires_in' => Carbon::now()->addHour(),
                         'data' => [
                               'name' =>  $user->name,
                               'email' => $user->email,
