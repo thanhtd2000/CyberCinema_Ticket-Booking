@@ -3,9 +3,6 @@
         <a href="{{ route('admin.index') }}">
             <img class="sidebar-brand-full" width="100" height="40" src="../../uploads/logo/cgv.png" alt="">
         </a>
-        <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
-            <use xlink:href="../../../dist/assets/brand/coreui.svg#signet"></use>
-        </svg>
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
         <li class="nav-item"><a class="nav-link" href="/admin/index">
