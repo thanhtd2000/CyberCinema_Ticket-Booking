@@ -1,8 +1,7 @@
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
         <a href="{{ route('admin.index') }}">
-            <img class="sidebar-brand-full" width="100" height="40" src="../../uploads/logo/cgv.png"
-                alt="">
+            <img class="sidebar-brand-full" width="100" height="40" src="../../uploads/logo/cgv.png" alt="">
         </a>
         <svg class="sidebar-brand-narrow" width="46" height="46" alt="CoreUI Logo">
             <use xlink:href="../../../dist/assets/brand/coreui.svg#signet"></use>
@@ -15,6 +14,7 @@
                 </svg> Dashboard<span class="badge badge-sm bg-info ms-auto">NEW</span></a></li>
         <li class="nav-title">Quản lý</li>
 
+        {{-- Link user view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user"></use>
@@ -30,6 +30,7 @@
             </ul>
         </li>
 
+        {{-- Link movie view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie"></use>
@@ -40,10 +41,51 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
+
+        {{-- Link actor view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
-                    <use
-                        xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-room">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user">
+                    </use>
+                </svg> Diễn viên</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/actor/index">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/actor/create">Thêm diễn viên<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+        </li>
+
+        {{-- Link director view --}}
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie">
+                    </use>
+                </svg> Đạo diễn</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/director/index">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/director/create">Thêm đạo diễn<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+        </li>
+
+        {{-- Link category view --}}
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie">
+                    </use>
+                </svg> Danh mục phim</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/category/index">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/category/create">Thêm danh mục phim<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+        </li>
+
+
+        {{-- Link room view --}}
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-room">
                     </use>
                 </svg> Phòng</a>
             <ul class="nav-group-items">
@@ -52,6 +94,9 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
+
+        {{-- Link area view --}}
+
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-map"></use>
@@ -62,6 +107,8 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
+
+        {{-- Link cinema view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-building"></use>
@@ -72,6 +119,8 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
+
+        {{-- Link schedule view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-calendar"></use>
@@ -82,6 +131,7 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
+
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
 </div>

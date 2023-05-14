@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Director;
+use App\Models\Actor;
 use Illuminate\Http\Request;
+use App\Http\Requests\ActorRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\DirectorRequest;
 
-class DirectorController extends Controller
+
+class ActorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +17,8 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        $directors = Director::paginate(10);
-        return view('Admin.directors.index',compact('directors'));
+        $actors = Actor::paginate(10);
+        return view('Admin.actors.index',compact('actors'));
     }
 
     /**
@@ -27,7 +28,7 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        return view('Admin.directors.create');
+        return view('Admin.actors.create');
     }
 
     /**
@@ -36,11 +37,12 @@ class DirectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DirectorRequest $request)
+    public function store(ActorRequest $request)
     {
-        $newDirecrtor = $request->toArray();
-        Director::create($newDirecrtor);
-        return redirect('admin/director/index')->with('message', 'Create successfully');
+        $newActor = $request->toArray();
+        Actor::create($newActor);
+        return redirect('admin/actor/index')->with('message', 'Create successfully');
+        
     }
 
     /**
@@ -49,10 +51,10 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
+    // public function show($id)
+    // {
+        
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -62,8 +64,8 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        $director = Director::find($id);
-        return view('admin.directors.edit',compact('director'));
+        $actor = Actor::find($id);
+        return view('admin.actors.edit',compact('actor'));
     }
 
     /**
@@ -73,12 +75,13 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DirectorRequest $request, $id)
+    public function update(ActorRequest $request, $id)
     {
         $request = $request->except(['_token', '_method']);
         // dd($request);
-        Director::where('id',$id)->update($request);
-        return redirect('admin/director/index')->with('message', 'Update successful!');
+        Actor::where('id',$id)->update($request);
+        return redirect('admin/actor/index ')->with('message', 'Update successful!');
+        
     }
 
     /**
@@ -89,7 +92,8 @@ class DirectorController extends Controller
      */
     public function destroy($id)
     {
-        Director::find($id)->delete();
-        return redirect('admin/director/index')->with('message', 'Delete successful!');
+        Actor::find($id)->delete();
+        return redirect('admin/actor/index')->with('message', 'Delete successful!');
+        
     }
 }
