@@ -6,23 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <meta name="author" content="Łukasz Holeczek">
-    <meta name="keyword" content="Bootstrap,Admin,Template,Open,Source,jQuery,CSS,HTML,RWD,Dashboard">
     <title>Admin</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
-    <link rel="apple-touch-icon" sizes="57x57" href="../../../dist/assets/favicon/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../../dist/assets/favicon/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../../dist/assets/favicon/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../../dist/assets/favicon/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../../dist/assets/favicon/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../../dist/assets/favicon/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../../dist/assets/favicon/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../../dist/assets/favicon/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../../dist/assets/favicon/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../../dist/assets/favicon/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../../dist/assets/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../../dist/assets/favicon/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../../dist/assets/favicon/favicon-16x16.png">
     <link rel="manifest" href="../../../dist/assets/favicon/manifest.json">
     <script src="https://cdn.tailwindcss.com"></script>
     <meta name="msapplication-TileColor" content="#ffffff">
@@ -53,10 +38,12 @@
     </script>
     <link href="../../../dist/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 </head>
 
 <body>
-  @include('Admin.layouts.sidebar')
+    @include('Admin.layouts.sidebar')
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <header class="header header-sticky mb-4">
             <div class="container-fluid">
@@ -84,8 +71,8 @@
                             </svg></a></li>
                 </ul>
                 <ul class="header-nav ms-3">
-                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown"
-                            href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
+                            role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img"
                                     src="../../../uploads/avatar/{{ Auth::user()->image }}" alt="user@email.com">
                             </div>
