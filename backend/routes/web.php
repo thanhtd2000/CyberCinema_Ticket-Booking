@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CinemaController;
-
+use App\Http\Controllers\Admin\SeatTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,5 +58,13 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [CinemaController::class, 'edit'])->name('admin.cinema.edit');
         Route::put('/update/{id}', [CinemaController::class, 'update'])->name('admin.cinema.update');
         Route::get('/delete/{id}', [CinemaController::class, 'delete'])->name('admin.cinema.delete');
+    });
+    Route::prefix('seat_type')->group(function () { 
+        Route::get('/', [SeatTypeController::class, 'index'])->name('admin.seat_type');
+        Route::get('/create', [SeatTypeController::class, 'create'])->name('admin.seat_type.create');
+        Route::post('/store', [SeatTypeController::class, 'store'])->name('admin.seat_type.store');
+        Route::get('/edit/{id}', [SeatTypeController::class, 'edit'])->name('admin.seat_type.edit');
+        Route::put('/update/{id}', [SeatTypeController::class, 'update'])->name('admin.seat_type.update');
+        Route::get('/delete/{id}', [SeatTypeController::class, 'delete'])->name('admin.seat_type.delete');
     });
 });

@@ -5,7 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seat_Type extends Model
+class SeatType extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 }
