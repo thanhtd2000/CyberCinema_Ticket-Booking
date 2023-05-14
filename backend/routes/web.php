@@ -4,8 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ActorController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\CinemaController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\admin\DirectorController;
 
 
 /*
@@ -44,9 +47,34 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/permise", [UserController::class, 'permise'])->name('users.permise');
         Route::middleware('checkAdminPermission')->get("/permise1", [UserController::class, 'permise_admin'])->name('users.permise1');
     });
-    Route::prefix('director')->group(function () {
-        Route::get("/",);
+    
+    Route::prefix('category')->group(function () {
+        Route::get("/index",[CategoryController::class, 'index'])->name('admin.category');
+        Route::get("/create",[CategoryController::class, 'create'])->name('admin.category.create');
+        Route::post("/store",[CategoryController::class, 'store'])->name('admin.category.store');
+        Route::get("/edit/{id}",[CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::put("/update/{id}",[CategoryController::class, 'update'])->name('admin.category.update');
+        Route::get("/delete/{id}",[CategoryController::class, 'destroy'])->name('admin.category.destroy');
     });
+
+    Route::prefix('director')->group(function () {
+        Route::get("/index",[DirectorController::class, 'index'])->name('admin.director');
+        Route::get("/create",[DirectorController::class, 'create'])->name('admin.director.create');
+        Route::post("/store",[DirectorController::class, 'store'])->name('admin.director.store');
+        Route::get("/edit/{id}",[DirectorController::class, 'edit'])->name('admin.director.edit');
+        Route::put("/update/{id}",[DirectorController::class, 'update'])->name('admin.director.update');
+        Route::get("/delete/{id}",[DirectorController::class, 'destroy'])->name('admin.director.destroy');
+    });
+
+    Route::prefix('actor')->group(function () {
+        Route::get("/index",[ActorController::class, 'index'])->name('admin.actor');
+        Route::get("/create",[ActorController::class, 'create'])->name('admin.actor.create');
+        Route::post("/store",[ActorController::class, 'store'])->name('admin.actor.store');
+        Route::get("/edit/{id}",[ActorController::class, 'edit'])->name('admin.actor.edit');
+        Route::put("/update/{id}",[ActorController::class, 'update'])->name('admin.actor.update');
+        Route::get("/delete/{id}",[ActorController::class, 'destroy'])->name('admin.actor.destroy');
+    });
+    
 
     Route::prefix('area')->group(function () {
         Route::get('/', [AreaController::class, 'index'])->name('admin.area');
@@ -64,6 +92,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put('/update/{id}', [CinemaController::class, 'update'])->name('admin.cinema.update');
         Route::get('/delete/{id}', [CinemaController::class, 'delete'])->name('admin.cinema.delete');
     });
+
     Route::prefix('movie')->group(function () {
         Route::get('/', [MovieController::class, 'index'])->name('admin.movie');
         Route::get('/create', [MovieController::class, 'create'])->name('admin.movie.create');
@@ -73,3 +102,4 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/delete/{id}', [MovieController::class, 'delete'])->name('admin.movie.delete');
     });
 });
+

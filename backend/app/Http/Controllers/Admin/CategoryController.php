@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Director;
+use App\Models\Category;
+use function Ramsey\Uuid\v1;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DirectorRequest;
 
-class DirectorController extends Controller
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CategoryRequest;
+
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +18,8 @@ class DirectorController extends Controller
      */
     public function index()
     {
-        $directors = Director::paginate(10);
-        return view('Admin.directors.index',compact('directors'));
+        $categories = Category::paginate(10);
+        return view('admin.categories.index',compact('categories'));
     }
 
     /**
@@ -27,7 +29,7 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        return view('Admin.directors.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -36,11 +38,11 @@ class DirectorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DirectorRequest $request)
+    public function store(CategoryRequest $request)
     {
-        $newDirecrtor = $request->toArray();
-        Director::create($newDirecrtor);
-        return redirect('admin/director/index')->with('message', 'Create successfully');
+        $newCategory = $request->toArray();
+        Category::create($newCategory);
+        return redirect('admin/category/index')->with('message', 'Create successfully');
     }
 
     /**
@@ -62,8 +64,8 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        $director = Director::find($id);
-        return view('admin.directors.edit',compact('director'));
+        $category = Category::find($id);
+        return view('admin.categories.edit',compact('category'));
     }
 
     /**
@@ -73,12 +75,12 @@ class DirectorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(DirectorRequest $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
         $request = $request->except(['_token', '_method']);
         // dd($request);
-        Director::where('id',$id)->update($request);
-        return redirect('admin/director/index')->with('message', 'Update successful!');
+        Category::where('id',$id)->update($request);
+        return redirect('admin/category/index ')->with('message', 'Update successful!');
     }
 
     /**
@@ -89,7 +91,7 @@ class DirectorController extends Controller
      */
     public function destroy($id)
     {
-        Director::find($id)->delete();
-        return redirect('admin/director/index')->with('message', 'Delete successful!');
+        Category::find($id)->delete();
+        return redirect('admin/category/index')->with('message', 'Delete successful!');
     }
 }
