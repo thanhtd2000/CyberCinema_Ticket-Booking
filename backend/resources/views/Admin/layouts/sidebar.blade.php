@@ -36,8 +36,8 @@
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie"></use>
                 </svg> Phim</a>
             <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="/admin/film/index">Danh sách</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/film/create">Thêm phim<span
+                <li class="nav-item"><a class="nav-link" href="/admin/movie/">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/movie/create">Thêm phim<span
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>

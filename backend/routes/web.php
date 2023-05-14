@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ActorController;
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\CinemaController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\admin\DirectorController;
@@ -91,4 +92,14 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put('/update/{id}', [CinemaController::class, 'update'])->name('admin.cinema.update');
         Route::get('/delete/{id}', [CinemaController::class, 'delete'])->name('admin.cinema.delete');
     });
+
+    Route::prefix('movie')->group(function () {
+        Route::get('/', [MovieController::class, 'index'])->name('admin.movie');
+        Route::get('/create', [MovieController::class, 'create'])->name('admin.movie.create');
+        Route::post('/store', [MovieController::class, 'store'])->name('admin.movie.store');
+        Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
+        Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
+        Route::get('/delete/{id}', [MovieController::class, 'delete'])->name('admin.movie.delete');
+    });
 });
+
