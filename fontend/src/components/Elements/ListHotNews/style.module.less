@@ -1,0 +1,47 @@
+.PostItem {
+  cursor: pointer;
+  border-
+  img {
+    transition: all 0.25s;
+    border-radius: 15px;
+    transform: scale(1);
+    cursor: pointer;
+  }
+  .tag {
+    background: rgba(47, 97, 230, 0.1);
+    border-radius: 4px;
+    color: rgba(47, 97, 230, 0.8);
+    border-color: transparent;
+    margin-bottom: 8px;
+  }
+  h5 {
+    font-weight: 600;
+    font-size: 16px;
+    color: #262626;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-family: 'SF UI Display';
+    margin-bottom: 0;
+  }
+  .text {
+    font-weight: 400;
+    font-size: 16px;
+    color: #595959;
+    padding-top: 16px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 0;
+  }
+}
+.PostItem:hover img {
+  transform: scale(1.1);
+}
+@media screen and (max-width: 991px) {
+  .PostItem {
+    margin-bottom: 40px;
+  }
+}

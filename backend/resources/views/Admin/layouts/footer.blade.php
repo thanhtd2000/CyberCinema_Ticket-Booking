@@ -1,7 +1,14 @@
 <footer class="footer">
     <div class="ms-auto">Powered by&nbsp;<a href="">Thành</a></div>
 </footer>
-</div>
+<script>
+    $(document).ready(function() {
+        $(".select2").select2({
+            placeholder: "Chọn một hoặc nhiều",
+            tags: true,
+        });
+    });
+</script>
 <!-- CoreUI and necessary plugins-->
 <script src="../../../dist
 /vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>
