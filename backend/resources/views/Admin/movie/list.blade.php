@@ -5,13 +5,7 @@
     <button class="btn btn-primary">
         <a class="text-white" href="{{ route('admin.movie.create') }}">Add</a>
     </button>
-    <div class="message text-center">
-        @if (session('message'))
-            <h4 class="aler alert-danger pt-3 pb-3">
-                <strong class="text-danger">{{ session('message') }}</strong>
-            </h4>
-        @endif
-    </div>
+   
     <table class="table">
         <thead>
             <tr>

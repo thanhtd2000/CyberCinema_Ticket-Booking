@@ -40,7 +40,7 @@ class DirectorController extends Controller
     {
         $newDirecrtor = $request->toArray();
         Director::create($newDirecrtor);
-        return redirect('admin/director/index')->with('message', 'Create successfully');
+        return redirect('admin/director/index')->with('message', 'Thêm thành công');
     }
 
     /**
@@ -78,7 +78,7 @@ class DirectorController extends Controller
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Director::where('id',$id)->update($request);
-        return redirect('admin/director/index')->with('message', 'Update successful!');
+        return redirect('admin/director/index')->with('message', 'Sửa thành công!');
     }
 
     /**
@@ -90,6 +90,6 @@ class DirectorController extends Controller
     public function destroy($id)
     {
         Director::find($id)->delete();
-        return redirect('admin/director/index')->with('message', 'Delete successful!');
+        return redirect('admin/director/index')->with('message', 'Xóa thành công!');
     }
 }

@@ -42,7 +42,7 @@ class SeatTypeController extends Controller
                 'price' => $request->price
             ];
             $this->seatType->create($data);
-            return redirect()->route('admin.seat_type')->with('success','Create Seat Type successfully!');
+            return redirect()->route('admin.seat_type')->with('message','Thêm thành công!');
        
         
     }
@@ -52,5 +52,15 @@ class SeatTypeController extends Controller
        $seatType = $this->seatType->find($id);
 
        return view('Admin/seats/seat_type/edit', compact('seatType'));
+    }
+
+    public function update()
+    {
+
+    }
+
+    public function delete($id)
+    {
+
     }
 }
