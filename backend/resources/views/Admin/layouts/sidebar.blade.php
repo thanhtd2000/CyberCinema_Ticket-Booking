@@ -128,7 +128,6 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
-<<<<<<< HEAD
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
             <svg class="nav-icon">
                 <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-sofa"></use>
@@ -140,9 +139,6 @@
                         class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
         </ul>
     </li>
-=======
-
->>>>>>> 4dced2f5d14dc18b3d7bde23b79db54c75f046d9
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
 </div>
