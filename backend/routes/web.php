@@ -100,6 +100,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [ProductController::class,'edit'])->name('admin.product.edit');
         Route::put('/update/{id}', [ProductController::class,'update'])->name('admin.product.update');
         Route::get('/delete/{id}', [ProductController::class,'delete'])->name('admin.product.delete');
+    });
     Route::prefix('movie')->group(function () {
         Route::get('/', [MovieController::class, 'index'])->name('admin.movie');
         Route::get('/create', [MovieController::class, 'create'])->name('admin.movie.create');
@@ -115,5 +116,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [SeatTypeController::class, 'edit'])->name('admin.seat_type.edit');
         Route::put('/update/{id}', [SeatTypeController::class, 'update'])->name('admin.seat_type.update');
         Route::get('/delete/{id}', [SeatTypeController::class, 'destroy'])->name('admin.seat_type.delete');
+    });
+ 
 });
 
