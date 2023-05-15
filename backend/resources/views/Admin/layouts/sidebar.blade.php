@@ -1,7 +1,7 @@
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
         <a href="{{ route('admin.index') }}">
-            <img class="sidebar-brand-full" width="100" height="40" src="../../uploads/logo/cgv.png" alt="">
+            <img class="sidebar-brand-full" width="100" height="40" src="../../../uploads/logo/cgv.png" alt="">
         </a>
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
