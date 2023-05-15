@@ -369,7 +369,11 @@ select {
 [role=button] {
   cursor: pointer;
 }
-
+select {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+}
 select {
   word-wrap: normal;
 }
@@ -3020,7 +3024,7 @@ html:not([dir=rtl]) .input-group.has-validation > .form-floating:nth-last-child(
 *[dir=rtl] .input-group.has-validation > :nth-last-child(n+3):not(.dropdown-toggle):not(.dropdown-menu):not(.form-floating),
 *[dir=rtl] .input-group.has-validation > .dropdown-toggle:nth-last-child(n+4),
 *[dir=rtl] .input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-control,
-*[dir=rtl] .input-group.has-validation > .form-floating:nth-last-child(n+3) > .form-select {
+*[dir=rtl] .input-group.has-validation > .form-floating:nth-last-child(n+3) > .fo rm-select {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }

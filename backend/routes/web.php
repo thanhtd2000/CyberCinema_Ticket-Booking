@@ -99,7 +99,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::post('/store', [MovieController::class, 'store'])->name('admin.movie.store');
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
-        Route::get('/delete/{id}', [MovieController::class, 'delete'])->name('admin.movie.delete');
+        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
     });
 });
 

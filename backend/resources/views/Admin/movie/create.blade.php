@@ -28,7 +28,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Ngày ra mắt</label>
-            <input type="text" name="date" class="form-control" value="{{ old('date') }}">
+            <input type="date" name="date" class="form-control" value="{{ old('date') }}">
         </div>
         <div class="error">
             @if ($errors->has('date'))
@@ -39,7 +39,11 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Tác Giả</label>
-            <input type="text" name="director_id" class="form-control" value="{{ old('director_id') }}">
+            <select class="js-example-basic-multiple-limit form-control" name="director_id" multiple="multiple">
+                @foreach ($directors as $item)
+                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                @endforeach
+            </select>
         </div>
         <div class="error">
             @if ($errors->has('director_id'))
@@ -61,7 +65,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Thời Lượng Phim</label>
-            <input type="text" name="time" class="form-control" value="{{ old('time') }}">
+            <input type="time" name="time" class="form-control" value="{{ old('time') }}">
         </div>
         <div class="error">
             @if ($errors->has('time'))
@@ -104,7 +108,15 @@
             @endif
         </div>
         <label for="">Diễn Viên</label>
-        <select class="select2 form-control" name="actors[]" multiple="multiple">
+        <select class="js-example-basic-hide-search-multi form-control form-select" name="actors[]"
+            id="js-example-basic-hide-search-multi" multiple="multiple">
+            @foreach ($actors as $item)
+                <option value="{{ $item->id }}">{{ $item->name }}</option>
+            @endforeach
+        </select>
+        <br>
+        <label for="">Thể Loại</label>
+        <select class=" form-control form-select" name="category_id">
             @foreach ($categories as $item)
                 <option value="{{ $item->id }}">{{ $item->name }}</option>
             @endforeach
@@ -112,5 +124,6 @@
         <br>
         <button type="submit" class="btn btn-outline-primary">Xác nhận</button>
     </form>
-    <br>
+
+    @include('Admin.layouts.select2')
 @endsection
