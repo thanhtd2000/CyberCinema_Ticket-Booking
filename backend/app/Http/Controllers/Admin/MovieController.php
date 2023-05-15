@@ -17,24 +17,27 @@ class MovieController extends Controller
     public  $categories;
     public $directors;
     public $actors;
+    public $data;
     public function __construct()
     {
         $this->actors = Actor::all();
         $this->categories = Category::all();
         $this->directors = Director::all();
+        $this->data = [
+            'actors' =>  $this->actors,
+            'categories' => $this->categories,
+            'directors' =>   $this->directors,
+        ];
     }
     public function index()
     {
         $movies = Movie::latest()->paginate(10);;
-        return view('Admin.movie.list', compact('movies'));
+        return view('Admin.movie.list', compact('movies'))->with($this->data);
     }
 
     public function create()
     {
-        $categories = $this->categories;
-        $directors = $this->directors;
-        $actors = $this->actors;
-        return view('Admin.movie.create', compact('categories', 'directors', 'actors'));
+        return view('Admin.movie.create')->with($this->data);
     }
 
 
@@ -68,23 +71,36 @@ class MovieController extends Controller
         }
         return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
     }
-
-
-    public function show($id)
+    public function edit(Request $request)
     {
-        //
+        $movie = Movie::find($request->id);
+        return view('Admin.movie.edit', compact('movie'))->with($this->data);
     }
 
 
-    public function edit($id)
+    public function update(MovieRequest $request, $id)
     {
-        //
-    }
+        $movie = Movie::find($id);
 
-
-    public function update(Request $request, $id)
-    {
-        //
+        if ($request->hasFile('image')) {
+            $file = $request->image;
+            $fileName = Str::random(4) . $file->getClientOriginalName();
+            $path = 'uploads/movies/';
+            $file->move($path, $fileName);
+            $movie->image = $path . $fileName;
+        }
+        $movie->name = $request->name;
+        $movie->description = $request->description;
+        $movie->date = $request->date;
+        $movie->director_id = $request->director_id;
+        $movie->category_id = $request->category_id;
+        $movie->trailer = $request->trailer;
+        $movie->time = $request->time;
+        $movie->language = $request->language;
+        $movie->price = $request->price;
+        $movie->save();
+        $movie->actors()->sync($request->actors);
+        return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
     }
 
     public function destroy($id)

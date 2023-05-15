@@ -61,4 +61,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $movies->links() }}
 @endsection
