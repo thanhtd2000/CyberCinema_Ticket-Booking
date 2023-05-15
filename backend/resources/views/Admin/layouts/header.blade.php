@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../../../dist/css/vendors/simplebar.css">
     <!-- Main styles for this application-->
     <link href="../../../dist/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
     <link href="../../../dist/css/examples.css" rel="stylesheet">
