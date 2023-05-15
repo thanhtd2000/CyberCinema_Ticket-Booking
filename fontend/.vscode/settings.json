@@ -1,0 +1,13 @@
+{
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": false,
+  "prettier.singleQuote": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "files.insertFinalNewline": true,
+  "compile-hero.disable-compile-files-on-did-save-code": true,
+  "editor.detectIndentation": false,
+  "typescript.tsdk": "node_modules/typescript/lib"
+}

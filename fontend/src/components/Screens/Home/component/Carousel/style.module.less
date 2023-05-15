@@ -1,0 +1,159 @@
+.banner{
+      height: 700px;
+      width: 100%;
+      position: relative;
+      .carousel{
+            background: url('/images/bannerx4.jpeg');
+            background-size: cover;
+            width: 100%;
+            height: 600px;
+            background-repeat: no-repeat;
+            .content{
+                  width: 45%;
+                  padding-top: 174px;
+                  margin: auto auto 174px ;
+                  h3{
+                        padding-bottom: 48px;
+                        display: flex;
+                        justify-content: center;
+                        color: #fff;
+                        font-size: 56px;
+                        font-weight: 600;
+                        font-family: 'SF UI Display', sans-serif;
+                        margin-bottom: 0;
+                  }
+                  input::placeholder{
+                        color: #595959;
+                        font-size: 16px;
+                        font-family: 'SF UI Text', sans-serif;
+                  }
+                  .ant-btn{
+                        color: #2F61E6 !important;
+                  }
+            }
+      }
+      .blur{
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.05);
+      }
+      .select{
+            border-radius: 8px;
+            height: 38px !important;
+            display: flex;
+            align-items: center;
+            span{
+                  color: #595959;
+                  font-weight: 500;
+
+            }
+            .ant-select-arrow{
+                  display: block !important;
+            }
+      }
+}
+.bannerItem{
+      position: relative;
+      img{
+            position: relative;
+            object-fit: cover;
+      }
+      .content{
+            position: absolute;
+            color: white;
+            bottom: 45%;
+            left: 10%;
+            z-index: 11;
+            h3{
+            color: white;
+            font-size: 40px;
+            letter-spacing: 2px;
+            }
+            .start{
+                  padding: 10px 0;
+                  ul{
+                        display: flex;
+
+                        li{
+                              list-style: none;
+                              color: orange;
+                        }
+                  }
+            }
+            .name{
+                  color: white;
+                  font-size: 16px;
+            }
+            .trailer{
+                  color: orange;
+                  background-color: transparent;
+                  border: 1px solid orange;
+                  display: flex;
+                  align-items: center;
+                  span{
+                        padding-left: 10px;
+                  }
+            }
+            .iframe{
+                  width: 100%;
+                  height: 100%;
+            }
+      }
+}
+@media screen and (max-width: 1080px) {
+      .bannerItem{
+            .content{
+                  .iframe{
+                        width: 500px !important;
+                  }
+
+            }
+      }
+}
+@media screen and (max-width: 1199px) {
+      .banner{
+            .carousel{
+                  .content{
+                        width: 89%;
+
+                  }
+
+            }
+      }
+}
+@media screen and (max-width: 996px) {
+      .bannerItem{
+            .content{
+                  h3{
+                        font-size: 30px;
+                  }
+            }
+      }
+}
+@media screen and (max-width: 768px) {
+      .bannerItem{
+            .content{
+                  bottom: 25%;
+                  h3{
+                        font-size: 20px;
+                  }
+                  .name{
+                        font-size: 14px;
+                  }
+            }
+      }
+}
+@media screen and (max-width: 624px) {
+      .banner{
+            .carousel{
+                  .content{
+                        h3{
+                              font-size: 38px;
+                        }
+
+                  }
+
+            }
+      }
+}

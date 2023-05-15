@@ -1,0 +1,91 @@
+{
+  "env": {
+    "browser": true
+  },
+  "extends": [
+    "next/core-web-vitals",
+    "next",
+    "prettier",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "airbnb/hooks"
+  ],
+  "plugins": ["prettier", "import"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "parser": "typescript"
+      }
+    ],
+    // "import/no-cycle": "off",
+    "operator-linebreak": 0,
+    "react/jsx-curly-newline": 0,
+    "no-unsafe-optional-chaining": 0,
+    "no-confusing-arrow": 0,
+    "function-paren-newline": 0,
+    "import/no-unresolved": 0,
+    "import/extensions": 0,
+    "react/prop-types": 0,
+    "no-underscore-dangle": 0,
+    "react-hooks/rules-of-hooks": 0,
+    "import/prefer-default-export": 0,
+    "import/no-extraneous-dependencies": 0,
+    "react/jsx-fragments": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "max-classes-per-file": 0,
+    "react/static-property-placement": 0,
+    "react/forbid-prop-types": 0,
+    "react/state-in-constructor": 0,
+    "react/jsx-filename-extension": [0, { "extensions": [".tsx"] }],
+    "react/react-in-jsx-scope": 0,
+    "no-restricted-syntax": 0,
+    "react/jsx-one-expression-per-line": "off",
+    "no-plusplus": 0,
+    "@typescript-eslint/no-var-requires": 0,
+    "react/jsx-props-no-spreading": [0, { "html": "ignore", "custom": "ignore", "explicitSpread": "ignore" }],
+    "no-use-before-define": 0,
+    "@typescript-eslint/no-use-before-define": 2,
+    "@typescript-eslint/no-unused-vars": [
+      0,
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "import/order": [
+      2,
+      {
+        "groups": ["builtin", "external", "internal", "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
+    ],
+    "import/newline-after-import": 1,
+    "no-void": 0,
+    "@next/next/no-html-link-for-pages": 0,
+    "jsx-a11y/label-has-associated-control": [
+      "error",
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ],
+    "object-curly-newline": 0,
+    "jsx-quotes": 0,
+    "max-len": 0,
+    "react/require-default-props": 0,
+    "no-shadow": 0,
+    "prefer-promise-reject-errors": 0,
+    "comma-dangle": 0,
+    "implicit-arrow-linebreak": 0
+  },
+  "parserOptions": {
+    "project": "./tsconfig.eslint.json"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    }
+  }
+}
