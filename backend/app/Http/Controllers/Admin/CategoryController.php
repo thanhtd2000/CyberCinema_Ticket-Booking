@@ -42,7 +42,7 @@ class CategoryController extends Controller
     {
         $newCategory = $request->toArray();
         Category::create($newCategory);
-        return redirect('admin/category/index')->with('message', 'Create successfully');
+        return redirect('admin/category/index')->with('message', 'Thêm thành công');
     }
 
     /**
@@ -80,7 +80,7 @@ class CategoryController extends Controller
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Category::where('id',$id)->update($request);
-        return redirect('admin/category/index ')->with('message', 'Update successful!');
+        return redirect('admin/category/index ')->with('message', 'Sửa thành công!');
     }
 
     /**
@@ -92,6 +92,6 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         Category::find($id)->delete();
-        return redirect('admin/category/index')->with('message', 'Delete successful!');
+        return redirect('admin/category/index')->with('message', 'Xóa thành công!');
     }
 }

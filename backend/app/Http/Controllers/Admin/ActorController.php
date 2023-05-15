@@ -41,7 +41,7 @@ class ActorController extends Controller
     {
         $newActor = $request->toArray();
         Actor::create($newActor);
-        return redirect('admin/actor/index')->with('message', 'Create successfully');
+        return redirect('admin/actor/index')->with('message', 'Thêm thành công');
         
     }
 
@@ -80,7 +80,7 @@ class ActorController extends Controller
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Actor::where('id',$id)->update($request);
-        return redirect('admin/actor/index ')->with('message', 'Update successful!');
+        return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
         
     }
 
@@ -93,7 +93,7 @@ class ActorController extends Controller
     public function destroy($id)
     {
         Actor::find($id)->delete();
-        return redirect('admin/actor/index')->with('message', 'Delete successful!');
+        return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
         
     }
 }
