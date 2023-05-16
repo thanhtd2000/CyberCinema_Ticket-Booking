@@ -54,13 +54,20 @@ class SeatTypeController extends Controller
        return view('Admin/seats/seat_type/edit', compact('seatType'));
     }
 
-    public function update()
+    public function update($id, SeatTypeRequests $request )
     {
-
+        $data = 
+        [
+            'name' => $request->name,
+            'price' => $request->price
+        ];
+        $this->seatType->find($id)->update($data);
+        return redirect()->route('admin.seat_type')->with('message','Sửa thành công!');
     }
 
-    public function delete($id)
+    public function destroy($id)
     {
-
+        $this->seatType->find($id)->delete($id);
+        return redirect()->route('admin.seat_type')->with('message','Delete thành công!');
     }
 }
