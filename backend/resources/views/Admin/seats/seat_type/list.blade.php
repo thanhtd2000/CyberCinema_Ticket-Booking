@@ -22,10 +22,10 @@
                 <th scope="row">{{$key+=1}}</th>
                 <td>{{$seatType->name}}</td>
                
-                <td>{{$seatType->price}}</td>
+                <td>{{number_format($seatType->price)}} VND</td>
                 <td>
                     <a class="btn btn-success" href="{{route('admin.seat_type.edit', $seatType->id)}}"><i class="fas fa-pencil-alt"></i> </a>
-                    <a class="btn btn-danger" href="{{route('admin.seat_type.delete', $seatType->id)}}"><i class="fas fa-trash-alt"></i> </a>
+                    <a class="btn btn-danger"   OnClick='return confirm("Are you want to delete ?");' href="{{route('admin.seat_type.delete', $seatType->id)}}"><i class="fas fa-trash-alt"></i> </a>
                   
                 </td>
             </tr>

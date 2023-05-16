@@ -6,6 +6,7 @@
     <div class="col-md-6">
         <form method="POST" action="{{route('admin.seat_type.update',$seatType->id)}}" class="container">
             @csrf
+            @method('put')
             <div class="mb-3">
                 <label class="form-label">Seat Type</label>
                 <input type="text" name="name" class="form-control" value="{{$seatType->name}}">
