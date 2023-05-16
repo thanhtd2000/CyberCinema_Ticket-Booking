@@ -124,6 +124,5 @@
         <br>
         <button type="submit" class="btn btn-outline-primary">Xác nhận</button>
     </form>
-
     @include('Admin.layouts.select2')
 @endsection

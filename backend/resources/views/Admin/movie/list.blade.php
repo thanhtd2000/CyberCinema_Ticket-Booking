@@ -42,7 +42,7 @@
                     <td>{{ $movie->trailer }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><img src="../../../{{ $movie->image }}" alt="" width="100"></td>
+                    <td><img src="{{ $movie->image }}" alt="" width="100"></td>
                     <td>{{ $movie->price }}</td>
                     <td>{{ $movie->created_at }}</td>
                     <td>{{ $movie->updated_at }}</td>
