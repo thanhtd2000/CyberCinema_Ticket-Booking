@@ -22,7 +22,8 @@ class Movie extends Model
         'time',
         'language',
         'image',
-        'price'
+        'price',
+        'slug',
     ];
 
 
