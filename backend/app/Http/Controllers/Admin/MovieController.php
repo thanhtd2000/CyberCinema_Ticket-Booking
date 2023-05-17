@@ -61,7 +61,7 @@ class MovieController extends Controller
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $student = app('firebase.firestore')->database()->collection('Images')->newDocument();
-            $firebase_storage_path = 'Images/';
+            $firebase_storage_path = 'Movies/';
             $name = $student->id();
             $localfolder = public_path('firebase-temp-uploads') . '/';
             $extension = $image->getClientOriginalExtension();

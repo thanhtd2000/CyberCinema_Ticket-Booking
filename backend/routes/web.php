@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
+
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
@@ -8,7 +10,8 @@ use App\Http\Controllers\Admin\ActorController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\CinemaController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\admin\DirectorController;
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\DirectorController;
 use App\Http\Controllers\Admin\SeatTypeController;
 
 
@@ -108,7 +111,6 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
         Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
-        Route::post('/testIMG', [MovieController::class, 'testImg'])->name('testIMG');
     });
     Route::prefix('seat_type')->group(function () {
         Route::get('/', [SeatTypeController::class, 'index'])->name('admin.seat_type');

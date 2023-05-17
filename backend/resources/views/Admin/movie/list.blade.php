@@ -5,7 +5,7 @@
     <button class="btn btn-primary">
         <a class="text-white" href="{{ route('admin.movie.create') }}">Add</a>
     </button>
-   
+
     <table class="table">
         <thead>
             <tr>
@@ -21,6 +21,7 @@
                 <th scope="col">Ngôn Ngữ</th>
                 <th scope="col">Ảnh</th>
                 <th scope="col">Giá</th>
+                <th scope="col">Slug</th>
                 <th scope="col">Thời gian tạo</th>
                 <th scope="col">Thời gian update</th>
             </tr>
@@ -44,6 +45,7 @@
                     <td>{{ $movie->language }}</td>
                     <td><img src="{{ $movie->image }}" alt="" width="100"></td>
                     <td>{{ $movie->price }}</td>
+                    <td>{{ $movie->slug }}</td>
                     <td>{{ $movie->created_at }}</td>
                     <td>{{ $movie->updated_at }}</td>
                     <td><button type="button" class="btn btn-success"><a
