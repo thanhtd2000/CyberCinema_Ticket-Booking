@@ -32,6 +32,18 @@ class MovieController extends Controller
             'directors' =>   $this->directors,
         ];
     }
+    private function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+        $count = 2;
+
+        while (Movie::where('slug', $slug)->exists()) {
+            $slug = Str::slug($name) . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
     public function index()
     {
         $movies = Movie::latest()->paginate(10);;
@@ -46,14 +58,7 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-
-
         if ($request->hasFile('image')) {
-
-            // $file = $request->image;
-            // $fileName = Str::random(4) . $file->getClientOriginalName();
-            // $path = 'uploads/movies/';
-            // $file->move($path, $fileName);
             $image = $request->file('image');
             $student = app('firebase.firestore')->database()->collection('Images')->newDocument();
             $firebase_storage_path = 'Images/';
@@ -78,6 +83,8 @@ class MovieController extends Controller
             $mv['time'] = $request->time;
             $mv['language'] = $request->language;
             $mv['price'] = $request->price;
+            $slug = $this->generateUniqueSlug($request->name);
+            $mv['slug'] = $slug;
             $movie = Movie::create($mv);
         }
         foreach ($request->actors as $actor) {
@@ -103,14 +110,9 @@ class MovieController extends Controller
 
 
         if ($request->hasFile('image')) {
-            // $file = $request->image;
-            // $fileName = Str::random(4) . $file->getClientOriginalName();
-            // $path = 'uploads/movies/';
-            // $file->move($path, $fileName);
-            // $movie->image = $path . $fileName;
             $image = $request->file('image');
             $student = app('firebase.firestore')->database()->collection('Images')->newDocument();
-            $firebase_storage_path = 'Images/';
+            $firebase_storage_path = 'Movies/';
             $name = $student->id();
             $localfolder = public_path('firebase-temp-uploads') . '/';
             $extension = $image->getClientOriginalExtension();
@@ -120,7 +122,7 @@ class MovieController extends Controller
                 app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $file]);
                 unlink($localfolder . $file);
             }
-            $time = new DateTime('tomorrow');
+            $time = new DateTime();
             $expiresAt = $time->add(new DateInterval('P3Y'));
             $movie->image =  app('firebase.storage')->getBucket()->object($firebase_storage_path . $file)->signedUrl($expiresAt);
         }
