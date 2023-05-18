@@ -20,8 +20,8 @@ class MovieDetailResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'date' => $this->date,
-            'director_id' => $this->director_id,
-            'category_id' => $this->category_id,
+            'director' => $this->director()->get(),
+            'category' => $this->category()->get(),
             'trailer' => $this->trailer,
             'time' => $this->time,
             'language' => $this->language,
@@ -31,7 +31,7 @@ class MovieDetailResource extends JsonResource
             'isHot' => $this->isHot,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'actor' => Movie::find($this->id)->actors()->pluck('actor_id', 'name')->toArray(),
+            'actor' => $this->actors()->get(),
         ];
     }
 }
