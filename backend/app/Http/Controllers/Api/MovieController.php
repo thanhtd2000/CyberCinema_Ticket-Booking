@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\MovieDetailResource;
 use App\Http\Resources\MovieResource;
 
 class MovieController extends Controller
@@ -25,7 +26,7 @@ class MovieController extends Controller
     {
         $movie = $this->movies->where('slug', $request->slug)->get();
         if ($this->movies->where('slug', $request->slug)->exists()) {
-            $data = MovieResource::collection($movie);
+            $data = MovieDetailResource::collection($movie);
             return response()->json([
                 'status_code' => 200,
                 'data' => $data,
