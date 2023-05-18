@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\MovieDetailResource;
 use App\Http\Resources\MovieResource;
+use App\Http\Resources\MovieCollection;
+use App\Http\Resources\MovieDetailResource;
 
 class MovieController extends Controller
 {
@@ -18,8 +19,8 @@ class MovieController extends Controller
 
     public function index()
     {
-        $movies = $this->movies->latest()->paginate(10);
-        $data = new MovieResource($movies);
+        $movies = Movie::latest()->paginate(2);
+        $data = new MovieCollection($movies);
         return response()->json($data, 200);
     }
     public function detail(Request $request)

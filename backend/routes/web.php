@@ -111,6 +111,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
         Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
+        Route::post("/index", [MovieController::class, 'search'])->name('admin.movie.search');
     });
     Route::prefix('seat_type')->group(function () {
         Route::get('/', [SeatTypeController::class, 'index'])->name('admin.seat_type');

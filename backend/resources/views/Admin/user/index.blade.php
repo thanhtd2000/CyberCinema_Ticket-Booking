@@ -8,9 +8,10 @@
             <form action="{{ route('users.search') }}" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
-                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
+                    <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
+                        class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="button" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
             </form>
         </div>
     </div>

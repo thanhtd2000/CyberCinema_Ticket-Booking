@@ -155,4 +155,12 @@ class MovieController extends Controller
         return redirect()->route('admin.movie')->with('message', 'Xoá Thành Công!');
         //
     }
+
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $movies = Movie::where('name', 'like', '%' . $request->input('keywords') . '%')
+            ->paginate(5);
+        return view('Admin.movie.list', compact('movies', 'keywords'))->with($this->data);
+    }
 }

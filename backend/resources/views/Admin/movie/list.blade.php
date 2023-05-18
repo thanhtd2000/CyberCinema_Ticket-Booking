@@ -2,10 +2,19 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-    <button class="btn btn-primary">
-        <a class="text-white" href="{{ route('admin.movie.create') }}">Add</a>
-    </button>
-
+    <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
+                class="text-danger" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
+        <div class="row g-3 align-items-center">
+            <form action="{{ route('admin.movie.search') }}" method="POST" class="d-flex">
+                @csrf
+                <div class="col-auto">
+                    <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
+                        class="form-control" placeholder="Nhập từ khoá">
+                </div>
+                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -57,5 +66,5 @@
             @endforeach
         </tbody>
     </table>
-    {{ $movies->links() }}
+    {{ $movies->appends(request()->all())->links() }}
 @endsection
