@@ -23,6 +23,8 @@ Route::post('/auth/register', [AuthApiController::class, 'register']);
 //movies
 Route::get('/get/movies', [MovieController::class, 'index']);
 Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
+Route::get('/get/movies/{search}', [MovieController::class, 'search']);
+
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });

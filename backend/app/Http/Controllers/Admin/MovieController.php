@@ -73,19 +73,22 @@ class MovieController extends Controller
             }
             $time = new DateTime('tomorrow');
             $expiresAt = $time->add(new DateInterval('P3Y'));
-            $mv['image'] =  app('firebase.storage')->getBucket()->object($firebase_storage_path . $file)->signedUrl($expiresAt);
-            $mv['name'] = $request->name;
-            $mv['description'] = $request->description;
-            $mv['date'] = $request->date;
-            $mv['director_id'] = $request->director_id;
-            $mv['category_id'] = $request->category_id;
-            $mv['trailer'] = $request->trailer;
-            $mv['time'] = $request->time;
-            $mv['language'] = $request->language;
-            $mv['price'] = $request->price;
+            $movieData['image'] =  app('firebase.storage')->getBucket()->object($firebase_storage_path . $file)->signedUrl($expiresAt);
+            $movieData['name'] = $request->name;
+            $movieData['description'] = $request->description;
+            $movieData['date'] = $request->date;
+            $movieData['director_id'] = $request->director_id;
+            $movieData['category_id'] = $request->category_id;
+            $movieData['trailer'] = $request->trailer;
+            $movieData['time'] = $request->time;
+            $movieData['language'] = $request->language;
+            $movieData['price'] = $request->price;
             $slug = $this->generateUniqueSlug($request->name);
-            $mv['slug'] = $slug;
-            $movie = Movie::create($mv);
+            $movieData['slug'] = $slug;
+            if ($request->isHot == 'on') {
+                $movieData['isHot'] = 0;
+            };
+            $movie = Movie::create($movieData);
         }
         foreach ($request->actors as $actor) {
             DB::table('actor_movies')->insert([
@@ -135,6 +138,11 @@ class MovieController extends Controller
         $movie->time = $request->time;
         $movie->language = $request->language;
         $movie->price = $request->price;
+        if ($request->isHot == 'on') {
+            $movie->isHot = 0;
+        } else {
+            $movie->isHot = 1;
+        };
         $movie->save();
         $movie->actors()->sync($request->actors);
         return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
