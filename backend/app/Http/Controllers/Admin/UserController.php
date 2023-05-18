@@ -38,14 +38,14 @@ class UserController extends Controller
     }
     public function search(Request $request)
     {
-        $query = $request->input('keywords');
-        $user = User::where('name', 'like', '%' . $query . '%')
-            ->orWhere('email', 'like', '%' . $query . '%')
-            ->orWhere('role', 'like', '%' . $query . '%')
+        $keywords = $request->input('keywords');
+        $user = User::where('name', 'like', '%' . $keywords . '%')
+            ->orWhere('email', 'like', '%' . $keywords . '%')
             ->paginate(5);
         return view('admin.user.index', [
             'user' => $user,
             'roles' => $this->roles,
+            'keywords' => $keywords
         ]);
     }
     public function delete(Request $request)
