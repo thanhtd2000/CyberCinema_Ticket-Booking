@@ -28,6 +28,7 @@ class MovieDetailResource extends JsonResource
             'image' => $this->image,
             'price' => $this->price,
             'slug' => $this->slug,
+            'isHot' => $this->isHot,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'actor' => Movie::find($this->id)->actors()->pluck('actor_id', 'name')->toArray(),

@@ -48,9 +48,17 @@ class MovieController extends Controller
         //
     }
 
-    public function show($id)
+    public function search(Request $request)
     {
-        //
+        $movie = $this->movies->where('name', 'like', '%' . $request->search . '%')->paginate(5);
+        if ($this->movies->where('name', 'like', '%' . $request->search . '%')->exists()) {
+            return response()->json($movie, 200);
+        } else {
+            return response()->json([
+                'status_code' => 404,
+                'message' => 'Item Not Found'
+            ], 404);
+        }
     }
 
     public function edit($id)

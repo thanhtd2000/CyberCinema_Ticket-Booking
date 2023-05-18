@@ -122,6 +122,11 @@
             @endforeach
         </select>
         <br>
+        <div class="mb-3">
+            <label class="form-label text-danger">Thuộc tính HOT</label>
+            <input type="checkbox" class="form-check-input" name="isHot">
+        </div>
+        <br>
         <button type="submit" class="btn btn-outline-primary">Xác nhận</button>
     </form>
     @include('Admin.layouts.select2')
