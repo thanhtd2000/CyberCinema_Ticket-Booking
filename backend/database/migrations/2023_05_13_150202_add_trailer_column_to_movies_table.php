@@ -14,7 +14,7 @@ class AddTrailerColumnToMoviesTable extends Migration
     public function up()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->string('trailer',255)->after('category_id');
+            $table->string('trailer',255)->after('date');
         });
     }
 

@@ -33,7 +33,9 @@ class MovieRequest extends FormRequest
             'time' => 'required',
             'language' => 'required|string',
             'image' => 'file|mimes:jpg,jpeg,png|max:2048',
-            'price' => 'required'
+            'price' => 'required',
+            'year_old' => 'required|integer',
+            'type' => 'required|string',
         ];
     }
     public function messages()

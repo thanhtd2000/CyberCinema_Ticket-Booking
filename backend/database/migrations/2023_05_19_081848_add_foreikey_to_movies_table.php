@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DeleteActorIdRowIntoMoviesTable extends Migration
+class AddForeikeyToMoviesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,10 @@ class DeleteActorIdRowIntoMoviesTable extends Migration
     public function up()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->dropColumn('actor_id');
+            $table->integer('year_old')->afer('isHot');
+            $table->integer('type')->afer('slug');
+            $table->foreignId('director_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -26,7 +29,7 @@ class DeleteActorIdRowIntoMoviesTable extends Migration
     public function down()
     {
         Schema::table('movies', function (Blueprint $table) {
-            $table->integer('actor_id')->nullable();
+            //
         });
     }
 }
