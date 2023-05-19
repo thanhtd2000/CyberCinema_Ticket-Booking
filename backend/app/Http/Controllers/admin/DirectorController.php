@@ -17,7 +17,7 @@ class DirectorController extends Controller
     public function index()
     {
         $directors = Director::paginate(10);
-        return view('Admin.directors.index',compact('directors'));
+        return view('Admin.directors.index', compact('directors'));
     }
 
     /**
@@ -63,7 +63,7 @@ class DirectorController extends Controller
     public function edit($id)
     {
         $director = Director::find($id);
-        return view('admin.directors.edit',compact('director'));
+        return view('admin.directors.edit', compact('director'));
     }
 
     /**
@@ -77,7 +77,7 @@ class DirectorController extends Controller
     {
         $request = $request->except(['_token', '_method']);
         // dd($request);
-        Director::where('id',$id)->update($request);
+        Director::where('id', $id)->update($request);
         return redirect('admin/director/index')->with('message', 'Sửa thành công!');
     }
 

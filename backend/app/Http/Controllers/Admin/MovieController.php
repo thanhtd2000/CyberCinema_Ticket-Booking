@@ -83,6 +83,8 @@ class MovieController extends Controller
             $movieData['time'] = $request->time;
             $movieData['language'] = $request->language;
             $movieData['price'] = $request->price;
+            $movieData['type'] = $request->type;
+            $movieData['year_old'] = $request->year_old;
             $slug = $this->generateUniqueSlug($request->name);
             $movieData['slug'] = $slug;
             if ($request->isHot == 'on') {

@@ -23,7 +23,9 @@ class Movie extends Model
         'image',
         'price',
         'slug',
-        'isHot'
+        'isHot',
+        'year_old',
+        'type'
     ];
 
 

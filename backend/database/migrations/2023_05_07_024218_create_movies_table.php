@@ -18,16 +18,11 @@ class CreateMoviesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->dateTime('date');
-            $table->integer('director_id');
-            $table->integer('actor_id');
-            $table->integer('category_id');
             $table->time('time');
             $table->string('language');
             $table->string('image');
             $table->integer('price');
             $table->integer('cinema_id');
-            
-            
             $table->timestamps();
         });
     }

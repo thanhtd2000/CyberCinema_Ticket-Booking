@@ -15,11 +15,11 @@ class CreateInvoiceTotalsTable extends Migration
     {
         Schema::create('invoice_totals', function (Blueprint $table) {
             $table->id();
-            $table->integer('invoice_detail_id');
-            $table->integer('invoice_product_id');
-            $table->integer('user_id');
             $table->bigInteger('total');
             $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('invoice_product_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('invoice_detail_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
