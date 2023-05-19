@@ -40,7 +40,12 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td>{{ $movie->name }}</td>
-                    <td>{{ $movie->description }}</td>
+                    <td
+                        style="display: -webkit-box;
+                    -webkit-line-clamp: 2;
+                    -webkit-box-orient: vertical;
+                    overflow: hidden;">
+                        {{ $movie->description }}</td>
                     <td>{{ $movie->date }}</td>
                     <td>{{ $movie->director->name }}</td>
                     <td>

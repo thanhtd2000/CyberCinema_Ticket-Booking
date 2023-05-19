@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Director;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\FirebaseHelper;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\MovieRequest;
 use App\Http\Controllers\Controller;
@@ -21,6 +22,8 @@ class MovieController extends Controller
     public $directors;
     public $actors;
     public $data;
+    public  $firebaseHelper;
+
     public function __construct()
     {
         $this->actors = Actor::all();
@@ -31,7 +34,9 @@ class MovieController extends Controller
             'categories' => $this->categories,
             'directors' =>   $this->directors,
         ];
+        $this->firebaseHelper = new FirebaseHelper();
     }
+
     private function generateUniqueSlug($name)
     {
         $slug = Str::slug($name);
@@ -58,22 +63,10 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
+        $path = 'Movies/';
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $student = app('firebase.firestore')->database()->collection('Images')->newDocument();
-            $firebase_storage_path = 'Movies/';
-            $name = $student->id();
-            $localfolder = public_path('firebase-temp-uploads') . '/';
-            $extension = $image->getClientOriginalExtension();
-            $file = $name . '.' . $extension;
-            if ($image->move($localfolder, $file)) {
-                $uploadedfile = fopen($localfolder . $file, 'r');
-                app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $file]);
-                unlink($localfolder . $file);
-            }
-            $time = new DateTime('tomorrow');
-            $expiresAt = $time->add(new DateInterval('P3Y'));
-            $movieData['image'] =  app('firebase.storage')->getBucket()->object($firebase_storage_path . $file)->signedUrl($expiresAt);
+            $movieData['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $movieData['name'] = $request->name;
             $movieData['description'] = $request->description;
             $movieData['date'] = $request->date;
@@ -113,23 +106,11 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
 
-
+        $path = 'Movies/';
         if ($request->hasFile('image')) {
+            $this->firebaseHelper->deleteImage($movie->image, $path);
             $image = $request->file('image');
-            $student = app('firebase.firestore')->database()->collection('Images')->newDocument();
-            $firebase_storage_path = 'Movies/';
-            $name = $student->id();
-            $localfolder = public_path('firebase-temp-uploads') . '/';
-            $extension = $image->getClientOriginalExtension();
-            $file = $name . '.' . $extension;
-            if ($image->move($localfolder, $file)) {
-                $uploadedfile = fopen($localfolder . $file, 'r');
-                app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $file]);
-                unlink($localfolder . $file);
-            }
-            $time = new DateTime();
-            $expiresAt = $time->add(new DateInterval('P3Y'));
-            $movie->image =  app('firebase.storage')->getBucket()->object($firebase_storage_path . $file)->signedUrl($expiresAt);
+            $movie->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $movie->name = $request->name;
         $movie->description = $request->description;
@@ -140,6 +121,8 @@ class MovieController extends Controller
         $movie->time = $request->time;
         $movie->language = $request->language;
         $movie->price = $request->price;
+        $movie->type = $request->type;
+        $movie->year_old = $request->year_old;
         if ($request->isHot == 'on') {
             $movie->isHot = 0;
         } else {
