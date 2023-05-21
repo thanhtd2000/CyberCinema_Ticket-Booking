@@ -46,8 +46,8 @@
         </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Reapet Password</label>
-            <input type="password" class="form-control" id="exampleInputEmail1" name="password_confirmation"
-                aria-describedby="emailHelp">
+            <input type="password" class="form-control" id="exampleInputEmail1"
+                name="password_confirmation"value="{{ old('password_confirmation') }}" aria-describedby="emailHelp">
             @if ($errors->has('password_confirmation'))
                 <span class="text-danger fs-3">
                     {{ $errors->first('password_confirmation') }}
@@ -55,10 +55,44 @@
             @endif
         </div>
         <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Số điện thoại</label>
+            <input type="number" class="form-control" id="exampleInputEmail1" name="phone" value="{{ old('phone') }}"
+                aria-describedby="emailHelp">
+            @if ($errors->has('phone'))
+                <span class="text-danger fs-3">
+                    {{ $errors->first('phone') }}
+                </span>
+            @endif
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Ngày Sinh</label>
+            <input type="date" class="form-control" id="exampleInputEmail1" name="birthday"
+                value="{{ old('birthday') }}" aria-describedby="emailHelp">
+            @if ($errors->has('birthday'))
+                <span class="text-danger fs-3">
+                    {{ $errors->first('birthday') }}
+                </span>
+            @endif
+        </div>
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Giới Tính</label>
+            <select class="form-select" name="sex" aria-label="Default select example">
+                <option value="1">Nam</option>
+                <option value="2">Nữ</option>
+                <option value="3">Khác</option>
+            </select>
+            @if ($errors->has('sex'))
+                <span class="text-danger fs-3">
+                    {{ $errors->first('sex') }}
+                </span>
+            @endif
+        </div>
+        <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Vai trò</label>
             <select class="form-select" name="role" aria-label="Default select example">
                 <option value="1">Thành viên</option>
-                <option value="0">Quản trị viên</option>
+                <option value="3">Kiểm Duyệt Viên</option>
+                <option value="0" class="text-danger">Quản trị viên</option>
             </select>
         </div>
         <br>
