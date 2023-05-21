@@ -16,7 +16,6 @@ use App\Http\Controllers\Api\MovieController;
 
 
 Route::middleware('auth:sanctum')->post('auth/logout', [AuthApiController::class, 'logout'])->name('api.logout');
-
 Route::post('/auth/login', [AuthApiController::class, 'authenticate'])->name('api.login');
 Route::post('/auth/register', [AuthApiController::class, 'register']);
 
@@ -24,6 +23,7 @@ Route::post('/auth/register', [AuthApiController::class, 'register']);
 Route::get('/get/movies', [MovieController::class, 'index']);
 Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
 Route::get('/get/movies/{search}', [MovieController::class, 'search']);
+Route::get('/get/movies/fill', [MovieController::class, 'search']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
