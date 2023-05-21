@@ -14,7 +14,6 @@ use App\Helpers\FirebaseHelper;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\MovieRequest;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Session;
 
 class MovieController extends Controller
 {
@@ -23,8 +22,8 @@ class MovieController extends Controller
     public $actors;
     public $data;
     public  $firebaseHelper;
-
-    public function __construct()
+    public $movies;
+    public function __construct(Movie $movies)
     {
         $this->actors = Actor::all();
         $this->categories = Category::all();
@@ -34,6 +33,7 @@ class MovieController extends Controller
             'categories' => $this->categories,
             'directors' =>   $this->directors,
         ];
+        $this->movies = $movies;
         $this->firebaseHelper = new FirebaseHelper();
     }
 
@@ -42,7 +42,7 @@ class MovieController extends Controller
         $slug = Str::slug($name);
         $count = 2;
 
-        while (Movie::where('slug', $slug)->exists()) {
+        while ($this->movies->where('slug', $slug)->exists()) {
             $slug = Str::slug($name) . '-' . $count;
             $count++;
         }
@@ -51,7 +51,7 @@ class MovieController extends Controller
     }
     public function index()
     {
-        $movies = Movie::latest()->paginate(10);;
+        $movies = $this->movies->latest()->paginate(10);;
         return view('Admin.movie.list', compact('movies'))->with($this->data);
     }
 
@@ -83,7 +83,7 @@ class MovieController extends Controller
             if ($request->isHot == 'on') {
                 $movieData['isHot'] = 0;
             };
-            $movie = Movie::create($movieData);
+            $movie = $this->movies->create($movieData);
         }
         foreach ($request->actors as $actor) {
             DB::table('actor_movies')->insert([
@@ -97,14 +97,14 @@ class MovieController extends Controller
     }
     public function edit(Request $request)
     {
-        $movie = Movie::find($request->id);
+        $movie = $this->movies->find($request->id);
         return view('Admin.movie.edit', compact('movie'))->with($this->data);
     }
 
 
     public function update(MovieRequest $request, $id)
     {
-        $movie = Movie::find($id);
+        $movie = $this->movies->find($id);
 
         $path = 'Movies/';
         if ($request->hasFile('image')) {
@@ -135,17 +135,29 @@ class MovieController extends Controller
 
     public function destroy($id)
     {
-        Movie::find($id)->delete();
-        DB::table('actor_movies')->where('movie_id', $id)->delete();
+        $this->movies->find($id)->delete();
+        // DB::table('actor_movies')->where('movie_id', $id)->delete();
         return redirect()->route('admin.movie')->with('message', 'Xoá Thành Công!');
         //
     }
+    public function trash()
+    {
+        $movies = $this->movies->onlyTrashed()->latest()->paginate(10);;
+        return view('Admin.movie.trash', compact('movies'))->with($this->data);
+    }
+
 
     public function search(Request $request)
     {
         $keywords = $request->input('keywords');
-        $movies = Movie::where('name', 'like', '%' . $request->input('keywords') . '%')
+        $movies = $this->movies->where('name', 'like', '%' . $request->input('keywords') . '%')
             ->paginate(5);
         return view('Admin.movie.list', compact('movies', 'keywords'))->with($this->data);
+    }
+    public function restore(Request $request)
+    {
+        $movie =  $this->movies->withTrashed()->find($request->id);
+        $movie->restore();
+        return back();
     }
 }

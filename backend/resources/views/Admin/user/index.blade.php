@@ -42,7 +42,7 @@
                         <td>{{ $us->name }}</td>
                         <td>{{ $us->email }}</td>
                         <td>{{ $roles[$us->role] ?? '' }}</td>
-                        <td><img src="../../../uploads/avatar/{{ $us->image }}" width="30px" alt=""></td>
+                        <td><img src="{{ $us->image }}" width="30px" alt=""></td>
                         <td>{{ $us->created_at }}</td>
                         <td>
                             @if (!$us->role == 0 && $us->id != Auth::user()->id)

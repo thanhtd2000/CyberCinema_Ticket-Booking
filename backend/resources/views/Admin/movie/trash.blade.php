@@ -13,9 +13,8 @@
                 </div>
                 <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
             </form>
-
-        </div><button type="button" class="btn btn-primary"><a class="text-danger"
-                href="{{ route('admin.movie.trash') }}">Thùng Rác</a></button>
+        </div><button type="button" class="btn btn-primary"><a class="text-danger" href="{{ route('admin.movie') }}">Kho
+                Phim</a></button>
     </div>
     <table class="table">
         <thead>
@@ -65,9 +64,8 @@
                     <td>{{ $movie->created_at }}</td>
                     <td>{{ $movie->updated_at }}</td>
                     <td><button type="button" class="btn btn-success"><a
-                                href="{{ route('admin.movie.edit', $movie->id) }}">Sửa</a></button>
-                        <button type="button" class="btn btn-danger"><a onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                href="{{ route('admin.movie.delete', $movie->id) }}">Xoá</a></button>
+                                onclick=" return confirm('Bạn có chắc chắn khôi phục?')"
+                                href="{{ route('admin.movie.restore', $movie->id) }}">Khôi Phục</a></button>
                     </td>
                 </tr>
             @endforeach

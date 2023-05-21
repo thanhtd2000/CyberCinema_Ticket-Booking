@@ -22,8 +22,6 @@ class CheckAdminPermission
             Auth::logout();
             return redirect()->route('login')->with('message', 'Tài khoản đã bị khoá không thể sử dụng các tính năng của website , hãy liên hệ
             admin để nhận trợ giúp');
-        } else if (Auth::check()) {
-            return redirect('/');
         } else {
             return redirect()->route('login')->with('message', 'Yêu cầu đăng nhập');
         }

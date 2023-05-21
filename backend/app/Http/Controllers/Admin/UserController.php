@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Carbon\Carbon;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProfileRequests;
+use App\Helpers\FirebaseHelper;
 
 class UserController extends Controller
 {
     public $roles;
+    public $firebaseHelper;
     public function __construct()
     {
         $this->roles = [
@@ -22,6 +22,7 @@ class UserController extends Controller
             3 => 'Kiểm duyệt viên',
 
         ];
+        $this->firebaseHelper = new FirebaseHelper();
     }
     public function index()
     {
@@ -65,16 +66,12 @@ class UserController extends Controller
 
     public function store(UserRequest $request)
     {
+        $path = 'Avatars/';
         if (User::where('email', $request->email)->doesntExist()) {
             $newUser = $request->toArray();
-            if ($request->hasFile('image')) {
-                $file = $request->image;
-                $fileExtension = $file->getClientOriginalExtension();
-                $file->move("uploads/avatar", $request->email . "." . $fileExtension);
-            }
+            $image = $request->file('image');
+            $newUser['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $newUser['password'] = bcrypt($request->password);
-            $newUser['image'] = $request->email . "." . $fileExtension;
-            $newUser['created_at'] = Carbon::now();
             User::create($newUser);
             return redirect()->route('users.show')->with('message', 'Đã thêm mới thành công');
         } else {
@@ -88,22 +85,23 @@ class UserController extends Controller
     }
     public function update(ProfileRequests $request)
     {
-
+        $path = 'Avatars/';
         $user = User::find($request->id);
         $newUser = $request;
         if ($request->password) {
             $user->password = bcrypt($newUser['password']);
         }
         if ($request->hasFile('image')) {
-            $file = $request->image;
-            $fileExtension = $file->getClientOriginalExtension();
-            $file->move("uploads", $newUser['email'] . "." . $fileExtension);
-            $user->image = $newUser['email'] . "." . $fileExtension;
+            $this->firebaseHelper->deleteImage($user->image, $path);
+            $image = $request->file('image');
+            $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
-
         $user->name = $newUser['name'];
         $user->email = $newUser['email'];
         $user->role = $newUser['role'];
+        $user->phone = $newUser['phone'];
+        $user->sex = $newUser['sex'];
+        $user->birthday = $newUser['birthday'];
         $user->save();
 
 
