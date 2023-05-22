@@ -22,6 +22,15 @@ class CategoryController extends Controller
         return view('admin.categories.index',compact('categories'));
     }
 
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $categories = Category::where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return view('admin.categories.index', compact('categories','keywords'));
+    }    
+
+    
     /**
      * Show the form for creating a new resource.
      *
