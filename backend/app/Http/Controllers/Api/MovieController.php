@@ -40,10 +40,30 @@ class MovieController extends Controller
             ], 404);
         }
     }
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $page = $request->input('page', 5);
+        $isHot = $request->input('isHot');
+        $limit = $request->input('limit', 10);
+        $order = $request->input('order', 'DESC');
+        $s = $request->input('s');
+
+        $query = $this->movies->limit($limit)->orderBy('name', $order);
+
+        if ($s !== null) {
+            $query->where('name', 'like', '%' . $s . '%');
+        }
+
+        if ($isHot !== null) {
+            $query->where('isHot', $isHot);
+        }
+
+        $movie = $query->paginate($page);
+        $data = new MovieCollection($movie);
+
+        return response()->json($data, 200);
     }
+
 
     public function store(Request $request)
     {

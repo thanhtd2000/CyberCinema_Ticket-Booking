@@ -24,6 +24,7 @@ Route::get('/get/movies', [MovieController::class, 'index']);
 Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
 Route::get('/get/movies/{search}', [MovieController::class, 'search']);
 Route::get('/get/movies/fill', [MovieController::class, 'search']);
+Route::get('/get/movie', [MovieController::class, 'create']);
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
