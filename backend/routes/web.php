@@ -9,8 +9,9 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ActorController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\CinemaController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SeatRowController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DirectorController;
 use App\Http\Controllers\Admin\SeatTypeController;
 
@@ -122,5 +123,13 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [SeatTypeController::class, 'edit'])->name('admin.seat_type.edit');
         Route::put('/update/{id}', [SeatTypeController::class, 'update'])->name('admin.seat_type.update');
         Route::get('/delete/{id}', [SeatTypeController::class, 'destroy'])->name('admin.seat_type.delete');
+    });
+    Route::prefix('seat_row')->group(function () {
+        Route::get('/', [SeatRowController::class, 'index'])->name('admin.seat_row');
+        Route::get('/create', [SeatRowController::class, 'create'])->name('admin.seat_row.create');
+        Route::post('/store', [SeatRowController::class, 'store'])->name('admin.seat_row.store');
+        Route::get('/edit/{id}', [SeatRowController::class, 'edit'])->name('admin.seat_row.edit');
+        Route::put('/update/{id}', [SeatRowController::class, 'update'])->name('admin.seat_row.update');
+        Route::get('/delete/{id}', [SeatRowController::class, 'destroy'])->name('admin.seat_row.delete');
     });
 });
