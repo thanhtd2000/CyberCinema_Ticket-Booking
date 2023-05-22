@@ -134,9 +134,8 @@
                 </svg> Ghế</a>
             <ul class="nav-group-items">
                 <li class="nav-item"><a class="nav-link" href="/admin/seat_type/">Loại ghế</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/schedule/index">Danh sách ghế</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/schedule/create">Thêm Ghế<span
-                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/seat_row">Hàng ghế</a></li>
+                
             </ul>
         </li>
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">

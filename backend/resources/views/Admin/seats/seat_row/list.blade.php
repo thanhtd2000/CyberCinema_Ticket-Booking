@@ -4,7 +4,7 @@
 @section('content')
 
 <button class="btn btn-primary">
-    <a class="text-white" href="">Add</a>
+    <a class="text-white" href="{{route('admin.seat_row.create')}}">Add</a>
 </button>
 <table class="table">
     <thead>
