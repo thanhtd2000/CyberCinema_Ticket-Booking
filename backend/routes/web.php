@@ -55,6 +55,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('category')->group(function () {
         Route::get("/index", [CategoryController::class, 'index'])->name('admin.category');
+        Route::post("/index", [CategoryController::class, 'search'])->name('admin.category.search');
         Route::get("/create", [CategoryController::class, 'create'])->name('admin.category.create');
         Route::post("/store", [CategoryController::class, 'store'])->name('admin.category.store');
         Route::get("/edit/{id}", [CategoryController::class, 'edit'])->name('admin.category.edit');
@@ -64,7 +65,8 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('director')->group(function () {
         Route::get("/index", [DirectorController::class, 'index'])->name('admin.director');
-        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create');
+        Route::post("/index", [DirectorController::class, 'search'])->name('admin.director.search');    
+        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create');    
         Route::post("/store", [DirectorController::class, 'store'])->name('admin.director.store');
         Route::get("/edit/{id}", [DirectorController::class, 'edit'])->name('admin.director.edit');
         Route::put("/update/{id}", [DirectorController::class, 'update'])->name('admin.director.update');
@@ -73,6 +75,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('actor')->group(function () {
         Route::get("/index", [ActorController::class, 'index'])->name('admin.actor');
+        Route::post("/index", [ActorController::class, 'search'])->name('admin.actor.search');    
         Route::get("/create", [ActorController::class, 'create'])->name('admin.actor.create');
         Route::post("/store", [ActorController::class, 'store'])->name('admin.actor.store');
         Route::get("/edit/{id}", [ActorController::class, 'edit'])->name('admin.actor.edit');

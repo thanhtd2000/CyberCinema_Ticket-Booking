@@ -21,6 +21,15 @@ class ActorController extends Controller
         return view('Admin.actors.index',compact('actors'));
     }
 
+
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $actors = Actor::where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return view('admin.actors.index', compact('actors','keywords'));
+    }    
+
     /**
      * Show the form for creating a new resource.
      *

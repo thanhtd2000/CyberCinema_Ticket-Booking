@@ -20,6 +20,15 @@ class DirectorController extends Controller
         return view('Admin.directors.index', compact('directors'));
     }
 
+
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $directors = Director::where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return view('admin.directors.index', compact('directors','keywords'));
+    }    
+        
     /**
      * Show the form for creating a new resource.
      *

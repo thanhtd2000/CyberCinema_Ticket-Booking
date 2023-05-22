@@ -7,6 +7,19 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Name</th>
+                <th>
+                    <div class="row  align-items-center">
+                        <form action="{{ route('admin.category.search') }}" method="POST" class="d-flex">
+                            @csrf
+                            <div class="col-auto">
+                                <input type="text" name="keywords" id="inputEmail6"
+                                    value="{{ isset($keywords) ? $keywords : '' }}" class="form-control"
+                                    placeholder="Nhập từ khoá">
+                            </div>
+                            <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                        </form>
+                    </div>
+                </th>
                 <th scope="col">
                     <button class="btn btn-primary">
                         <a class="text-white" href="{{ route('admin.category.create') }}">Add</a>
