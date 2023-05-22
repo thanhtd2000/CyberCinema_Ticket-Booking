@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\ActorController;
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\CinemaController;
@@ -65,8 +66,8 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('director')->group(function () {
         Route::get("/index", [DirectorController::class, 'index'])->name('admin.director');
-        Route::post("/index", [DirectorController::class, 'search'])->name('admin.director.search');    
-        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create');    
+        Route::post("/index", [DirectorController::class, 'search'])->name('admin.director.search');
+        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create');
         Route::post("/store", [DirectorController::class, 'store'])->name('admin.director.store');
         Route::get("/edit/{id}", [DirectorController::class, 'edit'])->name('admin.director.edit');
         Route::put("/update/{id}", [DirectorController::class, 'update'])->name('admin.director.update');
@@ -75,7 +76,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('actor')->group(function () {
         Route::get("/index", [ActorController::class, 'index'])->name('admin.actor');
-        Route::post("/index", [ActorController::class, 'search'])->name('admin.actor.search');    
+        Route::post("/index", [ActorController::class, 'search'])->name('admin.actor.search');
         Route::get("/create", [ActorController::class, 'create'])->name('admin.actor.create');
         Route::post("/store", [ActorController::class, 'store'])->name('admin.actor.store');
         Route::get("/edit/{id}", [ActorController::class, 'edit'])->name('admin.actor.edit');
@@ -134,5 +135,16 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [SeatRowController::class, 'edit'])->name('admin.seat_row.edit');
         Route::put('/update/{id}', [SeatRowController::class, 'update'])->name('admin.seat_row.update');
         Route::get('/delete/{id}', [SeatRowController::class, 'destroy'])->name('admin.seat_row.delete');
+    });
+    Route::prefix('posts')->group(function () {
+        Route::get("/index", [PostController::class, 'show'])->name('posts.show');
+        Route::get("/create", [PostController::class, 'create']);
+        Route::post("/create", [PostController::class, 'store'])->name('post-create');
+        Route::get("/delete/{id}", [PostController::class, 'delete'])->name('delete-post')->middleware('CheckIsAdmin');
+        Route::get("/edit/{id}", [PostController::class, 'edit'])->name('posts.edit')->middleware('CheckIsAdmin');
+        Route::put("/update", [PostController::class, 'update'])->name('posts.update');
+        Route::get("/update-stt/{id}&&{status}", [PostController::class, 'updatestt'])->name('posts.updatestt');
+        Route::post("/index", [PostController::class, 'search'])->name('posts.search');
+        Route::delete("/deleteMultiple", [PostController::class, 'deleteMultiple'])->name('delete.Mulposts');
     });
 });
