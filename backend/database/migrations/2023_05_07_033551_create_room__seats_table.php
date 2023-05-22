@@ -17,7 +17,6 @@ class CreateRoomSeatsTable extends Migration
             $table->id();
             $table->integer('room_id');
             $table->integer('seat_id');
-            
             $table->timestamps();
         });
     }

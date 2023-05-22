@@ -1,0 +1,116 @@
+.number {
+      padding: 0px 9.86111111% 80px 9.86111111%;
+      height: 420px;
+      .background {
+            height: 100%;
+            width: 100%;
+            background-image: url('/images/Những con số nổi bật (2).png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            border-radius: 16px;
+            box-shadow: 0px 10px 20px -8px rgba(44, 61, 106, 0.25);
+            background-position: center center;
+      }
+
+      .content {
+            padding-top: 61px;
+            margin: 0 10.20761246%;
+
+            .text {
+                  color: #8c8c8c;
+                  font-family: 'SF UI Text', sans-serif;
+                  font-style: normal;
+                  font-weight: 400;
+                  margin-bottom: 0px;
+                  padding-bottom: 8px;
+                  font-size: 16px;
+            }
+
+            .title {
+                  font-family: 'SF UI Display', sans-serif;
+                  font-style: normal;
+                  font-weight: 600;
+                  font-size: 38px;
+                  color: #262626;
+                  line-height: 46px;
+                  margin-bottom: 0;
+                  padding-bottom: 0px;
+                  margin-bottom: 64px;
+                  padding-top: 0px;
+            }
+
+            .paragraph {
+                  font-weight: 400;
+                  font-size: 14px;
+                  font-family: 'SF UI Text', sans-serif;
+                  color: #595959;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                  overflow: hidden;
+            }
+
+            .line {
+                  height: 2px;
+                  width: calc(100% + 48px);
+                  background-color: #eaeffd;
+            }
+
+            h3 {
+                  color: #2f61e6;
+                  font-weight: 600;
+                  font-size: 50px;
+                  font-family: 'SF UI Text', sans-serif;
+                  margin-bottom: 0;
+                  padding-bottom: 8px;
+                  padding-top: 28px;
+            }
+
+            img {
+                  position: absolute;
+                  left: 50%;
+                  background-color: #eaeffd;
+                  padding: 8px;
+                  box-shadow: 0px 6px 15px rgba(44, 61, 106, 0.15);
+                  border-radius: 4px;
+                  transform: translateX(-50%) translateY(-50%);
+            }
+      }
+}
+
+@media screen and (max-width: 1410px) {
+      .number {
+            .content {
+                  h3 {
+                        font-size: 40px;
+                  }
+            }
+      }
+}
+
+@media screen and (max-width: 1200px) {
+      .number {
+            padding: 0px 5% 80px 5%;
+            height: 600px;
+            .content{
+                  .line{
+                        margin-top: 24px;
+                  }
+                  .title{
+                        font-size: 24px;
+                  }
+            }
+      }
+}
+
+@media screen and (max-width: 576px) {
+      .number {
+            padding: 0px 5% 80px 5%;
+            height: 600px;
+            .content{
+                  h3 {
+                        font-size: 30px;
+                  }
+            }
+      }
+}
