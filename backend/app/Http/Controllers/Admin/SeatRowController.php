@@ -40,7 +40,23 @@ class SeatRowController extends Controller
 
    public function edit($id)
    {
-      
+      $seatRow = $this->seatRow -> find($id);
+      return view('Admin/seats/seat_row/edit',compact('seatRow'));
+   }
+   public function update($id, SeatRowRequest $seatRowRequest)
+   {
+      $data = [
+         'name'=>$seatRowRequest->name
+      ];
+      $this->seatRow ->find($id)->update($data);
+      return redirect()->route('admin.seat_row')->with('message','Sửa thành công!');
+
+   }
+
+   public function destroy($id)
+   {
+       $this ->seatRow -> find($id)->delete();
+       return redirect()->route('admin.seat_row')->with('message','Delete thành công!');
    }
 
 }

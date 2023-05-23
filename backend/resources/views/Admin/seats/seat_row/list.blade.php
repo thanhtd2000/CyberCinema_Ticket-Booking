@@ -24,8 +24,8 @@
                
                
                 <td>
-                    {{-- <a class="btn btn-success" href="{{route('admin.seat_type.edit', $seatType->id)}}"><i class="fas fa-pencil-alt"></i> </a> --}}
-                    <a class="btn btn-danger"   OnClick='return confirm("Are you want to delete ?");' href=""><i class="fas fa-trash-alt"></i> </a>
+                    <a class="btn btn-success" href="{{route('admin.seat_row.edit', $seatRow->id)}}"><i class="fas fa-pencil-alt"></i> </a>
+                    <a class="btn btn-danger"   OnClick='return confirm("Are you want to delete ?");' href="{{route('admin.seat_row.delete', $seatRow->id)}}"><i class="fas fa-trash-alt"></i> </a>
                   
                 </td>
             </tr>
