@@ -1,11 +1,20 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Http\Controllers\AuthController;
+<<<<<<<<< Temporary merge branch 1
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CinemaController;
+use App\Http\Controllers\UserController;
+=========
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ActorController;
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\CinemaController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\admin\DirectorController;
+>>>>>>>>> Temporary merge branch 2
 
 
 /*
@@ -46,30 +55,30 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     });
 
     Route::prefix('category')->group(function () {
-        Route::get("/index", [CategoryController::class, 'index'])->name('admin.category');
-        Route::get("/create", [CategoryController::class, 'create'])->name('admin.category.create');
-        Route::post("/store", [CategoryController::class, 'store'])->name('admin.category.store');
-        Route::get("/edit/{id}", [CategoryController::class, 'edit'])->name('admin.category.edit');
-        Route::put("/update/{id}", [CategoryController::class, 'update'])->name('admin.category.update');
-        Route::get("/delete/{id}", [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+        Route::get("/index",[CategoryController::class, 'index'])->name('admin.category');
+        Route::get("/create",[CategoryController::class, 'create'])->name('admin.category.create');
+        Route::post("/store",[CategoryController::class, 'store'])->name('admin.category.store');
+        Route::get("/edit/{id}",[CategoryController::class, 'edit'])->name('admin.category.edit');
+        Route::put("/update/{id}",[CategoryController::class, 'update'])->name('admin.category.update');
+        Route::get("/delete/{id}",[CategoryController::class, 'destroy'])->name('admin.category.destroy');
     });
 
     Route::prefix('director')->group(function () {
-        Route::get("/index", [DirectorController::class, 'index'])->name('admin.director');
-        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create');
-        Route::post("/store", [DirectorController::class, 'store'])->name('admin.director.store');
-        Route::get("/edit/{id}", [DirectorController::class, 'edit'])->name('admin.director.edit');
-        Route::put("/update/{id}", [DirectorController::class, 'update'])->name('admin.director.update');
-        Route::get("/delete/{id}", [DirectorController::class, 'destroy'])->name('admin.director.destroy');
+        Route::get("/index",[DirectorController::class, 'index'])->name('admin.director');
+        Route::get("/create",[DirectorController::class, 'create'])->name('admin.director.create');
+        Route::post("/store",[DirectorController::class, 'store'])->name('admin.director.store');
+        Route::get("/edit/{id}",[DirectorController::class, 'edit'])->name('admin.director.edit');
+        Route::put("/update/{id}",[DirectorController::class, 'update'])->name('admin.director.update');
+        Route::get("/delete/{id}",[DirectorController::class, 'destroy'])->name('admin.director.destroy');
     });
 
     Route::prefix('actor')->group(function () {
-        Route::get("/index", [ActorController::class, 'index'])->name('admin.actor');
-        Route::get("/create", [ActorController::class, 'create'])->name('admin.actor.create');
-        Route::post("/store", [ActorController::class, 'store'])->name('admin.actor.store');
-        Route::get("/edit/{id}", [ActorController::class, 'edit'])->name('admin.actor.edit');
-        Route::put("/update/{id}", [ActorController::class, 'update'])->name('admin.actor.update');
-        Route::get("/delete/{id}", [ActorController::class, 'destroy'])->name('admin.actor.destroy');
+        Route::get("/index",[ActorController::class, 'index'])->name('admin.actor');
+        Route::get("/create",[ActorController::class, 'create'])->name('admin.actor.create');
+        Route::post("/store",[ActorController::class, 'store'])->name('admin.actor.store');
+        Route::get("/edit/{id}",[ActorController::class, 'edit'])->name('admin.actor.edit');
+        Route::put("/update/{id}",[ActorController::class, 'update'])->name('admin.actor.update');
+        Route::get("/delete/{id}",[ActorController::class, 'destroy'])->name('admin.actor.destroy');
     });
 
 
@@ -88,5 +97,24 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [CinemaController::class, 'edit'])->name('admin.cinema.edit');
         Route::put('/update/{id}', [CinemaController::class, 'update'])->name('admin.cinema.update');
         Route::get('/delete/{id}', [CinemaController::class, 'delete'])->name('admin.cinema.delete');
+    });
+<<<<<<<<< Temporary merge branch 1
+    Route::prefix('product')->group(function () {
+        Route::get('/', [ProductController::class,'index'])->name('admin.product');
+        Route::get('/create', [ProductController::class,'create'])->name('admin.product.create');
+        Route::post('/store', [ProductController::class,'store'])->name('admin.product.store');
+        Route::get('/edit/{id}', [ProductController::class,'edit'])->name('admin.product.edit');
+        Route::put('/update/{id}', [ProductController::class,'update'])->name('admin.product.update');
+        Route::get('/delete/{id}', [ProductController::class,'delete'])->name('admin.product.delete');
+=========
+
+    Route::prefix('movie')->group(function () {
+        Route::get('/', [MovieController::class, 'index'])->name('admin.movie');
+        Route::get('/create', [MovieController::class, 'create'])->name('admin.movie.create');
+        Route::post('/store', [MovieController::class, 'store'])->name('admin.movie.store');
+        Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
+        Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
+        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
+>>>>>>>>> Temporary merge branch 2
     });
 });

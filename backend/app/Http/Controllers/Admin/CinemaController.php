@@ -30,7 +30,7 @@ class CinemaController extends Controller
 
         Cinema::create($formFields);
 
-        return redirect('admin/cinema')->with('message', 'Create successfully');
+        return redirect('admin/cinema')->with('message', 'Thêm thành công');
     }
 
     public function edit($id) {
@@ -50,12 +50,12 @@ class CinemaController extends Controller
         ]);
 
         Cinema::where('id', $id)->update($formFields);
-        return redirect('admin/cinema')->with('message', 'Update successfully');
+        return redirect('admin/cinema')->with('message', 'Sửa thành côngly');
     }
  
     public function delete($id) {
         Cinema::where('id', $id)->delete();
-        return redirect('admin/cinema')->with('message', 'Delete successfully');
+        return redirect('admin/cinema')->with('message', 'Xóa thành côngly');
     }
 
 }

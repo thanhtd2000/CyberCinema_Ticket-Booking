@@ -19,7 +19,7 @@ class CheckAdmin
         if (Auth::user()->role == 0) {
             return $next($request);
         } else {
-            return redirect()->route('client.home')->with('message', 'Bạn không có quyền');
+            return redirect()->route('login')->with('message', 'Bạn không có quyền');
         }
     }
 }

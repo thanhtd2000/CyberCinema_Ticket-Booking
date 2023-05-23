@@ -97,11 +97,21 @@ class AuthApiController extends Controller
       {
             try {
                   $request->validate([
-                        'email' => 'email|required',
+                        'username' => 'required',
                         'password' => 'required'
                   ]);
-
-                  if (!Auth::attempt($request->only('email', 'password'))) {
+                  if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
+                        $credentials = [
+                              'email' => $request->username,
+                              'password' => $request->password
+                        ];
+                  } else {
+                        $credentials = [
+                              'phone' => $request->username,
+                              'password' => $request->password
+                        ];
+                  }
+                  if (!Auth::attempt($credentials)) {
                         return response()->json([
                               'status_code' => 401,
                               'message' => 'Unauthorized'

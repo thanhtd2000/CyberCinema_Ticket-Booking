@@ -126,6 +126,33 @@
             @endforeach
         </select>
         <br>
+        <div class="mb-3">
+            <label class="form-label text-danger">Thuộc tính HOT</label>
+            <input type="checkbox" class="form-check-input" name="isHot" {{ $movie->isHot == 0 ? 'checked' : '' }}>
+        </div><br>
+        <div class="mb-3">
+            <label class="form-label">Giới hạn từ bao nhiêu tuổi trở lên</label>
+            <input type="number" name="year_old" class="form-control" value="{{ $movie->year_old }}">
+        </div>
+        <div class="error">
+            @if ($errors->has('year_old'))
+                <span class="text-danger fs-6">
+                    {{ $errors->first('year_old') }}
+                </span>
+            @endif
+        </div><br>
+        <div class="mb-3">
+            <label class="form-label">Loại Phim (2D hay 3D ...)</label>
+            <input type="text" name="type" class="form-control" value="{{ $movie->type }}">
+        </div>
+        <div class="error">
+            @if ($errors->has('type'))
+                <span class="text-danger fs-6">
+                    {{ $errors->first('type') }}
+                </span>
+            @endif
+        </div>
+        <br>
         <button type="submit" class="btn btn-outline-primary">Xác nhận</button>
     </form>
 

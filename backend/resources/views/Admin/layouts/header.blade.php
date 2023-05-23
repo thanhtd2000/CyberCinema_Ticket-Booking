@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../../../dist/css/vendors/simplebar.css">
     <!-- Main styles for this application-->
     <link href="../../../dist/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
     <link href="../../../dist/css/examples.css" rel="stylesheet">
@@ -75,7 +76,7 @@
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
                             role="button" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="../../../uploads/avatar/{{ Auth::user()->image }}" alt="user@email.com">
+                                    src="{{ Auth::user()->image }}" alt="user@email.com">
                             </div>
                         </a>
                         <!-- account -->

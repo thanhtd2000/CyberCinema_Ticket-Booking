@@ -6,12 +6,13 @@ use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Director;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Movie extends Model
 {
     use HasFactory;
+    use SoftDeletes;
     protected $fillable = [
         'name',
         'description',
@@ -22,7 +23,11 @@ class Movie extends Model
         'time',
         'language',
         'image',
-        'price'
+        'price',
+        'slug',
+        'isHot',
+        'year_old',
+        'type'
     ];
 
 

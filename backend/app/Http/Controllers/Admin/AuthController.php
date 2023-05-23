@@ -29,17 +29,8 @@ class AuthController extends Controller
             'required' => 'Trường bắt buộc phải nhập'
         ];
         $user = $request->validate($rule, $messages);
-        $remember = $request->remember;
+        $remember = $request->has('remember');
         if (Auth::attempt(['email' => $user['email'], 'password' => $user['password']], $remember)) {
-            if ($remember == 'on') {
-                $user = User::find(Auth::user()->id);
-                $user->remember_token = Str::random(60);
-                $user->update();
-            } else {
-                $user = User::find(Auth::user()->id);
-                $user->remember_token = null;
-                $user->update();
-            }
             if (Auth::user()->role == 0 || Auth::user()->role == 3) {
                 return redirect('admin/index')->with('message', 'Đăng nhập thành công');
             } else if (Auth::user()->role == 2) {

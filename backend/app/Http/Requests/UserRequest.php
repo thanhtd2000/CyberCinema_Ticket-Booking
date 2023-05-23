@@ -27,6 +27,7 @@ class UserRequest extends FormRequest
             'password' => 'required|min:8|max:24|confirmed',
             'image' => 'required|file|mimes:jpg,jpeg,png|max:2048',
             'role' => 'required',
+            'phone' => 'required'
         ];
     }
     public function messages()

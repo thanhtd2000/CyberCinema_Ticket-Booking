@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use DateTime;
+use DateInterval;
 use App\Models\Actor;
 use App\Models\Movie;
 use App\Models\Category;
 use App\Models\Director;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Helpers\FirebaseHelper;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\MovieRequest;
 use App\Http\Controllers\Controller;
@@ -18,7 +21,9 @@ class MovieController extends Controller
     public $directors;
     public $actors;
     public $data;
-    public function __construct()
+    public  $firebaseHelper;
+    public $movies;
+    public function __construct(Movie $movies)
     {
         $this->actors = Actor::all();
         $this->categories = Category::all();
@@ -28,10 +33,25 @@ class MovieController extends Controller
             'categories' => $this->categories,
             'directors' =>   $this->directors,
         ];
+        $this->movies = $movies;
+        $this->firebaseHelper = new FirebaseHelper();
+    }
+
+    private function generateUniqueSlug($name)
+    {
+        $slug = Str::slug($name);
+        $count = 2;
+
+        while ($this->movies->where('slug', $slug)->exists()) {
+            $slug = Str::slug($name) . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
     }
     public function index()
     {
-        $movies = Movie::latest()->paginate(10);;
+        $movies = $this->movies->latest()->paginate(10);;
         return view('Admin.movie.list', compact('movies'))->with($this->data);
     }
 
@@ -43,23 +63,27 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-
+        $path = 'Movies/';
         if ($request->hasFile('image')) {
-            $file = $request->image;
-            $fileName = Str::random(4) . $file->getClientOriginalName();
-            $path = 'uploads/movies/';
-            $file->move($path, $fileName);
-            $mv['image'] = $path . $fileName;
-            $mv['name'] = $request->name;
-            $mv['description'] = $request->description;
-            $mv['date'] = $request->date;
-            $mv['director_id'] = $request->director_id;
-            $mv['category_id'] = $request->category_id;
-            $mv['trailer'] = $request->trailer;
-            $mv['time'] = $request->time;
-            $mv['language'] = $request->language;
-            $mv['price'] = $request->price;
-            $movie = Movie::create($mv);
+            $image = $request->file('image');
+            $movieData['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            $movieData['name'] = $request->name;
+            $movieData['description'] = $request->description;
+            $movieData['date'] = $request->date;
+            $movieData['director_id'] = $request->director_id;
+            $movieData['category_id'] = $request->category_id;
+            $movieData['trailer'] = $request->trailer;
+            $movieData['time'] = $request->time;
+            $movieData['language'] = $request->language;
+            $movieData['price'] = $request->price;
+            $movieData['type'] = $request->type;
+            $movieData['year_old'] = $request->year_old;
+            $slug = $this->generateUniqueSlug($request->name);
+            $movieData['slug'] = $slug;
+            if ($request->isHot == 'on') {
+                $movieData['isHot'] = 0;
+            };
+            $movie = $this->movies->create($movieData);
         }
         foreach ($request->actors as $actor) {
             DB::table('actor_movies')->insert([
@@ -73,21 +97,20 @@ class MovieController extends Controller
     }
     public function edit(Request $request)
     {
-        $movie = Movie::find($request->id);
+        $movie = $this->movies->find($request->id);
         return view('Admin.movie.edit', compact('movie'))->with($this->data);
     }
 
 
     public function update(MovieRequest $request, $id)
     {
-        $movie = Movie::find($id);
+        $movie = $this->movies->find($id);
 
+        $path = 'Movies/';
         if ($request->hasFile('image')) {
-            $file = $request->image;
-            $fileName = Str::random(4) . $file->getClientOriginalName();
-            $path = 'uploads/movies/';
-            $file->move($path, $fileName);
-            $movie->image = $path . $fileName;
+            $this->firebaseHelper->deleteImage($movie->image, $path);
+            $image = $request->file('image');
+            $movie->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $movie->name = $request->name;
         $movie->description = $request->description;
@@ -98,6 +121,13 @@ class MovieController extends Controller
         $movie->time = $request->time;
         $movie->language = $request->language;
         $movie->price = $request->price;
+        $movie->type = $request->type;
+        $movie->year_old = $request->year_old;
+        if ($request->isHot == 'on') {
+            $movie->isHot = 0;
+        } else {
+            $movie->isHot = 1;
+        };
         $movie->save();
         $movie->actors()->sync($request->actors);
         return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
@@ -105,9 +135,29 @@ class MovieController extends Controller
 
     public function destroy($id)
     {
-        Movie::find($id)->delete();
-        DB::table('actor_movies')->where('movie_id', $id)->delete();
+        $this->movies->find($id)->delete();
+        // DB::table('actor_movies')->where('movie_id', $id)->delete();
         return redirect()->route('admin.movie')->with('message', 'Xoá Thành Công!');
         //
+    }
+    public function trash()
+    {
+        $movies = $this->movies->onlyTrashed()->latest()->paginate(10);;
+        return view('Admin.movie.trash', compact('movies'))->with($this->data);
+    }
+
+
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $movies = $this->movies->where('name', 'like', '%' . $request->input('keywords') . '%')
+            ->paginate(5);
+        return view('Admin.movie.list', compact('movies', 'keywords'))->with($this->data);
+    }
+    public function restore(Request $request)
+    {
+        $movie =  $this->movies->withTrashed()->find($request->id);
+        $movie->restore();
+        return back();
     }
 }

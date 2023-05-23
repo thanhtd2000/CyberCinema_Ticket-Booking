@@ -17,9 +17,18 @@ class DirectorController extends Controller
     public function index()
     {
         $directors = Director::paginate(10);
-        return view('Admin.directors.index',compact('directors'));
+        return view('Admin.directors.index', compact('directors'));
     }
 
+
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $directors = Director::where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return view('admin.directors.index', compact('directors','keywords'));
+    }    
+        
     /**
      * Show the form for creating a new resource.
      *
@@ -40,7 +49,7 @@ class DirectorController extends Controller
     {
         $newDirecrtor = $request->toArray();
         Director::create($newDirecrtor);
-        return redirect('admin/director/index')->with('message', 'Create successfully');
+        return redirect('admin/director/index')->with('message', 'Thêm thành công');
     }
 
     /**
@@ -63,7 +72,7 @@ class DirectorController extends Controller
     public function edit($id)
     {
         $director = Director::find($id);
-        return view('admin.directors.edit',compact('director'));
+        return view('admin.directors.edit', compact('director'));
     }
 
     /**
@@ -77,8 +86,8 @@ class DirectorController extends Controller
     {
         $request = $request->except(['_token', '_method']);
         // dd($request);
-        Director::where('id',$id)->update($request);
-        return redirect('admin/director/index')->with('message', 'Update successful!');
+        Director::where('id', $id)->update($request);
+        return redirect('admin/director/index')->with('message', 'Sửa thành công!');
     }
 
     /**
@@ -90,6 +99,6 @@ class DirectorController extends Controller
     public function destroy($id)
     {
         Director::find($id)->delete();
-        return redirect('admin/director/index')->with('message', 'Delete successful!');
+        return redirect('admin/director/index')->with('message', 'Xóa thành công!');
     }
 }

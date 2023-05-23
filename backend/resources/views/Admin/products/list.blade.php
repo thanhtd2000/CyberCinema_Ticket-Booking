@@ -21,7 +21,7 @@
                 <th scope="row">{{$key+=1}}</th>
                 <td>{{$product->name}}</td>
                 {{-- <td>{{$product->price}}</td> --}}
-                <td>{{number_format($product->price,0,',','.')}} Vnđ</td>
+                <td>{{number_format($product->price,0,',','.')}} VNĐ</td>
                 <td>
                     <button class="btn btn-primary">
                         <a class="text-white" href="{{route('admin.product.edit', $product->id)}}">Edit</a>

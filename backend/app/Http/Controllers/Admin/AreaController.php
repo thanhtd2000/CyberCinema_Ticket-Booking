@@ -26,7 +26,7 @@ class AreaController extends Controller
             'name' => 'required|max:225|unique:areas,name',
         ]);
         Area::create($formFields);
-        return redirect('admin/area')->with('message', 'Create successfully');
+        return redirect('admin/area')->with('message', 'Thêm thành công');
     }
 
     public function edit($id)
@@ -41,12 +41,12 @@ class AreaController extends Controller
             'name' => 'required|max:225|unique:areas,name',
         ]);
         Area::where('id', $id)->update($formFields);
-        return redirect('admin/area')->with('message', 'Update successful!');
+        return redirect('admin/area')->with('message', 'Sửa thành công!');
     }
 
     public function delete($id)
     {
         Area::find($id)->delete();
-        return redirect('admin/area')->with('message', 'Delete successful!');
+        return redirect('admin/area')->with('message', 'Xóa Thành công!');
     }
 }

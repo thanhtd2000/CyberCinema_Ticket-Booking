@@ -16,9 +16,9 @@ class CreateCinemasTable extends Migration
         Schema::create('cinemas', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('area_id');
             $table->string('address');
             $table->timestamps();
+            $table->foreignId('area_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

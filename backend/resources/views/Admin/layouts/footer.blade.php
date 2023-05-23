@@ -17,11 +17,7 @@
 /vendors/@coreui/utils/js/coreui-utils.js"></script>
 <script src="../../../dist
 /js/main.js"></script>
-{{-- <script src={{ url('ckeditor/ckeditor.js') }}></script>
-<script>
-    CKEDITOR.replace('editor');
-</script>
-@include('ckfinder::setup') --}}
+
 </body>
 
 </html>

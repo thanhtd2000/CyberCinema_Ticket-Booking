@@ -21,6 +21,15 @@ class ActorController extends Controller
         return view('Admin.actors.index',compact('actors'));
     }
 
+
+    public function search(Request $request)
+    {
+        $keywords = $request->input('keywords');
+        $actors = Actor::where('name', 'like', '%' . $keywords . '%')
+            ->paginate(5);
+        return view('admin.actors.index', compact('actors','keywords'));
+    }    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +50,7 @@ class ActorController extends Controller
     {
         $newActor = $request->toArray();
         Actor::create($newActor);
-        return redirect('admin/actor/index')->with('message', 'Create successfully');
+        return redirect('admin/actor/index')->with('message', 'Thêm thành công');
         
     }
 
@@ -80,7 +89,7 @@ class ActorController extends Controller
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Actor::where('id',$id)->update($request);
-        return redirect('admin/actor/index ')->with('message', 'Update successful!');
+        return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
         
     }
 
@@ -93,7 +102,7 @@ class ActorController extends Controller
     public function destroy($id)
     {
         Actor::find($id)->delete();
-        return redirect('admin/actor/index')->with('message', 'Delete successful!');
+        return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
         
     }
 }

@@ -55,7 +55,7 @@
         {{-- Link director view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
-                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-smile">
                     </use>
                 </svg> Đạo diễn</a>
             <ul class="nav-group-items">
@@ -68,7 +68,7 @@
         {{-- Link category view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                 <svg class="nav-icon">
-                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-movie">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-book">
                     </use>
                 </svg> Danh mục phim</a>
             <ul class="nav-group-items">
@@ -128,7 +128,36 @@
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
-
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-sofa"></use>
+                </svg> Ghế</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/seat_type/">Loại ghế</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/seat_row">Hàng ghế</a></li>
+                
+            </ul>
+        </li>
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-fastfood"></use>
+                </svg> Sản Phẩm</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/product/">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/product/create">Thêm Mới<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+        </li>
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-newspaper"></use>
+                </svg>Bài Đăng</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/posts/index">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/posts/create">Thêm Mới<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+            </ul>
+        </li>
     </ul>
     <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
 </div>

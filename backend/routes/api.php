@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthApiController;
-
+use App\Http\Controllers\Api\MovieController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -16,10 +16,9 @@ use App\Http\Controllers\Api\AuthApiController;
 
 
 Route::middleware('auth:sanctum')->post('auth/logout', [AuthApiController::class, 'logout'])->name('api.logout');
-
 Route::post('/auth/login', [AuthApiController::class, 'authenticate'])->name('api.login');
 Route::post('/auth/register', [AuthApiController::class, 'register']);
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+//movies
+Route::get('/get/movies', [MovieController::class, 'index']);
+Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
