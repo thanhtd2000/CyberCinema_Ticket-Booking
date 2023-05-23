@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CinemaController;
