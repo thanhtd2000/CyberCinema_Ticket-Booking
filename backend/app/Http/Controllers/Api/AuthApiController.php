@@ -28,7 +28,7 @@ class AuthApiController extends Controller
                   'password' => 'required|string|min:8',
                   'sex' => 'required',
                   'birthday' => 'required',
-                  'phone' => 'required',
+                  'phone' => 'required|unique:users,phone'
                   // 'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 

@@ -16,7 +16,7 @@
         "fruitcake/laravel-cors": "^2.0",
         "google/cloud-firestore": "^1.32",
         "grpc/grpc": "1.38",
-        "guzzlehttp/guzzle": "^7.0.1",
+        "guzzlehttp/guzzle": "^7.7",
         "http-interop/http-factory-guzzle": "^1.2",
         "kreait/firebase-php": "^5.26",
         "kreait/laravel-firebase": "^3.4",
@@ -27,8 +27,7 @@
         "laravel/tinker": "^2.5",
         "league/oauth2-client": ">=2.0",
         "meilisearch/meilisearch-php": "^1.1",
-        "microsoft/microsoft-graph": ">=3.0",
-        "spatie/laravel-short-schedule": "^1.5"
+        "microsoft/microsoft-graph": ">=3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

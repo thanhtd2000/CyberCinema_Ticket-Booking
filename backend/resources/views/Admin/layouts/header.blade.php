@@ -22,7 +22,7 @@
     <!-- We use those styles to show code examples, you should remove them in your application.-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.23.0/themes/prism.css">
     <link href="../../../dist/css/examples.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="../../../client/images/icon-top-bar.jpg" />
+    <link rel="shortcut icon" type="image/png" href="../../../uploads/logo/logo.png" />
     <!-- Global site tag (gtag.js) - Google Analytics-->
     <script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-118965717-3"></script>
     <script>
