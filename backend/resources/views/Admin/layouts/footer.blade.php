@@ -17,6 +17,7 @@
 /vendors/@coreui/utils/js/coreui-utils.js"></script>
 <script src="../../../dist
 /js/main.js"></script>
+@yield('js')
 
 </body>
 

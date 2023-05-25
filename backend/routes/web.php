@@ -11,7 +11,8 @@ use App\Http\Controllers\Admin\CinemaController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SeatRowController;
 use App\Http\Controllers\Admin\CategoryController;
-use App\Http\Controllers\admin\DirectorController;
+use App\Http\Controllers\Admin\DirectorController;
+use App\Http\Controllers\Admin\RoomController;
 use App\Http\Controllers\Admin\SeatTypeController;
 
 /*
@@ -139,5 +140,13 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/update-stt/{id}&&{status}", [PostController::class, 'updatestt'])->name('posts.updatestt');
         Route::post("/index", [PostController::class, 'search'])->name('posts.search');
         Route::delete("/deleteMultiple", [PostController::class, 'deleteMultiple'])->name('delete.Mulposts');
+    });
+    Route::prefix('room')->group(function () {
+        Route::get('/', [RoomController::class, 'index'])->name('admin.room');
+        Route::get('/create', [RoomController::class, 'create'])->name('admin.room.create');
+        Route::post('/store', [RoomController::class, 'store'])->name('admin.room.store');
+        Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('admin.room.edit');
+        Route::put('/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
+        Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
     });
 });

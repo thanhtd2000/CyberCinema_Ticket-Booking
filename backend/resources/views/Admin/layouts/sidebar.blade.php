@@ -87,7 +87,7 @@
                     </use>
                 </svg> Phòng</a>
             <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="/admin/room/index">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('admin.room')}}">Danh sách</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/room/create">Thêm phòng<span
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
