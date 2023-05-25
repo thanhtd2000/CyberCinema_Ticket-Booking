@@ -32,4 +32,9 @@
         @endforeach
     </tbody>
 </table>
+<div class="col-md-12">
+
+
+    {{ $seatRows->links() }}
+</div>
 @endsection
