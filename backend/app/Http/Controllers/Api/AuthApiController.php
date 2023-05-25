@@ -28,7 +28,7 @@ class AuthApiController extends Controller
                   'password' => 'required|string|min:8',
                   'sex' => 'required',
                   'birthday' => 'required',
-                  'phone' => 'required',
+                  'phone' => 'required|unique:users,phone'
                   // 'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
 
@@ -39,12 +39,6 @@ class AuthApiController extends Controller
                         'errors' => $validator->errors(),
                   ], 422);
             } else {
-                  // if ($request->hasFile('image')) {
-                  //     $file = $request->image;
-                  //     $fileExtension = $file->getClientOriginalExtension();
-                  //     $file->move("uploads", $request->email . "." . $fileExtension);
-                  //     $newUser['image'] = $request->email . "." . $fileExtension;
-                  // }
                   $date = Carbon::createFromFormat('Y-m-d\TH:i:s.u\Z', $request->birthday);
                   $formattedDate = $date->format('Y-m-d');
                   $newUser['name'] = $request->name;
@@ -63,34 +57,6 @@ class AuthApiController extends Controller
             // Lưu ảnh đại diện nếu có
 
       }
-
-      // public function store(UserRequest $request)
-      // {
-      //     if (User::where('email', $request->email)->doesntExist()) {
-
-      //         $newUser = $request->validated();
-      //         if ($request->hasFile('avatar')) {
-      //             $file = $request->avatar;
-      //             $fileExtension = $file->getClientOriginalExtension();
-      //             $file->move("uploads", $request->email . "." . $fileExtension);
-      //         }
-      //         $newUser['password'] = bcrypt($request->password);
-      //         $newUser['avatar'] = $request->email . "." . $fileExtension;
-
-      //         User::create($newUser);
-
-      //         return response()->json([
-      //             'status_code' => 201,
-      //             'message' => 'Register Success',
-      //         ], 201);
-      //     } else {
-
-      //         return response()->json([
-      //             'status_code' => 409,
-      //             'message' => 'Account already exists ',
-      //         ], 409);
-      //     }
-      // }
 
       //login
       public function authenticate(Request $request)
@@ -121,14 +87,19 @@ class AuthApiController extends Controller
                   $user = $request->user();
 
                   $tokenResult = $user->createToken('authToken')->plainTextToken;
-
+                  $refresh_token = $user->createToken('refresh_token')->plainTextToken;
                   return response()->json([
                         'status_code' => 200,
                         'message' => 'Login Success',
-                        'access_token' => $tokenResult,
-                        'token_type' => 'Bearer',
-                        'expires_in' => Carbon::now()->addHour(),
-                        'data' => [
+                        'auth' => [
+                              'access_token' => $tokenResult,
+                              'token_type' => 'Bearer',
+                              'expires_at' => Carbon::now()->addHour(),
+                              'refresh_token' => $refresh_token,
+                              'email' => $user->email,
+                              'phone' => $user->phone,
+                        ],
+                        'user' => [
                               'name' =>  $user->name,
                               'email' => $user->email,
                               'sex' => $user->sex,
