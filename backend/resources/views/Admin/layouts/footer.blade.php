@@ -1,8 +1,6 @@
 <footer class="footer">
     <div class="ms-auto">Powered by&nbsp;<a href="">Thành</a></div>
 </footer>
-
-
 <!-- CoreUI and necessary plugins-->
 <script src="../../../dist
 /vendors/@coreui/coreui/js/coreui.bundle.min.js"></script>

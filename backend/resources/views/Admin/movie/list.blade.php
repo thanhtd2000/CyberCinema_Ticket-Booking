@@ -27,14 +27,8 @@
                 <th scope="col">Tác Giả</th>
                 <th scope="col">Diễn Viên</th>
                 <th scope="col">Danh mục</th>
-                <th scope="col">Trailer</th>
                 <th scope="col">Thời Lượng</th>
                 <th scope="col">Ngôn Ngữ</th>
-                <th scope="col">Ảnh</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Slug</th>
-                <th scope="col">Thời gian tạo</th>
-                <th scope="col">Thời gian update</th>
             </tr>
         </thead>
         <tbody>
@@ -56,22 +50,72 @@
                         @endforeach
                     </td>
                     <td>{{ $movie->category->name }}</td>
-                    <td>{{ $movie->trailer }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><img src="{{ $movie->image }}" alt="" width="100"></td>
-                    <td>{{ $movie->price }}</td>
-                    <td>{{ $movie->slug }}</td>
-                    <td>{{ $movie->created_at }}</td>
-                    <td>{{ $movie->updated_at }}</td>
                     <td><button type="button" class="btn btn-success"><a
                                 href="{{ route('admin.movie.edit', $movie->id) }}">Sửa</a></button>
                         <button type="button" class="btn btn-danger"><a onclick=" return confirm('Bạn có chắc chắn xoá?')"
                                 href="{{ route('admin.movie.delete', $movie->id) }}">Xoá</a></button>
+
                     </td>
+                    <td> <button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
+                            tiết</button></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="modal fade" id="movie-modal" tabindex="-1" role="dialog" aria-labelledby="movie-modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="movie-modal-label"><b>Chi tiết phim</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>Tên phim:</b>
+                    <h3 id="movie-name"></h3>
+                    <b>Trailler</b>
+                    <p id="movie-trailer"></p>
+                    <b>Is Hot</b>
+                    <p id="movie-isHot"></p>
+                    <b>Thời gian tạo:</b>
+                    <p id="movie-created_at"></p>
+                    <b>Thời gian cập nhật:</b>
+                    <p id="movie-updated_at"></p>
+                    <b>Ảnh</b>
+                    <img id="movie-image" src="" width="300px" alt="Movie Image">
+                </div>
+            </div>
+        </div>
+    </div>
+
     {{ $movies->appends(request()->all())->links() }}
+
+    <script>
+        $(document).ready(function() {
+            $('.movie-detail').click(function() {
+                var movieId = $(this).data('movie-id');
+
+                $.ajax({
+                    url: '/admin/movie/show/' + movieId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        console.log(response.movie);
+                        $('#movie-name').text(response.movie.name);
+                        $('#movie-trailer').text(response.movie.trailer);
+                        $('#movie-isHot').text(response.movie.isHot);
+                        $('#movie-created_at').text(response.movie.created_at);
+                        $('#movie-updated_at').text(response.movie.updated_at);
+                        $('#movie-image').attr('src', response.movie.image);
+
+                        $('#movie-modal').modal('show');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

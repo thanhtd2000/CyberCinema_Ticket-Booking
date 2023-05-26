@@ -68,6 +68,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/edit/{id}", [DirectorController::class, 'edit'])->name('admin.director.edit');
         Route::put("/update/{id}", [DirectorController::class, 'update'])->name('admin.director.update');
         Route::get("/delete/{id}", [DirectorController::class, 'destroy'])->name('admin.director.destroy');
+        Route::post("/index", [DirectorController::class, 'search'])->name('admin.director.search');
     });
 
     Route::prefix('actor')->group(function () {
@@ -77,6 +78,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/edit/{id}", [ActorController::class, 'edit'])->name('admin.actor.edit');
         Route::put("/update/{id}", [ActorController::class, 'update'])->name('admin.actor.update');
         Route::get("/delete/{id}", [ActorController::class, 'destroy'])->name('admin.actor.destroy');
+        Route::post("/index", [ActorController::class, 'search'])->name('admin.actor.search');
     });
 
 
@@ -113,6 +115,11 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
         Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
+        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
+        Route::post("/index", [MovieController::class, 'search'])->name('admin.movie.search');
+        Route::get("/trash", [MovieController::class, 'trash'])->name('admin.movie.trash');
+        Route::get("/restore/{id}", [MovieController::class, 'restore'])->name('admin.movie.restore');
+        Route::get("/show/{id}", [MovieController::class, 'show'])->name('admin.movie.show');
     });
     Route::prefix('seat_type')->group(function () {
         Route::get('/', [SeatTypeController::class, 'index'])->name('admin.seat_type');
