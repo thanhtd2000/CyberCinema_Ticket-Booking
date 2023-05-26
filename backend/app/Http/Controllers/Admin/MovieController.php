@@ -158,6 +158,16 @@ class MovieController extends Controller
     {
         $movie =  $this->movies->withTrashed()->find($request->id);
         $movie->restore();
-        return back();
+        return redirect()->route('admin.movie.trash');
+    }
+    public function show($id)
+    {
+        $movie = $this->movies->find($id);
+
+        // Kiểm tra xem phim có tồn tại hay không
+        if (!$movie) {
+            abort(404);
+        }
+        return response()->json(['movie' => $movie]);
     }
 }
