@@ -59,6 +59,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/edit/{id}", [CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::put("/update/{id}", [CategoryController::class, 'update'])->name('admin.category.update');
         Route::get("/delete/{id}", [CategoryController::class, 'destroy'])->name('admin.category.destroy');
+        Route::post("/index", [CategoryController::class, 'search'])->name('admin.category.search');
     });
 
     Route::prefix('director')->group(function () {

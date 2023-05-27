@@ -22,13 +22,14 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tên</th>
-                <th scope="col">Mô tả</th>
+                {{-- <th scope="col">Mô tả</th> --}}
                 <th scope="col">Thời gian ra rạp</th>
                 <th scope="col">Tác Giả</th>
                 <th scope="col">Diễn Viên</th>
                 <th scope="col">Danh mục</th>
                 <th scope="col">Thời Lượng</th>
                 <th scope="col">Ngôn Ngữ</th>
+                <th scope="col">Chức Năng</th>
             </tr>
         </thead>
         <tbody>
@@ -36,12 +37,12 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td>{{ $movie->name }}</td>
-                    <td
+                    {{-- <td
                         style="display: -webkit-box;
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     overflow: hidden;">
-                        {{ $movie->description }}</td>
+                        {{ $movie->description }}</td> --}}
                     <td>{{ $movie->date }}</td>
                     <td>{{ $movie->director->name }}</td>
                     <td>
@@ -79,6 +80,8 @@
                     <h3 id="movie-name"></h3>
                     <b>Trailler</b>
                     <p id="movie-trailer"></p>
+                    <b>Mô tả</b>
+                    <p id="movie-description"></p>
                     <b>Is Hot</b>
                     <p id="movie-isHot"></p>
                     <b>Thời gian tạo:</b>
@@ -107,6 +110,7 @@
                         console.log(response.movie);
                         $('#movie-name').text(response.movie.name);
                         $('#movie-trailer').text(response.movie.trailer);
+                        $('#movie-description').text(response.movie.description);
                         $('#movie-isHot').text(response.movie.isHot);
                         $('#movie-created_at').text(response.movie.created_at);
                         $('#movie-updated_at').text(response.movie.updated_at);
