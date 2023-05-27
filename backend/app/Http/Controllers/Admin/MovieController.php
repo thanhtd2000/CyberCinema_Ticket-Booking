@@ -85,13 +85,15 @@ class MovieController extends Controller
             };
             $movie = $this->movies->create($movieData);
         }
-        foreach ($request->actors as $actor) {
-            DB::table('actor_movies')->insert([
-                [
-                    'movie_id' =>  $movie->id,
-                    'actor_id' => $actor,
-                ]
-            ]);
+        if ($movie) {
+            foreach ($request->actors as $actor) {
+                DB::table('actor_movies')->insert([
+                    [
+                        'movie_id' =>  $movie->id,
+                        'actor_id' => $actor,
+                    ]
+                ]);
+            }
         }
         return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
     }
