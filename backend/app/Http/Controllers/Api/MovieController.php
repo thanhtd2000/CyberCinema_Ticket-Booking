@@ -56,17 +56,17 @@ class MovieController extends Controller
             }
         }
     }
-    // public function detail(Request $request)
-    // {
-    //     $movie = $this->movies->where('slug', $request->slug)->get();
-    //     if ($this->movies->where('slug', $request->slug)->exists()) {
-    //         $data = MovieDetailResource::collection($movie);
-    //         return response()->json($data, 200);
-    //     } else {
-    //         return response()->json([
-    //             'status_code' => 404,
-    //             'message' => 'Item Not Found'
-    //         ], 404);
-    //     }
-    // }
+    public function detail(Request $request)
+    {
+        $movie = $this->movies->where('slug', $request->slug)->get();
+        if ($this->movies->where('slug', $request->slug)->exists()) {
+            $data = MovieDetailResource::collection($movie);
+            return response()->json($data, 200);
+        } else {
+            return response()->json([
+                'status_code' => 404,
+                'message' => 'Item Not Found'
+            ], 404);
+        }
+    }
 }
