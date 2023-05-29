@@ -33,7 +33,9 @@ class MovieResource extends JsonResource
             'isHot' => $this->isHot,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'actor' => $this->actors()->get()
+            'actor' => $this->actors()->get(),
+            'year_old' => $this->year_old,
+            'type' => $this->type,
         ];
     }
 }
