@@ -23,7 +23,7 @@ Route::post('/auth/register', [AuthApiController::class, 'register']);
 
 //movies
 Route::get('/get/movies', [MovieController::class, 'index']);
-Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
+// Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
 
 
 //posts
