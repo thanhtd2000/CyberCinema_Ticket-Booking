@@ -11,9 +11,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
+use App\Helpers\FirebaseHelper;
 
 class AuthApiController extends Controller
 {
+      public  $firebaseHelper;
+      public function __construct()
+      {
+            $this->firebaseHelper = new FirebaseHelper();
+      }
       public function register(Request $request)
       {
             if (User::where('email', $request->email)->exists()) {
@@ -77,7 +83,8 @@ class AuthApiController extends Controller
                               'password' => $request->password
                         ];
                   }
-                  if (!Auth::attempt($credentials)) {
+                  $remember = $request->has('remember');
+                  if (!Auth::attempt($credentials, $remember)) {
                         return response()->json([
                               'status_code' => 401,
                               'message' => 'Unauthorized'
@@ -145,5 +152,25 @@ class AuthApiController extends Controller
                         'message' => 'Logout Fail Or Account not Exist!!',
                   ], 409);
             }
+      }
+      public function changeImage(Request $request)
+      {
+            $path = 'Avatars/';
+            $user = $request->user();
+            if ($request->hasFile('image')) {
+
+                  $this->firebaseHelper->deleteImage($user->image, $path);
+                  $image = $request->file('image');
+                  $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+                  $user->save();
+                  return response()->json([
+                        'status_code' => 200,
+                        'message' => 'Successfully'
+                  ], 200);
+            };
+            return response()->json([
+                  'status_code' => 400,
+                  'message' => 'No image file found'
+            ], 400);
       }
 }

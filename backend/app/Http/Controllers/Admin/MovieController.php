@@ -51,7 +51,7 @@ class MovieController extends Controller
     }
     public function index()
     {
-        $movies = $this->movies->latest()->paginate(10);;
+        $movies = $this->movies->latest()->paginate(5);;
         return view('Admin.movie.list', compact('movies'))->with($this->data);
     }
 

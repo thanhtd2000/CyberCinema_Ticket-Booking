@@ -92,7 +92,6 @@
             <select class="form-select" name="role" aria-label="Default select example">
                 <option value="1">Thành viên</option>
                 <option value="3">Kiểm Duyệt Viên</option>
-                <option value="0" class="text-danger">Quản trị viên</option>
             </select>
         </div>
         <br>

@@ -95,7 +95,7 @@
         </div>
     </div>
 
-    {{ $movies->appends(request()->all())->links() }}
+    {{ $movies->links() }}
 
     <script>
         $(document).ready(function() {

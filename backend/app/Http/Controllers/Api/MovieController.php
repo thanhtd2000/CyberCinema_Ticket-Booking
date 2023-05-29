@@ -47,11 +47,7 @@ class MovieController extends Controller
         $movie = $this->movies->where('slug', $request->slug)->get();
         if ($this->movies->where('slug', $request->slug)->exists()) {
             $data = MovieDetailResource::collection($movie);
-            return response()->json([
-                'status_code' => 200,
-                'data' => $data,
-                'message' => 'Get Information Successfully'
-            ], 200);
+            return response()->json($data, 200);
         } else {
             return response()->json([
                 'status_code' => 404,
@@ -59,5 +55,4 @@ class MovieController extends Controller
             ], 404);
         }
     }
-   
 }
