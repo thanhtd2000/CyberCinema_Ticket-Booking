@@ -87,7 +87,6 @@
             <label for="exampleInputEmail1" class="form-label">Vai trò</label>
             <select class="form-select" name="role" aria-label="Default select example">
                 <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>Thành viên</option>
-                <option value="0" {{ $user->role == 0 ? 'selected' : '' }}>Quản trị viên</option>
                 <option value="3" {{ $user->role == 3 ? 'selected' : '' }}>Kiểm Duyệt Viên</option>
             </select>
         </div>
