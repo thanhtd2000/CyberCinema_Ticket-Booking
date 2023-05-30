@@ -6,9 +6,9 @@ export type TSignIn = {
 };
 
 export type TSignature = {
-  accessToken: string,
-  expiredAt: number,
-  refreshToken: string,
+  access_token: string,
+  expires_at: number,
+  refresh_token: string,
   expiredAtRefreshToken: number,
   email: string,
   phone: string,

@@ -3,17 +3,17 @@ import dynamic from 'next/dynamic';
 import { QueryClient, dehydrate } from 'react-query';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
-import { LANGUAGE_DEFAULT, baseParams } from '@/configs/const.config';
-import { ELanguage } from '@/configs/interface.config';
-import { getListPostFromDatabase } from '@/queries/apis/post';
-import { TPost } from '@/modules/post';
-import { GET_LIST_COMPANY, GET_LIST_TYPICAL_COMPANY } from '@/queries/keys/company';
+import { LANGUAGE_DEFAULT } from '@/configs/const.config';
+import { getListMovieFromDatabase } from '@/queries/apis/movies';
+import { Spin } from 'antd';
 
-const HomeScreen = dynamic(() => import('@components/Screens/Home'), { loading: () => <div>Loading...</div> });
-const Layout = dynamic(() => import('@/components/Layouts'));
-// export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
-//   const queryClient = new QueryClient();
-//   // News
+const HomeScreen = dynamic(() => import('@components/Screens/Home'), { loading: () => <Spin></Spin> });
+const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Spin></Spin> });
+export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
+  const queryClient = new QueryClient();
+//   Movies
+  const fetchAllMovies = await getListMovieFromDatabase()
+  // News
 //   const fetchAllHotNews = await getListPostFromDatabase(
 //     {
 //       ...baseParams,
@@ -33,7 +33,7 @@ const Layout = dynamic(() => import('@/components/Layouts'));
 //   );
 //   const HotNews = fetchAllHotNews.data;
 //   const ListNews = fetchNews.data;
-//   // Company Typical
+  // Company Typical
 //   const paramsTypical = {
 //     ...baseParams,
 //     limit: 6,
@@ -43,7 +43,7 @@ const Layout = dynamic(() => import('@/components/Layouts'));
 //   await queryClient.prefetchQuery([GET_LIST_TYPICAL_COMPANY, JSON.stringify(paramsTypical)], () =>
 //     getListPostFromDatabase(paramsTypical),
 //   );
-//   // List Company
+  // List Company
 //   const paramsCompany = {
 //     ...baseParams,
 //     limit: 9,
@@ -52,21 +52,22 @@ const Layout = dynamic(() => import('@/components/Layouts'));
 //   await queryClient.prefetchQuery([GET_LIST_COMPANY, JSON.stringify(paramsCompany)], () =>
 //     getListPostFromDatabase(paramsCompany),
 //   );
-//   return {
-//     props: {
-//       ...(await serverSideTranslations(locale || LANGUAGE_DEFAULT, ['common', 'home'])),
-//       dehydratedState: dehydrate(queryClient),
-//       HotNews,
-//       ListNews,
-//     },
-//   };
-// }
-function Home() {
-//   const { HotNews, ListNews } = props;
-
+  return {
+    props: {
+      ...(await serverSideTranslations(locale || LANGUAGE_DEFAULT, ['common', 'home'])),
+      dehydratedState: dehydrate(queryClient),
+      // HotNews,
+      fetchAllMovies
+      // ListNews,
+    },
+  };
+}
+function Home(props: InferGetServerSidePropsType<typeof getServerSideProps> ) {
+  const { fetchAllMovies } = props;
+  const dataMovies = fetchAllMovies.data
   return (
     <Layout>
-      <HomeScreen/>
+      {dataMovies && dataMovies ? (<HomeScreen fetchAllMovies={dataMovies}/>) : <div>loading...</div>}
     </Layout>
   );
 }

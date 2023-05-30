@@ -2,7 +2,6 @@ import NextHead from 'next/head';
 import React from 'react';
 
 const ogImageDefault = 'https://twinger.vn/wp-content/themes/main/screenshot.png?v=21092022';
-const faviconDefault = 'https://twinger.vn/wp-content/themes/main/assets/images/favicon.png';
 
 export type THead = {
   description?: string,
@@ -14,12 +13,12 @@ export type THead = {
   metaTags?: React.ReactNode,
 };
 function Head({
-  title = 'Twinger core',
-  description = 'Twinger core website',
-  keywords = 'Twinger, Website development, Applications, Web, App, UI/UX, Hosting, Landing page, Server',
+  title = 'Cyber Movies',
+  description = 'Cyber Movies website',
+  keywords = 'Cyber Movies most of the website booking ticket movies',
   url = typeof window !== 'undefined' ? window.location.href : process.env.BASE_URL || 'https://twinger.vn',
   ogImage = `${process.env.BASE_URL ? `${process.env.BASE_URL}screenshot.jpg?v=04102022` : ogImageDefault}`,
-  favicon = `${process.env.BASE_URL ? `${process.env.BASE_URL}favicon.ico?v=04102022` : faviconDefault}`,
+  favicon = '/images/logoCyberMobie.png',
   metaTags,
 }: THead) {
   return (
