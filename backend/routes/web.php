@@ -83,22 +83,8 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     });
 
 
-    Route::prefix('area')->group(function () {
-        Route::get('/', [AreaController::class, 'index'])->name('admin.area');
-        Route::get('/create', [AreaController::class, 'create'])->name('admin.area.create');
-        Route::post('/store', [AreaController::class, 'store'])->name('admin.area.store');
-        Route::get('/edit/{id}', [AreaController::class, 'edit'])->name('admin.area.edit');
-        Route::put('/update/{id}', [AreaController::class, 'update'])->name('admin.area.update');
-        Route::get('/delete/{id}', [AreaController::class, 'delete'])->name('admin.area.delete');
-    });
-    Route::prefix('cinema')->group(function () {
-        Route::get('/', [CinemaController::class, 'index'])->name('admin.cinema');
-        Route::get('/create', [CinemaController::class, 'create'])->name('admin.cinema.create');
-        Route::post('/store', [CinemaController::class, 'store'])->name('admin.cinema.store');
-        Route::get('/edit/{id}', [CinemaController::class, 'edit'])->name('admin.cinema.edit');
-        Route::put('/update/{id}', [CinemaController::class, 'update'])->name('admin.cinema.update');
-        Route::get('/delete/{id}', [CinemaController::class, 'delete'])->name('admin.cinema.delete');
-    });
+
+
 
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('admin.product');
