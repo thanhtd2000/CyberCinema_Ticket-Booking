@@ -87,36 +87,12 @@
                     </use>
                 </svg> Phòng</a>
             <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="{{route('admin.room')}}">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.room') }}">Danh sách</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/room/create">Thêm phòng<span
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
 
-        {{-- Link area view --}}
-
-        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                <svg class="nav-icon">
-                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-map"></use>
-                </svg> Khu vực</a>
-            <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="/admin/area/">Danh sách</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/area/create">Thêm Khu vực<span
-                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
-            </ul>
-        </li>
-
-        {{-- Link cinema view --}}
-        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
-                <svg class="nav-icon">
-                    <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-building"></use>
-                </svg>Rạp Chiếu</a>
-            <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="/admin/cinema/">Danh sách</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/cinema/create">Thêm Rạp Chiếu Phim<span
-                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
-            </ul>
-        </li>
 
         {{-- Link schedule view --}}
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
