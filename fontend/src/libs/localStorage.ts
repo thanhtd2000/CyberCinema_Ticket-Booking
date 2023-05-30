@@ -13,13 +13,14 @@ export function getStoredAuth(): TSignature | null {
 }
 
 export function checkAuth(): string {
-  const now: number = dayjs().unix();
-  const signature: TSignature | null = getStoredAuth();
-  const accessToken: string | null = signature ? signature.accessToken : null;
-  const expiredAt: number = signature ? +signature.expiredAt : 0;
-  if (!!accessToken && +now < +expiredAt) return accessToken;
-  return '';
-}
+      const now: number = dayjs().unix();
+      const signature: TSignature | null = getStoredAuth();
+      const accessToken: string | null = signature ? signature?.access_token : null;
+      const expiredAt: number = signature ? +dayjs(signature?.expires_at) : 0;
+      if (!!accessToken && +now < +expiredAt) return accessToken;
+      return '';
+    }
+    
 
 export function setStoredAuth(auth: TSignature): void {
   localStorage.setItem(SIGNATURE, JSON.stringify(auth));

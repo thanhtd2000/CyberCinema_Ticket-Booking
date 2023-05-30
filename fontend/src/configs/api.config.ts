@@ -44,7 +44,7 @@ export const request = async (
     // if (process.env.APP_ENV === 'production') {
     //   result = JSON.parse(decryptedData(data));
     // }
-    result = JSON.parse(decryptedData(data));
+//     result = JSON.parse(decryptedData(data));
     logger.debug('🚀🚀🚀 ~ Response API:', result);
     return result;
   };

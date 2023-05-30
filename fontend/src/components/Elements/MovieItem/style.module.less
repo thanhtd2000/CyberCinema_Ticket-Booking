@@ -1,8 +1,8 @@
 .movieItem {
   img {
     width: 100%;
-    height: 100%;
     border-radius: 20px;
+    object-fit: cover;
   }
   .movieImage {
     position: relative;
@@ -43,10 +43,14 @@
     font-size: 18px;
     color: #fff;
     display: -webkit-box;
+    cursor: pointer;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
     overflow: hidden;
     padding-top: 15px;
+  }
+  h4:hover{
+      text-decoration: underline;
   }
   .tag {
     background-color: orange;

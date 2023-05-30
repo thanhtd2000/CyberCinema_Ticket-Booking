@@ -25,7 +25,7 @@ const nextConfig = {
   },
   distDir: 'dist',
   images: {
-    domains: ['s3.cloud.cmctelecom.vn'],
+    domains: ['s3.cloud.cmctelecom.vn','storage.googleapis.com'],
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     const conf = config;

@@ -22,7 +22,7 @@ function Footer() {
                 <Col xs={24} sm={24} md={24} lg={9} xl={9}>
                   <Row>
                     <Col span={24}>
-                      <Image src='/images/Group 7.png' width={330} height={85} alt='logo' />
+                      <Image src='/images/logoCyberMovies.png' width={100} style={{objectFit: 'contain'}} height={100} alt='logo' />
                     </Col>
                     <Col span={24}>
                       <Paragraph className={style.desc}>Cyber Movies một trong những rạp chiếu phim có lượng khách hàng lớn cũng như có dịch vụ chu đáo giúp khách hàng có những trải nghiệm tuyệt vời</Paragraph>

@@ -20,6 +20,7 @@ export const baseParams = {
   page: 1,
   limit: 10,
   orderBy: EOrderBy.CREATED_DATE,
+  slug: '',
   order: EOrder.DESC,
   s: '',
 };

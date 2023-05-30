@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
-import { checkAuth, clearStoredAuth, getStoredAuth, setStoredAuth } from '@libs/localStorage';
+import { checkAuth, clearLocalStored, clearStoredAuth, getStoredAuth, setLocalStored, setStoredAuth } from '@libs/localStorage';
 import logger from '@libs/logger';
 import { TResApi, TResApiErr } from '@configs/interface.config';
 import { TAuth, TRegister, TRole, TSignature, TUser } from '@/modules';
@@ -10,27 +10,31 @@ import { refreshToken, register, signIn, signOut } from '../apis';
 import { USER_CURRENT_ROLE, USER_PROFILE } from '../keys';
 import { getProfile } from '../apis/user';
 import { getRoleCurrent } from '../apis/role';
+import { useRouter } from 'next/router';
+import { urlHeader } from '@/configs/const.config';
+import { StringDecoder } from 'string_decoder';
 
 /**
  * @method useQuerySignIn
  * @returns
  */
 export const useMutationSignIn = () => {
-  const queryClient = useQueryClient();
-  return useMutation(signIn, {
-    onSuccess: async (res: TResApi<TAuth>) => {
-      setStoredAuth(res.data.auth);
-      toast.success(res.message);
-    },
-    onError: (error: TResApiErr) => {
-      void clearStoredAuth();
-      toast.error(error.message || error.statusText);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries();
-    },
-  });
-};
+      const queryClient = useQueryClient();
+      return useMutation(signIn, {
+        onSuccess: async (res: TResApi<TAuth>) => {
+          setStoredAuth(res.auth);
+          setLocalStored(USER_PROFILE,res.user)
+          // toast.success(res.message);
+        },
+        onError: () => {
+          void clearStoredAuth();
+          // toast.error(error.message || error.statusText);
+        },
+        onSettled: () => {
+          queryClient.invalidateQueries();
+        },
+      });
+    };
 
 /**
  * @method useMutationSignOut
@@ -39,14 +43,15 @@ export const useMutationSignIn = () => {
 export const useMutationSignOut = () => {
   const queryClient = useQueryClient();
   const accessToken = checkAuth();
+  const router = useRouter();
   return useMutation(() => signOut(accessToken), {
     onSuccess: (data: TResApi) => {
       logger.debug('SignOut data:', data);
-      // Todo
+      clearLocalStored(USER_PROFILE)
+      router.push({ pathname: urlHeader.signIn });
     },
     onError: (error: TResApiErr) => {
       logger.error('SignOut error:', error);
-      // Todo
     },
     onSettled(data, error, variables, context) {
       logger.debug('signOut onSettled', data, error, variables, context);
@@ -87,21 +92,22 @@ export const useQueryRoleCurrent = (token: string) =>
  * @returns
  */
 export const refreshTokenFn: () => void = async () => {
-  const signature: TSignature | null = getStoredAuth();
-  if (signature) {
-    const result: TResApi = await refreshToken(signature.accessToken, signature?.refreshToken || '');
-    if (result.statusCode === 200) {
-      setStoredAuth({
-        ...signature,
-        accessToken: result.data.accessToken,
-        expiredAt: result.data.expiredAt,
-      });
-    }
-    return result;
-  }
-  // TODO ...
-  return false;
-};
+      const signature: TSignature | null = getStoredAuth();
+      if (signature) {
+        const result: TResApi = await refreshToken(signature.access_token, signature?.refresh_token || '');
+        if (result.statusCode === 200) {
+            console.log(result);
+          setStoredAuth({
+            ...signature,
+            access_token: result.access_token,
+            expires_at: result.expires_at,
+          });
+        }
+        return result;
+      }
+      // TODO ...
+      return false;
+    };
 
 
 export const useRegister = () => {
