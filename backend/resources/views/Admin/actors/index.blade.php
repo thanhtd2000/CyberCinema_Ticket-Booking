@@ -35,7 +35,7 @@
             @foreach ($actors as $key => $actor)
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
-                    <td><img src="{{ $actor->image }}" alt="" width="100px"></td>
+                    <td><img src="{{ $actor->image }}" alt="" width="50"></td>
                     <td>{{ $actor->name }}</td>
                     <td>{{ date('d/m/Y', strtotime($actor->birthday)) }}</td>
                     <td>{{ $actor->nationality }}</td>

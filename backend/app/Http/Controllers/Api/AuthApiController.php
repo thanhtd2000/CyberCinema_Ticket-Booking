@@ -92,7 +92,13 @@ class AuthApiController extends Controller
                   }
 
                   $user = $request->user();
-
+                  if ($user->role == 2) {
+                        Auth::logout();
+                        return response()->json([
+                              'status_code' => 401,
+                              'message' => 'Tài khoản đã bị khoá, hãy liên hệ admin để nhận trợ giúp',
+                        ],  401);
+                  }
                   $tokenResult = $user->createToken('authToken')->plainTextToken;
                   $refresh_token = $user->createToken('refresh_token')->plainTextToken;
                   return response()->json([
