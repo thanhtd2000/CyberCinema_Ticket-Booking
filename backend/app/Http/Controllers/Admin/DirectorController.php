@@ -32,9 +32,9 @@ class DirectorController extends Controller
         $keywords = $request->input('keywords');
         $directors = Director::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.directors.index', compact('directors','keywords'));
-    }    
-        
+        return view('admin.directors.index', compact('directors', 'keywords'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -55,13 +55,12 @@ class DirectorController extends Controller
     {
         $path = 'Directors/';
         $newDirecrtor = $request->toArray();
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image,$path);
+            $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             Director::create($newDirecrtor);
             return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
-            
-        }   
+        }
         return redirect('admin/director/index')->with('message', 'Thiếu ảnh');
     }
 
@@ -84,7 +83,7 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-        
+
         $director = Director::find($id);
         return view('admin.directors.edit', compact('director'));
     }
@@ -101,15 +100,15 @@ class DirectorController extends Controller
         $path = 'Directors/';
         $director = Director::find($id);
         $newDirector = $request->toArray();
-        if ($request->hasFile('image')){
-            // $this->firebaseHelper->deleteImage($actor->image, $path);
+        if ($request->hasFile('image')) {
+            $this->firebaseHelper->deleteImage($director->image, $path);
             $image = $request->file('image');
-            $newDirecrtor['image']= $this->firebaseHelper->uploadimageToFireBase($image,$path);
+            $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $director->update($newDirecrtor);
-            return redirect('admin/director/index')->with('message','Cập nhật thành công');
+            return redirect('admin/director/index')->with('message', 'Cập nhật thành công');
         }
         $director->update($newDirector);
-        return redirect('admin/director/index')->with('message', 'Sửa thành công!');
+        return redirect()->back()->with('message', 'Sửa thành công!');
     }
 
     /**

@@ -35,7 +35,7 @@
             @foreach ($directors as $key => $director)
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
-                    <td><img src="{{ $director->image }}" alt="" width="100px"></td>
+                    <td><img src="{{ $director->image }}" alt="" width="50"></td>
                     <td>{{ $director->name }}</td>
                     <td>{{ date('d/m/Y', strtotime($director->birthday)) }}</td>
                     <td>{{ $director->nationality }}</td>

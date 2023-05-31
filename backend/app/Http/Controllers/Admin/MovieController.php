@@ -78,8 +78,7 @@ class MovieController extends Controller
             $movieData['price'] = $request->price;
             $movieData['type'] = $request->type;
             $movieData['year_old'] = $request->year_old;
-            $slug = $this->generateUniqueSlug($request->name);
-            $movieData['slug'] = $slug;
+            $movieData['slug'] = $this->generateUniqueSlug($request->name);
             if ($request->isHot == 'on') {
                 $movieData['isHot'] = 0;
             };
@@ -130,16 +129,17 @@ class MovieController extends Controller
         } else {
             $movie->isHot = 1;
         };
+        $movie->slug = $this->generateUniqueSlug($request->name);
         $movie->save();
         $movie->actors()->sync($request->actors);
-        return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
+        return redirect()->back()->with('message', 'Sửa thành công');
     }
 
     public function destroy($id)
     {
         $this->movies->find($id)->delete();
         // DB::table('actor_movies')->where('movie_id', $id)->delete();
-        return redirect()->route('admin.movie')->with('message', 'Xoá Thành Công!');
+        return redirect()->back()->with('message', 'Xoá Thành Công!');
         //
     }
     public function trash()

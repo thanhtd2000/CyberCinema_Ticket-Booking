@@ -26,9 +26,9 @@ use App\Http\Controllers\Admin\SeatTypeController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 
 // login routes
@@ -81,10 +81,6 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/delete/{id}", [ActorController::class, 'destroy'])->name('admin.actor.destroy');
         Route::post("/index", [ActorController::class, 'search'])->name('admin.actor.search');
     });
-
-
-
-
 
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('admin.product');

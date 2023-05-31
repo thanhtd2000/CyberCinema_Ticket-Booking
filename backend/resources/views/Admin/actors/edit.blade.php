@@ -31,7 +31,7 @@
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
         </div>
-        <img src="{{ $actor->image }}" alt="">
+        <img src="{{ $actor->image }}" alt="" width="50">
 
         <label class="form-label">Gender</label>
         <div class="form-floating">
