@@ -9,7 +9,6 @@
     <title>Admin</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <link rel="manifest" href="../../../dist/assets/favicon/manifest.json">
-    <script src="https://cdn.tailwindcss.com"></script>
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../../../dist/assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -44,9 +43,15 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <style>
+        a {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
+
     @include('Admin.layouts.sidebar')
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <header class="header header-sticky mb-4">
@@ -77,8 +82,8 @@
                 <ul class="header-nav ms-3">
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
                             role="button" aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="{{ Auth::user()->image }}" alt="user@email.com">
+                            <div class="avatar avatar-md"><img class="avatar-img" src="{{ Auth::user()->image }}"
+                                    alt="user@email.com">
                             </div>
                         </a>
                         <!-- account -->
