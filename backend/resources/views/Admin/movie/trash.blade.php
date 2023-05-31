@@ -21,19 +21,14 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Tên</th>
-                <th scope="col">Mô tả</th>
+                {{-- <th scope="col">Mô tả</th> --}}
                 <th scope="col">Thời gian ra rạp</th>
                 <th scope="col">Tác Giả</th>
                 <th scope="col">Diễn Viên</th>
                 <th scope="col">Danh mục</th>
-                <th scope="col">Trailer</th>
                 <th scope="col">Thời Lượng</th>
                 <th scope="col">Ngôn Ngữ</th>
-                <th scope="col">Ảnh</th>
-                <th scope="col">Giá</th>
-                <th scope="col">Slug</th>
-                <th scope="col">Thời gian tạo</th>
-                <th scope="col">Thời gian update</th>
+                <th scope="col">Chức Năng</th>
             </tr>
         </thead>
         <tbody>
@@ -41,12 +36,6 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td>{{ $movie->name }}</td>
-                    <td
-                        style="display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;">
-                        {{ $movie->description }}</td>
                     <td>{{ $movie->date }}</td>
                     <td>{{ $movie->director->name }}</td>
                     <td>
@@ -55,21 +44,74 @@
                         @endforeach
                     </td>
                     <td>{{ $movie->category->name }}</td>
-                    <td>{{ $movie->trailer }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><img src="{{ $movie->image }}" alt="" width="100"></td>
-                    <td>{{ $movie->price }}</td>
-                    <td>{{ $movie->slug }}</td>
-                    <td>{{ $movie->created_at }}</td>
-                    <td>{{ $movie->updated_at }}</td>
                     <td><button type="button" class="btn btn-success"><a
                                 onclick=" return confirm('Bạn có chắc chắn khôi phục?')"
-                                href="{{ route('admin.movie.restore', $movie->id) }}">Khôi Phục</a></button>
+                                href="{{ route('admin.movie.restore', $movie->id) }}">Khôi Phục</a></button><button
+                            type="button" class="btn btn-danger"><a
+                                onclick=" return confirm('Bạn có chắc chắn xoá vĩnh viễn ?')"
+                                href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 2]) }}">Xoá</a></button>
                     </td>
+                    <td> <button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
+                            tiết</button></td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="modal fade" id="movie-modal" tabindex="-1" role="dialog" aria-labelledby="movie-modal-label"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="movie-modal-label"><b>Chi tiết phim</b></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <b>Tên phim:</b>
+                    <h3 id="movie-name"></h3>
+                    <b>Trailler</b>
+                    <p id="movie-trailer"></p>
+                    <b>Mô tả</b>
+                    <p id="movie-description"></p>
+                    <b>Is Hot</b>
+                    <p id="movie-isHot"></p>
+                    <b>Thời gian tạo:</b>
+                    <p id="movie-created_at"></p>
+                    <b>Thời gian cập nhật:</b>
+                    <p id="movie-updated_at"></p>
+                    <b>Ảnh</b>
+                    <img id="movie-image" src="" width="300px" alt="Movie Image">
+                </div>
+            </div>
+        </div>
+    </div>
     {{ $movies->appends(request()->all())->links() }}
+
+    <script>
+        $(document).ready(function() {
+            $('.movie-detail').click(function() {
+                var movieId = $(this).data('movie-id');
+                $.ajax({
+                    url: '/admin/movie/show/' + movieId,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        var isHotText = response.movie.isHot == 1 ? 'Có' : 'Không';
+                        $('#movie-name').text(response.movie.name);
+                        $('#movie-trailer').text(response.movie.trailer);
+                        $('#movie-description').text(response.movie.description);
+                        $('#movie-isHot').text(isHotText);
+                        $('#movie-created_at').text(response.movie.created_at);
+                        $('#movie-updated_at').text(response.movie.updated_at);
+                        $('#movie-image').attr('src', response.movie.image);
+
+                        $('#movie-modal').modal('show');
+                    }
+                });
+            });
+        });
+    </script>
 @endsection

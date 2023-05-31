@@ -135,11 +135,14 @@ class MovieController extends Controller
         return redirect()->back()->with('message', 'Sửa thành công');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $this->movies->find($id)->delete();
-        // DB::table('actor_movies')->where('movie_id', $id)->delete();
-        return redirect()->back()->with('message', 'Xoá Thành Công!');
+        if ($request->type == 2) {
+            $this->movies->withTrashed()->find($request->id)->forceDelete();
+            return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
+        }
+        $this->movies->find($request->id)->delete();
+        return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
         //
     }
     public function trash()
@@ -164,7 +167,7 @@ class MovieController extends Controller
     }
     public function show($id)
     {
-        $movie = $this->movies->find($id);
+        $movie = $this->movies->withTrashed()->find($id);
 
         // Kiểm tra xem phim có tồn tại hay không
         if (!$movie) {
