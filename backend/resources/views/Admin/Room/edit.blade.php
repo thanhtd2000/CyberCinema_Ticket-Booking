@@ -55,11 +55,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Loại ghế</label>
                             <select class="form-control" id="exampleFormControlSelect1">
-                              <option>1</option>
-                              <option>2</option>
-                              <option>3</option>
-                              <option>4</option>
-                              <option>5</option>
+                                @foreach($seatType as $type)
+                                 <option value="{{$type->id}}">{{$type->name}}</option>
+                                @endforeach
                             </select>
                           </div>
                         <div class="mb-3">
@@ -72,12 +70,11 @@
                         </div>
                   
                    
-                    <button type="submit" class="btn btn-outline-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                 </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-outline-primary">Save changes</button>
+              
             </div>
           </div>
         </div>

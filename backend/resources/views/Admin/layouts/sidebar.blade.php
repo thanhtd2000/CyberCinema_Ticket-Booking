@@ -1,7 +1,7 @@
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
         <a href="{{ route('admin.index') }}">
-            <img class="sidebar-brand-full" width="70" height="30" src="../../../uploads/logo/logo.png"
+            <img class="sidebar-brand-full" width="70"  src="../../../uploads/logo/logo.png"
                 alt="">
         </a>
     </div>

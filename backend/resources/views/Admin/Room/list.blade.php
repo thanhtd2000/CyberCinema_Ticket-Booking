@@ -4,7 +4,7 @@
 @section('content')
 
 <button class="btn btn-primary">
-    <a class="text-white" href="{{route('admin.room.create')}}">Add</a>
+    <a class="text-white" href="{{route('admin.room.create')}}">Thêm</a>
 </button>
 <table class="table">
     <thead>
