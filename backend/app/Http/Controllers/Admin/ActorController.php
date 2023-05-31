@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Actor;
 use Illuminate\Http\Request;
+use App\Helpers\FirebaseHelper;
 use App\Http\Requests\ActorRequest;
 use App\Http\Controllers\Controller;
 
 
 class ActorController extends Controller
 {
+    public $firebaseHelper;
+    public function __construct()
+    {
+        $this->firebaseHelper = new FirebaseHelper();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class ActorController extends Controller
     public function index()
     {
         $actors = Actor::paginate(10);
-        return view('Admin.actors.index',compact('actors'));
+        return view('Admin.actors.index', compact('actors'));
     }
 
 
@@ -27,8 +34,8 @@ class ActorController extends Controller
         $keywords = $request->input('keywords');
         $actors = Actor::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.actors.index', compact('actors','keywords'));
-    }    
+        return view('admin.actors.index', compact('actors', 'keywords'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -48,10 +55,15 @@ class ActorController extends Controller
      */
     public function store(ActorRequest $request)
     {
+        $path = 'Actors/';
         $newActor = $request->toArray();
-        Actor::create($newActor);
-        return redirect('admin/actor/index')->with('message', 'Thêm thành công');
-        
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            Actor::create($newActor);
+            return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+        }
+        return redirect('admin/actor/index')->with('message', 'Thiếu ảnh');
     }
 
     /**
@@ -62,7 +74,7 @@ class ActorController extends Controller
      */
     // public function show($id)
     // {
-        
+
     // }
 
     /**
@@ -74,7 +86,7 @@ class ActorController extends Controller
     public function edit($id)
     {
         $actor = Actor::find($id);
-        return view('admin.actors.edit',compact('actor'));
+        return view('admin.actors.edit', compact('actor'));
     }
 
     /**
@@ -86,11 +98,18 @@ class ActorController extends Controller
      */
     public function update(ActorRequest $request, $id)
     {
-        $request = $request->except(['_token', '_method']);
-        // dd($request);
-        Actor::where('id',$id)->update($request);
+        $path = 'Actors/';
+        $actor = Actor::find($id);
+        $newActor = $request->toArray();
+        if ($request->hasFile('image')) {
+            // $this->firebaseHelper->deleteImage($actor->image, $path);
+            $image = $request->file('image');
+            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            $actor->update($newActor);
+            return redirect('admin/actor/index')->with('message', 'Cập nhật thành công');
+        }
+        $actor->update($newActor);
         return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
-        
     }
 
     /**
@@ -103,6 +122,5 @@ class ActorController extends Controller
     {
         Actor::find($id)->delete();
         return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
-        
     }
 }
