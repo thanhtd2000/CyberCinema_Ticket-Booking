@@ -2,37 +2,60 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\Cinema;
 use App\Models\Room;
-use App\Models\SeatRow;
+use App\Models\Seat;
 use App\Models\SeatType;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\RoomRequest;
 
 class RoomController extends Controller
 {
     public $room;
-    public $seatRow;
+    public $seat;
     public $seatType;
-    public $cinema;
-    public function __construct(Room $room, SeatRow $seatRow , SeatType $seatType, Cinema $cinema)
+ 
+    public function __construct(Room $room, Seat $seat , SeatType $seatType)
     {
         $this->room =$room;
-        $this->seatRow =$seatRow;
+        $this->seat =$seat;
         $this->seatType =$seatType;
-        $this->cinema =$cinema;
+ 
     }
 
     public function index()
     {
-        return view('Admin/Room/list');
+        $rooms = $this->room->paginate(5);
+        return view('Admin/Room/list',compact('rooms'));
     }
 
     public function create()
     {
-        $cinemas = $this->cinema->get();
+       
         $seatTypes = $this->seatType->get();
-        $seatRows = $this->seatRow->get();
-        return view('Admin/Room/create',compact('seatTypes','seatRows','cinemas'));
+       
+        return view('Admin/Room/create',compact('seatTypes'));
     }
+   public function store(RoomRequest $roomRequest){
+        $data = 
+        [
+            'name' => $roomRequest->name,
+            'row' => $roomRequest->row,
+            'column' => $roomRequest->column
+        ];
+        $this->room->create($data);
+        return redirect()->route('admin.room')->with('message','Thêm thành công!');
+   }
+
+   public function edit($id)
+   {
+        $seatType = $this->seatType->get();
+        $seat = $this ->seat->get();
+        $room = $this -> room ->find($id);
+        $alphabet = range('A', 'Z');
+        $num_of_elements = $room->row;
+        $elements = array_slice($alphabet, 0, $num_of_elements);
+        
+        return view('Admin/Room/edit',compact('room','seatType','seat','elements'));
+   }
 }

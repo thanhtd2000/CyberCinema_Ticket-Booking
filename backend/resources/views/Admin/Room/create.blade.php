@@ -5,7 +5,7 @@
 <div class="row">
    
     
-    <form method="POST" action="{{route('admin.seat_type.store')}}" class="container">
+    <form method="POST" action="{{route('admin.room.store')}}" class="container">
         @csrf
         <div class="col-md-6">
             <div class="mb-3">
@@ -15,60 +15,36 @@
                 @error('name')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
-            </div>
-
+            </div>        
+        </div>
+        <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label">Chọn rạp</label>
-                <select class="form-control" name="cinemas">
-                    <option value="">Chọn rạp chiếu</option>
-                    @foreach($cinemas as $cinema)
-                    <option value="{{$cinema->id}}">{{$cinema->name}}</option>
-                    @endforeach
-                </select>
+                <label class="form-label">Số hàng</label>
+                <input type="number" name="row" class="form-control" value="{{old('row')}}">
         
-                @error('cinemas')
+                @error('row')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
-            </div>
+            </div>        
         </div>
-        <div class="row">
-            <label class="form-label">Chọn hàng</label>
-            @foreach ($seatRows as $seatRow)
-                <div class="col-md-4 seats" style="padding-left: 40px">
-                    <div class="mb-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input row_seat" name="seat_row[]" type="checkbox" id="inlineCheckbox2" value="{{$seatRow->id }}">
-                            <label class="form-check-label" for="inlineCheckbox2">Hàng {{ $seatRow->name }}</label>
-                        </div>
-                        <div class="mb-3 number_seat" style="display: none">
-                            <label class="form-label">Số ghế </label>
-                            <input type="number" name="number_seat[]" class="form-control " value="{{old('name')}}">
-                    
-                            @error('name')
-                                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                            @enderror
-                        </div>
-                      @foreach ($seatTypes as $seatType)
-                        <div class="form-check form-check-inline type_seat" style="display: none">
-                            <input class="form-check-input " type="radio" name="seat_type[]" id="inlineRadio2" value="{{$seatType->id}}">
-                            <label class="form-check-label" for="inlineRadio2">{{ $seatType->name }}</label>
-                        </div>
-            
-                        @error('name')
-                            <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-                        @enderror
-                      @endforeach
-                    </div>
-                </div>
-            @endforeach
+        <div class="col-md-6">
+            <div class="mb-3">
+                <label class="form-label">Số cột</label>
+                <input type="number" name="column" class="form-control" value="{{old('column')}}">
+        
+                @error('column')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>        
         </div>
+       
         <button type="submit" class="btn btn-outline-primary">Submit</button>
     </form>
 </div>
    
 @endsection
 
-@section('js')
+{{-- @section('js')
     <script>
         $(document).ready(function() {
                 $('.row_seat').click(function() {
@@ -78,4 +54,4 @@
                 });
             });
     </script>
-@endsection
+@endsection --}}
