@@ -1,5 +1,5 @@
 <footer class="footer">
-    <div class="ms-auto">Powered by&nbsp;<a href="">Thành</a></div>
+    <div class="ms-auto">Powered by&nbsp;<a href="index">Cinema Movie Team</a></div>
 </footer>
 <!-- CoreUI and necessary plugins-->
 <script src="../../../dist

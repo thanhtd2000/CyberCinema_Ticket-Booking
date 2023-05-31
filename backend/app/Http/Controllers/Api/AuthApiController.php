@@ -147,6 +147,10 @@ class AuthApiController extends Controller
       public function logout(Request $request)
       {
             if ($user = $request->user()) {
+                  if ($user->remember_token) {
+                        $user->remember_token = null;
+                        $user->save();
+                  }
                   $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
                   return response()->json([
                         'status_code' => 200,

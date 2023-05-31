@@ -37,12 +37,6 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td>{{ $movie->name }}</td>
-                    {{-- <td
-                        style="display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;">
-                        {{ $movie->description }}</td> --}}
                     <td>{{ $movie->date }}</td>
                     <td>{{ $movie->director->name }}</td>
                     <td>
@@ -56,7 +50,7 @@
                     <td><button type="button" class="btn btn-success"><a
                                 href="{{ route('admin.movie.edit', $movie->id) }}">Sửa</a></button>
                         <button type="button" class="btn btn-danger"><a onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                href="{{ route('admin.movie.delete', $movie->id) }}">Xoá</a></button>
+                                href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 1]) }}">Xoá</a></button>
 
                     </td>
                     <td> <button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
@@ -101,17 +95,16 @@
         $(document).ready(function() {
             $('.movie-detail').click(function() {
                 var movieId = $(this).data('movie-id');
-
                 $.ajax({
                     url: '/admin/movie/show/' + movieId,
                     type: 'GET',
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response.movie);
+                        var isHotText = response.movie.isHot == 1 ? 'Có' : 'Không';
                         $('#movie-name').text(response.movie.name);
                         $('#movie-trailer').text(response.movie.trailer);
                         $('#movie-description').text(response.movie.description);
-                        $('#movie-isHot').text(response.movie.isHot);
+                        $('#movie-isHot').text(isHotText);
                         $('#movie-created_at').text(response.movie.created_at);
                         $('#movie-updated_at').text(response.movie.updated_at);
                         $('#movie-image').attr('src', response.movie.image);

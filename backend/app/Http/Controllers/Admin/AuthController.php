@@ -46,6 +46,10 @@ class AuthController extends Controller
     }
     public function logout()
     {
+        if (Auth::user()->remember_token) {
+            Auth::user()->remember_token = null;
+            Auth::user()->save();
+        }
         session()->flush();
         Auth::logout();
 
