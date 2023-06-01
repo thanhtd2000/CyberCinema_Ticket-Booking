@@ -17,12 +17,6 @@ class MovieController extends Controller
         $this->movies = $movie;
     }
 
-    // public function index()
-    // {
-    //     $movies = Movie::latest()->paginate(2);
-    //     $data = new MovieCollection($movies);
-    //     return response()->json($data, 200);
-    // }
 
     public function index(Request $request)
     {

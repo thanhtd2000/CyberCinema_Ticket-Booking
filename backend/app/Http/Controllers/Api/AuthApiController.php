@@ -70,7 +70,7 @@ class AuthApiController extends Controller
             $path = 'Avatars/';
             $user = $request->user();
             $newUser = $request;
-            if ($request->password) {
+            if (!empty($request->password)) {
                   $user->password = bcrypt($newUser['password']);
             }
             if ($request->hasFile('image')) {
@@ -78,12 +78,12 @@ class AuthApiController extends Controller
                   $image = $request->file('image');
                   $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             }
-            $user->name = $newUser['name'];
-            $user->email = $newUser['email'];
-            $user->role = $newUser['role'];
-            $user->phone = $newUser['phone'];
-            $user->sex = $newUser['sex'];
-            $user->birthday = $newUser['birthday'];
+            $user->name = $newUser['name'] ?? $user->name;
+            $user->email = $newUser['email'] ?? $user->email;
+            $user->role = $newUser['role'] ?? $user->role;
+            $user->phone = $newUser['phone'] ?? $user->phone;
+            $user->sex = $newUser['sex'] ?? $user->sex;
+            $user->birthday = $newUser['birthday'] ?? $user->birthday;
             $user->save();
 
             return response()->json([
