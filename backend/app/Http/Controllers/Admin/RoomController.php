@@ -43,19 +43,33 @@ class RoomController extends Controller
             'row' => $roomRequest->row,
             'column' => $roomRequest->column
         ];
-        $this->room->create($data);
+
+        $room= $this->room->create($data);
+        $alphabet = range('A', 'Z');
+        $num_of_elements = $room->row;
+        $elements = array_slice($alphabet, 0, $num_of_elements);
+        foreach($elements as $element){
+           for($i=1 ;$i <= $room->column;$i++){
+            $dataSeat = [
+                'name' => $element.$i,
+                'type_id'=> 2 ,
+                'room_id'=> $room->id
+            ];
+            $this->seat->create($dataSeat);
+           }
+        }
         return redirect()->route('admin.room')->with('message','Thêm thành công!');
    }
 
    public function edit($id)
    {
         $seatType = $this->seatType->get();
-        $seat = $this ->seat->get();
+        $seats = $this ->seat->where('room_id', $id)->get();
         $room = $this -> room ->find($id);
         $alphabet = range('A', 'Z');
         $num_of_elements = $room->row;
         $elements = array_slice($alphabet, 0, $num_of_elements);
         
-        return view('Admin/Room/edit',compact('room','seatType','seat','elements'));
+        return view('Admin/Room/edit',compact('room','seatType','seats','elements'));
    }
 }
