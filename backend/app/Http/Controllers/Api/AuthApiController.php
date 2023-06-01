@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Helpers\FirebaseHelper;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProfileRequests;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
-use App\Helpers\FirebaseHelper;
 
 class AuthApiController extends Controller
 {
@@ -62,6 +63,33 @@ class AuthApiController extends Controller
             }
             // Lưu ảnh đại diện nếu có
 
+      }
+
+      public function update(ProfileRequests $request)
+      {
+            $path = 'Avatars/';
+            $user = $request->user();
+            $newUser = $request;
+            if ($request->password) {
+                  $user->password = bcrypt($newUser['password']);
+            }
+            if ($request->hasFile('image')) {
+                  $this->firebaseHelper->deleteImage($user->image, $path);
+                  $image = $request->file('image');
+                  $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            }
+            $user->name = $newUser['name'];
+            $user->email = $newUser['email'];
+            $user->role = $newUser['role'];
+            $user->phone = $newUser['phone'];
+            $user->sex = $newUser['sex'];
+            $user->birthday = $newUser['birthday'];
+            $user->save();
+
+            return response()->json([
+                  'status_code' => 200,
+                  'message' => 'Successfully'
+            ], 200);
       }
 
       //login
@@ -163,24 +191,24 @@ class AuthApiController extends Controller
                   ], 409);
             }
       }
-      public function changeImage(Request $request)
-      {
-            $path = 'Avatars/';
-            $user = $request->user();
-            if ($request->hasFile('image')) {
+      // public function changeImage(Request $request)
+      // {
+      //       $path = 'Avatars/';
+      //       $user = $request->user();
+      //       if ($request->hasFile('image')) {
 
-                  $this->firebaseHelper->deleteImage($user->image, $path);
-                  $image = $request->file('image');
-                  $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
-                  $user->save();
-                  return response()->json([
-                        'status_code' => 200,
-                        'message' => 'Successfully'
-                  ], 200);
-            };
-            return response()->json([
-                  'status_code' => 400,
-                  'message' => 'No image file found'
-            ], 400);
-      }
+      //             $this->firebaseHelper->deleteImage($user->image, $path);
+      //             $image = $request->file('image');
+      //             $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+      //             $user->save();
+      //             return response()->json([
+      //                   'status_code' => 200,
+      //                   'message' => 'Successfully'
+      //             ], 200);
+      //       };
+      //       return response()->json([
+      //             'status_code' => 400,
+      //             'message' => 'No image file found'
+      //       ], 400);
+      // }
 }
