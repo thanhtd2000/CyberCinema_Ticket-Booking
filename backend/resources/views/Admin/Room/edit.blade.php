@@ -38,9 +38,9 @@
                                 return $t->name == $element . $j;
                             });
                         @endphp
-                        <a @if ($seat->type_id == 1) class="btn btn-success"
-                        @elseif ($seat->type_id == 2) class="btn btn-primary"
-                        @elseif ($seat->type_id == 3) class="btn btn-danger"
+                        <a @if ($seat->type_id == 1) class="btn btn-success seat-detail"
+                        @elseif ($seat->type_id == 2) class="btn btn-primary seat-detail"
+                        @elseif ($seat->type_id == 3) class="btn btn-danger seat-detail"
                         @else class="btn btn-outline-dark seat-detail" @endif
                             style="width: 55px; margin:10px" data-toggle="modal"  data-target="#seats" data-seat-id="{{$seat->id}}">
                             {{ $element . $j }}
