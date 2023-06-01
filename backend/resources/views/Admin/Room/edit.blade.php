@@ -72,6 +72,7 @@
 
                         <div class="mb-3">
                             <label class="form-label">Tên Ghế</label>
+                            <input type="hidden" id="seat-id" value="">
                             <input type="text" name="name" class="form-control name" id="name" value="" required>
 
                             @error('name')
@@ -97,7 +98,7 @@
                         </div>
 
 
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary save-seat">Submit</button>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -138,7 +139,7 @@
                     
                     dataType: 'json',
                     success: function(response) {
-                     
+                        $('#seat-id').val(response.seat.id);
                         $('#name').val(response.seat.name);
                         $('#type').val(response.seat.type_id);
 
@@ -147,5 +148,8 @@
                 });
             });
         });
+        // $(document).on('submit','.save-seat', function(e){
+
+        // })
     </script>
 @endsection

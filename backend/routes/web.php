@@ -118,7 +118,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/create', [SeatController::class, 'create'])->name('admin.seat_row.create');
         Route::post('/store', [SeatController::class, 'store'])->name('admin.seat_row.store');
         Route::get('/edit/{id}', [SeatController::class, 'edit'])->name('admin.seat.edit');
-        Route::put('/update/{id}', [SeatController::class, 'update'])->name('admin.seat_row.update');
+        Route::put('/update/{id}', [SeatController::class, 'update'])->name('admin.seat.update');
         Route::get('/delete/{id}', [SeatController::class, 'destroy'])->name('admin.seat_row.delete');
     });
     Route::prefix('posts')->group(function () {
