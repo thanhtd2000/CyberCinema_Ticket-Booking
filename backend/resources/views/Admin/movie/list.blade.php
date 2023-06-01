@@ -3,7 +3,7 @@
 @extends('Admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-danger" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
+                class="text-white" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
             <form action="{{ route('admin.movie.search') }}" method="POST" class="d-flex">
                 @csrf
@@ -11,12 +11,13 @@
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
                         class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
 
-        </div><button type="button" class="btn btn-primary"><a class="text-danger"
+        </div><button type="button" class="btn btn-danger"><a class="text-white"
                 href="{{ route('admin.movie.trash') }}">Thùng Rác</a></button>
     </div>
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -47,9 +48,10 @@
                     <td>{{ $movie->category->name }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><button type="button" class="btn btn-success"><a
+                    <td><button type="button" class="btn btn-success"><a class="text-white"
                                 href="{{ route('admin.movie.edit', $movie->id) }}">Sửa</a></button>
-                        <button type="button" class="btn btn-danger"><a onclick=" return confirm('Bạn có chắc chắn xoá?')"
+                        <button type="button" class="btn btn-danger"><a class="text-white"
+                                onclick=" return confirm('Bạn có chắc chắn xoá?')"
                                 href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 1]) }}">Xoá</a></button>
 
                     </td>
@@ -71,7 +73,7 @@
                 </div>
                 <div class="modal-body">
                     <b>Tên phim:</b>
-                    <h3 id="movie-name"></h3>
+                    <h4 id="movie-name"></h4>
                     <b>Trailler</b>
                     <p id="movie-trailer"></p>
                     <b>Mô tả</b>

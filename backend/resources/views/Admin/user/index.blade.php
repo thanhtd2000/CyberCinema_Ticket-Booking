@@ -3,7 +3,7 @@
 @extends('admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-danger" href="create">Thêm mới</a></button>
+                class="text-white" href="create">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
             <form action="{{ route('users.search') }}" method="POST" class="d-flex">
                 @csrf
@@ -11,7 +11,7 @@
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
                         class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
         </div>
     </div>
@@ -22,6 +22,7 @@
             </h4>
         @endif
     </div>
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -46,9 +47,9 @@
                         <td>{{ $us->created_at }}</td>
                         <td>
                             @if (!$us->role == 0 && $us->id != Auth::user()->id)
-                                <button type="button" class="btn btn-success"><a
+                                <button type="button" class="btn btn-success"><a class="text-white"
                                         href="edit/{{ $us->id }}">Sửa</a></button>
-                                <button type="button" class="btn btn-danger"><a
+                                <button type="button" class="btn btn-danger"><a class="text-white"
                                         onclick=" return confirm('Bạn có chắc chắn xoá?')"
                                         href="delete/{{ $us->id }}">Xoá</a></button>
                             @endif
