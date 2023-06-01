@@ -67,7 +67,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Thời Lượng Phim</label>
-            <input type="time" name="time" class="form-control" value="{{ $movie->time }}">
+            <input type="text" name="time" class="form-control" value="{{ $movie->time }}">
         </div>
         <div class="error">
             @if ($errors->has('time'))

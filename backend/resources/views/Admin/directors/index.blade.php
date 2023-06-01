@@ -6,6 +6,7 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
+                <th scope="col">Image</th>
                 <th scope="col">Name</th>
                 <th scope="col">Birthday</th>
                 <th scope="col">Nationality</th>
@@ -34,6 +35,7 @@
             @foreach ($directors as $key => $director)
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
+                    <td><img src="{{ $director->image }}" alt="" width="50"></td>
                     <td>{{ $director->name }}</td>
                     <td>{{ date('d/m/Y', strtotime($director->birthday)) }}</td>
                     <td>{{ $director->nationality }}</td>

@@ -2,7 +2,7 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-    <form method="POST" action="{{ route('admin.director.update', $director->id) }}" class="container">
+    <form method="POST" action="{{ route('admin.director.update', $director->id) }}" class="container" enctype="multipart/form-data">
         @csrf
         @method('put')
         <div class="mb-3">
@@ -22,6 +22,16 @@
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
         </div>
+
+        <div class="mb-3">
+            <label class="form-label">Image</label>
+            <input type="file" name="image" class="form-control">
+
+            @error('image')
+                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            @enderror
+        </div>
+        <img src="{{ $director->image }}" alt="" width="50">
 
         <label class="form-label">Gender</label>
         <div class="form-floating">

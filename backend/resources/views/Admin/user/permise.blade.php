@@ -2,7 +2,7 @@
 @extends('admin.layouts.master')
 @extends('admin.layouts.header')
 @section('content')
-    <button type="button" class="btn btn-primary"><a class="text-danger" href="create">Thêm mới</a></button>
+    <button type="button" class="btn btn-primary"><a class="text-white" href="create">Thêm mới</a></button>
     <div class="message text-center">
         @if (session('message'))
             <h4 class="aler alert-danger pt-3 pb-3">
@@ -10,6 +10,7 @@
             </h4>
         @endif
     </div>
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -35,18 +36,18 @@
                     <td>
                         @if ($us->role != 0)
                             @if ($us->role != 3)
-                                <button type="button" class="btn btn-success"><a
+                                <button type="button" class="btn btn-success"><a class="text-white"
                                         onclick=" return confirm('Bạn có chắc chắn?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 3]) }}">Kiểm
                                         duyệt</a></button>
                             @endif
                             @if ($us->role == 1||$us->role ==3 )
-                                <button type="button" class="btn btn-danger"><a
+                                <button type="button" class="btn btn-danger"><a class="text-white"
                                         onclick=" return confirm('Bạn có chắc chắn block?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 2]) }}">Block</a></button>
                             @endif
                             @if ($us->role !==2&&$us->role !==1)
-                                <button type="button" class="btn btn-info"><a
+                                <button type="button" class="btn btn-info"><a class="text-white"
                                         onclick=" return confirm('Bạn có chắc chắn block?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 1]) }}">Thành
                                         viên</a></button>

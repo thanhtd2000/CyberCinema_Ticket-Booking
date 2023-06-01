@@ -35,7 +35,7 @@ class AuthController extends Controller
                 return redirect('admin/index')->with('message', 'Đăng nhập thành công');
             } else if (Auth::user()->role == 2) {
                 Auth::logout();
-                return redirect('/')->with('message', 'Tài khoản đã bị khoá không thể sử dụng các tính năng của website , hãy liên hệ
+                return redirect('admin/login')->with('message', 'Tài khoản đã bị khoá không thể sử dụng các tính năng của website , hãy liên hệ
                 admin để nhận trợ giúp');
             } else {
                 return redirect('/');
@@ -46,8 +46,13 @@ class AuthController extends Controller
     }
     public function logout()
     {
+        if (Auth::user()->remember_token) {
+            Auth::user()->remember_token = null;
+            Auth::user()->save();
+        }
         session()->flush();
         Auth::logout();
+
         return redirect()->route('login')->with('message', 'Đăng xuất thành công');
     }
 }

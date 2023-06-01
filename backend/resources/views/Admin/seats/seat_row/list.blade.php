@@ -4,7 +4,7 @@
 @section('content')
 
 <button class="btn btn-primary">
-    <a class="text-white" href="{{route('admin.seat_row.create')}}">Add</a>
+    <a class="text-white" href="{{route('admin.seat_row.create')}}">Thêm</a>
 </button>
 <table class="table">
     <thead>
@@ -32,4 +32,9 @@
         @endforeach
     </tbody>
 </table>
+<div class="col-md-12">
+
+
+    {{ $seatRows->links() }}
+</div>
 @endsection

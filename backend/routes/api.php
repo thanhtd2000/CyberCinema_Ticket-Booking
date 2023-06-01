@@ -28,3 +28,5 @@ Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
 
 //posts
 Route::get('/get/posts', [Postcontroller::class, 'index']);
+//users
+Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);
