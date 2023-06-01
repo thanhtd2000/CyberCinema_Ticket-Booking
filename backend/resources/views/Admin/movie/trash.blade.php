@@ -3,7 +3,7 @@
 @extends('Admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-danger" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
+                class="text-white" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
             <form action="{{ route('admin.movie.search') }}" method="POST" class="d-flex">
                 @csrf
@@ -11,11 +11,12 @@
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
                         class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
-        </div><button type="button" class="btn btn-primary"><a class="text-danger" href="{{ route('admin.movie') }}">Kho
+        </div><button type="button" class="btn btn-primary"><a class="text-white" href="{{ route('admin.movie') }}">Kho
                 Phim</a></button>
     </div>
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -46,7 +47,7 @@
                     <td>{{ $movie->category->name }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><button type="button" class="btn btn-success"><a
+                    <td><button type="button" class="btn btn-success"><a class="text-white"
                                 onclick=" return confirm('Bạn có chắc chắn khôi phục?')"
                                 href="{{ route('admin.movie.restore', $movie->id) }}">Khôi Phục</a></button><button
                             type="button" class="btn btn-danger"><a
@@ -71,7 +72,7 @@
                 </div>
                 <div class="modal-body">
                     <b>Tên phim:</b>
-                    <h3 id="movie-name"></h3>
+                    <h4 id="movie-name"></h4>
                     <b>Trailler</b>
                     <p id="movie-trailer"></p>
                     <b>Mô tả</b>
