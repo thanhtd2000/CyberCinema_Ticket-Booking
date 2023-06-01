@@ -51,7 +51,7 @@ class MovieController extends Controller
     }
     public function index()
     {
-        $movies = $this->movies->latest()->paginate(10);;
+        $movies = $this->movies->latest()->paginate(5);;
         return view('Admin.movie.list', compact('movies'))->with($this->data);
     }
 
@@ -78,20 +78,21 @@ class MovieController extends Controller
             $movieData['price'] = $request->price;
             $movieData['type'] = $request->type;
             $movieData['year_old'] = $request->year_old;
-            $slug = $this->generateUniqueSlug($request->name);
-            $movieData['slug'] = $slug;
+            $movieData['slug'] = $this->generateUniqueSlug($request->name);
             if ($request->isHot == 'on') {
                 $movieData['isHot'] = 0;
             };
             $movie = $this->movies->create($movieData);
         }
-        foreach ($request->actors as $actor) {
-            DB::table('actor_movies')->insert([
-                [
-                    'movie_id' =>  $movie->id,
-                    'actor_id' => $actor,
-                ]
-            ]);
+        if ($movie) {
+            foreach ($request->actors as $actor) {
+                DB::table('actor_movies')->insert([
+                    [
+                        'movie_id' =>  $movie->id,
+                        'actor_id' => $actor,
+                    ]
+                ]);
+            }
         }
         return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
     }
@@ -128,16 +129,20 @@ class MovieController extends Controller
         } else {
             $movie->isHot = 1;
         };
+        $movie->slug = $this->generateUniqueSlug($request->name);
         $movie->save();
         $movie->actors()->sync($request->actors);
-        return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
+        return redirect()->back()->with('message', 'Sửa thành công');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $this->movies->find($id)->delete();
-        // DB::table('actor_movies')->where('movie_id', $id)->delete();
-        return redirect()->route('admin.movie')->with('message', 'Xoá Thành Công!');
+        if ($request->type == 2) {
+            $this->movies->withTrashed()->find($request->id)->forceDelete();
+            return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
+        }
+        $this->movies->find($request->id)->delete();
+        return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
         //
     }
     public function trash()
@@ -158,6 +163,16 @@ class MovieController extends Controller
     {
         $movie =  $this->movies->withTrashed()->find($request->id);
         $movie->restore();
-        return back();
+        return redirect()->route('admin.movie.trash');
+    }
+    public function show($id)
+    {
+        $movie = $this->movies->withTrashed()->find($id);
+
+        // Kiểm tra xem phim có tồn tại hay không
+        if (!$movie) {
+            abort(404);
+        }
+        return response()->json(['movie' => $movie]);
     }
 }
