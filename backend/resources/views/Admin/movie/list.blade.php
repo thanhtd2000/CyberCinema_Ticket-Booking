@@ -48,14 +48,13 @@
                     <td>{{ $movie->category->name }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><button type="button" class="btn btn-success"><a class="text-white"
-                                href="{{ route('admin.movie.edit', $movie->id) }}">Sửa</a></button>
-                        <button type="button" class="btn btn-danger"><a class="text-white"
-                                onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 1]) }}">Xoá</a></button>
-
+                    <td><a class="text-white btn btn-success mb-2" href="{{ route('admin.movie.edit', $movie->id) }}"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-danger" onclick=" return confirm('Bạn có chắc chắn xoá?')"
+                            href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 1]) }}"><i
+                                class="fas fa-trash-alt"></i></a>
                     </td>
-                    <td> <button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
+                    <td><button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
                             tiết</button></td>
                 </tr>
             @endforeach

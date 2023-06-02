@@ -168,7 +168,6 @@ class MovieController extends Controller
     public function show($id)
     {
         $movie = $this->movies->withTrashed()->find($id);
-
         // Kiểm tra xem phim có tồn tại hay không
         if (!$movie) {
             abort(404);
