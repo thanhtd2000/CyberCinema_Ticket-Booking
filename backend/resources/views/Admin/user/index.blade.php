@@ -15,13 +15,6 @@
             </form>
         </div>
     </div>
-    <div class="message text-center">
-        @if (session('message'))
-            <h4 class="aler alert-danger pt-3 pb-3">
-                <strong class="text-danger">{{ session('message') }}</strong>
-            </h4>
-        @endif
-    </div>
     <br>
     <table class="table">
         <thead>
@@ -47,11 +40,10 @@
                         <td>{{ $us->created_at }}</td>
                         <td>
                             @if (!$us->role == 0 && $us->id != Auth::user()->id)
-                                <button type="button" class="btn btn-success"><a class="text-white"
-                                        href="edit/{{ $us->id }}">Sửa</a></button>
-                                <button type="button" class="btn btn-danger"><a class="text-white"
-                                        onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                        href="delete/{{ $us->id }}">Xoá</a></button>
+                                <a class="text-white btn btn-success" href="edit/{{ $us->id }}"><i
+                                        class="fas fa-pencil-alt"></i></a>
+                                <a class="btn btn-danger" onclick=" return confirm('Bạn có chắc chắn xoá?')"
+                                    href="delete/{{ $us->id }}"><i class="fas fa-trash-alt"></i></a>
                             @endif
 
                         </td>

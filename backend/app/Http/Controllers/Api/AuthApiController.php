@@ -65,7 +65,7 @@ class AuthApiController extends Controller
 
       }
 
-      public function update(ProfileRequests $request)
+      public function update(Request $request)
       {
             $path = 'Avatars/';
             $user = $request->user();
@@ -80,7 +80,6 @@ class AuthApiController extends Controller
             }
             $user->name = $newUser['name'] ?? $user->name;
             $user->email = $newUser['email'] ?? $user->email;
-            $user->role = $newUser['role'] ?? $user->role;
             $user->phone = $newUser['phone'] ?? $user->phone;
             $user->sex = $newUser['sex'] ?? $user->sex;
             $user->birthday = $newUser['birthday'] ?? $user->birthday;
@@ -88,7 +87,8 @@ class AuthApiController extends Controller
 
             return response()->json([
                   'status_code' => 200,
-                  'message' => 'Successfully'
+                  'message' => 'Successfully',
+                  'data' => $user->toArray()
             ], 200);
       }
 

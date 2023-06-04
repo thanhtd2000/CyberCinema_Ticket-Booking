@@ -47,12 +47,11 @@
                     <td>{{ $movie->category->name }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><button type="button" class="btn btn-success"><a class="text-white"
-                                onclick=" return confirm('Bạn có chắc chắn khôi phục?')"
-                                href="{{ route('admin.movie.restore', $movie->id) }}">Khôi Phục</a></button><button
-                            type="button" class="btn btn-danger"><a
-                                onclick=" return confirm('Bạn có chắc chắn xoá vĩnh viễn ?')"
-                                href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 2]) }}">Xoá</a></button>
+                    <td><a class="text-white btn btn-success mb-2" onclick=" return confirm('Bạn có chắc chắn khôi phục?')"
+                            href="{{ route('admin.movie.restore', $movie->id) }}"><i class="fa fa-arrow-left"></i>
+                        </a><a class="btn btn-danger" onclick=" return confirm('Bạn có chắc chắn xoá vĩnh viễn ?')"
+                            href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 2]) }}"><i
+                                class="fas fa-trash-alt"></i></a>
                     </td>
                     <td> <button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
                             tiết</button></td>
