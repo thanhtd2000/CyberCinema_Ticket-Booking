@@ -87,7 +87,8 @@ class AuthApiController extends Controller
 
             return response()->json([
                   'status_code' => 200,
-                  'message' => 'Successfully'
+                  'message' => 'Successfully',
+                  'data' => $user->toArray()
             ], 200);
       }
 

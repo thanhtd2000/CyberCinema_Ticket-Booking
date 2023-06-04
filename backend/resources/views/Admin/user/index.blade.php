@@ -15,13 +15,6 @@
             </form>
         </div>
     </div>
-    <div class="message text-center">
-        @if (session('message'))
-            <h4 class="aler alert-danger pt-3 pb-3">
-                <strong class="text-danger">{{ session('message') }}</strong>
-            </h4>
-        @endif
-    </div>
     <br>
     <table class="table">
         <thead>

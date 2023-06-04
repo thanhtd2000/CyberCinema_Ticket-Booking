@@ -51,6 +51,8 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put("/update", [UserController::class, 'update'])->name('user.update');
         Route::get("/permise", [UserController::class, 'permise'])->name('users.permise');
         Route::middleware('checkAdminPermission')->get("/permise1", [UserController::class, 'permise_admin'])->name('users.permise1');
+        Route::get("/change-password", [UserController::class, 'viewchange'])->name('users.change_password');
+        Route::put("/change-password", [UserController::class, 'change'])->name('users.change_passwords');
     });
 
     Route::prefix('category')->group(function () {

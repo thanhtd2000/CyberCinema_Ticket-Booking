@@ -36,7 +36,8 @@
         // Bootstrap ID
         gtag('config', 'UA-118965717-5');
     </script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
     <link href="../../../dist/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -47,6 +48,7 @@
         a {
             text-decoration: none;
         }
+
         a:hover {
             text-decoration: none;
         }
@@ -93,11 +95,11 @@
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
                                 <div class="fw-semibold">Settings</div>
-                            </div><a class="dropdown-item" href="">
+                            </div><a class="dropdown-item" href="{{ route('users.change_password') }}">
                                 <svg class="icon me-2">
                                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-settings">
                                     </use>
-                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="#">
+                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="">
                                 <div class="dropdown-divider"></div><a class="dropdown-item"
                                     href="{{ route('logout') }}">
                                     <svg class="icon me-2">
