@@ -14,6 +14,7 @@ use App\Helpers\FirebaseHelper;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\MovieRequest;
 use App\Http\Controllers\Controller;
+use App\Helpers\GlobalHelper;
 
 class MovieController extends Controller
 {
@@ -23,6 +24,7 @@ class MovieController extends Controller
     public $data;
     public  $firebaseHelper;
     public $movies;
+    public $globalHelper;
     public function __construct(Movie $movies)
     {
         $this->actors = Actor::all();
@@ -35,6 +37,7 @@ class MovieController extends Controller
         ];
         $this->movies = $movies;
         $this->firebaseHelper = new FirebaseHelper();
+        $this->globalHelper = new GlobalHelper();
     }
 
     private function generateUniqueSlug($name)
@@ -78,7 +81,7 @@ class MovieController extends Controller
             $movieData['price'] = $request->price;
             $movieData['type'] = $request->type;
             $movieData['year_old'] = $request->year_old;
-            $movieData['slug'] = $this->generateUniqueSlug($request->name);
+            $movieData['slug'] = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
             if ($request->isHot == 'on') {
                 $movieData['isHot'] = 0;
             };
@@ -129,7 +132,7 @@ class MovieController extends Controller
         } else {
             $movie->isHot = 1;
         };
-        $movie->slug = $this->generateUniqueSlug($request->name);
+        $movie->slug = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
         $movie->save();
         $movie->actors()->sync($request->actors);
         return redirect()->back()->with('message', 'Sửa thành công');

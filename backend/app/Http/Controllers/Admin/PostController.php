@@ -8,25 +8,29 @@ use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Helpers\GlobalHelper;
 
 class PostController extends Controller
 {
     public  $firebaseHelper;
-    public function __construct()
+    public $globalHelper;
+    public $posts;
+    public function __construct(Post $posts)
     {
         $this->firebaseHelper = new FirebaseHelper();
+        $this->globalHelper = new GlobalHelper();
+        $this->posts = $posts;
     }
 
     public function show()
     {
-        $posts = Post::latest()->paginate(5);
+        $posts =  $this->posts->latest()->paginate(5);
         return view('admin.post.index', compact('posts'));
     }
     public function search(Request $request)
     {
         $query = $request->input('keywords');
-        $posts = Post::where('title', 'like', '%' . $query . '%')
+        $posts =  $this->posts->where('title', 'like', '%' . $query . '%')
             ->orWhere('content', 'like', '%' . $query . '%')
             ->paginate(5);
         return view('admin.post.index', compact('posts'));
@@ -54,6 +58,7 @@ class PostController extends Controller
             $pt->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $pt->title = $post['title'];
             $pt->content = $post['content'];
+            $pt->slug = $this->globalHelper->generateUniqueSlug($this->posts, $request->title);
             $pt->user_id = $post['user_id'];
         }
         $pt->save();
@@ -62,14 +67,14 @@ class PostController extends Controller
     public function delete(Request $request)
     {
 
-        $Post = Post::find($request->id);
+        $Post =  $this->posts->find($request->id);
         if ($Post && $Post->delete()) {
             return redirect('admin/posts/index')->with('message', 'Xoá thành công');
         }
     }
     public function edit(Request $request)
     {
-        $post = Post::find($request->id);
+        $post =  $this->posts->find($request->id);
 
         return view('admin.post.edit', compact('post'));
     }
@@ -86,7 +91,7 @@ class PostController extends Controller
         ];
 
         $post = $request->validate($rule, $message);
-        $pt = Post::find($post['id']);
+        $pt =  $this->posts->find($post['id']);
         if ($request->hasFile('image')) {
             $path = 'Posts/';
             $this->firebaseHelper->deleteImage($pt->image, $path);
@@ -95,6 +100,7 @@ class PostController extends Controller
         }
         $pt->title = $post['title'];
         $pt->content = $post['content'];
+        $pt->slug = $this->globalHelper->generateUniqueSlug($this->posts, $request->title);
         $pt->user_id = $post['user_id'];
         $pt->save();
         return redirect()->route('posts.show')->with('message', 'Sửa thành công');
@@ -106,7 +112,7 @@ class PostController extends Controller
     {
         $ids = $request->input('ids');
 
-        Post::whereIn('id', $ids)->delete();
+        $this->posts->whereIn('id', $ids)->delete();
 
         return redirect()->back()->with('message', 'Đã xoá ' . count($ids) . ' bài viết.');
     }
