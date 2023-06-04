@@ -14,13 +14,6 @@
             </form>
         </div>
     </div>
-    <div class="message text-center">
-        @if (session('message'))
-            <h4 class="aler alert-danger pt-3 pb-3">
-                <strong class="text-danger">{{ session('message') }}</strong>
-            </h4>
-        @endif
-    </div>
     <form action="{{ route('delete.Mulposts') }}" method="POST">
         @csrf
         @method('DELETE')
