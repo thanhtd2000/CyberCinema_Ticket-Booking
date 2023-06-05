@@ -1138,6 +1138,7 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
+
             "version": "v8.8.1",
             "source": {
                 "type": "git",
@@ -1147,7 +1148,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/7f4ccfe9b11c92191bc06119848efa115a22924c",
-                "reference": "7f4ccfe9b11c92191bc06119848efa115a22924c",
+
                 "shasum": ""
             },
             "require": {
@@ -1187,7 +1188,9 @@
                 "elasticsearch",
                 "search"
             ],
+
             "time": "2023-05-25T06:56:36+00:00"
+
         },
         {
             "name": "fig/http-message-util",
