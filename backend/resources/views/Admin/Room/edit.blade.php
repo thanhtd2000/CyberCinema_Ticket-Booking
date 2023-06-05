@@ -67,13 +67,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form method="POST" action="" class="container">
-                        @csrf
+                    {{-- <form method="POST" action="" class="container">
+                        @csrf --}}
 
                         <div class="mb-3">
                             <label class="form-label">Tên Ghế</label>
                             <input type="hidden" id="seat-id" value="">
-                            <input type="text" name="name" class="form-control name" id="name" value="" required>
+                            <input type="text" name="name" class="form-control name" id="name" value="" readonly>
 
                             @error('name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -88,21 +88,22 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label class="form-label">Giá</label>
                             <input type="number" name="name" class="form-control" value="">
 
                             @error('name')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
-                        </div>
+                        </div> --}}
 
 
-                        <button type="submit" class="btn btn-primary save-seat">Submit</button>
-                    </form>
+                        {{-- <button type="submit" class="btn btn-primary ">Submit</button> --}}
+                    {{-- </form> --}}
                 </div>
                 <div class="modal-footer">
-
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-primary save-seat">Lưu </button>
                 </div>
             </div>
         </div>
@@ -130,26 +131,60 @@
          
     //       $('#seats').modal('show');
     //    }
-       $(document).ready(function() {
-            $('.seat-detail').click(function() {
+   
+        $(document).on('click','.seat-detail', function(e){
                 var seat_id = $(this).data('seat-id');
+                // console.log(seat_id);
+                $('#seats').modal('show');
                 $.ajax({
                     url: '/admin/seats/edit/' + seat_id,
                     type: 'GET',
-                    
-                    dataType: 'json',
                     success: function(response) {
+                        
                         $('#seat-id').val(response.seat.id);
                         $('#name').val(response.seat.name);
                         $('#type').val(response.seat.type_id);
 
-                        $('#seats').modal('show');
+                        
                     }
                 });
-            });
         });
-        // $(document).on('submit','.save-seat', function(e){
+           
+    
+        $(document).on('click','.save-seat', function(e){
+            e.preventDefault();
+            var seat_id = $('#seat-id').val();
+            var data ={
+                'type_id': $('#type').val(),
+            }
+           
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/admin/seats/update/' + seat_id,
+                type: 'PUT',
+                data : data,
+                // dataType: 'json',
+                success: function(data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: 'Cập nhật dữ liệu thành công.',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true
+                    }).then(function() {
+                        // Sau khi popup đóng, load lại trang
+                        location.reload();
+                    });
 
-        // })
+                    
+                }
+            });
+        })
+      
     </script>
 @endsection
