@@ -72,4 +72,20 @@ class RoomController extends Controller
         
         return view('Admin/Room/edit',compact('room','seatType','seats','elements'));
    }
+   public function update(RoomRequest $roomRequest, $id)
+   {
+    $data = 
+    [
+        'name' => $roomRequest->name,
+        
+    ];
+    $this->room->find($id)->update($data);
+    return redirect()->route('admin.room')->with('message','Sửa thành công!');
+
+   }
+
+   public function deleteSoft($id)
+   {
+    
+   }
 }
