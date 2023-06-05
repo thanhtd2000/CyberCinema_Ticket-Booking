@@ -66,38 +66,46 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request)
     {
-        $path = 'Movies/';
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $movieData['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
-            $movieData['name'] = $request->name;
-            $movieData['description'] = $request->description;
-            $movieData['date'] = $request->date;
-            $movieData['director_id'] = $request->director_id;
-            $movieData['category_id'] = $request->category_id;
-            $movieData['trailer'] = $request->trailer;
-            $movieData['time'] = $request->time;
-            $movieData['language'] = $request->language;
-            $movieData['price'] = $request->price;
-            $movieData['type'] = $request->type;
-            $movieData['year_old'] = $request->year_old;
-            $movieData['slug'] = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
-            if ($request->isHot == 'on') {
-                $movieData['isHot'] = 0;
-            };
-            $movie = $this->movies->create($movieData);
-        }
-        if ($movie) {
-            foreach ($request->actors as $actor) {
-                DB::table('actor_movies')->insert([
-                    [
-                        'movie_id' =>  $movie->id,
-                        'actor_id' => $actor,
-                    ]
-                ]);
+        try {
+            $path = 'Movies/';
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $movieData['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+                $movieData['name'] = $request->name;
+                $movieData['description'] = $request->description;
+                $movieData['date'] = $request->date;
+                $movieData['director_id'] = $request->director_id;
+                $movieData['category_id'] = $request->category_id;
+                $movieData['trailer'] = $request->trailer;
+                $movieData['time'] = $request->time;
+                $movieData['language'] = $request->language;
+                $movieData['price'] = $request->price;
+                $movieData['type'] = $request->type;
+                $movieData['year_old'] = $request->year_old;
+                $movieData['slug'] = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
+                if ($request->isHot == 'on') {
+                    $movieData['isHot'] = 0;
+                };
+                $movie = $this->movies->create($movieData);
+            }
+            if ($movie) {
+                foreach ($request->actors as $actor) {
+                    DB::table('actor_movies')->insert([
+                        [
+                            'movie_id' =>  $movie->id,
+                            'actor_id' => $actor,
+                        ]
+                    ]);
+                }
+            }
+            return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
+        } catch (\PDOException $e) {
+            if ($e->getCode() === '23000') {
+                return redirect()->back()->with('message', 'Tên phim đã tồn tại');
+            } else {
+                return redirect()->back()->with('message', 'Lỗi');
             }
         }
-        return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
     }
     public function edit(Request $request)
     {
@@ -108,6 +116,7 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, $id)
     {
+
         $movie = $this->movies->find($id);
 
         $path = 'Movies/';
@@ -135,7 +144,7 @@ class MovieController extends Controller
         $movie->slug = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
         $movie->save();
         $movie->actors()->sync($request->actors);
-        return redirect()->back()->with('message', 'Sửa thành công');
+        return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
     }
 
     public function destroy(Request $request)

@@ -3,17 +3,18 @@
 @extends('admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-danger" href="create">Thêm mới</a></button>
+                class="text-white" href="create">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
             <form action="{{ route('posts.search') }}" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
                     <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="button" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="button" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
         </div>
     </div>
+    <br>
     <form action="{{ route('delete.Mulposts') }}" method="POST">
         @csrf
         @method('DELETE')
@@ -62,11 +63,10 @@
                         <td>{{ $post->user->name }}</td>
                         <td class="whitespace-nowrap">
                             @if ($post->user->role != 0 || Auth::user()->id == $post->user->id)
-                                <button type="button" class="btn btn-success"><a
-                                        href="edit/{{ $post->id }}">Sửa</a></button>
-                                <button type="button" class="btn btn-danger"><a
-                                        onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                        href="delete/{{ $post->id }}">Xoá</a></button>
+                                <a class="btn btn-success" href="edit/{{ $post->id }}"><i
+                                        class="fas fa-trash-alt"></i></a> <a class="btn btn-danger"
+                                    onclick=" return confirm('Bạn có chắc chắn xoá?')" href="delete/{{ $post->id }}"><i
+                                        class="fas fa-trash-alt"></i></a>
                             @endif
                         </td>
                     </tr>
