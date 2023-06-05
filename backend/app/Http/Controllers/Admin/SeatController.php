@@ -29,6 +29,7 @@ class SeatController extends Controller
             // $seat->name = $request->input('name');
             $seat->type_id = $request->input('type_id');
             $seat->status = $request->input('status');
+
             $seat->update();
             return response()->json([
                 'status' => 200,
