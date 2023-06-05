@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SeatRowRequest extends FormRequest
+class SeatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,7 @@ class SeatRowRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:seat_rows,name',
+            'name' => 'required',
         ];
     }
     public function messages()
