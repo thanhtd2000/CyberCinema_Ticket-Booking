@@ -7,13 +7,14 @@
 
         <form method="POST" action="{{ route('admin.room.update',['id'=>$room->id]) }}" class="container">
             @csrf
+            @method('put')
             <div class="col-md-6">
                 <div class="mb-3">
                     <label class="form-label">Tên phòng</label>
-                    <input type="text" name="name" class="form-control" value="{{ $room->name }}">
+                    <input type="text" name="roomname" class="form-control" value="{{ $room->name }}">
 
-                    @error('name')
-                        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                    @error('roomname')
+                        <p class=" mt-1" style="color: red">{{ $message }}</p>
                     @enderror
                 </div>
 
