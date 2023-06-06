@@ -18,7 +18,7 @@ class ActorController extends Controller
     public function index()
     {
         $actors = Actor::paginate(10);
-        return view('Admin.actors.index',compact('actors'));
+        return view('Admin.actors.index', compact('actors'));
     }
 
 
@@ -27,8 +27,8 @@ class ActorController extends Controller
         $keywords = $request->input('keywords');
         $actors = Actor::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.actors.index', compact('actors','keywords'));
-    }    
+        return view('admin.actors.index', compact('actors', 'keywords'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -51,7 +51,6 @@ class ActorController extends Controller
         $newActor = $request->toArray();
         Actor::create($newActor);
         return redirect('admin/actor/index')->with('message', 'Thêm thành công');
-        
     }
 
     /**
@@ -62,7 +61,7 @@ class ActorController extends Controller
      */
     // public function show($id)
     // {
-        
+
     // }
 
     /**
@@ -74,7 +73,7 @@ class ActorController extends Controller
     public function edit($id)
     {
         $actor = Actor::find($id);
-        return view('admin.actors.edit',compact('actor'));
+        return view('admin.actors.edit', compact('actor'));
     }
 
     /**
@@ -88,9 +87,8 @@ class ActorController extends Controller
     {
         $request = $request->except(['_token', '_method']);
         // dd($request);
-        Actor::where('id',$id)->update($request);
+        Actor::where('id', $id)->update($request);
         return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
-        
     }
 
     /**
@@ -103,6 +101,5 @@ class ActorController extends Controller
     {
         Actor::find($id)->delete();
         return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
-        
     }
 }

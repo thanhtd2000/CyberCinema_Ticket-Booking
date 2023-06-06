@@ -157,4 +157,5 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put('/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
         Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
     });
+    
 });
