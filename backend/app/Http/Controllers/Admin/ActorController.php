@@ -98,9 +98,17 @@ class ActorController extends Controller
      */
     public function update(ActorRequest $request, $id)
     {
-        $request = $request->except(['_token', '_method']);
-        // dd($request);
-        Actor::where('id', $id)->update($request);
+        $path = 'Actors/';
+        $actor = Actor::find($id);
+        $newActor = $request->toArray();
+        if ($request->hasFile('image')) {
+            // $this->firebaseHelper->deleteImage($actor->image, $path);
+            $image = $request->file('image');
+            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            $actor->update($newActor);
+            return redirect('admin/actor/index')->with('message', 'Cập nhật thành công');
+        }
+        $actor->update($newActor);
         return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
     }
 
