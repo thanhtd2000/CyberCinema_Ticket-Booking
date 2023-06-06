@@ -57,10 +57,6 @@ class ActorController extends Controller
     {
         $path = 'Actors/';
         $newActor = $request->toArray();
-<<<<<<< HEAD
-        Actor::create($newActor);
-        return redirect('admin/actor/index')->with('message', 'Thêm thành công');
-=======
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
@@ -68,7 +64,6 @@ class ActorController extends Controller
             return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
         }
         return redirect('admin/actor/index')->with('message', 'Thiếu ảnh');
->>>>>>> adf98f61d0cd971291618df010338a618de0ae91
     }
 
     /**
@@ -103,23 +98,9 @@ class ActorController extends Controller
      */
     public function update(ActorRequest $request, $id)
     {
-<<<<<<< HEAD
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Actor::where('id', $id)->update($request);
-=======
-        $path = 'Actors/';
-        $actor = Actor::find($id);
-        $newActor = $request->toArray();
-        if ($request->hasFile('image')) {
-            // $this->firebaseHelper->deleteImage($actor->image, $path);
-            $image = $request->file('image');
-            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
-            $actor->update($newActor);
-            return redirect('admin/actor/index')->with('message', 'Cập nhật thành công');
-        }
-        $actor->update($newActor);
->>>>>>> adf98f61d0cd971291618df010338a618de0ae91
         return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
     }
 
