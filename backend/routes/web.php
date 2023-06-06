@@ -101,7 +101,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
         Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
-        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
+       
         Route::post("/index", [MovieController::class, 'search'])->name('admin.movie.search');
         Route::get("/trash", [MovieController::class, 'trash'])->name('admin.movie.trash');
         Route::get("/restore/{id}", [MovieController::class, 'restore'])->name('admin.movie.restore');
@@ -141,6 +141,8 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('admin.room.edit');
         Route::put('/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
         Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
+        Route::get("/trash", [RoomController::class, 'trash'])->name('admin.room.trash');
+        Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore');
     });
     Route::prefix('/schedule', [])
 });
