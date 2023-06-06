@@ -74,24 +74,34 @@ class RoomController extends Controller
     }
     public function update(Request $request,$id)
     {
-        $this->validate(
-            $request,
-            [
-                'roomname' => 'required'
-            ],
-            [
-                'roomname.required' => 'Không được bỏ trông tên phòng!',
-               
-            ]
-        );
-        $data =
-            [
-                'name' => $request->roomname,
+        try{
+            $this->validate(
+                $request,
+                [
+                    'roomname' => 'required'
+                ],
+                [
+                    'roomname.required' => 'Không được bỏ trông tên phòng!',
+                   
+                ]
+            );
+            $data =
+                [
+                    'name' => $request->roomname,
+    
+                ];
+    
+            $this->room->find($id)->update($data);
+            return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
+        }catch (\PDOException $e) {
+            if ($e->getCode() === '23000') {
+                return redirect()->back()->with('error', 'Phòng đã tồn tại');
+            } else {
+                return redirect()->back()->with('error', 'Lỗi');
+            }
+        }
 
-            ];
-
-        $this->room->find($id)->update($data);
-        return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
+       
     }
 
     public function deleteSoft($id)
