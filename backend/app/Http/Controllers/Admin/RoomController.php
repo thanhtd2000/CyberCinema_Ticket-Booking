@@ -25,6 +25,7 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = $this->room->paginate(5);
+        
         return view('Admin/Room/list', compact('rooms'));
     }
 
@@ -53,7 +54,8 @@ class RoomController extends Controller
                 $dataSeat = [
                     'name' => $element . $i,
                     'type_id' => 2,
-                    'room_id' => $room->id
+                    'room_id' => $room->id,
+                    'status' => 0,
                 ];
                 $this->seat->create($dataSeat);
             }
@@ -104,7 +106,25 @@ class RoomController extends Controller
        
     }
 
-    public function deleteSoft($id)
+    public function destroy(Request $request)
     {
+        if ($request->type == 2) {
+            $this->room->withTrashed()->find($request->id)->forceDelete();
+            return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
+        }
+        $this->room->find($request->id)->delete();
+        return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
+        //
+    }
+    public function trash()
+    {
+        $rooms = $this->room->onlyTrashed()->latest()->paginate(10);;
+        return view('Admin.room.trash', compact('rooms'));
+    }
+    public function restore(Request $request)
+    {
+        $room =  $this->room->withTrashed()->find($request->id);
+        $room->restore();
+        return redirect()->route('admin.room.trash');
     }
 }

@@ -9,4 +9,8 @@ class Seat extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function room()
+    {
+        return $this->belongsTo(Room::class, 'room_id');
+    }
 }

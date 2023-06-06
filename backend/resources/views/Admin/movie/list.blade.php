@@ -14,7 +14,8 @@
                 <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
 
-        </div>z`<button type="button" class="btn btn-danger"><a class="text-white"
+        </div>
+        <button type="button" class="btn btn-danger"><a class="text-white"
                 href="{{ route('admin.movie.trash') }}">Thùng Rác</a></button>
     </div>
     <br>
