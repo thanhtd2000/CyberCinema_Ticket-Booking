@@ -3,11 +3,7 @@
 @extends('Admin.layouts.header')
 @section('content')
 
-<button class="btn btn-primary">
-    <a class="text-white" href="{{route('admin.room.create')}}">Thêm</a>
-</button>
-<button type="button" class="btn btn-danger" style="float:right"><a class="text-white"
-    href="{{ route('admin.room.trash') }}">Thùng Rác</a></button>
+
 <table class="table">
     <thead>
         <tr>
@@ -32,8 +28,8 @@
                 <td>{{count($room->seats->where('type_id',3)->where('status',0))}}</td>
 
                 <td>
-                    <a class="btn btn-success" href="{{route('admin.room.edit', $room->id)}}"><i class="fas fa-pencil-alt"></i> </a>
-                    <a class="btn btn-danger"   OnClick='return confirm("Bạn có muốn bỏ vào thùng rác ?");' href="{{route('admin.room.delete', $room->id)}}"><i class="fas fa-trash-alt"></i> </a>
+                    <a class="text-white btn btn-success " onclick=" return confirm('Bạn có chắc chắn khôi phục?')" href="{{ route('admin.room.restore', $room->id) }}"><i class="fa fa-arrow-left"></i></a>
+                    <a class="btn btn-danger" onclick=" return confirm('Bạn có chắc chắn xoá vĩnh viễn ?')" href="{{ route('admin.room.delete', ['id' => $room->id, 'type' => 2]) }}"><i class="fas fa-trash-alt"></i></a>
                   
                 </td>
             </tr>
