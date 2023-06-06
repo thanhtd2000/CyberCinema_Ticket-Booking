@@ -2,13 +2,18 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Row, Col, Button, Drawer } from 'antd';
+import { Row, Col, Button, Drawer, Dropdown, Space, MenuProps } from 'antd';
 import { useRouter } from 'next/router';
-
+import { IoDiamondOutline, IoLogOutOutline } from 'react-icons/io5';
+import { TbArrowsExchange2 } from 'react-icons/tb';
 import { handleChangeLanguage } from '@/libs/const';
 import { ELanguage } from '@/configs/interface.config';
 
 import style from './style.module.less';
+import { useMutationSignOut } from '@/queries/hooks';
+import { checkAuth, getLocalStored } from '@/libs/localStorage';
+import { USER_PROFILE } from '@/queries/keys';
+import {  UserOutlined } from '@ant-design/icons';
 
 function Header() {
       const router = useRouter();
@@ -17,6 +22,18 @@ function Header() {
       const showDrawer = () => {
             setOpen(true);
       };
+      const { mutate: signOut } = useMutationSignOut();
+      const [token, setToken] = useState<string>('');
+      useEffect(() => {
+        const accessTokenCurrent = checkAuth();
+        setToken(accessTokenCurrent);
+        window.addEventListener('storage', () => {
+          const accessToken = checkAuth();
+          setToken(accessToken);
+        });
+      }, []);
+      console.log(token);
+      const user = getLocalStored(USER_PROFILE);
       function Tag() {
             return (
                   <Link className={style.logo2} href='/'>
@@ -37,6 +54,40 @@ function Header() {
             };
             window.addEventListener('scroll', changeHeaderBackground);
       });
+      const items: MenuProps['items'] = [
+            {
+              key: '1',
+              icon: <UserOutlined />,
+              label: (
+                <Link href='/user'>Thông tin tài khoản</Link>
+              ),
+            },
+            {
+                  key: '2',
+                  icon: <IoDiamondOutline />,
+                  label: (
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                      Thành viên Vip
+                    </a>
+                  ),
+            },
+            {
+                  key: '3',
+                  icon: <TbArrowsExchange2 />,
+                  label: (
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                      Thay đổi mật khẩu
+                    </a>
+                  ),
+            },
+            {
+                  key: '3',
+                  icon: <IoLogOutOutline />,
+                  label: (
+                    <Link onClick={()=> signOut()} href='/'>Đăng xuất</Link>
+                  ),
+            },
+          ];
       return (
             <div className={navbar ? `${style.header} ${style.active}` : `${style.header}`}>
                   <Row>
@@ -46,21 +97,18 @@ function Header() {
                                           <Row gutter={[49, 0]}>
                                                 <Col>
                                                       <Link className={style.logo1} href='/'>
-                                                            <Image src='/images/Group 8.png' height={48} width={186.43} alt='logo' />
+                                                            <Image src='/images/logoCyberMovies.png' height={70} width={130} alt='logo' />
                                                       </Link>
                                                       <Link className={style.logo3} href='/'>
-                                                            <Image src='/images/Group 8 (1).png' height={48} width={48} alt='logo' />
+                                                            <Image src='/images/logoCyberMobie.png' height={48} width={48} alt='logo' />
                                                       </Link>
                                                       <Link className={style.logo2} href='/'>
-                                                            <Image src='/images/Group 8 (2).png' height={48} width={186.43} alt='logo' />
+                                                            <Image src='/images/logoCyberMovies.png' height={70} width={130} alt='logo' />
                                                       </Link>
                                                 </Col>
                                                 <Col className={style.navText}>
                                                       <ul className={style.nav}>
-                                                            <Link href='/company'><li>Phim</li></Link>
-                                                            <Link href='/post'>
-                                                                  <li>Phim đang chiếu</li>
-                                                            </Link>
+                                                            <Link href='/movies'><li>Phim</li></Link>
                                                             <Link href='/news'>
                                                                   <li>Tin tức</li>
                                                             </Link>
@@ -76,7 +124,15 @@ function Header() {
                                                 <Col span={18} className={style.button}>
                                                       <Row gutter={[12, 0]}>
                                                             <Col span={24}>
-                                                                  <Button className={style.sigin}><Link href='login'>Đăng nhập / Đăng ký</Link></Button>
+                                                                  {
+                                                                        token && user ? (<Dropdown menu={{ items }}>
+                                                                              <a onClick={(e) => e.preventDefault()}>
+                                                                                <Space className={style.userHeader}>
+                                                                                  {user.name}
+                                                                                </Space>
+                                                                              </a>
+                                                                            </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
+                                                                  }
                                                             </Col>
                                                       </Row>
                                                 </Col>
@@ -110,10 +166,7 @@ function Header() {
                                                       <Drawer title={<Tag />} placement='left' onClose={onClose} open={open}>
                                                             <Row>
                                                                   <Col span={24} className={style.drawerText}>
-                                                                        <Link href='/company'>Phim</Link>
-                                                                        <Link href='/post'>
-                                                                              Phim đang chiếu
-                                                                        </Link>
+                                                                        <Link href='/movies'>Phim</Link>
                                                                         <Link href='/'>
                                                                               Tin tức
                                                                         </Link>

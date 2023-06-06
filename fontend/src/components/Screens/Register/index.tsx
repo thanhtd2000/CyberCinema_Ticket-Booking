@@ -25,15 +25,15 @@ function RegisterScreen() {
       const range = (start: number, end: number) => {
             const result = [];
             for (let i = start; i < end; i++) {
-              result.push(i);
+                  result.push(i);
             }
             return result;
-          };
-          const disabledDateTime = () => ({
+      };
+      const disabledDateTime = () => ({
             disabledHours: () => range(0, 24).splice(4, 20),
             disabledMinutes: () => range(30, 60),
             disabledSeconds: () => [55, 56],
-          });
+      });
 
       const onFinishFailed = (errorInfo: any) => {
             console.log('Failed:', errorInfo);
@@ -42,7 +42,8 @@ function RegisterScreen() {
             <div className='RegisterStyle'>
                   <Row className={style.Register}>
                         <Col span={24}>
-                              <Image src='/images/Group 7.png' height={48} width={186.43} alt='logo' />
+                              <Image className={style.logoWeb} src='/images/logoCyberMovies.png' height={100} width={100} alt='logo' />
+                              <Image className={style.logoMobie} src='/images/logoCyberMobie.png' height={60} width={80} alt='logo' />
                         </Col>
                         <Col className={style.formRegister}>
                               <Row>

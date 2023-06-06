@@ -3,7 +3,7 @@
 @extends('admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-danger" href="create">Thêm mới</a></button>
+                class="text-white" href="create">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
             <form action="{{ route('users.search') }}" method="POST" class="d-flex">
                 @csrf
@@ -11,17 +11,11 @@
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
                         class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
         </div>
     </div>
-    <div class="message text-center">
-        @if (session('message'))
-            <h4 class="aler alert-danger pt-3 pb-3">
-                <strong class="text-danger">{{ session('message') }}</strong>
-            </h4>
-        @endif
-    </div>
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -46,11 +40,10 @@
                         <td>{{ $us->created_at }}</td>
                         <td>
                             @if (!$us->role == 0 && $us->id != Auth::user()->id)
-                                <button type="button" class="btn btn-success"><a
-                                        href="edit/{{ $us->id }}">Sửa</a></button>
-                                <button type="button" class="btn btn-danger"><a
-                                        onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                        href="delete/{{ $us->id }}">Xoá</a></button>
+                                <a class="text-white btn btn-success" href="edit/{{ $us->id }}"><i
+                                        class="fas fa-pencil-alt"></i></a>
+                                <a class="btn btn-danger" onclick=" return confirm('Bạn có chắc chắn xoá?')"
+                                    href="delete/{{ $us->id }}"><i class="fas fa-trash-alt"></i></a>
                             @endif
 
                         </td>

@@ -5,13 +5,14 @@ namespace App\Http\Controllers\Api;
 use Carbon\Carbon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Helpers\FirebaseHelper;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProfileRequests;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
-use App\Helpers\FirebaseHelper;
 
 class AuthApiController extends Controller
 {
@@ -64,6 +65,33 @@ class AuthApiController extends Controller
 
       }
 
+      public function update(Request $request)
+      {
+            $path = 'Avatars/';
+            $user = $request->user();
+            $newUser = $request;
+            if (!empty($request->password)) {
+                  $user->password = bcrypt($newUser['password']);
+            }
+            if ($request->hasFile('image')) {
+                  $this->firebaseHelper->deleteImage($user->image, $path);
+                  $image = $request->file('image');
+                  $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            }
+            $user->name = $newUser['name'] ?? $user->name;
+            $user->email = $newUser['email'] ?? $user->email;
+            $user->phone = $newUser['phone'] ?? $user->phone;
+            $user->sex = $newUser['sex'] ?? $user->sex;
+            $user->birthday = $newUser['birthday'] ?? $user->birthday;
+            $user->save();
+
+            return response()->json([
+                  'status_code' => 200,
+                  'message' => 'Successfully',
+                  'data' => $user->toArray()
+            ], 200);
+      }
+
       //login
       public function authenticate(Request $request)
       {
@@ -92,7 +120,13 @@ class AuthApiController extends Controller
                   }
 
                   $user = $request->user();
-
+                  if ($user->role == 2) {
+                        Auth::logout();
+                        return response()->json([
+                              'status_code' => 401,
+                              'message' => 'Tài khoản đã bị khoá, hãy liên hệ admin để nhận trợ giúp',
+                        ],  401);
+                  }
                   $tokenResult = $user->createToken('authToken')->plainTextToken;
                   $refresh_token = $user->createToken('refresh_token')->plainTextToken;
                   return response()->json([
@@ -141,6 +175,10 @@ class AuthApiController extends Controller
       public function logout(Request $request)
       {
             if ($user = $request->user()) {
+                  if ($user->remember_token) {
+                        $user->remember_token = null;
+                        $user->save();
+                  }
                   $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
                   return response()->json([
                         'status_code' => 200,
@@ -153,24 +191,24 @@ class AuthApiController extends Controller
                   ], 409);
             }
       }
-      public function changeImage(Request $request)
-      {
-            $path = 'Avatars/';
-            $user = $request->user();
-            if ($request->hasFile('image')) {
+      // public function changeImage(Request $request)
+      // {
+      //       $path = 'Avatars/';
+      //       $user = $request->user();
+      //       if ($request->hasFile('image')) {
 
-                  $this->firebaseHelper->deleteImage($user->image, $path);
-                  $image = $request->file('image');
-                  $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
-                  $user->save();
-                  return response()->json([
-                        'status_code' => 200,
-                        'message' => 'Successfully'
-                  ], 200);
-            };
-            return response()->json([
-                  'status_code' => 400,
-                  'message' => 'No image file found'
-            ], 400);
-      }
+      //             $this->firebaseHelper->deleteImage($user->image, $path);
+      //             $image = $request->file('image');
+      //             $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+      //             $user->save();
+      //             return response()->json([
+      //                   'status_code' => 200,
+      //                   'message' => 'Successfully'
+      //             ], 200);
+      //       };
+      //       return response()->json([
+      //             'status_code' => 400,
+      //             'message' => 'No image file found'
+      //       ], 400);
+      // }
 }

@@ -26,7 +26,8 @@
                                                 <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-user">
                                                 </use>
                                             </svg></span>
-                                        <input class="form-control" type="text" name="email" placeholder="email">
+                                        <input class="form-control" type="text" name="email" placeholder="Email"
+                                            value="{{ old('email') }}">
                                     </div>
                                     <div class="error">
                                         @if ($errors->has('email'))

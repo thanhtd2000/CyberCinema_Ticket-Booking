@@ -35,8 +35,8 @@
             @endif
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputEmail1" value="{{ old('password') }}"
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1" value="{{ old('password') }}"
                 name="password" aria-describedby="emailHelp">
             @if ($errors->has('password'))
                 <span class="text-danger fs-3">

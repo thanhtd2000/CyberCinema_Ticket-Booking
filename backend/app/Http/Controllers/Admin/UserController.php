@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use App\Helpers\FirebaseHelper;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequests;
-use App\Helpers\FirebaseHelper;
 
 class UserController extends Controller
 {
@@ -131,5 +133,27 @@ class UserController extends Controller
             $user->save();
             return redirect()->route('users.permise')->with('message', 'Update thành công');
         }
+    }
+    public function viewchange()
+    {
+        return view('admin.user.change');
+    }
+    public function change(Request $request)
+    {
+        $rules = [
+            'password' => 'required|min:8|max:24|confirmed',
+        ];
+        $message = [
+            'required' => 'Bắt buộc phải nhập',
+            'confirmed' => 'Xác nhận mật khẩu phải trùng nhau',
+            'min' => 'Phải lớn hơn :min ký tự',
+            'max' => 'Phải nhỏ hơn :max ký tự',
+        ];
+        $user = User::find(Auth::id());
+        $passwordData = $request->validate($rules, $message);
+        $user->password = bcrypt($passwordData['password']);
+        $user->updated_at = Carbon::now();
+        $user->save();
+        return redirect()->back()->with('message', 'Đã thay đổi mật khẩu thành công');
     }
 }

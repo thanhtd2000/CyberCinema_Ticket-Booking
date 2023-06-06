@@ -10,7 +10,6 @@ function BannerItem() {
       const [isModalOpen, setIsModalOpen] = useState(false);
       const videoLink = 'https://youtu.be/yKt0eL4Rv6o'
       const videoTitle = "[전인혁작곡] 야다(Yada) - 약속 (2019 ver)";
-
       const showModal = () => {
             setIsModalOpen(true);
       };

@@ -4,12 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Actor;
 use Illuminate\Http\Request;
+use App\Helpers\FirebaseHelper;
 use App\Http\Requests\ActorRequest;
 use App\Http\Controllers\Controller;
 
 
 class ActorController extends Controller
 {
+    public $firebaseHelper;
+    public function __construct()
+    {
+        $this->firebaseHelper = new FirebaseHelper();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -48,9 +55,20 @@ class ActorController extends Controller
      */
     public function store(ActorRequest $request)
     {
+        $path = 'Actors/';
         $newActor = $request->toArray();
+<<<<<<< HEAD
         Actor::create($newActor);
         return redirect('admin/actor/index')->with('message', 'Thêm thành công');
+=======
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            Actor::create($newActor);
+            return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+        }
+        return redirect('admin/actor/index')->with('message', 'Thiếu ảnh');
+>>>>>>> adf98f61d0cd971291618df010338a618de0ae91
     }
 
     /**
@@ -85,9 +103,23 @@ class ActorController extends Controller
      */
     public function update(ActorRequest $request, $id)
     {
+<<<<<<< HEAD
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Actor::where('id', $id)->update($request);
+=======
+        $path = 'Actors/';
+        $actor = Actor::find($id);
+        $newActor = $request->toArray();
+        if ($request->hasFile('image')) {
+            // $this->firebaseHelper->deleteImage($actor->image, $path);
+            $image = $request->file('image');
+            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            $actor->update($newActor);
+            return redirect('admin/actor/index')->with('message', 'Cập nhật thành công');
+        }
+        $actor->update($newActor);
+>>>>>>> adf98f61d0cd971291618df010338a618de0ae91
         return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
     }
 

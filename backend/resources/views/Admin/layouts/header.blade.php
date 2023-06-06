@@ -9,7 +9,6 @@
     <title>Admin</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <link rel="manifest" href="../../../dist/assets/favicon/manifest.json">
-    <script src="https://cdn.tailwindcss.com"></script>
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="../../../dist/assets/favicon/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
@@ -37,14 +36,29 @@
         // Bootstrap ID
         gtag('config', 'UA-118965717-5');
     </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <link href="../../../dist/vendors/@coreui/chartjs/css/coreui-chartjs.css" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.4/dist/sweetalert2.min.css">
+    <style>
+        a {
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: none;
+        }
+    </style>
 </head>
 
 <body>
+
     @include('Admin.layouts.sidebar')
     <div class="wrapper d-flex flex-column min-vh-100 bg-light">
         <header class="header header-sticky mb-4">
@@ -75,19 +89,19 @@
                 <ul class="header-nav ms-3">
                     <li class="nav-item dropdown"><a class="nav-link py-0" data-coreui-toggle="dropdown" href="#"
                             role="button" aria-haspopup="true" aria-expanded="false">
-                            <div class="avatar avatar-md"><img class="avatar-img"
-                                    src="{{ Auth::user()->image }}" alt="user@email.com">
+                            <div class="avatar avatar-md"><img class="avatar-img" src="{{ Auth::user()->image }}"
+                                    alt="user@email.com">
                             </div>
                         </a>
                         <!-- account -->
                         <div class="dropdown-menu dropdown-menu-end pt-0">
                             <div class="dropdown-header bg-light py-2">
                                 <div class="fw-semibold">Settings</div>
-                            </div><a class="dropdown-item" href="">
+                            </div><a class="dropdown-item" href="{{ route('users.change_password') }}">
                                 <svg class="icon me-2">
                                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-settings">
                                     </use>
-                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="#">
+                                </svg> Đổi mật khẩu</a><a class="dropdown-item" href="">
                                 <div class="dropdown-divider"></div><a class="dropdown-item"
                                     href="{{ route('logout') }}">
                                     <svg class="icon me-2">

@@ -3,7 +3,7 @@
 @extends('Admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-danger" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
+                class="text-white" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
             <form action="{{ route('admin.movie.search') }}" method="POST" class="d-flex">
                 @csrf
@@ -11,12 +11,13 @@
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
                         class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-black ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
 
-        </div><button type="button" class="btn btn-primary"><a class="text-danger"
+        </div>z`<button type="button" class="btn btn-danger"><a class="text-white"
                 href="{{ route('admin.movie.trash') }}">Thùng Rác</a></button>
     </div>
+    <br>
     <table class="table">
         <thead>
             <tr>
@@ -37,12 +38,6 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td>{{ $movie->name }}</td>
-                    {{-- <td
-                        style="display: -webkit-box;
-                    -webkit-line-clamp: 2;
-                    -webkit-box-orient: vertical;
-                    overflow: hidden;">
-                        {{ $movie->description }}</td> --}}
                     <td>{{ $movie->date }}</td>
                     <td>{{ $movie->director->name }}</td>
                     <td>
@@ -53,13 +48,13 @@
                     <td>{{ $movie->category->name }}</td>
                     <td>{{ $movie->time }}</td>
                     <td>{{ $movie->language }}</td>
-                    <td><button type="button" class="btn btn-success"><a
-                                href="{{ route('admin.movie.edit', $movie->id) }}">Sửa</a></button>
-                        <button type="button" class="btn btn-danger"><a onclick=" return confirm('Bạn có chắc chắn xoá?')"
-                                href="{{ route('admin.movie.delete', $movie->id) }}">Xoá</a></button>
-
+                    <td><a class="text-white btn btn-success mb-2" href="{{ route('admin.movie.edit', $movie->id) }}"><i
+                                class="fas fa-pencil-alt"></i></a>
+                        <a class="btn btn-danger" onclick=" return confirm('Bạn có chắc chắn xoá?')"
+                            href="{{ route('admin.movie.delete', ['id' => $movie->id, 'type' => 1]) }}"><i
+                                class="fas fa-trash-alt"></i></a>
                     </td>
-                    <td> <button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
+                    <td><button class="btn btn-primary movie-detail" data-movie-id="{{ $movie->id }} ">Xem chi
                             tiết</button></td>
                 </tr>
             @endforeach
@@ -77,7 +72,7 @@
                 </div>
                 <div class="modal-body">
                     <b>Tên phim:</b>
-                    <h3 id="movie-name"></h3>
+                    <h4 id="movie-name"></h4>
                     <b>Trailler</b>
                     <p id="movie-trailer"></p>
                     <b>Mô tả</b>
@@ -101,17 +96,16 @@
         $(document).ready(function() {
             $('.movie-detail').click(function() {
                 var movieId = $(this).data('movie-id');
-
                 $.ajax({
                     url: '/admin/movie/show/' + movieId,
                     type: 'GET',
                     dataType: 'json',
                     success: function(response) {
-                        console.log(response.movie);
+                        var isHotText = response.movie.isHot == 1 ? 'Có' : 'Không';
                         $('#movie-name').text(response.movie.name);
                         $('#movie-trailer').text(response.movie.trailer);
                         $('#movie-description').text(response.movie.description);
-                        $('#movie-isHot').text(response.movie.isHot);
+                        $('#movie-isHot').text(isHotText);
                         $('#movie-created_at').text(response.movie.created_at);
                         $('#movie-updated_at').text(response.movie.updated_at);
                         $('#movie-image').attr('src', response.movie.image);

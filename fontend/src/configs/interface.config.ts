@@ -29,11 +29,9 @@ export enum EOrder {
 
 export enum EOrderBy {
   ID = '_id',
-  CREATED_DATE = 'createdAt',
-  UPDATED_DATE = 'updatedAt',
-  USERNAME = 'username',
+  CREATED_DATE = 'date',
+  UPDATED_DATE = 'updated_at',
   NAME = 'name',
-  NAME_SORT = 'nameSort',
   VIEWER = 'viewer',
 }
 
@@ -63,20 +61,15 @@ export interface IOption {
 
 export type TQueryParamsGetData<T = any> = ILimit &
   IPage & {
+    orderBy?: EOrderBy | undefined;
     order?: EOrder;
-    orderBy?: EOrderBy;
     s?: string;
-    authorId?: string;
-    'inIds[]'?: string[];
-    'notInIds[]'?: string[];
   } & T;
 export type TBaseData = {
-  _id: string;
-  code: string;
+  id: string;
   name: string;
-  __v: number;
   createdAt: Date;
-  updatedAt: Date;
+  updated_at: Date;
   translation: TDataInitTranslation;
 };
 export type TTranslationField<T = any> = Record<ELanguage, T>;
