@@ -144,4 +144,5 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/trash", [RoomController::class, 'trash'])->name('admin.room.trash');
         Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore');
     });
+    Route::prefix('/schedule', [])
 });
