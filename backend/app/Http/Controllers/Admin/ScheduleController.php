@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Movie;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
+use App\Helpers\GlobalHelper;
 use App\Http\Controllers\Controller;
 
 class ScheduleController extends Controller
@@ -13,12 +15,14 @@ class ScheduleController extends Controller
     public $movie;
     public $room;
     public $schedule;
+    public $convert;
 
     public function __construct(Movie $movie, Room $room, Schedule $schedule)
     {
         $this->movie = $movie;
         $this->room = $room;
         $this->schedule = $schedule;
+        $this->convert = new GlobalHelper();
     }
 
     public function index()
@@ -38,16 +42,21 @@ class ScheduleController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->time_start);
         $request->validate([
             'movie_id' => 'required',
             'room_id' => 'required',
             'time_start' => 'required',
         ]);
-
+       $movie = $this->movie->find($request->movie_id);
+       $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->time_start);
+    //    dd($start_time->format('Y/m/d H:i:s'));
+        $time_end = $this->convert->convertStringToHoursMinutes($movie->time, $start_time->format('Y/m/d H:i:s'));
         $insert = [
             'room_id' => $request->room_id,
             'movie_id' => $request->movie_id,
-            'time_start' => $request->time_start,
+            'time_start' => $start_time,
+            'time_end' => $time_end
         ];
         Schedule::create($insert);
 
