@@ -100,7 +100,7 @@
                     <use xlink:href="../../../dist/vendors/@coreui/icons/svg/free.svg#cil-calendar"></use>
                 </svg> Lịch chiếu</a>
             <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="/admin/schedule/index">Danh sách</a></li>
+                <li class="nav-item"><a class="nav-link" href="/admin/schedule/">Danh sách</a></li>
                 <li class="nav-item"><a class="nav-link" href="/admin/schedule/create">Thêm lịch chiếu<span
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>

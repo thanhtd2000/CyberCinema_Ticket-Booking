@@ -32,9 +32,11 @@
                 <td>{{count($room->seats->where('type_id',3)->where('status',0))}}</td>
 
                 <td>
+                    {{-- {{dd($schedule->where('room_id',$room->id) )}} --}}
+                   
                     <a class="btn btn-success" href="{{route('admin.room.edit', $room->id)}}"><i class="fas fa-pencil-alt"></i> </a>
                     <a class="btn btn-danger"   OnClick='return confirm("Bạn có muốn bỏ vào thùng rác ?");' href="{{route('admin.room.delete', $room->id)}}"><i class="fas fa-trash-alt"></i> </a>
-                  
+                    
                 </td>
             </tr>
         @endforeach
