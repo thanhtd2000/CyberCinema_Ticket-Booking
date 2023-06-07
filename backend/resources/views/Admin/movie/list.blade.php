@@ -2,6 +2,10 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
+    <?php
+    use App\Helpers\GlobalHelper;
+    $globalHelper = new GlobalHelper();
+    ?>
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
                 class="text-white" href="{{ route('admin.movie.create') }}">Thêm mới</a></button>
         <div class="row g-3 align-items-center">
@@ -15,8 +19,8 @@
             </form>
 
         </div>
-        <button type="button" class="btn btn-danger"><a class="text-white"
-                href="{{ route('admin.movie.trash') }}">Thùng Rác</a></button>
+        <button type="button" class="btn btn-danger"><a class="text-white" href="{{ route('admin.movie.trash') }}">Thùng
+                Rác</a></button>
     </div>
     <br>
     <table class="table">
@@ -47,7 +51,8 @@
                         @endforeach
                     </td>
                     <td>{{ $movie->category->name }}</td>
-                    <td>{{ $movie->time }}</td>
+                    <td>{{ $globalHelper->convertStringToHoursMinutes($movie->time) }}
+                    </td>
                     <td>{{ $movie->language }}</td>
                     <td><a class="text-white btn btn-success mb-2" href="{{ route('admin.movie.edit', $movie->id) }}"><i
                                 class="fas fa-pencil-alt"></i></a>
