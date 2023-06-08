@@ -28,7 +28,8 @@ class ScheduleController extends Controller
     {
         $currentTime = Carbon::now();
        $movie = $this->movie->where('slug', $request->slug)->first();
-       $schedules = $this->schedule->where('movie_id', $movie->id)->where('time_start','>',$currentTime)->get();
+       $schedules = $this->schedule->selectRaw('DATE(time_start) as date')->where('movie_id', $movie->id)->where('time_start','>',$currentTime)->groupBy('date')->get();
+       $schedules -> pluck('date');
        if(!empty($schedules->toArray())){
         $data = ScheduleResource::collection($schedules);
         return response()->json($data,200);
