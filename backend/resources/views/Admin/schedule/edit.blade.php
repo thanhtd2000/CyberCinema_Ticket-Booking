@@ -39,8 +39,10 @@
             <label for="exampleFormControlSelect1">Thời gian chiếu</label>
             <input type="datetime-local" name="time_start" class="form-control" value="{{ $schedule->time_start }}">
         </div>
-
-        <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
+        <div>
+            <button type="submit" class="btn btn-outline-primary mr-3">Cập nhật</button>
+            <a class="btn btn-outline-danger ml-3" href="{{route('admin.schedule')}}" >Quay lại</a>
+        </div>
     </form>
 
     @include('Admin.layouts.select2')
