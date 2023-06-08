@@ -32,7 +32,7 @@ Route::get('/get/posts', [Postcontroller::class, 'index']);
 Route::get('/get/post/detail/{slug}', [Postcontroller::class, 'detail']);
 
 //schedule
-Route::get('/get/schedule/{slug}', [ScheduleController::class, 'getScheduleMovie']);
+Route::get('/get/schedule', [ScheduleController::class, 'getScheduleMovie']);
 
 //users
 Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);
