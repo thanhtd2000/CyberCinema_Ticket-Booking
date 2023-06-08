@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\Postcontroller;
+use App\Http\Controllers\Api\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,9 @@ Route::get('/get/movie/detail/{slug}', [MovieController::class, 'detail']);
 //posts
 Route::get('/get/posts', [Postcontroller::class, 'index']);
 Route::get('/get/post/detail/{slug}', [Postcontroller::class, 'detail']);
+
+//schedule
+Route::get('/get/schedule/{slug}', [ScheduleController::class, 'getScheduleMovie']);
 
 //users
 Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);

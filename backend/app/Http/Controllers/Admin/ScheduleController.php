@@ -48,9 +48,8 @@ class ScheduleController extends Controller
             'room_id' => 'required',
             'time_start' => 'required',
         ]);
-       $movie = $this->movie->find($request->movie_id);
-       $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->time_start);
-    //    dd($start_time->format('Y/m/d H:i:s'));
+        $movie = $this->movie->find($request->movie_id);
+        $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $request->time_start);
         $time_end = $this->convert->convertStringToHoursMinutes($movie->time, $start_time->format('Y/m/d H:i:s'));
         $insert = [
             'room_id' => $request->room_id,

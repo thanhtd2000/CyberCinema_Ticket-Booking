@@ -98,15 +98,12 @@ class RoomController extends Controller
                 ],
                 [
                     'roomname.required' => 'Không được bỏ trông tên phòng!',
-
                 ]
             );
             $data =
                 [
                     'name' => $request->roomname,
-
                 ];
-
             $this->room->find($id)->update($data);
             return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
         } catch (\PDOException $e) {
@@ -126,6 +123,7 @@ class RoomController extends Controller
         }
         $currentDateTime = Carbon::now();
         $schedule = $this->schedule->where('room_id', $request->id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
+
         if (!empty($schedule->toArray())) {
             return back()->with('error', 'Phòng đang chiếu phim không thể xóa!');
         } else {
