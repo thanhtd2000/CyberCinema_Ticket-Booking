@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Actor;
 use App\Models\Category;
 use App\Models\Director;
+use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,5 +44,9 @@ class Movie extends Model
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function schedule()
+    {
+        return $this->hasMany(Schedule::class, 'movie_id');
     }
 }

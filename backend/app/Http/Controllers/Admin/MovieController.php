@@ -86,7 +86,7 @@ class MovieController extends Controller
                 }
             }
             return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
-        } catch (\PDOException $e) {
+        } catch (PDOException $e) {
             if ($e->getCode() === '23000') {
                 return redirect()->back()->with('error', 'Tên phim đã tồn tại');
             } else {
