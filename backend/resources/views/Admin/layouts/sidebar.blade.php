@@ -1,8 +1,7 @@
 <div class="sidebar sidebar-dark sidebar-fixed" id="sidebar">
     <div class="sidebar-brand d-none d-md-flex">
         <a href="{{ route('admin.index') }}">
-            <img class="sidebar-brand-full" width="70"  src="../../../uploads/logo/logo.png"
-                alt="">
+            <img class="sidebar-brand-full" width="70" src="../../../uploads/logo/logo.png" alt="">
         </a>
     </div>
     <ul class="sidebar-nav" data-coreui="navigation" data-simplebar="">
@@ -111,8 +110,8 @@
                 </svg> Ghế</a>
             <ul class="nav-group-items">
                 <li class="nav-item"><a class="nav-link" href="/admin/seat_type/">Loại ghế</a></li>
-                <li class="nav-item"><a class="nav-link" href="/admin/seat_row">Hàng ghế</a></li>
-
+                <li class="nav-item"><a class="nav-link" href="/admin/seat_type/create">Thêm Loại Ghế<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
             </ul>
         </li>
         <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
