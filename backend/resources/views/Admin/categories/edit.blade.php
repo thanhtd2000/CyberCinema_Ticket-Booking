@@ -6,7 +6,7 @@
         @csrf
         @method('put')
         <div class="mb-3">
-            <label class="form-label">Category Name</label>
+            <label class="form-label">Tên danh mục</label>
             <input type="text" name="name" class="form-control" value="{{ $category->name }}">
 
             @error('name')
@@ -14,6 +14,6 @@
             @enderror
         </div>
 
-        <button type="submit" class="btn btn-outline-primary">Submit</button>
+        <button type="submit" class="btn btn-outline-primary">Cập nhật</button>
     </form>
 @endsection

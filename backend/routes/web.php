@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SeatRowController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DirectorController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SeatTypeController;
 
 /*
@@ -101,7 +102,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
         Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
-        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
+
         Route::post("/index", [MovieController::class, 'search'])->name('admin.movie.search');
         Route::get("/trash", [MovieController::class, 'trash'])->name('admin.movie.trash');
         Route::get("/restore/{id}", [MovieController::class, 'restore'])->name('admin.movie.restore');
@@ -141,5 +142,15 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('admin.room.edit');
         Route::put('/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
         Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
+        Route::get("/trash", [RoomController::class, 'trash'])->name('admin.room.trash');
+        Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore');
+    });
+    Route::prefix('/schedule')->group(function () {
+        Route::get('/', [ScheduleController::class, 'index'])->name('admin.schedule');
+        Route::get('/create', [ScheduleController::class, 'create'])->name('admin.schedule.create');
+        Route::post('/store', [ScheduleController::class, 'store'])->name('admin.schedule.store');
+        Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
+        Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
+        Route::get('delete/{id}', [ScheduleController::class, 'delete'])->name('admin.schedule.delete');
     });
 });
