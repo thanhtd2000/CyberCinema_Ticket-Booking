@@ -51,7 +51,7 @@
                         @endforeach
                     </td>
                     <td>{{ $movie->category->name }}</td>
-                    <td>{{ $globalHelper->convertStringToHoursMinutes($movie->time) }}
+                    <td>{{ $movie->time }}
                     </td>
                     <td>{{ $movie->language }}</td>
                     <td><a class="text-white btn btn-success mb-2" href="{{ route('admin.movie.edit', $movie->id) }}"><i

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Carbon\Carbon;
 use App\Models\Movie;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -34,6 +35,7 @@ class MovieDetailResource extends JsonResource
             'actor' => $this->actors()->get(),
             'year_old' => $this->year_old,
             'type' => $this->type,
+            'schedules' => $this->schedule()->selectRaw('DATE(time_start) as date')->where('movie_id', $this->id)->where('time_start', '>', Carbon::now())->groupBy('date')->get()->pluck('date')
         ];
     }
 }

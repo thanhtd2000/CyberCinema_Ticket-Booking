@@ -6,7 +6,8 @@
         @csrf
         <div class="form-group">
             <label for="exampleFormControlSelect1">Phim</label>
-            <select class="js-example-basic-multiple-limit form-control" name="movie_id">
+            <select class="js-example-basic-multiple-limit form-control" name="movie_id" multiple="multiple">
+                {{-- <option value="">Chọn phim</option> --}}
                 @foreach ($movies as $item)
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                 @endforeach
@@ -19,8 +20,8 @@
 
         <div class="form-group">
             <label for="exampleFormControlSelect1">Phòng</label>
-            <select class="js-example-basic-multiple-limit form-control type" name="room_id" id="type">
-                <option value="0">Chọn phòng</option>
+            <select class="js-example-basic-multiple-limit form-control type" name="room_id" id="type" multiple="multiple">
+                {{-- <option value="">Chọn phòng</option> --}}
                 @foreach ($rooms as $room)
                     <option value="{{ $room->id }}">{{ $room->name }}</option>
                 @endforeach

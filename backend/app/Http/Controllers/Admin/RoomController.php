@@ -2,31 +2,39 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Room;
 use App\Models\Seat;
+use App\Models\Schedule;
 use App\Models\SeatType;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\RoomRequest;
+use App\Http\Controllers\Controller;
+use App\Helpers\GlobalHelper;
 
 class RoomController extends Controller
 {
     public $room;
     public $seat;
     public $seatType;
+    public $schedule;
 
-    public function __construct(Room $room, Seat $seat, SeatType $seatType)
+    public function __construct(Room $room, Seat $seat, SeatType $seatType, Schedule $schedule)
     {
         $this->room = $room;
         $this->seat = $seat;
         $this->seatType = $seatType;
+        $this->schedule = $schedule;
     }
 
     public function index()
     {
         $rooms = $this->room->paginate(5);
-        
-        return view('Admin/Room/list', compact('rooms'));
+        $currentDateTime = Carbon::now();
+        $schedule = $this->schedule->get();
+        $endDate = Carbon::create(2023, 6, 16, 23, 59, 59);
+
+        return view('Admin/Room/list', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
     }
 
     public function create()
@@ -65,18 +73,24 @@ class RoomController extends Controller
 
     public function edit($id)
     {
+
         $seatType = $this->seatType->get();
         $seats = $this->seat->where('room_id', $id)->get();
         $room = $this->room->find($id);
         $alphabet = range('A', 'Z');
         $num_of_elements = $room->row;
         $elements = array_slice($alphabet, 0, $num_of_elements);
-
-        return view('Admin/Room/edit', compact('room', 'seatType', 'seats', 'elements'));
+        $currentDateTime = Carbon::now();
+        $schedule = $this->schedule->where('room_id', $id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
+        if (!empty($schedule->toArray())) {
+            return back()->with('error', 'Phòng đang chiếu phim không thể sửa!');
+        } else {
+            return view('Admin/Room/edit', compact('room', 'seatType', 'seats', 'elements'));
+        }
     }
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
-        try{
+        try {
             $this->validate(
                 $request,
                 [
@@ -84,26 +98,21 @@ class RoomController extends Controller
                 ],
                 [
                     'roomname.required' => 'Không được bỏ trông tên phòng!',
-                   
                 ]
             );
             $data =
                 [
                     'name' => $request->roomname,
-    
                 ];
-    
             $this->room->find($id)->update($data);
             return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
-        }catch (\PDOException $e) {
+        } catch (\PDOException $e) {
             if ($e->getCode() === '23000') {
                 return redirect()->back()->with('error', 'Phòng đã tồn tại');
             } else {
                 return redirect()->back()->with('error', 'Lỗi');
             }
         }
-
-       
     }
 
     public function destroy(Request $request)
@@ -112,9 +121,15 @@ class RoomController extends Controller
             $this->room->withTrashed()->find($request->id)->forceDelete();
             return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
         }
-        $this->room->find($request->id)->delete();
-        return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
-        //
+        $currentDateTime = Carbon::now();
+        $schedule = $this->schedule->where('room_id', $request->id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
+
+        if (!empty($schedule->toArray())) {
+            return back()->with('error', 'Phòng đang chiếu phim không thể xóa!');
+        } else {
+            $this->room->find($request->id)->delete();
+            return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
+        }
     }
     public function trash()
     {

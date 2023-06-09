@@ -21,16 +21,16 @@ class GlobalHelper
         return $slug;
     }
 
-    public function convertStringToHoursMinutes($timeString)
+    public function convertStringToHoursMinutes($timeString,$start_time)
     {
         $minutes = intval(preg_replace('/[^0-9]+/', '', $timeString));
 
-        $hours = floor($minutes / 60);
-        $remainingMinutes = $minutes % 60;
+        // $hours = floor($minutes / 60);
+        // $remainingMinutes = $minutes % 60;
 
 
-        $time = Carbon::now()->setTime($hours, $remainingMinutes);
-
-        return  $time->format('H:i');;
+        // $time = Carbon::now()->setTime($hours, $remainingMinutes);
+        $time = Carbon::createFromFormat('Y/m/d H:i:s', $start_time)->addMinutes( $minutes + 30);
+        return  $time;
     }
 }
