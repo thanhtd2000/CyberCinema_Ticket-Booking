@@ -1,9 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthApiController;
-use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\Postcontroller;
+use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\MovieController;
+use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\ScheduleController;
 
 /*
@@ -33,6 +34,9 @@ Route::get('/get/post/detail/{slug}', [Postcontroller::class, 'detail']);
 
 //schedule
 Route::get('/get/schedule', [ScheduleController::class, 'getScheduleMovie']);
+
+//room
+Route::middleware('auth:sanctum')->get('/get/room', [RoomController::class, 'getSeats']);
 
 //users
 Route::middleware('auth:sanctum')->put('/users/update-profile', [AuthApiController::class, 'update']);
