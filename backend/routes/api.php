@@ -34,6 +34,7 @@ Route::get('/get/post/detail/{slug}', [Postcontroller::class, 'detail']);
 
 //schedule
 Route::get('/get/schedule', [ScheduleController::class, 'getScheduleMovie']);
+Route::get('/get/schedule/room', [ScheduleController::class, 'getRooms']);
 
 //room
 Route::middleware('auth:sanctum')->get('/get/room', [RoomController::class, 'getSeats']);
