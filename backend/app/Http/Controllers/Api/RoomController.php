@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
+use App\Models\Room;
+use App\Models\Seat;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\RoomResource;
 
 class RoomController extends Controller
 {
@@ -12,9 +15,19 @@ class RoomController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public $room;
+    public $seat;
+    public function __construct(Room $room, Seat $seat)
     {
-        //
+        $this->room = $room;
+        $this->seat = $seat;
+    }
+    public function getSeats(Request $request)
+    {
+        $seats = $this->seat->where('room_id', $request->room)->where('status',0)->get();
+
+        $data = RoomResource::collection($seats);
+        return response()->json($data,200);
     }
 
     /**
