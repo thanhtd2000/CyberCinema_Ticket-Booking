@@ -191,24 +191,4 @@ class AuthApiController extends Controller
                   ], 409);
             }
       }
-      // public function changeImage(Request $request)
-      // {
-      //       $path = 'Avatars/';
-      //       $user = $request->user();
-      //       if ($request->hasFile('image')) {
-
-      //             $this->firebaseHelper->deleteImage($user->image, $path);
-      //             $image = $request->file('image');
-      //             $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
-      //             $user->save();
-      //             return response()->json([
-      //                   'status_code' => 200,
-      //                   'message' => 'Successfully'
-      //             ], 200);
-      //       };
-      //       return response()->json([
-      //             'status_code' => 400,
-      //             'message' => 'No image file found'
-      //       ], 400);
-      // }
 }
