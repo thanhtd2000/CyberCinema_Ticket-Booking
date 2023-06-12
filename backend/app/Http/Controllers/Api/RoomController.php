@@ -7,6 +7,7 @@ use App\Models\Seat;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoomResource;
+use App\Models\OrderSchedule;
 
 class RoomController extends Controller
 {
@@ -24,10 +25,16 @@ class RoomController extends Controller
     }
     public function getSeats(Request $request)
     {
-        $seats = $this->seat->where('room_id', $request->room)->where('status',0)->get();
+        $schedule_id = $request->schedule_id;
+        // dd($schedule_id);
+        $seats = $this->seat->where('room_id', $request->room_id)->where('status', 0)->get();
+        $seatsWithScheduleId = $seats->map(function ($seat) use ($schedule_id) {
+            $seat['schedule_id'] = $schedule_id;
+            return $seat;
+        });
+        $data = RoomResource::collection($seatsWithScheduleId);
 
-        $data = RoomResource::collection($seats);
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 
     /**
