@@ -32,13 +32,35 @@
             @enderror
         </div>
 
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Thời gian chiếu</label>
-            <input type="datetime-local" name="time_start" class="form-control" value="{{ old('time-start') }}">
+
+        <div id="additionalDates">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Ngày chiếu</label>
+                <button type="button" class="btn btn-outline-success" style="font-size: 15px; margin: 10px;" id="addDateBtn"><i class="fas fa-plus"></i></button>
+                <input type="datetime-local" name="time_start[]" class="form-control" value="{{ old('time_start') }}">
+            </div>
         </div>
+
 
         <button type="submit" class="btn btn-outline-primary">Thêm mới</button>
     </form>
 
     @include('Admin.layouts.select2')
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var counter = 1;
+
+            $('#addDateBtn').click(function() {
+                var html = '<div class="form-group">' +
+                           '<label for="exampleFormControlSelect1">Ngày chiếu</label>' +
+                           '<input type="datetime-local" name="time_start[]" class="form-control" value="{{ old('time_start') }}">' +
+                           '</div>';
+
+                $('#additionalDates').append(html);
+                counter++;
+            });
+        });
+    </script>
 @endsection

@@ -22,7 +22,7 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td>{{ $schedule->movies->name }}</td>
-                    <td>{{ $schedule->rooms->name }}</td>
+                    <td>{{ $schedule->room->name }}</td>
                     <td>{{ $schedule->time_start}}</td>
                     <td>{{ $schedule->time_end}}</td>
 
