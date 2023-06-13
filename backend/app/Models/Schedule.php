@@ -16,7 +16,7 @@ class Schedule extends Model
     {
         return $this->belongsTo(Movie::class, 'movie_id');
     }
-    public function room()
+    public function rooms()
     {
         return $this->belongsTo(Room::class, 'room_id');
     }

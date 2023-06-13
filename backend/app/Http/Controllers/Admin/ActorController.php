@@ -57,13 +57,19 @@ class ActorController extends Controller
     {
         $path = 'Actors/';
         $newActor = $request->toArray();
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
-            Actor::create($newActor);
-            return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+        $actors = Actor::where('name', $newActor['name'])->where('birthday', $newActor['birthday'])->get();
+
+        if (!empty($actors->toArray())) {
+            return back()->with('error', 'Diễn viên đã có!');
+        } else {
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
+                Actor::create($newActor);
+                return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+            }
+            return redirect('admin/actor/index')->with('message', 'Thiếu ảnh');
         }
-        return redirect('admin/actor/index')->with('message', 'Thiếu ảnh');
     }
 
     /**
