@@ -55,13 +55,18 @@ class DirectorController extends Controller
     {
         $path = 'Directors/';
         $newDirecrtor = $request->toArray();
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
-            Director::create($newDirecrtor);
-            return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+        $directors = Director::where('name', $newDirecrtor['name'])->where('birthday', $newDirecrtor['birthday'])->get();
+        if (!empty($directors->toArray())) {
+            return back()->with('error', 'Đạo diễn đã có!');
+        } else {
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+                Director::create($newDirecrtor);
+                return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+            }
+            return redirect('admin/director/index')->with('error', 'Thiếu ảnh');
         }
-        return redirect('admin/director/index')->with('message', 'Thiếu ảnh');
     }
 
     /**

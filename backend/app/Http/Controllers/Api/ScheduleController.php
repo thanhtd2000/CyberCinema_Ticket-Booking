@@ -90,7 +90,6 @@ class ScheduleController extends Controller
         $movie = $this->movie->where('slug', $request->slug)->first();
         $date = Carbon::createFromFormat('Y-m-d H:i', $request->date . " " . $request->time);
         $dateTime = $date->format('Y-m-d H:i:s');
-        // dd($dateTime);
         $rooms = $this->schedule
             ->where('movie_id', $movie->id)
             ->where('time_start', $dateTime)
@@ -98,8 +97,10 @@ class ScheduleController extends Controller
         $roomData = [];
 
         foreach ($rooms as $room) {
-            //    dd($room->room->name);
             $roomName = $this->room->find($room->room_id)->toArray();
+            $schedule_id = $room->id;
+            $roomName['schedule_id'] = $schedule_id;
+
             array_push($roomData, $roomName);
         }
 
