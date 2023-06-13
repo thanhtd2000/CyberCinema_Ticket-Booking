@@ -35,7 +35,7 @@ class MovieDetailResource extends JsonResource
             'actor' => $this->actors()->get(),
             'year_old' => $this->year_old,
             'type' => $this->type,
-            'schedules' => $this->schedule()->selectRaw('DATE(time_start) as date')->where('movie_id', $this->id)->where('time_start', '>', Carbon::now())->groupBy('date')->get()->pluck('date')
+            'schedules' => $this->schedule()->select('id')->selectRaw('DATE(time_start) as date')->where('movie_id', $this->id)->where('time_start', '>', Carbon::now())->groupBy('date','id')->get()
         ];
     }
 }
