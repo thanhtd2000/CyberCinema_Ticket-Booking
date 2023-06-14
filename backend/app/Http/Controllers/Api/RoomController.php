@@ -26,6 +26,7 @@ class RoomController extends Controller
     public function getSeats(Request $request)
     {
         $schedule_id = $request->schedule_id;
+        // dd($schedule_id);
         $seats = $this->seat->where('room_id', $request->id)->where('status', 0)->get();
         $seatsWithScheduleId = $seats->map(function ($seat) use ($schedule_id) {
             $seat['schedule_id'] = $schedule_id;
