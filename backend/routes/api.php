@@ -37,7 +37,7 @@ Route::get('/get/schedule', [ScheduleController::class, 'getScheduleMovie']);
 Route::get('/get/schedule/room', [ScheduleController::class, 'getRooms']);
 
 //room
-Route::middleware('auth:sanctum')->get('/get/room', [RoomController::class, 'getSeats']);
+Route::middleware('auth:sanctum')->post('/get/room', [RoomController::class, 'getSeats']);
 
 //users
 Route::middleware('auth:sanctum')->put('/users/update-profile', [AuthApiController::class, 'update']);
