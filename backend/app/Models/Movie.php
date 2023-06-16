@@ -9,10 +9,11 @@ use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Movie extends Model
 {
-    use HasFactory;
+    use HasFactory, Searchable;
     use SoftDeletes;
     protected $fillable = [
         'name',
@@ -48,5 +49,11 @@ class Movie extends Model
     public function schedule()
     {
         return $this->hasMany(Schedule::class, 'movie_id');
+    }
+    public function toSearchableArray()
+    {
+        return [
+            'name' => $this->name
+        ];
     }
 }

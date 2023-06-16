@@ -44,7 +44,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [UserController::class, 'index'])->name('admin.index');
     Route::prefix('users')->group(function () {
         Route::get("/index", [UserController::class, 'show'])->name('users.show');
-        Route::post("/index", [UserController::class, 'search'])->name('users.search');
+        Route::post("/index", [UserController::class, 'show'])->name('users.search');
         Route::get("/create", [UserController::class, 'create'])->name('users.create');
         Route::post("/create", [UserController::class, 'store'])->name('user.post');
         Route::get("/delete/{id}", [UserController::class, 'delete']);
@@ -102,8 +102,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
         Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
-
-        Route::post("/index", [MovieController::class, 'search'])->name('admin.movie.search');
+        Route::post("/index", [MovieController::class, 'index'])->name('admin.movie.search');
         Route::get("/trash", [MovieController::class, 'trash'])->name('admin.movie.trash');
         Route::get("/restore/{id}", [MovieController::class, 'restore'])->name('admin.movie.restore');
         Route::get("/show/{id}", [MovieController::class, 'show'])->name('admin.movie.show');

@@ -40,10 +40,17 @@ class MovieController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        $movies = $this->movies->latest()->paginate(5);;
-        return view('Admin.movie.list', compact('movies'))->with($this->data);
+        $keywords = $request->input('keywords');
+        if ($keywords) {
+
+            $movies = $this->movies->search($keywords)->paginate(5);
+            return view('Admin.movie.list', compact('movies', 'keywords'))->with($this->data);
+        } else {
+            $movies = $this->movies->latest()->paginate(5);;
+            return view('Admin.movie.list', compact('movies'))->with($this->data);
+        }
     }
 
     public function create()
@@ -159,13 +166,6 @@ class MovieController extends Controller
     }
 
 
-    public function search(Request $request)
-    {
-        $keywords = $request->input('keywords');
-        $movies = $this->movies->where('name', 'like', '%' . $request->input('keywords') . '%')
-            ->paginate(5);
-        return view('Admin.movie.list', compact('movies', 'keywords'))->with($this->data);
-    }
     public function restore(Request $request)
     {
         $movie =  $this->movies->withTrashed()->find($request->id);
