@@ -31,26 +31,26 @@ class UserController extends Controller
         return view('admin.index');
     }
 
-    public function show()
-    {
-        $user = User::latest()->paginate(5);
-        return view('admin.user.index', [
-            'user' => $user,
-            'roles' => $this->roles,
-        ]);
-    }
-    public function search(Request $request)
+    public function show(Request $request)
     {
         $keywords = $request->input('keywords');
-        $user = User::where('name', 'like', '%' . $keywords . '%')
-            ->orWhere('email', 'like', '%' . $keywords . '%')
-            ->paginate(5);
-        return view('admin.user.index', [
-            'user' => $user,
-            'roles' => $this->roles,
-            'keywords' => $keywords
-        ]);
+        if ($keywords) {
+
+            $user = User::search($keywords)->paginate(5);
+            return view('admin.user.index', [
+                'user' => $user,
+                'roles' => $this->roles,
+                'keywords' => $keywords
+            ]);
+        } else {
+            $user = User::latest()->paginate(5);
+            return view('admin.user.index', [
+                'user' => $user,
+                'roles' => $this->roles,
+            ]);
+        }
     }
+
     public function delete(Request $request)
     {
 
