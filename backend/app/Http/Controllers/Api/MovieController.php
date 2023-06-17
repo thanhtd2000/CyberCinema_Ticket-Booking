@@ -29,7 +29,8 @@ class MovieController extends Controller
             $s = $request->input('s');
             $query = $this->movies->limit($limit)->orderBy($orderBy, $order);
             if ($s !== null) {
-                $query->where('name', 'like', '%' . $s . '%');
+                $query->search($s);
+                // $query->where('name', 'like', '%' . $s . '%');
             }
             if ($isHot !== null) {
                 $query->where('isHot', $isHot);

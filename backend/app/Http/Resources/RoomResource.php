@@ -18,9 +18,7 @@ class RoomResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'created_at' => $this->created_at,
-            'type' => $this->type()->get(),
-            'room' => $this->room()->get('name'),
+            'type' =>  $this->type()->first(),
             'status' => OrderSchedule::where('schedule_id', $this->schedule_id)->where('seat_id', $this->id)->value('status'),
         ];
     }
