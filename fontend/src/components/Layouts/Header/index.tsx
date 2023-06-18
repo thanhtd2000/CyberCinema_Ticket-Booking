@@ -32,7 +32,6 @@ function Header() {
           setToken(accessToken);
         });
       }, []);
-      console.log(token);
       const user = getLocalStored(USER_PROFILE);
       function Tag() {
             return (

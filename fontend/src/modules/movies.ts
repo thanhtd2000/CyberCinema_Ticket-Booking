@@ -25,4 +25,9 @@ export type TMovies = {
       isHot: number;
       createdAt: Date;
       updatedAt: Date;
+      schedules: TSchedule[]
+}
+export type TSchedule = {
+      id: string;
+      schedule: Date;
 }

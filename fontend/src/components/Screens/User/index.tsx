@@ -8,11 +8,11 @@ import dayjs from 'dayjs';
 import { UploadOutlined } from '@ant-design/icons';
 function UserScreen() {
       const onFinish = (values: any) => {
-            console.log('Success:', values);
+            // console.log('Success:', values);
       };
 
       const onFinishFailed = (errorInfo: any) => {
-            console.log('Failed:', errorInfo);
+            // console.log('Failed:', errorInfo);
       };
       const normFile = (e: any) => {
             if (Array.isArray(e)) {
@@ -22,7 +22,7 @@ function UserScreen() {
       };
       const user = getLocalStored(USER_PROFILE)
       const dateFormat = 'YYYY/MM/DD';
-      console.log(user);
+      // console.log(user);
       return (
             <div className={`${style.infor} inforUser`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
