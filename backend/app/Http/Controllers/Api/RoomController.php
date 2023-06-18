@@ -26,80 +26,22 @@ class RoomController extends Controller
     public function getSeats(Request $request)
     {
         $schedule_id = $request->schedule_id;
-        // dd($schedule_id);
         $seats = $this->seat->where('room_id', $request->id)->where('status', 0)->get();
+
         $seatsWithScheduleId = $seats->map(function ($seat) use ($schedule_id) {
             $seat['schedule_id'] = $schedule_id;
             return $seat;
         });
-        $data = RoomResource::collection($seatsWithScheduleId);
+
+        $groupedSeats = $seatsWithScheduleId->groupBy(function ($seat) {
+            return strtoupper(substr($seat['name'], 0, 1));
+        });
+
+        $data = [];
+        foreach ($groupedSeats as $key => $seats) {
+            $data[$key] = RoomResource::collection($seats);
+        }
 
         return response()->json($data, 200);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
