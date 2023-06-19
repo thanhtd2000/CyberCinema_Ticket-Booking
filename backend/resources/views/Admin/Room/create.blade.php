@@ -20,7 +20,7 @@
         <div class="col-md-6">
             <div class="mb-3">
                 <label class="form-label">Số hàng</label>
-                <input type="number" name="row" class="form-control" value="{{old('row')}}">
+                <input type="number" name="row" class="form-control" value="{{old('row')}}" min="1" max="10">
         
                 @error('row')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
@@ -30,7 +30,7 @@
         <div class="col-md-6">
             <div class="mb-3">
                 <label class="form-label">Số cột</label>
-                <input type="number" name="column" class="form-control" value="{{old('column')}}">
+                <input type="number" name="column" class="form-control" value="{{old('column')}}" min="1" max="10">
         
                 @error('column')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
