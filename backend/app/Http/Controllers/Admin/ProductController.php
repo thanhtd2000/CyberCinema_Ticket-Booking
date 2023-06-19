@@ -4,14 +4,36 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Helpers\GlobalHelper;
+use App\Helpers\FirebaseHelper;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProducRequest;
+use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
 {
+    public $products;
+    public $firebaseHelper;
+    public $globalHelper;
+    public function __construct(Product $products)
+    {
+        $this->products = $products;
+        $this->firebaseHelper = new FirebaseHelper();
+        $this->globalHelper = new GlobalHelper();
+    }
+
     public function index()
     {
-        $products = Product::all();
-        return view('Admin.products.list', compact('products'));
+        $products = $this->products->latest()->paginate(5);
+        return view('admin.products.list', compact('products'));
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('keywords');
+        $products = $this->products->where('name', 'like', '%' . $query . '%')
+            ->paginate(5);
+        return view('Admin.post.index', compact('products'));
     }
 
     public function create()
@@ -19,38 +41,45 @@ class ProductController extends Controller
         return view('Admin.products.create');
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $formfields = $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-        ]);
-
-        Product::create($formfields);
-
-        return redirect('admin/product')->with('message', 'Create Product successfully');
+        if ($request->hasFile('image')) {
+            $path = 'Products/';
+            $image = $request->image;
+            $product = new Product();
+            $product->name = $request['name'];
+            $product->price = $request['price'];
+            $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+        }
+        $product->save();
+        return redirect('admin/product')->with('message', 'Thêm sản phẩm thành công');
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $products = Product::find($id);
-        return view('Admin.products.edit', compact('products'));
+        $product = $this->products->find($request->id);
+        return view('Admin.products.edit', compact('product'));
     }
 
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request)
     {
-        $formfields = $request->validate([
-            'name' => 'required',
-            'price' => 'required',
-        ]);
-
-        Product::where('id', $id)->update($formfields);
-        return redirect('admin/product')->with('message', 'Product updated successfully');
+        $path = 'Products/';
+        $product = $this->products::find($request->id);
+        if ($request->hasFile('image')) {
+            $this->firebaseHelper->deleteImage($product->image, $path);
+            $image = $request->file('image');
+            $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+        }
+        $product->name = $request['name'];
+        $product->price = $request['price'];
+        // dd($product);
+        $product->save();
+        return redirect()->route('admin.product')->with('message', 'Sửa thành công');
     }
 
     public function delete($id)
     {
         Product::where('id', $id)->delete();
-        return redirect('admin/product')->with('message', 'Product deleted successfully');
+        return redirect('admin/product')->with('message', 'Xóa sản phẩm thành công');
     }
 }
