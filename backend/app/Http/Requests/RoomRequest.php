@@ -33,7 +33,8 @@ class RoomRequest extends FormRequest
     {
         return [
             'required' => 'This field cannot be empty!',
-            'unique' => 'This field already exists!'
+            'unique' => 'This field already exists!',
+          
         ];
     }
 }
