@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\OrderSchedule;
+use App\Http\Controllers\Controller;
+use Google\Cloud\Storage\Connection\Rest;
 
 class SeatController extends Controller
 {
@@ -12,9 +14,29 @@ class SeatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function updateStatusSeat(Request $request)
     {
-        //
+        $user = $request->user();
+        $seat = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
+        if ($seat == null) {
+            $data = OrderSchedule::create([
+                'seat_id' => $request->id,
+                'schedule_id' => $request->schedule_id,
+                'user_id' => $user->id,
+                'status' => $request->status
+            ]);
+            return response()->json($data, 200);
+        } else {
+            // $seat->status = $request->status;
+            $datas = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->update([
+                'status' => $request->status
+            ]);
+            if ($datas == 0) {
+                return response()->json(['message' => 'Ghế đã bị đặt', 'status_code' => 404], 404);
+            }
+            $data = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
+            return response()->json($data, 200);
+        }
     }
 
     /**
