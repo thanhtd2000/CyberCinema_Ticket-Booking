@@ -72,6 +72,10 @@
                         <img src="../../../uploads/note-room/doi.png" alt="" width="40">
                         <p style="margin-left: 10px">Ghế đôi</p>
                     </div>
+                    <div class="note-seat" style="margin-top: 20px;display: -webkit-box;">
+                        <img src="../../../uploads/note-room/noeseat.png" alt="" width="40">
+                        <p style="margin-left: 10px">Ghế không sử dụng</p>
+                    </div>
 
                 </div>
             </div>
