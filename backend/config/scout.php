@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'driver' => env('SCOUT_DRIVER', 'algolia'),
+    'driver' => env('SCOUT_DRIVER', 'database'),
 
     /*
     |--------------------------------------------------------------------------
@@ -102,18 +102,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Algolia Configuration
+    | database Configuration
     |--------------------------------------------------------------------------
     |
-    | Here you may configure your Algolia settings. Algolia is a cloud hosted
+    | Here you may configure your database settings. database is a cloud hosted
     | search engine which works great with Scout out of the box. Just plug
     | in your application ID and admin API key to get started searching.
     |
     */
 
-    'algolia' => [
-        'id' => env('ALGOLIA_APP_ID', ''),
-        'secret' => env('ALGOLIA_SECRET', ''),
+    'database' => [
+        'id' => env('database_APP_ID', ''),
+        'secret' => env('database_SECRET', ''),
     ],
 
     /*
