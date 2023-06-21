@@ -31,7 +31,8 @@ class UserPolicy
     public function view(User $user)
     {
         $role =   Role::where('key', 'danh-sach-user')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -43,7 +44,8 @@ class UserPolicy
     public function create(User $user)
     {
         $role =   Role::where('key', 'them-user')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -56,7 +58,8 @@ class UserPolicy
     public function update(User $user)
     {
         $role =   Role::where('key', 'sua-user')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -69,7 +72,8 @@ class UserPolicy
     public function delete(User $user)
     {
         $role =   Role::where('key', 'xoa-user')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
 
