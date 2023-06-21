@@ -43,6 +43,7 @@ Route::prefix('admin')->group(function () {
 //admin routes
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [StatisticalsController::class, 'index'])->name('admin.index');
+    
     Route::prefix('users')->group(function () {
         Route::get("/index", [UserController::class, 'show'])->name('users.show');
         Route::post("/index", [UserController::class, 'show'])->name('users.search');
