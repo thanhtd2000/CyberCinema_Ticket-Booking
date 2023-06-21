@@ -32,7 +32,8 @@ class SchedulePolicy
     public function view(User $user)
     {
         $role =   Role::where('key', 'danh-sach-lich')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -44,7 +45,8 @@ class SchedulePolicy
     public function create(User $user)
     {
         $role =   Role::where('key', 'them-lich')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -57,7 +59,8 @@ class SchedulePolicy
     public function update(User $user)
     {
         $role =   Role::where('key', 'sua-lich')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -70,7 +73,8 @@ class SchedulePolicy
     public function delete(User $user)
     {
         $role =   Role::where('key', 'xoa-lich')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
 
