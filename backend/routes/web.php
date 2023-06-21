@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DirectorController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SeatTypeController;
+use App\Http\Controllers\Admin\StatisticalsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,7 @@ Route::prefix('admin')->group(function () {
 });
 //admin routes
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
-    Route::get("/index", [UserController::class, 'index'])->name('admin.index');
+    Route::get("/index", [StatisticalsController::class, 'index'])->name('admin.index');
     Route::prefix('users')->group(function () {
         Route::get("/index", [UserController::class, 'show'])->name('users.show');
         Route::post("/index", [UserController::class, 'show'])->name('users.search');
@@ -88,6 +89,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('admin.product');
+        Route::post('/search', [ProductController::class, 'index'])->name('admin.product.search');
         Route::get('/create', [ProductController::class, 'create'])->name('admin.product.create');
         Route::post('/store', [ProductController::class, 'store'])->name('admin.product.store');
         Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');

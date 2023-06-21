@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\Postcontroller;
 use App\Http\Controllers\Api\RoomController;
+use App\Http\Controllers\Api\SeatController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\ScheduleController;
@@ -40,4 +41,6 @@ Route::get('/get/schedule/room', [ScheduleController::class, 'getRooms']);
 Route::middleware('auth:sanctum')->post('/get/room', [RoomController::class, 'getSeats']);
 
 //users
-Route::middleware('auth:sanctum')->put('/users/update-profile', [AuthApiController::class, 'update']);
+Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);
+
+Route::middleware('auth:sanctum')->post('/update-status-seat', [SeatController::class, 'updateStatusSeat']);

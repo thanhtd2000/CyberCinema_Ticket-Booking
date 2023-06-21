@@ -2,33 +2,44 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-    <table class="table">
+    <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
+                class="text-white" href="{{ route('admin.product.create') }}">Thêm mới</a></button>
+        <div class="row g-3 align-items-center">
+            <form action="{{ route('admin.product.search') }}" method="POST" class="d-flex">
+                @csrf
+                <div class="col-auto">
+                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
+                </div>
+                <button type="button" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
+            </form>
+        </div>
+    </div>
+    <table class="table mt-2">
         <thead>
             <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Price</th>
-                <th scope="col">
-                    <button class="btn btn-primary">
-                        <a class="text-white" href="{{ route('admin.product.create') }}">Add</a>
-                    </button>
-                </th>
+                <th class="">STT</th>
+                <th class="">Ảnh</th>
+                <th class="">Tên sản phẩm</th>
+                <th class="">Giá</th>
+                <th class="">Chức năng</th>
             </tr>
         </thead>
         <tbody>
             @foreach ($products as $key => $product)
                 <tr>
-                    <th scope="row">{{ $key += 1 }}</th>
-                    <td>{{ $product->name }}</td>
-                    {{-- <td>{{$product->price}}</td> --}}
+                    <td class="">{{ $key += 1 }}</td>
+                    <td><img src="{{ $product->image }}" width="50px" alt=""></td>
+                    <td class="">{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
                     <td>
                         <button class="btn btn-primary">
-                            <a class="text-white" href="{{ route('admin.product.edit', $product->id) }}">Edit</a>
+                            <a class="text-white" href="{{ route('admin.product.edit', $product->id) }}"><i
+                                    class="fas fa-pencil-alt"></i></a>
                         </button>
                         <button class="btn btn-danger">
                             <a class="text-white" onclick="return confirm('Really delete this product?')"
-                                href="{{ route('admin.product.delete', $product->id) }}"> Delete</a>
+                                href="{{ route('admin.product.delete', $product->id) }}"><i
+                                    class="fas fa-trash-alt"></i></a>
                         </button>
                     </td>
                 </tr>

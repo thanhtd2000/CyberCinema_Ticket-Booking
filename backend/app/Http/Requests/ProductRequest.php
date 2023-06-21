@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RoomRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,16 @@ class RoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:rooms,name',
-            'row' => 'required',
-            'column' => 'required'
+            'name' => 'required',
+            'price' => 'required',
+            'image' => 'file|mimes:jpg,jpeg,png|max:2048',
         ];
     }
     public function messages()
     {
         return [
-            'required' => 'This field cannot be empty!',
-            'unique' => 'This field already exists!',
-          
+            'required' => 'Bắt buộc phải nhập',
+            'file' => 'Phải là dạng Files',
         ];
     }
 }

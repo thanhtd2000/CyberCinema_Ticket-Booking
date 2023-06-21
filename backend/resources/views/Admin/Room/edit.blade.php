@@ -28,33 +28,58 @@
                 @endif
 
             @endforeach --}}
-            @foreach ($elements as $element)
-                @for ($j = 1; $j <= $room->column; $j++)
-                    @if (
-                        $seats->contains(function ($t) use ($element, $j) {
-                            return $t->name == $element . $j;
-                        }))
-                        @php
-                            $seat = $seats->first(function ($t) use ($element, $j) {
-                                return $t->name == $element . $j;
-                            });
-                        @endphp
-                        @if ($seat->status == 0)
-                            <a @if ($seat->type_id == 1) class="btn btn-success seat-detail"
-                            @elseif ($seat->type_id == 2) class="btn btn-primary seat-detail"
-                            @elseif ($seat->type_id == 3) class="btn btn-danger seat-detail" @endif
-                                style="width: 55px; margin:10px" data-toggle="modal" data-target="#seats"
-                                data-seat-id="{{ $seat->id }}">
-                                {{ $element . $j }}
-                            </a>
-                        @elseif ($seat->status == 1)
-                            <a class="btn btn-outline-dark seat-detail" style="width: 55px; margin:10px" data-toggle="modal"
-                                data-target="#seats" data-seat-id="{{ $seat->id }}">{{ $element . $j }}</a>
-                        @endif
-                    @endif
-                @endfor
-                <br>
-            @endforeach
+            <div class="row">
+                <div class="col-md-9">
+                    @foreach ($elements as $element)
+                        @for ($j = 1; $j <= $room->column; $j++)
+                            @if (
+                                $seats->contains(function ($t) use ($element, $j) {
+                                    return $t->name == $element . $j;
+                                }))
+                                @php
+                                    $seat = $seats->first(function ($t) use ($element, $j) {
+                                        return $t->name == $element . $j;
+                                    });
+                                @endphp
+                                @if ($seat->status == 0)
+                                    <a @if ($seat->type_id == 1) class="btn btn-success seat-detail"
+                                    @elseif ($seat->type_id == 2) class="btn btn-primary seat-detail"
+                                    @elseif ($seat->type_id == 3) class="btn btn-danger seat-detail" @endif
+                                        style="width: 55px; margin:10px" data-toggle="modal" data-target="#seats"
+                                        data-seat-id="{{ $seat->id }}">
+                                        {{ $element . $j }}
+                                    </a>
+                                @elseif ($seat->status == 1)
+                                    <a class="btn btn-outline-dark seat-detail" style="width: 55px; margin:10px" data-toggle="modal"
+                                        data-target="#seats" data-seat-id="{{ $seat->id }}">{{ $element . $j }}</a>
+                                @endif
+                            @endif
+                        @endfor
+                        <br>
+                    @endforeach
+                </div>
+                <div class="col-md-3">
+                    <h6>Ghi chú</h6>
+                    <div class="note-seat" style="margin-top: 20px; display: -webkit-box;">
+                        <img src="../../../uploads/note-room/thuong.png" alt="" width="40">
+                        <p style="margin-left: 10px">Ghế thường</p>
+                    </div>
+                    <div class="note-seat" style="margin-top: 20px;display: -webkit-box;">
+                        <img src="../../../uploads/note-room/vip.png" alt="" width="40">
+                        <p style="margin-left: 10px">Ghế vip</p>
+                    </div>
+                    <div class="note-seat" style="margin-top: 20px;display: -webkit-box;">
+                        <img src="../../../uploads/note-room/doi.png" alt="" width="40">
+                        <p style="margin-left: 10px">Ghế đôi</p>
+                    </div>
+                    <div class="note-seat" style="margin-top: 20px;display: -webkit-box;">
+                        <img src="../../../uploads/note-room/noeseat.png" alt="" width="40">
+                        <p style="margin-left: 10px">Ghế không sử dụng</p>
+                    </div>
+
+                </div>
+            </div>
+          
             <button type="submit" class="btn btn-outline-primary">Submit</button>
         </form>
     </div>
