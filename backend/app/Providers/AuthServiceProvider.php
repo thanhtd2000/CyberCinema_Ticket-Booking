@@ -30,10 +30,10 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
         Passport::tokensExpireIn(Carbon::now()->addMinutes(60));
 
-        // Gate::define('list-room', function (User $user) {
-        //     $role =   Role::where('key', 'danh-sach-phong')->where('check', 1)->first();
-        //     return $user->role == 0 || $user->role == ($role == null ? '' : 3);
-        // });
+        Gate::define('permission', function (User $user) {
+           
+            return $user->role == 0 ;
+        });
         // Actor
         Gate::define('list-actor', 'App\Policies\ActorPolicy@view');
         Gate::define('create-actor', 'App\Policies\ActorPolicy@create');

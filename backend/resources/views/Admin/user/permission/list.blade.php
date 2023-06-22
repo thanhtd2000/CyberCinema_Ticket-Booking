@@ -15,16 +15,20 @@
                    <a class="btn btn-success" href="{{route('permission.edit',$permissionsParentItem->id)}}" style="float: right"><i class="fas fa-pencil-alt"></i> </a>
                 </div>
                 <div class="row">
-                    @foreach ($permissionsParentItem->permissionChild as $permissionChildItem)
+                    @foreach ($permissionsParentItem->permissionChild as $key => $permissionChildItem)
                         <div class="card-body text-dark col-md-3">
-                            <p class="card-title">
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" name="permission_child[]" {{  $permissionChildItem->check == 1 ? 'checked' : '' }} value="{{$permissionChildItem->id}}" disabled id="customSwitch{{$permissionChildItem->id}}">
+                                <label class="custom-control-label" for="customSwitch{{$permissionChildItem->id}}">{{ $permissionChildItem->name }}</label>
+                              </div>
+                            {{-- <p class="card-title">
                                 <label for="">
                                     <input type="checkbox" name="permission_child[]"
                                     {{  $permissionChildItem->check == 1 ? 'checked' : '' }}
                                     id="" class="checkbox_childrent" value="{{$permissionChildItem->id}}" aria-disabled="true" >
                                 </label>
                                 {{ $permissionChildItem->name }}
-                            </p>
+                            </p> --}}
 
                         </div>
                     @endforeach

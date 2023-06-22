@@ -3,7 +3,9 @@
 @extends('Admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
+        @can('create-actor')
         <button type="button" class="btn btn-primary col-md-1"><a class="text-white" href="{{ route('admin.actor.create') }}">Thêm mới</a></button>
+        @endcan
         <div class="row g-3 align-items-center col-md-4">
             <form action="{{ route('admin.actor.search') }}" method="POST" class="d-flex">
                 @csrf
@@ -38,13 +40,17 @@
                     <td>{{ $actor->nationality }}</td>
                     <td>{{ $actor->gender == 1 ? 'Nam' : ($actor->gender == 2 ? 'Nữ' : 'Khác') }}</td>
                     <td>
+                        @can('edit-actor')
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.actor.edit', $actor->id) }}">Sửa</a>
                         </button>
+                        @endcan
+                        @can('delete-actor')
                         <button class="btn btn-danger">
                             <a class="text-white" onclick="return confirm('Really delete this actor?')"
                                 href="{{ route('admin.actor.destroy', $actor->id) }}"> Xóa</a>
                         </button>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

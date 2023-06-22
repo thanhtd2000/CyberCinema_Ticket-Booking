@@ -21,22 +21,16 @@
                 </div>
             </div>
             <div class="row">
-                @foreach ($permission_child as $permissionChildItem)
-                    <div class="card-body text-dark col-md-3">
-                        <p class="card-title">
-                            <label for="">
-                                <input type="checkbox" name="permission_child[]"
-                                {{  $permissionChildItem->check == 1 ? 'checked' : '' }}
-                                id="" class="checkbox_childrent" value="{{$permissionChildItem->id}}" >
-                            </label>
-                            {{ $permissionChildItem->name }}
-                        </p>
-
-                    </div>
+                @foreach ($permission_child as $key => $permissionChildItem)
+                <div class="custom-control custom-switch col-md-3">
+                    <input type="checkbox" class="custom-control-input" id="customSwitch{{$key}}"  {{  $permissionChildItem->check == 1 ? 'checked' : '' }} value="{{$permissionChildItem->id}}" name="permission_child[]" >
+                    <label class="custom-control-label" for="customSwitch{{$key}}">{{ $permissionChildItem->name }}</label>
+                  </div>
+                    
                 @endforeach
 
             </div>
-            <button type="submit" class="btn btn-outline-primary">Submit</button>
+            <button type="submit" class="btn btn-outline-primary mt-3">Submit</button>
         </form>
     
 @endsection
