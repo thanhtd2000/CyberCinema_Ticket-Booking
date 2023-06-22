@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Helpers\FirebaseHelper;
 use App\Http\Requests\ActorRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 
 class ActorController extends Controller
@@ -24,6 +25,7 @@ class ActorController extends Controller
      */
     public function index()
     {
+       
         $actors = Actor::paginate(10);
         return view('Admin.actors.index', compact('actors'));
     }
@@ -44,7 +46,12 @@ class ActorController extends Controller
      */
     public function create()
     {
-        return view('Admin.actors.create');
+        if(Gate::allows('create-actor')){
+            return view('Admin.actors.create');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 
     /**
@@ -60,7 +67,7 @@ class ActorController extends Controller
         $actors = Actor::where('name', $newActor['name'])->where('birthday', $newActor['birthday'])->get();
 
         if (!empty($actors->toArray())) {
-            return back()->with('error', 'Diễn viên đã có!');
+            return back()->with('errors', 'Diễn viên đã có!');
         } else {
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -91,8 +98,13 @@ class ActorController extends Controller
      */
     public function edit($id)
     {
-        $actor = Actor::find($id);
+        if(Gate::allows('edit-actor')){
+            $actor = Actor::find($id);
         return view('admin.actors.edit', compact('actor'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+        
     }
 
     /**
@@ -126,7 +138,12 @@ class ActorController extends Controller
      */
     public function destroy($id)
     {
-        Actor::find($id)->delete();
-        return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
+        if(Gate::allows('delete-actor')){
+            Actor::find($id)->delete();
+            return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 }

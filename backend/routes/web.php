@@ -58,78 +58,78 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/change-password", [UserController::class, 'viewchange'])->name('users.change_password');
         Route::put("/change-password", [UserController::class, 'change'])->name('users.change_passwords');
         //Permission
-        Route::get("/permission", [PermissionController::class, 'index'])->name('permission.list');
-        Route::get("/permission/create", [PermissionController::class, 'create'])->name('permission.create');
-        Route::post("/permission/store", [PermissionController::class, 'store'])->name('permission.store');
-        Route::get("/permission/edit/{id}", [PermissionController::class, 'edit'])->name('permission.edit');
-        Route::put("/permission/update", [PermissionController::class, 'update'])->name('permission.update');
+        Route::get("/permission", [PermissionController::class, 'index'])->name('permission.list')->middleware('can:permission');
+        Route::get("/permission/create", [PermissionController::class, 'create'])->name('permission.create')->middleware('can:permission');
+        Route::post("/permission/store", [PermissionController::class, 'store'])->name('permission.store')->middleware('can:permission');
+        Route::get("/permission/edit/{id}", [PermissionController::class, 'edit'])->name('permission.edit')->middleware('can:permission');
+        Route::put("/permission/update", [PermissionController::class, 'update'])->name('permission.update')->middleware('can:permission');
 
 
     });
 
     Route::prefix('category')->group(function () {
         Route::get("/index", [CategoryController::class, 'index'])->name('admin.category')->middleware('can:list-category');
-        Route::get("/create", [CategoryController::class, 'create'])->name('admin.category.create')->middleware('can:create-category');
+        Route::get("/create", [CategoryController::class, 'create'])->name('admin.category.create');
         Route::post("/store", [CategoryController::class, 'store'])->name('admin.category.store');
-        Route::get("/edit/{id}", [CategoryController::class, 'edit'])->name('admin.category.edit')->middleware('can:edit-category');
+        Route::get("/edit/{id}", [CategoryController::class, 'edit'])->name('admin.category.edit');
         Route::put("/update/{id}", [CategoryController::class, 'update'])->name('admin.category.update');
-        Route::get("/delete/{id}", [CategoryController::class, 'destroy'])->name('admin.category.destroy')->middleware('can:delete-category');
+        Route::get("/delete/{id}", [CategoryController::class, 'destroy'])->name('admin.category.destroy');
         Route::post("/index", [CategoryController::class, 'search'])->name('admin.category.search');
     });
 
     Route::prefix('director')->group(function () {
         Route::get("/index", [DirectorController::class, 'index'])->name('admin.director')->middleware('can:list-director');
-        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create')->middleware('can:create-director');
+        Route::get("/create", [DirectorController::class, 'create'])->name('admin.director.create');
         Route::post("/store", [DirectorController::class, 'store'])->name('admin.director.store');
-        Route::get("/edit/{id}", [DirectorController::class, 'edit'])->name('admin.director.edit')->middleware('can:edit-director');
+        Route::get("/edit/{id}", [DirectorController::class, 'edit'])->name('admin.director.edit');
         Route::put("/update/{id}", [DirectorController::class, 'update'])->name('admin.director.update');
-        Route::get("/delete/{id}", [DirectorController::class, 'destroy'])->name('admin.director.destroy')->middleware('can:delete-director');
+        Route::get("/delete/{id}", [DirectorController::class, 'destroy'])->name('admin.director.destroy');
         Route::post("/index", [DirectorController::class, 'search'])->name('admin.director.search');
     });
 
     Route::prefix('actor')->group(function () {
         Route::get("/index", [ActorController::class, 'index'])->name('admin.actor')->middleware('can:list-actor');
-        Route::get("/create", [ActorController::class, 'create'])->name('admin.actor.create')->middleware('can:create-actor');
+        Route::get("/create", [ActorController::class, 'create'])->name('admin.actor.create');
         Route::post("/store", [ActorController::class, 'store'])->name('admin.actor.store');
-        Route::get("/edit/{id}", [ActorController::class, 'edit'])->name('admin.actor.edit')->middleware('can:edit-actor');
+        Route::get("/edit/{id}", [ActorController::class, 'edit'])->name('admin.actor.edit');
         Route::put("/update/{id}", [ActorController::class, 'update'])->name('admin.actor.update');
-        Route::get("/delete/{id}", [ActorController::class, 'destroy'])->name('admin.actor.destroy')->middleware('can:delete-actor');
+        Route::get("/delete/{id}", [ActorController::class, 'destroy'])->name('admin.actor.destroy');
         Route::post("/index", [ActorController::class, 'search'])->name('admin.actor.search');
     });
 
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('admin.product')->middleware('can:list-product');
         Route::post('/search', [ProductController::class, 'index'])->name('admin.product.search');
-        Route::get('/create', [ProductController::class, 'create'])->name('admin.product.create')->middleware('can:create-product');
+        Route::get('/create', [ProductController::class, 'create'])->name('admin.product.create');
         Route::post('/store', [ProductController::class, 'store'])->name('admin.product.store');
-        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit')->middleware('can:edit-product');
+        Route::get('/edit/{id}', [ProductController::class, 'edit'])->name('admin.product.edit');
         Route::put('/update/{id}', [ProductController::class, 'update'])->name('admin.product.update');
-        Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('admin.product.delete')->middleware('can:delete-product');
+        Route::get('/delete/{id}', [ProductController::class, 'delete'])->name('admin.product.delete');
     });
 
     Route::prefix('movie')->group(function () {
         Route::get('/', [MovieController::class, 'index'])->name('admin.movie')->middleware('can:list-movie');
-        Route::get('/create', [MovieController::class, 'create'])->name('admin.movie.create')->middleware('can:create-movie');
+        Route::get('/create', [MovieController::class, 'create'])->name('admin.movie.create');
         Route::post('/store', [MovieController::class, 'store'])->name('admin.movie.store');
-        Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit')->middleware('can:edit-movie');
+        Route::get('/edit/{id}', [MovieController::class, 'edit'])->name('admin.movie.edit');
         Route::put('/update/{id}', [MovieController::class, 'update'])->name('admin.movie.update');
-        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete')->middleware('can:delete-movie');
+        Route::get('/delete/{id}', [MovieController::class, 'destroy'])->name('admin.movie.delete');
         Route::post("/index", [MovieController::class, 'index'])->name('admin.movie.search');
-        Route::get("/trash", [MovieController::class, 'trash'])->name('admin.movie.trash')->middleware('can:delete-movie');
-        Route::get("/restore/{id}", [MovieController::class, 'restore'])->name('admin.movie.restore')->middleware('can:delete-movie');
-        Route::get("/show/{id}", [MovieController::class, 'show'])->name('admin.movie.show')->middleware('can:list-movie');
+        Route::get("/trash", [MovieController::class, 'trash'])->name('admin.movie.trash');
+        Route::get("/restore/{id}", [MovieController::class, 'restore'])->name('admin.movie.restore');
+        Route::get("/show/{id}", [MovieController::class, 'show'])->name('admin.movie.show');
     });
     Route::prefix('seat_type')->group(function () {
         Route::get('/', [SeatTypeController::class, 'index'])->name('admin.seat_type')->middleware('can:list-seatType');
-        Route::get('/create', [SeatTypeController::class, 'create'])->name('admin.seat_type.create')->middleware('can:create-seatType');
+        Route::get('/create', [SeatTypeController::class, 'create'])->name('admin.seat_type.create');
         Route::post('/store', [SeatTypeController::class, 'store'])->name('admin.seat_type.store');
-        Route::get('/edit/{id}', [SeatTypeController::class, 'edit'])->name('admin.seat_type.edit')->middleware('can:edit-seatType');
+        Route::get('/edit/{id}', [SeatTypeController::class, 'edit'])->name('admin.seat_type.edit');
         Route::put('/update/{id}', [SeatTypeController::class, 'update'])->name('admin.seat_type.update');
-        Route::get('/delete/{id}', [SeatTypeController::class, 'destroy'])->name('admin.seat_type.delete')->middleware('can:delete-seatType');
+        Route::get('/delete/{id}', [SeatTypeController::class, 'destroy'])->name('admin.seat_type.delete');
     });
     Route::prefix('seats')->group(function () {
         Route::get('/', [SeatController::class, 'index'])->name('admin.seat_row')->middleware('can:list-seat');
-        Route::get('/create', [SeatController::class, 'create'])->name('admin.seat_row.create')->middleware('can:create-seat');
+        Route::get('/create', [SeatController::class, 'create'])->name('admin.seat_row.create');
         Route::post('/store', [SeatController::class, 'store'])->name('admin.seat_row.store');
         Route::get('/edit/{id}', [SeatController::class, 'edit'])->name('admin.seat.edit')->middleware('can:edit-seat');
         Route::put('/update/{id}', [SeatController::class, 'update'])->name('admin.seat.update');
@@ -137,7 +137,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     });
     Route::prefix('posts')->group(function () {
         Route::get("/index", [PostController::class, 'show'])->name('posts.show')->middleware('can:list-post');
-        Route::get("/create", [PostController::class, 'create'])->middleware('can:create-post');
+        Route::get("/create", [PostController::class, 'create']);
         Route::post("/create", [PostController::class, 'store'])->name('post-create');
         Route::get("/delete/{id}", [PostController::class, 'delete'])->name('delete-post')->middleware('CheckIsAdmin');
         Route::get("/edit/{id}", [PostController::class, 'edit'])->name('posts.edit')->middleware('CheckIsAdmin');
@@ -148,20 +148,20 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     });
     Route::prefix('room')->group(function () {
         Route::get('/', [RoomController::class, 'index'])->name('admin.room')->middleware('can:list-room');;
-        Route::get('/create', [RoomController::class, 'create'])->name('admin.room.create')->middleware('can:create-room');
+        Route::get('/create', [RoomController::class, 'create'])->name('admin.room.create');
         Route::post('/store', [RoomController::class, 'store'])->name('admin.room.store');
-        Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('admin.room.edit')->middleware('can:edit-room');
+        Route::get('/edit/{id}', [RoomController::class, 'edit'])->name('admin.room.edit');
         Route::put('/update/{id}', [RoomController::class, 'update'])->name('admin.room.update');
-        Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete')->middleware('can:delete-room');
+        Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
         Route::get("/trash", [RoomController::class, 'trash'])->name('admin.room.trash');
-        Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore')->middleware('can:delete-room');
+        Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore');
     });
     Route::prefix('/schedule')->group(function () {
         Route::get('/', [ScheduleController::class, 'index'])->name('admin.schedule')->middleware('can:list-schedule');
-        Route::get('/create', [ScheduleController::class, 'create'])->name('admin.schedule.create')->middleware('can:create-schedule');
+        Route::get('/create', [ScheduleController::class, 'create'])->name('admin.schedule.create');
         Route::post('/store', [ScheduleController::class, 'store'])->name('admin.schedule.store');
-        Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit')->middleware('can:edit-schedule');
+        Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
         Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
-        Route::get('delete/{id}', [ScheduleController::class, 'delete'])->name('admin.schedule.delete')->middleware('can:delete-schedule');
+        Route::get('delete/{id}', [ScheduleController::class, 'delete'])->name('admin.schedule.delete');
     });
 });

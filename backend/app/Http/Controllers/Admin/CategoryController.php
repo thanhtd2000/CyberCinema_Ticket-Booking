@@ -7,6 +7,7 @@ use function Ramsey\Uuid\v1;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
@@ -18,8 +19,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
+
         $categories = Category::paginate(10);
-        return view('admin.categories.index',compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
     public function search(Request $request)
@@ -27,10 +29,10 @@ class CategoryController extends Controller
         $keywords = $request->input('keywords');
         $categories = Category::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.categories.index', compact('categories','keywords'));
-    }    
+        return view('admin.categories.index', compact('categories', 'keywords'));
+    }
 
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -38,7 +40,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        if (Gate::allows('create-category')) {
+            return view('admin.categories.create');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     /**
@@ -73,8 +79,12 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::find($id);
-        return view('admin.categories.edit',compact('category'));
+        if (Gate::allows('edit-category')) {
+            $category = Category::find($id);
+            return view('admin.categories.edit', compact('category'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     /**
@@ -88,7 +98,7 @@ class CategoryController extends Controller
     {
         $request = $request->except(['_token', '_method']);
         // dd($request);
-        Category::where('id',$id)->update($request);
+        Category::where('id', $id)->update($request);
         return redirect('admin/category/index ')->with('message', 'Sửa thành công!');
     }
 
@@ -100,7 +110,11 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        Category::find($id)->delete();
-        return redirect('admin/category/index')->with('message', 'Xóa thành công!');
+        if (Gate::allows('delete-category')) {
+            Category::find($id)->delete();
+            return redirect('admin/category/index')->with('message', 'Xóa thành công!');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 }

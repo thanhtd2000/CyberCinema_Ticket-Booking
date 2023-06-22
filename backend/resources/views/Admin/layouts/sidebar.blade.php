@@ -24,12 +24,12 @@
                             class="nav-icon"></span>
                         Thêm người dùng<span class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
                 @endcan
-                @can('list-user')
+                @can('permission')
                 <li class="nav-item"><a class="nav-link" href="{{ route('users.permise') }}"><span
                             class="nav-icon"></span>
                         Phân quyền</a></li>
                 @endcan
-                @can('list-user')
+                @can('permission')
                 <li class="nav-item"><a class="nav-link" href="{{ route('permission.list') }}"> Phân quyền cho kdv</a></li>
                 @endcan
 
