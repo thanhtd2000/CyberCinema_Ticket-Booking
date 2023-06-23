@@ -32,6 +32,7 @@ class RoomController extends Controller
                     ->where('order_schedule.schedule_id', $request->schedule_id);
             })
             ->where('seats.room_id', $request->id)
+            ->where('seats.status', 0)
             ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status')
             ->get();
         $seats = $seats->map(function ($seat) {
