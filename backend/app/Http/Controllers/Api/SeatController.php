@@ -25,11 +25,11 @@ class SeatController extends Controller
                 'seat_id' => $request->id,
                 'schedule_id' => $request->schedule_id,
                 'user_id' => $user->id,
-                'status' => $request->status
+                'status' => 1
             ]);
         } else {
             $datas = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->update([
-                'status' => $request->status
+                'status' => 1
             ]);
             if ($datas == 0) {
                 return response()->json(['message' => 'Ghế đã bị đặt', 'status_code' => 404], 404);
