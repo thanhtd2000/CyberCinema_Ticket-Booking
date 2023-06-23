@@ -8,9 +8,10 @@ use App\Models\Seat;
 use App\Models\Schedule;
 use App\Models\SeatType;
 use Illuminate\Http\Request;
+use App\Helpers\GlobalHelper;
 use App\Http\Requests\RoomRequest;
 use App\Http\Controllers\Controller;
-use App\Helpers\GlobalHelper;
+use Illuminate\Support\Facades\Gate;
 
 class RoomController extends Controller
 {
@@ -36,13 +37,18 @@ class RoomController extends Controller
 
         return view('Admin/Room/list', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
     }
-
+    
     public function create()
     {
+        if(Gate::allows('create-room')){
+        
+            $seatTypes = $this->seatType->get();
 
-        $seatTypes = $this->seatType->get();
-
-        return view('Admin/Room/create', compact('seatTypes'));
+            return view('Admin/Room/create', compact('seatTypes'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+        
     }
     public function store(RoomRequest $roomRequest)
     {
@@ -68,25 +74,29 @@ class RoomController extends Controller
                 $this->seat->create($dataSeat);
             }
         }
-        return redirect()->route('admin.room')->with('message', 'Thêm thành công!');
+        return redirect()->route('admin.room')->with('success', 'Thêm thành công!');
     }
 
     public function edit($id)
     {
-
-        $seatType = $this->seatType->get();
-        $seats = $this->seat->where('room_id', $id)->get();
-        $room = $this->room->find($id);
-        $alphabet = range('A', 'Z');
-        $num_of_elements = $room->row;
-        $elements = array_slice($alphabet, 0, $num_of_elements);
-        $currentDateTime = Carbon::now();
-        $schedule = $this->schedule->where('room_id', $id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
-        if (!empty($schedule->toArray())) {
-            return back()->with('error', 'Phòng đang chiếu phim không thể sửa!');
+        if(Gate::allows('create-room')){
+            $seatType = $this->seatType->get();
+            $seats = $this->seat->where('room_id', $id)->get();
+            $room = $this->room->find($id);
+            $alphabet = range('A', 'Z');
+            $num_of_elements = $room->row;
+            $elements = array_slice($alphabet, 0, $num_of_elements);
+            $currentDateTime = Carbon::now();
+            $schedule = $this->schedule->where('room_id', $id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
+            if (!empty($schedule->toArray())) {
+                return back()->with('errors', 'Phòng đang chiếu phim không thể sửa!');
+            } else {
+                return view('Admin/Room/edit', compact('room', 'seatType', 'seats', 'elements'));
+            }
         } else {
-            return view('Admin/Room/edit', compact('room', 'seatType', 'seats', 'elements'));
+            return back()->with('errors', 'Bạn không có quyền');
         }
+       
     }
     public function update(Request $request, $id)
     {
@@ -108,15 +118,16 @@ class RoomController extends Controller
             return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
         } catch (\PDOException $e) {
             if ($e->getCode() === '23000') {
-                return redirect()->back()->with('error', 'Phòng đã tồn tại');
+                return redirect()->back()->with('errors', 'Phòng đã tồn tại');
             } else {
-                return redirect()->back()->with('error', 'Lỗi');
+                return redirect()->back()->with('errors', 'Lỗi');
             }
         }
     }
 
     public function destroy(Request $request)
     {
+        if(Gate::allows('delete-room')){
         if ($request->type == 2) {
             $this->room->withTrashed()->find($request->id)->forceDelete();
             return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
@@ -125,16 +136,24 @@ class RoomController extends Controller
         $schedule = $this->schedule->where('room_id', $request->id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
 
         if (!empty($schedule->toArray())) {
-            return back()->with('error', 'Phòng đang chiếu phim không thể xóa!');
+            return back()->with('errors', 'Phòng đang chiếu phim không thể xóa!');
         } else {
             $this->room->find($request->id)->delete();
             return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
         }
+    } else {
+        return back()->with('errors', 'Bạn không có quyền');
+    }
     }
     public function trash()
     {
-        $rooms = $this->room->onlyTrashed()->latest()->paginate(10);;
-        return view('Admin.room.trash', compact('rooms'));
+        if(Gate::allows('create-room')){
+            $rooms = $this->room->onlyTrashed()->latest()->paginate(10);;
+            return view('Admin.room.trash', compact('rooms'));
+            
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
     public function restore(Request $request)
     {
