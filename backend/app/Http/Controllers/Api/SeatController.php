@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\OrderSchedule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Google\Cloud\Storage\Connection\Rest;
+use App\Http\Resources\RoomResource;
 
 class SeatController extends Controller
 {
@@ -16,6 +17,7 @@ class SeatController extends Controller
      */
     public function updateStatusSeat(Request $request)
     {
+        // dd($request);
         $user = $request->user();
         $seat = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
         if ($seat == null) {
@@ -25,9 +27,7 @@ class SeatController extends Controller
                 'user_id' => $user->id,
                 'status' => $request->status
             ]);
-            return response()->json($data, 200);
         } else {
-            // $seat->status = $request->status;
             $datas = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->update([
                 'status' => $request->status
             ]);
@@ -35,73 +35,25 @@ class SeatController extends Controller
                 return response()->json(['message' => 'Ghế đã bị đặt', 'status_code' => 404], 404);
             }
             $data = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
-            return response()->json($data, 200);
         }
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $seats = DB::table('seats')
+            ->leftJoin('order_schedule', function ($join) use ($data) {
+                $join->on('seats.id', '=', 'order_schedule.seat_id')
+                    ->where('order_schedule.schedule_id', $data->schedule_id);
+            })
+            ->where('seats.room_id', $data->schedule->room_id)
+            ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status')
+            ->get();
+        $seats = $seats->map(function ($seat) {
+            $seat->status = $seat->status ?? 0;
+            return $seat;
+        });
+        $groupedSeats = $seats->groupBy(function ($seat) {
+            return strtoupper(substr($seat->name, 0, 1));
+        });
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $data = RoomResource::collection($groupedSeats);
+        return response()->json($data, 200);
     }
 }
