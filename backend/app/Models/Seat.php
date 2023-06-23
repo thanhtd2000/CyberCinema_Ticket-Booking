@@ -17,4 +17,5 @@ class Seat extends Model
     {
         return $this->belongsTo(SeatType::class, 'type_id');
     }
+ 
 }

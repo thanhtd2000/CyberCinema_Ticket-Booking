@@ -15,11 +15,6 @@ class RoomResource extends JsonResource
      */
     public function toArray($request)
     {
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'type' =>  $this->type()->first(),
-            'status' => OrderSchedule::where('schedule_id', $this->schedule_id)->where('seat_id', $this->id)->value('status'),
-        ];
+        return parent::toArray($request);
     }
 }
