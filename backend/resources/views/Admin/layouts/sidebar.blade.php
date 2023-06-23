@@ -77,7 +77,7 @@
                 </svg> Đạo diễn</a>
             <ul class="nav-group-items">
                 <li class="nav-item"><a class="nav-link" href="/admin/director/index">Danh sách</a></li>
-                @can('list-director')
+                @can('create-director')
                 <li class="nav-item"><a class="nav-link" href="/admin/director/create">Thêm đạo diễn<span
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
                 @endcan
