@@ -8,7 +8,7 @@
         <form method="POST" action="{{ route('admin.room.update',['id'=>$room->id]) }}" class="container">
             @csrf
             @method('put')
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding: 0">
                 <div class="mb-3">
                     <label class="form-label">Tên phòng</label>
                     <input type="text" name="roomname" class="form-control" value="{{ $room->name }}">
@@ -45,12 +45,12 @@
                                     <a @if ($seat->type_id == 1) class="btn btn-success seat-detail"
                                     @elseif ($seat->type_id == 2) class="btn btn-primary seat-detail"
                                     @elseif ($seat->type_id == 3) class="btn btn-danger seat-detail" @endif
-                                        style="width: 55px; margin:10px" data-toggle="modal" data-target="#seats"
+                                        style="width: 55px; margin:5px" data-toggle="modal" data-target="#seats"
                                         data-seat-id="{{ $seat->id }}">
                                         {{ $element . $j }}
                                     </a>
                                 @elseif ($seat->status == 1)
-                                    <a class="btn btn-outline-dark seat-detail" style="width: 55px; margin:10px" data-toggle="modal"
+                                    <a class="btn btn-outline-dark seat-detail" style="width: 55px; margin:5px" data-toggle="modal"
                                         data-target="#seats" data-seat-id="{{ $seat->id }}">{{ $element . $j }}</a>
                                 @endif
                             @endif
@@ -58,7 +58,7 @@
                         <br>
                     @endforeach
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="padding: 0">
                     <h6>Ghi chú</h6>
                     <div class="note-seat" style="margin-top: 20px; display: -webkit-box;">
                         <img src="../../../uploads/note-room/thuong.png" alt="" width="40">
