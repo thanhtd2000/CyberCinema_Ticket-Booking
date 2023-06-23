@@ -7,6 +7,7 @@ use App\Models\OrderSchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoomResource;
+use App\Http\Resources\SeatCollection;
 
 class SeatController extends Controller
 {
@@ -56,7 +57,7 @@ class SeatController extends Controller
             return strtoupper(substr($seat->name, 0, 1));
         });
 
-        $data = RoomResource::collection($groupedSeats);
+        $data = new SeatCollection($groupedSeats);
         return response()->json($data, 200);
     }
 }
