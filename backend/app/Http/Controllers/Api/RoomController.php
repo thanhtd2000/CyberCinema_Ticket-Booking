@@ -34,7 +34,10 @@ class RoomController extends Controller
             ->where('seats.room_id', $request->id)
             ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status')
             ->get();
-
+        $seats = $seats->map(function ($seat) {
+            $seat->status = $seat->status ?? 0;
+            return $seat;
+        });
         $groupedSeats = $seats->groupBy(function ($seat) {
             return strtoupper(substr($seat->name, 0, 1));
         });
