@@ -16,11 +16,9 @@ class SeatResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
+            'price' => $this->price,
             'status' => $this->status,
-            'seat_id' => $this->seat_id,
-            'user_id' => $this->user_id,
-            'order_id' => $this->order_id,
-            'schedule_id' => $this->scheduled_id,
         ];
     }
 }

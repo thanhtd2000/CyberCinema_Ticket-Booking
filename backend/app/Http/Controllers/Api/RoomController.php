@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Models\Room;
 use App\Models\Seat;
 use Illuminate\Http\Request;
+use App\Models\OrderSchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 
 class RoomController extends Controller
 {
@@ -30,9 +32,10 @@ class RoomController extends Controller
                 $join->on('seats.id', '=', 'order_schedule.seat_id')
                     ->where('order_schedule.schedule_id', $request->schedule_id);
             })
+            ->leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
             ->where('seats.room_id', $request->id)
             ->where('seats.status', 0)
-            ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status')
+            ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status','seat_types.price')
             ->get();
         $seats = $seats->map(function ($seat) {
             $seat->status = $seat->status ?? 0;
