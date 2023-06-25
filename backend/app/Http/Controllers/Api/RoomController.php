@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Models\Room;
 use App\Models\Seat;
 use Illuminate\Http\Request;
-use App\Models\OrderSchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RoomResource;
+use App\Http\Resources\RoomCollection;
 
 class RoomController extends Controller
 {
@@ -43,7 +42,7 @@ class RoomController extends Controller
             return strtoupper(substr($seat->name, 0, 1));
         });
 
-        $data = RoomResource::collection($groupedSeats);
+        $data = new RoomCollection($groupedSeats);
         return response()->json($data, 200);
     }
 }
