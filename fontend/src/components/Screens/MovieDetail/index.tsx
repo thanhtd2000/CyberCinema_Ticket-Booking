@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import style from './style.module.less';
-import { Breadcrumb, Col, Form, Radio, Row, Select, Spin, Tag } from 'antd';
+import { Breadcrumb, Col, Form, Radio, Row, Spin, Tag } from 'antd';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -12,12 +12,10 @@ import dayjs from 'dayjs';
 import { BsFillCalendarDateFill } from 'react-icons/bs';
 import { FcOvertime } from 'react-icons/fc';
 import { queryAllHours, queryAllRoom } from '@/queries/hooks/schedule';
-import { getLocalStored } from '@/libs/localStorage';
+import { getLocalStored, setLocalStored } from '@/libs/localStorage';
 import { USER_PROFILE } from '@/queries/keys';
-import { useRouter } from 'next/router';
-import { useQueryClient } from 'react-query';
+import { useRouter } from 'next/router'
 import Link from 'next/link';
-import { useGlobalState } from '@/libs/GlobalStateContext';
 interface moviesDetaiil {
   moviesDetail: TMovies[];
 }
@@ -56,7 +54,7 @@ function checkAllKeysHaveData(obj: any) {
   return false;
 }
 function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
-  const queryClient = useQueryClient();
+//   const [active,setActive] = useState({activeDate: false, activeTime: false, activeRoom: false})
   const [activeItemDate, setActiveItemDate] = useState(null);
   const [activeItemTime, setActiveItemTime] = useState(null);
   const [activeItemRoom, setActiveItemRoom] = useState(null);
@@ -69,9 +67,12 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
   const videoLink = useMemo(() => moviesDetail[0].trailer, [moviesDetail]);
   const videoTitle = useMemo(() => moviesDetail[0].name, [moviesDetail]);
   const data = moviesDetail[0]
-  const { setGlobalState } = useGlobalState();
   const handleItemClickDate = (itemId: any) => {
     setActiveItemDate(itemId);
+    setActiveItemTime(null)
+    setActiveItemRoom(null)
+    setValueRoom(null)
+    setParams((prev)=>({...prev,time: null}))
   };
   const handleItemClickTime = (itemId: any) => {
     setActiveItemTime(itemId);
@@ -79,17 +80,11 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
   const handleItemClickRoom = (itemId: any) => {
     setActiveItemRoom(itemId);
   };
-  const handleGetValueRoom = (value:Object) =>{
-      setValueRoom(value)
-  }
-  console.log(valueRoom);
   const onFinish = (values: any) => {
     if (checkAllKeysHaveData(values) && user) {
-      queryClient.setQueryData('myState', values);
-      queryClient.setQueryData('data', data);
-      queryClient.setQueryData('activeItemDate', activeItemDate);
-      queryClient.setQueryData('activeItemRoom', activeItemRoom);
-      setGlobalState(valueRoom)
+      setLocalStored("values",values)
+      setLocalStored("data",data)
+      setLocalStored("valueRoom",valueRoom)
       router.push('/booking');
     } else if (checkAllKeysHaveData(values) && !user) {
       router.push('/login');
@@ -100,7 +95,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
   const handleChoseHours = (slug: string, date: string) => {
     setParams((prev) => ({ ...prev, slug, date }));
   };
-  const handleChoseTime = (time: Date) => {
+  const handleChoseTime = (time: Date | undefined) => {
     setParams((prev) => ({ ...prev, time }));
   };
 
@@ -287,9 +282,9 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                         <Col>
                           <Form.Item name='room'>
                               {!loading ? (<Radio.Group>
-                              {choseRoom ? (
+                              {choseRoom && params.time ? (
                                 choseRoom.map((item: any,index:number) => (
-                                  <Radio value={item.name} onChange={() => handleItemClickRoom(index)} onClick={() => handleGetValueRoom(item)}>
+                                  <Radio value={item.name} onChange={() => handleItemClickRoom(index)} onClick={() => setValueRoom(item)}>
                                     <div className={activeItemRoom === index ? style.active : style.calendarItem}>
                                        <span>{item.name}</span>
                                     </div>

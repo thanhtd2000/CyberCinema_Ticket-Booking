@@ -31,3 +31,21 @@ export type TSchedule = {
       id: string;
       schedule: Date;
 }
+export type TUpdateStatusChair = {
+      status: number | null,
+      id: number;
+      schedule_id: number;
+}
+export type TChair = {
+      status: number,
+      id: string;
+      schedule_id: number;
+      seat__id: number;
+      user_id: number,
+      order__id: number,
+}
+export type TQueryUpdateChair = {
+      status: number,
+      id: string;
+      schedule_id: number;
+}
