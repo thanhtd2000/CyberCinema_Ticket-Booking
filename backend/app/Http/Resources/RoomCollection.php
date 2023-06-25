@@ -3,10 +3,11 @@
 namespace App\Http\Resources;
 
 use Carbon\Carbon;
+use App\Http\Resources\RoomResource;
 use App\Http\Resources\SeatResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class SeatCollection extends ResourceCollection
+class RoomCollection extends ResourceCollection
 {
     /**
      * Transform the resource collection into an array.
@@ -17,7 +18,7 @@ class SeatCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => SeatResource::collection($this->collection),
+            'data' => RoomResource::collection($this->collection),
             'time' => [
                 'start' => Carbon::now()->format('Y-m-d H:i:s'),
                 'end' => Carbon::now()->addMinute(10)->format('Y-m-d H:i:s')
