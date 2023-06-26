@@ -32,14 +32,12 @@ function HeaderSearch() {
             setOpen(false);
       };
       const onSearch = (value: string) => {
-            console.log(value);
             // router.push({ pathname: '/search', query: { s: value } });
             setParams({...params, s: value})
       };
       const {
             data: movies
       } = queryAllMoviesBySearch({...baseParams,...params, isHot: 0});
-      console.log(movies);
       // eslint-disable-next-line react/no-unstable-nested-components
       function Tag() {
             return (

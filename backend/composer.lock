@@ -1065,6 +1065,31 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            "version": "v8.8.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:elastic/elasticsearch-php.git",
+                "reference": "5c4d67870b92fedc06fcceec5be8c3be8563fe3d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/5c4d67870b92fedc06fcceec5be8c3be8563fe3d",
+                "reference": "5c4d67870b92fedc06fcceec5be8c3be8563fe3d",
+=======
+=======
+
+>>>>>>> a7edf4bf294d35d2ad5e2cb2dd5f3100b524ccaf
+=======
+=======
+
+>>>>>>> adf98f61d0cd971291618df010338a618de0ae91
+>>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
+=======
+>>>>>>> 1af2a564fb9b84ed52620d6cbcd161a9f0e12927
             "version": "v8.8.1",
             "source": {
                 "type": "git",
@@ -1075,6 +1100,19 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/7f4ccfe9b11c92191bc06119848efa115a22924c",
                 "reference": "7f4ccfe9b11c92191bc06119848efa115a22924c",
+<<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> a282a39a8a58b8cc093cf5c7c9c2c6326ba81238
+=======
+
+>>>>>>> a7edf4bf294d35d2ad5e2cb2dd5f3100b524ccaf
+=======
+=======
+
+>>>>>>> adf98f61d0cd971291618df010338a618de0ae91
+>>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
+=======
+>>>>>>> 1af2a564fb9b84ed52620d6cbcd161a9f0e12927
                 "shasum": ""
             },
             "require": {
@@ -1114,7 +1152,29 @@
                 "elasticsearch",
                 "search"
             ],
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+            "time": "2023-05-23T08:59:13+00:00"
+=======
             "time": "2023-05-25T06:56:36+00:00"
+>>>>>>> a282a39a8a58b8cc093cf5c7c9c2c6326ba81238
+=======
+            "time": "2023-05-25T06:56:36+00:00"
+>>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
+=======
+
+            "time": "2023-05-25T06:56:36+00:00"
+
+<<<<<<< HEAD
+>>>>>>> a7edf4bf294d35d2ad5e2cb2dd5f3100b524ccaf
+=======
+>>>>>>> adf98f61d0cd971291618df010338a618de0ae91
+>>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
+=======
+            "time": "2023-05-25T06:56:36+00:00"
+>>>>>>> 1af2a564fb9b84ed52620d6cbcd161a9f0e12927
         },
         {
             "name": "fig/http-message-util",

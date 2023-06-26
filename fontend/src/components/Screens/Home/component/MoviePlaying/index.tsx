@@ -8,7 +8,6 @@ interface movies{
       fetchAllMovies: TMovies[];
 }
 function MoviePlaying({fetchAllMovies}:movies) {
-      console.log(fetchAllMovies);
       return (
             <div className='container'>
                   <div className={style.moviePlaying}>
