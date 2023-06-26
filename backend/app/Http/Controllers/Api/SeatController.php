@@ -45,23 +45,5 @@ class SeatController extends Controller
 
             return response()->json(['message' => 'Đổi trạng thái thành công', 'status_code' => 202], 202);
         }
-        // $seats = DB::table('seats')
-        //     ->leftJoin('order_schedule', function ($join) use ($data) {
-        //         $join->on('seats.id', '=', 'order_schedule.seat_id')
-        //             ->where('order_schedule.schedule_id', $data->schedule_id);
-        //     })
-        //     ->where('seats.room_id', $data->schedule->room_id)
-        //     ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status')
-        //     ->get();
-        // $seats = $seats->map(function ($seat) {
-        //     $seat->status = $seat->status ?? 0;
-        //     return $seat;
-        // });
-        // $groupedSeats = $seats->groupBy(function ($seat) {
-        //     return strtoupper(substr($seat->name, 0, 1));
-        // });
-
-        // $data1 = SeatResource::collection($data);
-        // return response()->json($data1, 200);
     }
 }

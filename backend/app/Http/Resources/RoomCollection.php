@@ -19,10 +19,7 @@ class RoomCollection extends ResourceCollection
     {
         return [
             'data' => RoomResource::collection($this->collection),
-            'time' => [
-                'start' => Carbon::now()->format('H:i:s'),
-                'end' => Carbon::now()->addMinute(10)->format('H:i:s')
-            ],
+            'time' => Carbon::createFromFormat('H:i:s', Carbon::now()->addMinute(10)->format('H:i:s'))->timestamp * 1000
         ];
     }
 }
