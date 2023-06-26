@@ -2,16 +2,15 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-
     <div>
-        <canvas id="myChart"></canvas>
+        <canvas id="chartMonth"></canvas>
     </div>
 
 
     <script>
         const chartData = JSON.parse('{!! $chartData !!}');
         console.log(chartData)
-        const ctx = document.getElementById('myChart');
+        const ctx = document.getElementById('chartMonth');
 
         new Chart(ctx, {
             type: 'bar',

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Orders;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class StatisticalsController extends Controller
 {
@@ -15,16 +17,22 @@ class StatisticalsController extends Controller
     public function index()
     {
 
+
+        $orders = Orders::select(DB::raw('DATE(created_at) as order_date'), DB::raw('COUNT(*) as order_count'), 'total')
+            ->groupBy(DB::raw('DATE(created_at)'), 'total')
+            ->orderBy(DB::raw('DATE(created_at)'))
+            ->get();
+
+
         $data = [
-            'labels' => ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange', 's', 's', 'd'],
+            'labels' => $orders->pluck('order_date'),
             'datasets' => [
-                'label' => 'Doanh thu',
-                'data' => [1, 19, 8, 5, 2, 3, 5, 3, 2],
+                'label' => 'Doanh thu theo ngày',
+                'data' => $orders->pluck('total'),
                 'borderWidth' => 1
             ]
         ];
 
         return view('Admin/statisticals/index')->with('chartData', json_encode($data));
     }
-    
 }
