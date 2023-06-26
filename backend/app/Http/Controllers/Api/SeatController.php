@@ -28,11 +28,12 @@ class SeatController extends Controller
                 'user_id' => $user->id,
                 'status' => 1
             ]);
-            $data1 = DB::table('seats')->leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
+            $data1 = Seat::leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
                 ->leftJoin('order_schedule', 'order_schedule.seat_id', '=', 'seats.id')
                 ->where('seats.id', $data->seat_id)
-                ->select('seats.id', 'seats.name', 'seat_types.price', 'order_schedule.status')->get();
-            return response()->json(SeatResource::collection($data1), 200);
+                ->select('seats.id', 'seats.name', 'seat_types.price', 'order_schedule.status')
+                ->first();
+            return response()->json(new SeatResource($data1), 200);
         } else {
             $data1 =  OrderSchedule::where('seat_id', $request->id)
                 ->where('schedule_id', $request->schedule_id)

@@ -4,7 +4,6 @@ namespace App\Http\Resources;
 
 use Carbon\Carbon;
 use App\Http\Resources\RoomResource;
-use App\Http\Resources\SeatResource;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class RoomCollection extends ResourceCollection
@@ -19,7 +18,8 @@ class RoomCollection extends ResourceCollection
     {
         return [
             'data' => RoomResource::collection($this->collection),
-            'time' => Carbon::createFromFormat('H:i:s', Carbon::now()->addMinute(10)->format('H:i:s'))->timestamp * 1000
+
+            'time' =>   Carbon::createFromFormat('H:i:s', Carbon::now()->addMinute(10)->format('H:i:s'))->timestamp * 1000
         ];
     }
 }
