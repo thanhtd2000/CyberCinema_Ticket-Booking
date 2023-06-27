@@ -22,8 +22,6 @@ class CreateDiscountsTable extends Migration
             $table->dateTime('start_time');
             $table->dateTime('end_time');
             $table->integer('percent');
-            $table->tinyInteger('role');
-            $table->float('discount_limit');
             $table->timestamps();
         });
     }

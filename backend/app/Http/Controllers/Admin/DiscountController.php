@@ -47,18 +47,20 @@ class DiscountController extends Controller
         $discount->start_time = $request['start_time'];
         $discount->end_time = $request['end_time'];
         $discount->percent = $request['percent'];
-        $discount->role = $request['role'];
-        $discount->discount_limit = $request['discount_limit'];
 
+        if ($discount->code !== $this->discounts->code) {
+            $discount->save();
+            return redirect()->route('admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
+        }
         // dd($discount);
-        $discount->save();
-
-        return redirect()->route('admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
+        return back()->with('errors', 'Mã giảm giá đã tồn tại');
     }
 
     public function edit($id)
     {
         $discount = Discount::find($id);
+        // dd($discount);
+
         return view('Admin.discounts.edit', compact('discount'));
     }
 
@@ -72,11 +74,8 @@ class DiscountController extends Controller
         $discount->start_time = $request['start_time'];
         $discount->end_time = $request['end_time'];
         $discount->percent = $request['percent'];
-        $discount->role = $request['role'];
-        $discount->discount_limit = $request['discount_limit'];
 
-        // dd($discount);
-        $discount->save();
+        $discount->update();
 
         return redirect()->route('admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
     }
