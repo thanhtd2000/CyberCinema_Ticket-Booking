@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SeatRowController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DirectorController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SeatTypeController;
 use App\Http\Controllers\Admin\StatisticalsController;
@@ -153,5 +154,15 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
         Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
         Route::get('delete/{id}', [ScheduleController::class, 'delete'])->name('admin.schedule.delete');
+    });
+
+    Route::prefix('/discount')->group(function () {
+        Route::get('/', [DiscountController::class, 'index'])->name('admin.discount');
+        Route::get('/search', [DiscountController::class, 'search'])->name('admin.discount.search');
+        Route::get('/create', [DiscountController::class, 'create'])->name('admin.discount.create');
+        Route::post('/store', [DiscountController::class, 'store'])->name('admin.discount.store');
+        Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('admin.discount.edit');
+        Route::put('/update/{id}', [DiscountController::class, 'update'])->name('admin.discount.update');
+        Route::get('/delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
     });
 });

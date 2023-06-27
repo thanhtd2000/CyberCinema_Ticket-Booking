@@ -116,6 +116,6 @@ class ScheduleController extends Controller
     public function delete($id)
     {
         Schedule::find($id)->delete();
-        return back()->with('message', 'Xóa thành công');  
+        return back()->with('message', 'Xóa thành công');
     }
 }
