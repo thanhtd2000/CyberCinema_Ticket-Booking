@@ -30,7 +30,7 @@ class DirectorRequest extends FormRequest
             'gender' => 'required',
         ];
     }
-    
+
     public function messages()
     {
         return [
