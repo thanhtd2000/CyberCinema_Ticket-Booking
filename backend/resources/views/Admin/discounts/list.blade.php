@@ -30,8 +30,6 @@
                 <th scope="col">Thời gian áp dụng</th>
                 <th scope="col">Thời gian kết thúc</th>
                 <th scope="col">Phần trăm triết khấu</th>
-                <th scope="col">Loại áp dụng</th>
-                <th scope="col">Triết khấu tối đa</th>
                 <th scope="col">Chức năng</th>
             </tr>
         </thead>
@@ -46,8 +44,6 @@
                     <td>{{ date('d/m/Y', strtotime($discount->start_time)) }}</td>
                     <td>{{ date('d/m/Y', strtotime($discount->end_time)) }}</td>
                     <td>{{ $discount->percent }}%</td>
-                    <td>{{ $discount->role }}</td>
-                    <td>{{ number_format($discount->discount_limit, 0, ',', '.') }} VNĐ</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.discount.edit', $discount->id) }}">Sửa</a>

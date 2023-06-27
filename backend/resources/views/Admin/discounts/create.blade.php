@@ -90,35 +90,6 @@
             @endif
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Loại áp dụng</label>
-            <select name="role" id="">
-                <option hidden>Chọn phân loại</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-            </select>
-        </div>
-        <div class="error">
-            @if ($errors->has('role'))
-                <span class="text-danger fs-5">
-                    {{ $errors->first('role') }}
-                </span>
-            @endif
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label">Triết khấu giới hạn</label>
-            <input type="number" name="discount_limit" class="form-control" value="{{ old('discount_limit') }}">
-        </div>
-        <div class="error">
-            @if ($errors->has('discount_limit'))
-                <span class="text-danger fs-5">
-                    {{ $errors->first('discount_limit') }}
-                </span>
-            @endif
-        </div>
-
         <br>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
     </form>
