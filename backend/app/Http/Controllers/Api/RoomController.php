@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api;
 use App\Models\Room;
 use App\Models\Seat;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\RoomResource;
 use App\Models\OrderSchedule;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\RoomCollection;
+use App\Http\Resources\RoomResource;
 
 class RoomController extends Controller
 {
@@ -25,23 +27,25 @@ class RoomController extends Controller
     }
     public function getSeats(Request $request)
     {
-        $schedule_id = $request->schedule_id;
-        $seats = $this->seat->where('room_id', $request->id)->where('status', 0)->get();
-
-        $seatsWithScheduleId = $seats->map(function ($seat) use ($schedule_id) {
-            $seat['schedule_id'] = $schedule_id;
+        $seats = DB::table('seats')
+            ->leftJoin('order_schedule', function ($join) use ($request) {
+                $join->on('seats.id', '=', 'order_schedule.seat_id')
+                    ->where('order_schedule.schedule_id', $request->schedule_id);
+            })
+            ->leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
+            ->where('seats.room_id', $request->id)
+            ->where('seats.status', 0)
+            ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status','seat_types.price')
+            ->get();
+        $seats = $seats->map(function ($seat) {
+            $seat->status = $seat->status ?? 0;
             return $seat;
         });
-
-        $groupedSeats = $seatsWithScheduleId->groupBy(function ($seat) {
-            return strtoupper(substr($seat['name'], 0, 1));
+        $groupedSeats = $seats->groupBy(function ($seat) {
+            return strtoupper(substr($seat->name, 0, 1));
         });
 
-        $data = [];
-        foreach ($groupedSeats as $key => $seats) {
-            $data[$key] = RoomResource::collection($seats);
-        }
-
+        $data = new RoomCollection($groupedSeats);
         return response()->json($data, 200);
     }
 }

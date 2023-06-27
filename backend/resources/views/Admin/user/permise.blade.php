@@ -31,7 +31,7 @@
                         @if ($us->role != 0)
                             @if (!in_array($us->role, [2, 3]))
                                 <button type="button" class="btn btn-success">
-                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn?')"
+                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn chuyển quyền?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 3]) }}">Kiểm duyệt</a>
                                 </button>
                             @endif
@@ -43,17 +43,17 @@
                             @endif
                             @if (!in_array($us->role, [1, 2]))
                                 <button type="button" class="btn btn-info">
-                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn block?')"
+                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn chuyển quyền?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 1]) }}">Thành viên</a>
                                 </button>
                             @endif
                             @if ($us->role == 2)
                                 <button type="button" class="btn btn-success">
-                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn?')"
+                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn chuyển quyền?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 3]) }}">Kiểm duyệt</a>
                                 </button>
                                 <button type="button" class="btn btn-info">
-                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn block?')"
+                                    <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn chuyển quyền?')"
                                         href="{{ route('users.permise1', ['id' => $us->id, 'stt' => 1]) }}">Thành viên</a>
                                 </button>
                             @endif

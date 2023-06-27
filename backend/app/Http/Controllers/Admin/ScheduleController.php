@@ -9,6 +9,7 @@ use App\Models\Schedule;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalHelper;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class ScheduleController extends Controller
 {
@@ -35,9 +36,14 @@ class ScheduleController extends Controller
 
     public function create()
     {
-        $rooms = $this->room->get();
-        $movies = $this->movie->get();
-        return view('admin.schedule.create', compact('rooms', 'movies'));
+        if(Gate::allows('create-schedule')){
+            $rooms = $this->room->get();
+            $movies = $this->movie->get();
+            return view('admin.schedule.create', compact('rooms', 'movies'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 
     public function store(Request $request)
@@ -73,15 +79,20 @@ class ScheduleController extends Controller
         }
         $error = implode("</br>", $errors);
         $message = implode("</br>", $messages);
-        return redirect()->route('admin.schedule')->with('error', $error)->with('message', $message);
+        return redirect()->route('admin.schedule')->with('errors', $error)->with('message', $message);
     }
 
     public function edit($id)
     {
-        $rooms = $this->room->get();
-        $movies = $this->movie->get();
-        $schedule = Schedule::find($id);
-        return view('admin.schedule.edit', compact('schedule', 'rooms', 'movies'));
+        if(Gate::allows('edit-schedule')){
+            $rooms = $this->room->get();
+            $movies = $this->movie->get();
+            $schedule = Schedule::find($id);
+            return view('admin.schedule.edit', compact('schedule', 'rooms', 'movies'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 
     public function update(Request $request, $id)
@@ -106,7 +117,7 @@ class ScheduleController extends Controller
         $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $time_end)->where('time_end', '>=', $time_end)->get();
         $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '<=', $time_end)->get();
         if (!empty($schedule->toArray()) || !empty($schedule2->toArray()) || !empty($schedule3->toArray())) {
-            return back()->with('error', 'Phòng không trống trong khoảng thời gian này!');
+            return back()->with('errors', 'Phòng không trống trong khoảng thời gian này!');
         } else {
             Schedule::find($id)->update($insert);
             return redirect()->route('admin.schedule')->with('message', 'Sửa thành công!');
@@ -115,7 +126,17 @@ class ScheduleController extends Controller
 
     public function delete($id)
     {
+<<<<<<< HEAD
         Schedule::find($id)->delete();
         return back()->with('message', 'Xóa thành công');
+=======
+        if(Gate::allows('delete-schedule')){
+            Schedule::find($id)->delete();
+            return back()->with('message', 'Xóa thành công'); 
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+        
+>>>>>>> b3b0a99cc58ea6203aef1868f7b9a9d5b0077385
     }
 }

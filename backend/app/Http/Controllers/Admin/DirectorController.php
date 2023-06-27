@@ -6,6 +6,7 @@ use App\Models\Director;
 use Illuminate\Http\Request;
 use App\Helpers\FirebaseHelper;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\DirectorRequest;
 
 class DirectorController extends Controller
@@ -22,6 +23,7 @@ class DirectorController extends Controller
      */
     public function index()
     {
+
         $directors = Director::paginate(10);
         return view('Admin.directors.index', compact('directors'));
     }
@@ -42,7 +44,11 @@ class DirectorController extends Controller
      */
     public function create()
     {
-        return view('Admin.directors.create');
+        if (Gate::allows('create-director')) {
+            return view('Admin.directors.create');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     /**
@@ -57,7 +63,7 @@ class DirectorController extends Controller
         $newDirecrtor = $request->toArray();
         $directors = Director::where('name', $newDirecrtor['name'])->where('birthday', $newDirecrtor['birthday'])->get();
         if (!empty($directors->toArray())) {
-            return back()->with('error', 'Đạo diễn đã có!');
+            return back()->with('errors', 'Đạo diễn đã có!');
         } else {
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
@@ -65,7 +71,7 @@ class DirectorController extends Controller
                 Director::create($newDirecrtor);
                 return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
             }
-            return redirect('admin/director/index')->with('error', 'Thiếu ảnh');
+            return redirect('admin/director/index')->with('errors', 'Thiếu ảnh');
         }
     }
 
@@ -88,9 +94,12 @@ class DirectorController extends Controller
      */
     public function edit($id)
     {
-
-        $director = Director::find($id);
-        return view('admin.directors.edit', compact('director'));
+        if (Gate::allows('edit-director')) {
+            $director = Director::find($id);
+            return view('admin.directors.edit', compact('director'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     /**
@@ -124,7 +133,11 @@ class DirectorController extends Controller
      */
     public function destroy($id)
     {
-        Director::find($id)->delete();
-        return redirect('admin/director/index')->with('message', 'Xóa thành công!');
+        if (Gate::allows('delete-director')) {
+            Director::find($id)->delete();
+            return redirect('admin/director/index')->with('message', 'Xóa thành công!');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 }

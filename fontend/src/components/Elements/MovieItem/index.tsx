@@ -17,7 +17,6 @@ function MovieItem({ movies }: ItemMovies) {
       const [isPlay, setIsPlay] = useState(true);
       const videoLink = movies?.trailer
       const videoTitle = "[전인혁작곡] 야다(Yada) - 약속 (2019 ver)";
-
       const showModal = () => {
             setIsModalOpen(true);
             setIsPlay(true)

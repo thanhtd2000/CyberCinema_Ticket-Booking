@@ -8,6 +8,7 @@ use App\Helpers\GlobalHelper;
 use App\Helpers\FirebaseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProducRequest;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\ProductRequest;
 
 class ProductController extends Controller
@@ -39,7 +40,12 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('Admin.products.create');
+        if(Gate::allows('create-product')){
+            return view('Admin.products.create');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+        
     }
 
     public function store(ProductRequest $request)
@@ -53,13 +59,18 @@ class ProductController extends Controller
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $product->save();
-        return redirect('admin/product')->with('message', 'Thêm sản phẩm thành công');
+        return redirect('admin/product')->with('success', 'Thêm sản phẩm thành công');
     }
 
     public function edit(Request $request)
     {
-        $product = $this->products->find($request->id);
+        if(Gate::allows('edit-product')){
+            $product = $this->products->find($request->id);
         return view('Admin.products.edit', compact('product'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+        
     }
 
     public function update(ProductRequest $request)
@@ -80,7 +91,12 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        Product::where('id', $id)->delete();
-        return redirect('admin/product')->with('message', 'Xóa sản phẩm thành công');
+        if(Gate::allows('delete-product')){
+            Product::where('id', $id)->delete();
+            return redirect('admin/product')->with('message', 'Xóa sản phẩm thành công');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 }

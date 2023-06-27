@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Helpers\FirebaseHelper;
 use Carbon\Carbon;
 use App\Models\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Helpers\GlobalHelper;
+use App\Helpers\FirebaseHelper;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class PostController extends Controller
 {
@@ -37,7 +38,12 @@ class PostController extends Controller
     }
     public function create()
     {
-        return view('admin.post.create');
+        if(Gate::allows('create-post')){
+            return view('admin.post.create');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
     public function store(Request $request)
     {
@@ -66,17 +72,26 @@ class PostController extends Controller
     }
     public function delete(Request $request)
     {
-
-        $Post =  $this->posts->find($request->id);
-        if ($Post && $Post->delete()) {
-            return redirect('admin/posts/index')->with('message', 'Xoá thành công');
+        if(Gate::allows('delete-post')){
+            $Post =  $this->posts->find($request->id);
+            if ($Post && $Post->delete()) {
+                return redirect('admin/posts/index')->with('message', 'Xoá thành công');
+            }
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
         }
+       
     }
     public function edit(Request $request)
     {
-        $post =  $this->posts->find($request->id);
+        if(Gate::allows('create-post')){
+            $post =  $this->posts->find($request->id);
 
-        return view('admin.post.edit', compact('post'));
+            return view('admin.post.edit', compact('post'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
     public function update(Request $request)
     {

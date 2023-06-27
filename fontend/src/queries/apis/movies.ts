@@ -1,6 +1,5 @@
 import { request } from '@/configs/api.config';
-import { ELanguage } from '@/configs/interface.config';
-import { TMovies, TQueryMovies } from '@/modules/movies';
+import { TQueryMovies } from '@/modules/movies';
 export const getListMovieFromDatabase = () =>
   request({ url: '/get/movies ', method: 'GET' });
 export const getListMovieBySearch = (params:TQueryMovies) =>

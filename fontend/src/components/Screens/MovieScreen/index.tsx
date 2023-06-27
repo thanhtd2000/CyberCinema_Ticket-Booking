@@ -1,16 +1,17 @@
 
 import React, { useState } from 'react'
 import style from './style.module.less'
-import { Breadcrumb, Col, Row, Select } from 'antd';
+import { Breadcrumb, Col, Row, Select, Spin } from 'antd';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import MovieItem from '@/components/Elements/MovieItem';
-import { TMovies, TQueryMovies } from '@/modules/movies';
+import { TQueryMovies } from '@/modules/movies';
 import { handleFilter } from '@/libs/const';
 import { EOrderBy } from '@/configs/interface.config';
 import { queryAllMoviesBySearch } from '@/queries/hooks/movies';
 import { baseParams } from '@/configs/const.config';
+import Link from 'next/link';
 function MovieScreen() {
       const [params, setParams] = useState<TQueryMovies>();
       const handleChange = (value: string) => {
@@ -20,7 +21,7 @@ function MovieScreen() {
                   order: handleFilter(value).order,
             });
       };
-      const {data : movies}= queryAllMoviesBySearch({
+      const {data : movies, isLoading, isFetching}= queryAllMoviesBySearch({
             ...baseParams,...params
       })
       const moviesList = movies?.data
@@ -32,7 +33,7 @@ function MovieScreen() {
                                     style={{ color: 'rgb(183, 177, 177)', paddingBottom: '30px', fontSize: '17px' }}
                                     items={[
                                           {
-                                                title: 'Home',
+                                                title: <Link style={{ color: '#999' }} href='/'>Home</Link>,
                                           },
                                           {
                                                 title: <a href="" style={{ color: 'white' }}>Movies</a>,
@@ -60,7 +61,7 @@ function MovieScreen() {
                               <Row>
                                     <Col span={24}>
                                           <Row gutter={[{ xs: 0, sm: 20, md: 20, lg: 35, xl: 50 }, 50]}>
-                                                {moviesList && moviesList ? moviesList?.map((item) => (<MovieItem movies={item} />)) : <div>loading...</div>}
+                                                {moviesList && !isLoading ? moviesList?.map((item) => (<MovieItem movies={item} />)) : (<div style={{width: '100%', textAlign: 'center'}}><Spin></Spin></div>)}
                                           </Row>
                                     </Col>
                               </Row>

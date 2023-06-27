@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Seat;
 use Illuminate\Http\Request;
 use App\Models\OrderSchedule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Google\Cloud\Storage\Connection\Rest;
+use App\Http\Resources\SeatResource;
 
 class SeatController extends Controller
 {
@@ -16,6 +18,7 @@ class SeatController extends Controller
      */
     public function updateStatusSeat(Request $request)
     {
+        // dd($request);
         $user = $request->user();
         $seat = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
         if ($seat == null) {
@@ -23,85 +26,25 @@ class SeatController extends Controller
                 'seat_id' => $request->id,
                 'schedule_id' => $request->schedule_id,
                 'user_id' => $user->id,
-                'status' => $request->status
+                'status' => 1
             ]);
-            return response()->json($data, 200);
+            $data1 = Seat::leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
+                ->leftJoin('order_schedule', 'order_schedule.seat_id', '=', 'seats.id')
+                ->where('seats.id', $data->seat_id)
+                ->select('seats.id', 'seats.name', 'seat_types.price', 'order_schedule.status')
+                ->first();
+            return response()->json(new SeatResource($data1), 200);
         } else {
-            // $seat->status = $request->status;
-            $datas = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->update([
-                'status' => $request->status
-            ]);
-            if ($datas == 0) {
+            $data1 =  OrderSchedule::where('seat_id', $request->id)
+                ->where('schedule_id', $request->schedule_id)
+                ->where('user_id', $user->id)
+                ->where('status', 1)
+                ->delete();
+            if (empty($data1)) {
                 return response()->json(['message' => 'Ghế đã bị đặt', 'status_code' => 404], 404);
             }
-            $data = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
-            return response()->json($data, 200);
+
+            return response()->json(['message' => 'Đổi trạng thái thành công', 'status_code' => 202], 202);
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

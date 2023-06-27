@@ -14,6 +14,7 @@ use App\Helpers\FirebaseHelper;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\MovieRequest;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class MovieController extends Controller
 {
@@ -42,6 +43,7 @@ class MovieController extends Controller
 
     public function index(Request $request)
     {
+       
         $keywords = $request->input('keywords');
         if ($keywords) {
 
@@ -55,7 +57,12 @@ class MovieController extends Controller
 
     public function create()
     {
+        if(Gate::allows('create-movie')){
+            
         return view('Admin.movie.create')->with($this->data);
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     public function store(MovieRequest $request)
@@ -95,16 +102,21 @@ class MovieController extends Controller
             return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
         } catch (PDOException $e) {
             if ($e->getCode() === '23000') {
-                return redirect()->back()->with('error', 'Tên phim đã tồn tại');
+                return redirect()->back()->with('errors', 'Tên phim đã tồn tại');
             } else {
-                return redirect()->back()->with('error', 'Lỗi');
+                return redirect()->back()->with('errors', 'Lỗi');
             }
         }
     }
     public function edit(Request $request)
     {
-        $movie = $this->movies->find($request->id);
-        return view('Admin.movie.edit', compact('movie'))->with($this->data);
+        if(Gate::allows('edit-movie')){
+            $movie = $this->movies->find($request->id);
+            return view('Admin.movie.edit', compact('movie'))->with($this->data);
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 
 
@@ -142,27 +154,37 @@ class MovieController extends Controller
             return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
         } catch (PDOException $e) {
             if ($e->getCode() === '23000') {
-                return redirect()->back()->with('error', 'Tên phim đã tồn tại');
+                return redirect()->back()->with('errors', 'Tên phim đã tồn tại');
             } else {
-                return redirect()->back()->with('error', 'Lỗi');
+                return redirect()->back()->with('errors', 'Lỗi');
             }
         }
     }
 
     public function destroy(Request $request)
     {
-        if ($request->type == 2) {
-            $this->movies->withTrashed()->find($request->id)->forceDelete();
-            return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
+        if(Gate::allows('delete-movie')){
+            if ($request->type == 2) {
+                $this->movies->withTrashed()->find($request->id)->forceDelete();
+                return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
+            }
+            $this->movies->find($request->id)->delete();
+            return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
         }
-        $this->movies->find($request->id)->delete();
-        return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
+        
         //
     }
     public function trash()
     {
-        $movies = $this->movies->onlyTrashed()->latest()->paginate(10);;
-        return view('Admin.movie.trash', compact('movies'))->with($this->data);
+        if(Gate::allows('delete-movie')){
+            $movies = $this->movies->onlyTrashed()->latest()->paginate(10);;
+            return view('Admin.movie.trash', compact('movies'))->with($this->data);
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+       
     }
 
 

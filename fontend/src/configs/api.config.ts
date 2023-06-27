@@ -10,7 +10,7 @@ import { LANGUAGE_DEFAULT, decryptedData } from './const.config';
 
 const client = axios.create({
   baseURL: API_ENDPOINT,
-  timeout: API_TIMEOUT,
+  timeout: 100000,
   timeoutErrorMessage: '🚧🚧🚧 Server connection time out!',
   headers: {
     Accept: 'application/json',

@@ -9,6 +9,7 @@ import { appWithTranslation } from 'next-i18next';
 
 import { queryClient } from '@/queries';
 import logger from '@libs/logger';
+import { GlobalStateProvider } from '@/libs/GlobalStateContext';
 
 function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -35,7 +36,9 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <GlobalStateProvider>
       <Component {...pageProps} />
+      </GlobalStateProvider>
       <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </QueryClientProvider>
   );

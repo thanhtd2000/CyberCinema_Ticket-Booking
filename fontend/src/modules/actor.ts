@@ -5,5 +5,6 @@ export type TActor = {
       nationality: string;
       gender: number;
       created_at: Date;
+      image: string;
       updated_at: Date;
 }
