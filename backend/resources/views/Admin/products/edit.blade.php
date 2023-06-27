@@ -35,6 +35,7 @@
         <div class="mb-3">
             <label class="form-label">Ảnh</label>
             <input type="file" name="image" class="form-control" value="{{ old('image') }}">
+            <img src="{{ $product->image }}" width="100" alt="">
         </div>
         <div class="error">
             @if ($errors->has('image'))
