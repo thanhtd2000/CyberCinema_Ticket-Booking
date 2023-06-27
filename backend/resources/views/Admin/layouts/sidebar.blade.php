@@ -139,6 +139,22 @@
             </li>
         @endcan
 
+        {{-- Link discount view --}}
+        {{-- @can('list-discount') --}}
+        <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
+                <svg class="nav-icon">
+                    <use xlink:href="{{ asset('dist/vendors/@coreui/icons/svg/free.svg#cil-dollar') }}"></use>
+                </svg> Mã giảm giá</a>
+            <ul class="nav-group-items">
+                <li class="nav-item"><a class="nav-link" href="/admin/discount/">Danh sách</a></li>
+                {{-- @can('create-discount') --}}
+                <li class="nav-item"><a class="nav-link" href="/admin/discount/create">Thêm mã<span
+                            class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
+                {{-- @endcan --}}
+            </ul>
+        </li>
+        {{-- @endcan --}}
+
         @can('list-seatType')
             <li class="nav-group"><a class="nav-link nav-group-toggle" href="#">
                     <svg class="nav-icon">
