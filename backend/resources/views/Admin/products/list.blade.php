@@ -4,13 +4,13 @@
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
                 class="text-white" href="{{ route('admin.product.create') }}">Thêm mới</a></button>
-        <div class="row align-items-center">
+        <div class="row g-3 align-items-center">
             <form action="{{ route('admin.product.search') }}" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
                     <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
+                <button type="button" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
         </div>
     </div>
@@ -46,5 +46,4 @@
             @endforeach
         </tbody>
     </table>
-    {{ $products->links() }}
 @endsection
