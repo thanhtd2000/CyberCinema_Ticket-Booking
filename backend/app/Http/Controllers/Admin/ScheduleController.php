@@ -126,10 +126,6 @@ class ScheduleController extends Controller
 
     public function delete($id)
     {
-<<<<<<< HEAD
-        Schedule::find($id)->delete();
-        return back()->with('message', 'Xóa thành công');
-=======
         if(Gate::allows('delete-schedule')){
             Schedule::find($id)->delete();
             return back()->with('message', 'Xóa thành công'); 
@@ -137,6 +133,5 @@ class ScheduleController extends Controller
             return back()->with('errors', 'Bạn không có quyền');
         }
         
->>>>>>> b3b0a99cc58ea6203aef1868f7b9a9d5b0077385
     }
 }
