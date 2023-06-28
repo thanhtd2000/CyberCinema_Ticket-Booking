@@ -33,8 +33,22 @@
         </div>
 
         <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Số lượng</label>
+            <input type="number" class="form-control" id="exampleInputEmail1" name="count" aria-describedby="emailHelp"
+                value="{{ $product->count }}">
+        </div>
+        <div class="error">
+            @if ($errors->has('count'))
+                <span class="text-danger fs-5">
+                    {{ $errors->first('count') }}
+                </span>
+            @endif
+        </div>
+
+        <div class="mb-3">
             <label class="form-label">Ảnh</label>
             <input type="file" name="image" class="form-control" value="{{ old('image') }}">
+            <img src="{{ $product->image }}" width="100" alt="">
         </div>
         <div class="error">
             @if ($errors->has('image'))

@@ -4,13 +4,13 @@
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
                 class="text-white" href="{{ route('admin.product.create') }}">Thêm mới</a></button>
-        <div class="row g-3 align-items-center">
+        <div class="row align-items-center">
             <form action="{{ route('admin.product.search') }}" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
                     <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="button" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
         </div>
     </div>
@@ -21,6 +21,7 @@
                 <th class="">Ảnh</th>
                 <th class="">Tên sản phẩm</th>
                 <th class="">Giá</th>
+                <th class="">Số lượng</th>
                 <th class="">Chức năng</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                     <td><img src="{{ $product->image }}" width="50px" alt=""></td>
                     <td class="">{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
+                    <td class="">{{ $product->count }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.product.edit', $product->id) }}"><i
@@ -46,4 +48,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $products->links() }}
 @endsection

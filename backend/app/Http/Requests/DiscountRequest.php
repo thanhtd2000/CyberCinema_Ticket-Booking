@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class DirectorRequest extends FormRequest
+class DiscountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +24,20 @@ class DirectorRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'birthday' => 'required',
-            'nationality' => 'required',
-            'gender' => 'required',
+            'code' => 'required',
+            'min_price' => 'required',
+            'max_price' => 'required',
+            'count' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'percent' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'required' => "Bắt buộc phải nhập",
+            'required' => "Bắt buộc phải nhập",
         ];
     }
 }

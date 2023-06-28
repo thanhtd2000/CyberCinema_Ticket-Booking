@@ -32,9 +32,10 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('keywords');
-        $products = $this->products->where('name', 'like', '%' . $query . '%')
+        $products =  $this->products->where('name', 'like', '%' . $query . '%')
+            ->orWhere('content', 'like', '%' . $query . '%')
             ->paginate(5);
-        return view('Admin.post.index', compact('products'));
+        return view('admin.post.index', compact('products'));
     }
 
     public function create()
@@ -55,6 +56,7 @@ class ProductController extends Controller
             $product = new Product();
             $product->name = $request['name'];
             $product->price = $request['price'];
+            $product->count = $request['count'];
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $product->save();
@@ -83,6 +85,7 @@ class ProductController extends Controller
         }
         $product->name = $request['name'];
         $product->price = $request['price'];
+        $product->count = $request['count'];
         // dd($product);
         $product->save();
         return redirect()->route('admin.product')->with('message', 'Sửa thành công');
