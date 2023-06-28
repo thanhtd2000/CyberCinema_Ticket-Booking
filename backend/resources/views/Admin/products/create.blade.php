@@ -29,6 +29,18 @@
         </div>
 
         <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Số lượng</label>
+            <input type="number" class="form-control" id="exampleInputEmail1" name="count" value="{{ old('count') }}">
+        </div>
+        <div class="error">
+            @if ($errors->has('count'))
+                <span class="text-danger fs-5">
+                    {{ $errors->first('count') }}
+                </span>
+            @endif
+        </div>
+
+        <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Ảnh</label>
             <input type="file" class="form-control" id="exampleInputEmail1" name="image">
         </div>

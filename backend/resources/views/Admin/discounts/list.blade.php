@@ -3,19 +3,18 @@
 @extends('Admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between">
-        <button type="button" class="btn btn-primary col-md-1"><a class="text-white"
-                href="{{ route('admin.discount.create') }}">Thêm mới</a></button>
-        <div class="row g-3 align-items-center col-md-4">
+        <button type="submit" class="btn btn-primary "><a class="text-white" href="{{ route('admin.discount.create') }}">Thêm
+                mới</a></button>
+        <div class="row g-3 align-items-center ">
             <form action="{{ route('admin.discount.search') }}" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
                         class="form-control" placeholder="Nhập từ khoá">
                 </div>
-                <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
+                <button type="submit" class="btn btn-primary text-white">Tìm kiếm</button>
             </form>
         </div>
-        <div class="col-md-4"></div>
     </div>
 
     <br>
@@ -46,11 +45,13 @@
                     <td>{{ $discount->percent }}%</td>
                     <td>
                         <button class="btn btn-primary">
-                            <a class="text-white" href="{{ route('admin.discount.edit', $discount->id) }}">Sửa</a>
+                            <a class="text-white" href="{{ route('admin.discount.edit', $discount->id) }}"><i
+                                    class="fas fa-pencil-alt"></i></a>
                         </button>
                         <button class="btn btn-danger">
                             <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
-                                href="{{ route('admin.discount.delete', $discount->id) }}"> Xóa</a>
+                                href="{{ route('admin.discount.delete', $discount->id) }}"><i
+                                    class="fas fa-trash-alt"></i></a>
                         </button>
                     </td>
                 </tr>
