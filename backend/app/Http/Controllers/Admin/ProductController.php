@@ -56,6 +56,7 @@ class ProductController extends Controller
             $product = new Product();
             $product->name = $request['name'];
             $product->price = $request['price'];
+            $product->count = $request['count'];
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $product->save();
@@ -84,6 +85,7 @@ class ProductController extends Controller
         }
         $product->name = $request['name'];
         $product->price = $request['price'];
+        $product->count = $request['count'];
         // dd($product);
         $product->save();
         return redirect()->route('admin.product')->with('message', 'Sửa thành công');

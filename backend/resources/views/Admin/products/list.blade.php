@@ -21,6 +21,7 @@
                 <th class="">Ảnh</th>
                 <th class="">Tên sản phẩm</th>
                 <th class="">Giá</th>
+                <th class="">Số lượng</th>
                 <th class="">Chức năng</th>
             </tr>
         </thead>
@@ -31,6 +32,7 @@
                     <td><img src="{{ $product->image }}" width="50px" alt=""></td>
                     <td class="">{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
+                    <td class="">{{ $product->count }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.product.edit', $product->id) }}"><i

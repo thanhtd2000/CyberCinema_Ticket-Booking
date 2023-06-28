@@ -151,6 +151,7 @@
                 <li class="nav-item"><a class="nav-link" href="/admin/discount/create">Thêm mã<span
                             class="badge badge-sm bg-success ms-auto">ADD</span></a></li>
                 {{-- @endcan --}}
+                
             </ul>
         </li>
         {{-- @endcan --}}
