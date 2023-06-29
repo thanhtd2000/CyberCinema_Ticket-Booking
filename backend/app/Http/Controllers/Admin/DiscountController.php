@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Discount;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Requests\DiscountRequest;
 
 class DiscountController extends Controller
@@ -18,8 +19,12 @@ class DiscountController extends Controller
 
     public function index()
     {
-        $discounts = $this->discounts->latest()->paginate(5);
-        return view('Admin.discounts.list', compact('discounts'));
+        if (Gate::allows('list-discount')) {
+            $discounts = $this->discounts->latest()->paginate(5);
+            return view('Admin.discounts.list', compact('discounts'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     public function search(Request $request)
@@ -34,7 +39,11 @@ class DiscountController extends Controller
 
     public function create()
     {
-        return view('Admin.discounts.create');
+        if (Gate::allows('create-discount')) {
+            return view('Admin.discounts.create');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     public function store(DiscountRequest $request)
@@ -58,10 +67,12 @@ class DiscountController extends Controller
 
     public function edit($id)
     {
-        $discount = Discount::find($id);
-        // dd($discount);
-
-        return view('Admin.discounts.edit', compact('discount'));
+        if (Gate::allows('edit-discount')) {
+            $discount = Discount::find($id);
+            return view('Admin.discounts.edit', compact('discount'));
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 
     public function update(DiscountRequest $request, $id)
@@ -82,7 +93,11 @@ class DiscountController extends Controller
 
     public function delete($id)
     {
-        Discount::find($id)->delete();
-        return back()->with('message', 'Xóa thành công');
+        if (Gate::allows('delete-discount')) {
+            Discount::find($id)->delete();
+            return back()->with('message', 'Xóa thành công');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 }
