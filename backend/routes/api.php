@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\ScheduleController;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,3 +48,6 @@ Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiControl
 Route::middleware('auth:sanctum')->patch('/update-status-seat', [SeatController::class, 'updateStatusSeat']);
 
 Route::middleware('auth:sanctum')->get('/get-discout', [DiscountController::class, 'getDiscount']);
+
+//Products
+Route::get('get/products', [ProductController::class, 'index']);
