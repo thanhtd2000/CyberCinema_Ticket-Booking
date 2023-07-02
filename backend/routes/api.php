@@ -52,5 +52,6 @@ Route::middleware('auth:sanctum')->get('/get-discout', [DiscountController::clas
 
 //Products
 Route::get('get/products', [ProductController::class, 'index']);
+
 //Payment
 Route::post('get/payment', [PaymentController::class, 'createPayment']);

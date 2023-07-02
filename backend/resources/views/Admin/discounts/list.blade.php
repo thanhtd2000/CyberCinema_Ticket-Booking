@@ -23,8 +23,8 @@
             <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Mã giảm giá</th>
-                <th scope="col">Tiền tối thiểu</th>
-                <th scope="col">Tiền tối đa</th>
+                <th scope="col">Tiền tối thiểu áp dụng</th>
+                <th scope="col">Tiền tối đa triết khấu</th>
                 <th scope="col">Số lượng</th>
                 <th scope="col">Thời gian áp dụng</th>
                 <th scope="col">Thời gian kết thúc</th>
