@@ -6,9 +6,10 @@ use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\SeatController;
 use App\Http\Controllers\Api\MovieController;
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\PaymentController;
+use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\ScheduleController;
-use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,3 +52,5 @@ Route::middleware('auth:sanctum')->get('/get-discout', [DiscountController::clas
 
 //Products
 Route::get('get/products', [ProductController::class, 'index']);
+//Payment
+Route::post('get/payment', [PaymentController::class, 'createPayment']);
