@@ -18,7 +18,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Tiền tối thiểu</label>
+            <label for="exampleInputEmail1" class="form-label">Tiền tối thiểu áp dụng</label>
             <input type="number" class="form-control" id="exampleInputEmail1" name="min_price"
                 value="{{ $discount->min_price }}">
         </div>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Tiền tối đa</label>
+            <label for="exampleInputEmail1" class="form-label">Tiền tối đa triết khấu</label>
             <input type="number" class="form-control" id="exampleInputEmail1" name="max_price"
                 value="{{ $discount->max_price }}">
         </div>
