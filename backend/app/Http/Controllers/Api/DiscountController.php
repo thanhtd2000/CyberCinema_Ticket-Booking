@@ -36,4 +36,18 @@ class DiscountController extends Controller
             }
         }
     }
+    public function getAllDiscount(Request $request)
+    {
+
+        $user = $request->user();
+        $discounts = Discount::leftJoin('orders', function ($join) use ($user) {
+            $join->on('discounts.id', '=', 'orders.discount_id')
+                ->where('orders.user_id', '=', $user->id);
+        })->whereNull('orders.discount_id')
+            ->select('discounts.*')
+            ->get();
+
+        $data = new DiscountResource($discounts);
+        return response()->json($data, 200);
+    }
 }
