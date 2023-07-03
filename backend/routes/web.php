@@ -154,6 +154,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/delete/{id}', [RoomController::class, 'destroy'])->name('admin.room.delete');
         Route::get("/trash", [RoomController::class, 'trash'])->name('admin.room.trash');
         Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore');
+        Route::post('get/payment', [RoomController::class, 'createPayment'])->name('admin.room.createPayment');
     });
     Route::prefix('/schedule')->group(function () {
         Route::get('/', [ScheduleController::class, 'index'])->name('admin.schedule')->middleware('can:list-schedule');
@@ -165,7 +166,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     });
 
     Route::prefix('/discount')->group(function () {
-        Route::get('/', [DiscountController::class, 'index'])->name('admin.discount');
+        Route::get('/', [DiscountController::class, 'index'])->name('admin.discount')->middleware('can:list-discount');
         Route::get('/search', [DiscountController::class, 'search'])->name('admin.discount.search');
         Route::get('/create', [DiscountController::class, 'create'])->name('admin.discount.create');
         Route::post('/store', [DiscountController::class, 'store'])->name('admin.discount.store');

@@ -33,4 +33,16 @@ class GlobalHelper
         $time = Carbon::createFromFormat('Y/m/d H:i:s', $start_time)->addMinutes( $minutes + 30);
         return  $time;
     }
+
+    public function randString($length)
+    {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        $str = '';
+        $size = strlen($chars);
+        for($i=0; $i < $length ; $i++) {
+            $str .= $chars[rand(0, $size - 1)];
+        }
+        return $str;
+
+    }
 }

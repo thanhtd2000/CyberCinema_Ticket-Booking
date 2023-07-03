@@ -37,18 +37,17 @@ class RoomController extends Controller
 
         return view('Admin/Room/list', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
     }
-    
+
     public function create()
     {
-        if(Gate::allows('create-room')){
-        
+        if (Gate::allows('create-room')) {
+
             $seatTypes = $this->seatType->get();
 
             return view('Admin/Room/create', compact('seatTypes'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-        
     }
     public function store(RoomRequest $roomRequest)
     {
@@ -79,7 +78,7 @@ class RoomController extends Controller
 
     public function edit($id)
     {
-        if(Gate::allows('create-room')){
+        if (Gate::allows('create-room')) {
             $seatType = $this->seatType->get();
             $seats = $this->seat->where('room_id', $id)->get();
             $room = $this->room->find($id);
@@ -96,7 +95,6 @@ class RoomController extends Controller
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-       
     }
     public function update(Request $request, $id)
     {
@@ -127,30 +125,29 @@ class RoomController extends Controller
 
     public function destroy(Request $request)
     {
-        if(Gate::allows('delete-room')){
-        if ($request->type == 2) {
-            $this->room->withTrashed()->find($request->id)->forceDelete();
-            return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
-        }
-        $currentDateTime = Carbon::now();
-        $schedule = $this->schedule->where('room_id', $request->id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
+        if (Gate::allows('delete-room')) {
+            if ($request->type == 2) {
+                $this->room->withTrashed()->find($request->id)->forceDelete();
+                return redirect()->back()->with('message', 'Xoá Vĩnh Viễn Thành Công!');
+            }
+            $currentDateTime = Carbon::now();
+            $schedule = $this->schedule->where('room_id', $request->id)->where('time_start', '<=', $currentDateTime)->where('time_end', '>=', $currentDateTime)->get();
 
-        if (!empty($schedule->toArray())) {
-            return back()->with('errors', 'Phòng đang chiếu phim không thể xóa!');
+            if (!empty($schedule->toArray())) {
+                return back()->with('errors', 'Phòng đang chiếu phim không thể xóa!');
+            } else {
+                $this->room->find($request->id)->delete();
+                return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
+            }
         } else {
-            $this->room->find($request->id)->delete();
-            return redirect()->back()->with('message', 'Đã chuyển vào thùng rác!');
+            return back()->with('errors', 'Bạn không có quyền');
         }
-    } else {
-        return back()->with('errors', 'Bạn không có quyền');
-    }
     }
     public function trash()
     {
-        if(Gate::allows('create-room')){
+        if (Gate::allows('create-room')) {
             $rooms = $this->room->onlyTrashed()->latest()->paginate(10);;
             return view('Admin.room.trash', compact('rooms'));
-            
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -161,4 +158,5 @@ class RoomController extends Controller
         $room->restore();
         return redirect()->route('admin.room.trash');
     }
+    
 }
