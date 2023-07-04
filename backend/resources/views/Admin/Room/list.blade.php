@@ -2,7 +2,10 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-
+<form action="{{route('admin.room.createPayment')}}" method="POST">
+ @csrf
+ <button type="submit" class="btn btn-outline-primary" name="redirect">Submit</button>
+</form>
 <button class="btn btn-primary">
     <a class="text-white" href="{{route('admin.room.create')}}">Thêm</a>
 </button>

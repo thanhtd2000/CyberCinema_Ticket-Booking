@@ -54,4 +54,5 @@ Route::middleware('auth:sanctum')->get('/get-discout', [DiscountController::clas
 Route::get('get/products', [ProductController::class, 'index']);
 
 //Payment
-Route::post('get/payment', [PaymentController::class, 'createPayment']);
+Route::middleware('auth:sanctum')->post('get/payment', [PaymentController::class, 'createPayment']);
+Route::middleware('auth:sanctum')->get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_ReturnUrl');
