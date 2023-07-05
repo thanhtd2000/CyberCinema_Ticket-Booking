@@ -40,12 +40,11 @@ class ProductController extends Controller
 
     public function create()
     {
-        if(Gate::allows('create-product')){
+        if (Gate::allows('create-product')) {
             return view('Admin.products.create');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-        
     }
 
     public function store(ProductRequest $request)
@@ -57,6 +56,7 @@ class ProductController extends Controller
             $product->name = $request['name'];
             $product->price = $request['price'];
             $product->count = $request['count'];
+            $product->description = $request['description'];
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $product->save();
@@ -65,13 +65,12 @@ class ProductController extends Controller
 
     public function edit(Request $request)
     {
-        if(Gate::allows('edit-product')){
+        if (Gate::allows('edit-product')) {
             $product = $this->products->find($request->id);
-        return view('Admin.products.edit', compact('product'));
+            return view('Admin.products.edit', compact('product'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-        
     }
 
     public function update(ProductRequest $request)
@@ -86,6 +85,7 @@ class ProductController extends Controller
         $product->name = $request['name'];
         $product->price = $request['price'];
         $product->count = $request['count'];
+        $product->description = $request['description'];
         // dd($product);
         $product->save();
         return redirect()->route('admin.product')->with('message', 'Sửa thành công');
@@ -93,12 +93,11 @@ class ProductController extends Controller
 
     public function delete($id)
     {
-        if(Gate::allows('delete-product')){
+        if (Gate::allows('delete-product')) {
             Product::where('id', $id)->delete();
             return redirect('admin/product')->with('message', 'Xóa sản phẩm thành công');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-       
     }
 }

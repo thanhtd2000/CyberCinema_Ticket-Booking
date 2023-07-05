@@ -51,6 +51,18 @@
                 </span>
             @endif
         </div>
+
+        <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Mô tả</label>
+            <textarea name="description" id="" cols="30" rows="10">{{ old('description') }}</textarea>
+        </div>
+        <div class="error">
+            @if ($errors->has('description'))
+                <span class="text-danger fs-5">
+                    {{ $errors->first('description') }}
+                </span>
+            @endif
+        </div>
         <br>
         <button type="submit" class="btn btn-primary">Thêm mới</button>
     </form>
