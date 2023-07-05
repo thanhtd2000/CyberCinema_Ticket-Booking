@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SeatTypeController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\StatisticalsController;
 
 /*
@@ -156,8 +157,6 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get("/trash", [RoomController::class, 'trash'])->name('admin.room.trash');
         Route::get("/restore/{id}", [RoomController::class, 'restore'])->name('admin.room.restore');
         Route::post('get/payment', [RoomController::class, 'createPayment'])->name('admin.room.createPayment');
-        
-
     });
     Route::prefix('/schedule')->group(function () {
         Route::get('/', [ScheduleController::class, 'index'])->name('admin.schedule')->middleware('can:list-schedule');
@@ -178,5 +177,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/delete/{id}', [DiscountController::class, 'delete'])->name('admin.discount.delete');
     });
 
-    // Route::get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_ReturnUrl');
+    Route::prefix('/transaction')->group(function () {
+        Route::get('/', [TransactionController::class, 'index'])->name('admin.transaction');
+    });
 });
