@@ -1,60 +1,92 @@
 .bookingTicket {
   padding: 150px 9.86111111% 80px 9.86111111%;
-  .time {
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 40px;
-    p {
-      font-size: 18px;
-      color: rgb(171, 171, 171);
-      padding-bottom: 15px;
+  .bookChair {
+    padding: 0 100px !important;
+    .time {
+      text-align: center;
+      padding-top: 40px;
+      padding-bottom: 30px;
+      p {
+        font-size: 18px;
+        color: rgb(171, 171, 171);
+        padding-bottom: 15px;
+      }
+      span {
+        color: orange;
+      }
     }
-    span {
-      color: orange;
+    .warning {
+      background-color: rgb(254, 185, 82);
+      text-align: center;
+      p {
+        color: red;
+        padding: 10px 0;
+      }
     }
-  }
-  .sreen {
-    img {
-      object-fit: center;
+    .sreen {
+      img {
+        object-fit: center;
+        width: 100%;
+        height: auto;
+      }
+    }
+    .chairs {
       width: 100%;
-      height: auto;
-    }
-  }
-  .chairs {
-    .itemChair {
       cursor: pointer;
-      position: relative;
+      .itemChair {
+        cursor: pointer;
+        position: relative;
+        img {
+          object-fit: contain;
+        }
+        .nameChair {
+          position: absolute;
+          top: 40%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: white;
+          text-align: center;
+        }
+      }
+    }
+    .chairs::-webkit-scrollbar{
+      height: 10px;
+    }
+    .chairs::-webkit-scrollbar-track{
+      background: #f1f1f1;
+    }
+    .chairs::-webkit-scrollbar-thumb{
+      background: #888
+    }
+    .TypeChair {
+      padding-top: 50px;
       img {
         object-fit: contain;
       }
-      .nameChair {
-        position: absolute;
-        top: 40%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      p {
+        color: white;
+        text-align: center;
+      }
+    }
+    .TypeChairSelect {
+      padding-bottom: 20px;
+      img {
+        object-fit: contain;
+      }
+      p {
         color: white;
         text-align: center;
       }
     }
   }
-  .TypeChair {
-    padding-top: 50px;
-    img {
-      object-fit: contain;
-    }
-    p {
-      color: white;
-      text-align: center;
-    }
-  }
   .inforTicket {
-    padding: 50px;
     background-color: #9fa0a1;
-    height: 700px;
+    height: 100%;
+    padding: 20px;
     img {
-      width: 100%;
       object-fit: cover;
-      height: auto;
+      width: 100%;
+      height: 100%;
     }
     .title {
       color: #434444;
@@ -62,9 +94,124 @@
       font-size: 15px;
     }
     .content {
-      font-size: 18px;
+      font-size: 14px;
       color: #111;
       font-weight: 700;
+      padding-left: 10px;
+    }
+  }
+  .submitTicket {
+    border-top: 1px dashed #434444;
+    padding-top: 20px;
+    button {
+      color: white;
+      background-color: rgb(185, 44, 44);
+      width: 100%;
+      height: 40px;
+      transition: all 0.5s;
+    }
+    button:hover {
+      opacity: 0.8;
+      color: white;
+    }
+  }
+}
+@media screen and (max-width: 1440px) {
+      .bookingTicket {
+        .bookChair {
+          .chairs{
+                overflow-x: auto;
+          }
+        }
+      }
+    }
+@media screen and (max-width: 1400px) {
+  .bookingTicket {
+    .bookChair {
+      padding: 0 50px !important;
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+      .bookingTicket {  
+            padding: 150px 5.86111111% 80px 5.86111111%;
+      }
+    }
+
+@media screen and (max-width: 992px) {
+  .bookingTicket {
+    padding: 100px 5.86111111% 80px 5.86111111%;
+    .bookChair {
+      padding: 0 50px !important;
+      .TypeChair{
+            padding-bottom: 30px;
+      }
+    }
+    .inforTicket {
+    background-color: #9fa0a1;
+    height: 100%;
+    img {
+      object-fit: cover;
+      width: 100%;
+    }
+  }
+  }
+}
+@media screen and (max-width: 700px) {
+  .bookingTicket {
+    .bookChair {
+      padding: 0 !important;
+    }
+  }
+}
+@media screen and (max-width: 660px) {
+      .bookingTicket {
+            .inforTicket {
+                img {
+                  object-fit: cover;
+                  width: 100%;
+                  height: 80%;
+                  margin: 0 auto;
+                }
+              }
+      }
+    }
+@media screen and (max-width: 575.9px) {
+      .bookingTicket {
+            .inforTicket {
+                img {
+                  object-fit: cover;
+                  width: 57%;
+                  height: 100%;
+                  margin: 0 auto;
+                }
+              }
+      }
+    }
+@media screen and (max-width: 500px) {
+  .bookingTicket {
+    .bookChair {
+      padding: 0 !important;
+      .TypeChairSelect{
+            img{
+                  height: 30px;
+                  width: 30px;
+            }
+            p{
+                  font-size: 10px;
+            }
+      }
+      .TypeChair{
+            padding: 20px 0;
+            img{
+                  height: 30px;
+                  width: 30px;
+            }
+            p{
+                  font-size: 10px;
+            }
+      }
     }
   }
 }

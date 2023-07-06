@@ -1,9 +1,7 @@
-import { TResApi, TResApiErr, TResDataListApi } from '@/configs/interface.config';
-import { TChair, TQueryUpdateChair, TSchedule, TUpdateStatusChair } from '@/modules/movies';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { TResApi, TResApiErr } from '@/configs/interface.config';
+import { TUpdateStatusChair } from '@/modules/movies';
+import { useMutation} from 'react-query';
 import { updateStatusChair } from '../apis/chair';
-import { UPDATE_STATUS_CHAIR } from '../keys/movies';
-import { checkAuth } from '@/libs/localStorage';
 import logger from '@/libs/logger';
 
   export const useQueryPatchChair = () => {
