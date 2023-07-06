@@ -56,6 +56,7 @@ class DiscountController extends Controller
         $discount->start_time = $request['start_time'];
         $discount->end_time = $request['end_time'];
         $discount->percent = $request['percent'];
+        $discount->description = $request['description'];
 
         if ($discount->code !== $this->discounts->code) {
             $discount->save();
@@ -85,6 +86,7 @@ class DiscountController extends Controller
         $discount->start_time = $request['start_time'];
         $discount->end_time = $request['end_time'];
         $discount->percent = $request['percent'];
+        $discount->description = $request['description'];
 
         $discount->update();
 

@@ -22,6 +22,7 @@
                 <th class="">Tên sản phẩm</th>
                 <th class="">Giá</th>
                 <th class="">Số lượng</th>
+                <th class="">Mô tả</th>
                 <th class="">Chức năng</th>
             </tr>
         </thead>
@@ -33,6 +34,7 @@
                     <td class="">{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
                     <td class="">{{ $product->count }}</td>
+                    <td class="">{{ $product->description }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.product.edit', $product->id) }}"><i
