@@ -50,8 +50,6 @@ class DiscountController extends Controller
     {
         $discount = new Discount();
         $discount->code = $request['code'];
-        $discount->min_price = $request['min_price'];
-        $discount->max_price = $request['max_price'];
         $discount->count = $request['count'];
         $discount->start_time = $request['start_time'];
         $discount->end_time = $request['end_time'];
@@ -80,8 +78,6 @@ class DiscountController extends Controller
     {
         $discount = Discount::find($id);
         $discount->code = $request['code'];
-        $discount->min_price = $request['min_price'];
-        $discount->max_price = $request['max_price'];
         $discount->count = $request['count'];
         $discount->start_time = $request['start_time'];
         $discount->end_time = $request['end_time'];
