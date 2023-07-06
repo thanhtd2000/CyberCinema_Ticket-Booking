@@ -55,4 +55,4 @@ Route::get('get/products', [ProductController::class, 'index']);
 
 //Payment
 Route::middleware('auth:sanctum')->post('get/payment', [PaymentController::class, 'createPayment']);
-Route::middleware('auth:sanctum')->get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_ReturnUrl');
+Route::get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_ReturnUrl');

@@ -30,6 +30,9 @@ class PaymentController extends Controller
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         // $vnp_TmnCode = "CLTVD813"; //Mã website tại VNPAY 
         // $vnp_HashSecret = "PNDTFXWNOMRTCKBHOYNVSTUDXRNJGNGQ"; //Chuỗi bí mật
+        //them order
+        //update order_id ->order_chedule
+        //
 
         $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
 
@@ -39,7 +42,7 @@ class PaymentController extends Controller
         $vnp_Locale = 'vn';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $vnp_Inv_Email=$request->email;
+        // $vnp_Inv_Email=$request->email;
         //Add Params of 2.0.1 Version
         // dd($vnp_TxnRef);
         $inputData = array(
@@ -55,7 +58,7 @@ class PaymentController extends Controller
             "vnp_OrderType" => $vnp_OrderType,
             "vnp_ReturnUrl" =>'http://127.0.0.1:8000/api/payment',
             "vnp_TxnRef" => $vnp_TxnRef,
-            "vnp_Inv_Email"=>$vnp_Inv_Email,
+            // "vnp_Inv_Email"=>$vnp_Inv_Email,
 
         );
 
@@ -101,25 +104,22 @@ class PaymentController extends Controller
     }
     public function insertPayment(Request $request)
      {
-        $user = $request->user();
-        if($user && $request->vnp_TransactionStatus == 00){
+        dd($request->toArray());
+        // $user = $request->user();
+        if($request->vnp_TransactionStatus == 00){
             $dataTrans = [
                 'transactions_code' => $request->vnp_TransactionNo,
                 'bank_code' => $request->vnp_BankCode,
                 'payment_code' => $request->vnp_CardType,
                 'status' => $request->vnp_TransactionStatus,
                 'amount' => $request->vnp_Amount,
-                'user_id' => $user->id
+              
             ];
 
             $trasaction = $this->transaction->create($dataTrans);
-
+            
          
-            return response()->json([
-                'message' => 'Thanh toán thành công!',
-                'transaction_id' => $trasaction->id,
-                'status'=> 200
-            ]);
+            return redirect()->to('http://127.0.0.1:8000/admin/login');
         }else{
             return response()->json([
                 'message' => 'Thanh toán thất bại vui lòng kiểm tra lại!',
