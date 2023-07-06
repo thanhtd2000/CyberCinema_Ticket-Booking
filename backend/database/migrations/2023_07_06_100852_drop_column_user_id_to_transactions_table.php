@@ -15,7 +15,7 @@ class DropColumnUserIdToTransactionsTable extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             $table->dropColumn('user_id');
-            $table->column('order_code');
+            $table->string('order_code');
         });
     }
 

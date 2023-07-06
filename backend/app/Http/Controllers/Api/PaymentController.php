@@ -16,7 +16,7 @@ class PaymentController extends Controller
     public $transaction;
     public $order;
     public $orderSchedule;
-    public function __construct(Transaction $transaction , Orders $order , OrderSchedule $orderSchedule)
+    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule)
     {
         $this->transaction = $transaction;
         $this->order = $order;
@@ -47,21 +47,20 @@ class PaymentController extends Controller
         // dd($request->seat_id );
 
         $order = $this->order->create([
-            'total'=>$request->total,
-            'user_id'=> $user->id,
-            'discount_id'=>$request->discount_id,
+            'total' => $request->total,
+            'user_id' => $user->id,
+            'discount_id' => $request->discount_id,
             'order_code' => $vnp_TxnRef
         ]);
-        
+
         // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
 
-        foreach($request->seat_id as $seatId){
-           
-                $orderSchedule = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id',$seatId)->update([
-                     'order_id'=>$order->id,
-                     'status'=>2
-                ]);
-          
+        foreach ($request->seat_id as $seatId) {
+
+            $orderSchedule = $this->orderSchedule->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->where('seat_id', $seatId)->update([
+                'order_id' => $order->id,
+                'status' => 2
+            ]);
         }
 
         $inputData = array(
@@ -75,7 +74,7 @@ class PaymentController extends Controller
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" =>'http://127.0.0.1:8000/api/payment',
+            "vnp_ReturnUrl" => 'http://127.0.0.1:8000/api/payment',
             "vnp_TxnRef" => $vnp_TxnRef,
             // "vnp_Inv_Email"=>$vnp_Inv_Email,
 
@@ -109,42 +108,40 @@ class PaymentController extends Controller
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
         // dd($vnp_Url);
-       return response()->json(
-        ['message'=> 'Success',
-        'status'=> 00,
-        'data'=> $vnp_Url]
-       );
-
-
-
-        
-
-
+        return response()->json(
+            [
+                'message' => 'Success',
+                'status' => 00,
+                'data' => $vnp_Url
+            ]
+        );
     }
     public function insertPayment(Request $request)
-     {
-        dd($request->toArray());
+    {
+        // dd($request->toArray());
         // $user = $request->user();
-        if($request->vnp_TransactionStatus == 00){
+        if ($request->vnp_TransactionStatus == 00) {
             $dataTrans = [
                 'transactions_code' => $request->vnp_TransactionNo,
                 'bank_code' => $request->vnp_BankCode,
                 'payment_code' => $request->vnp_CardType,
                 'status' => $request->vnp_TransactionStatus,
                 'amount' => $request->vnp_Amount,
-              
+                'order_code' => $request->vnp_TxnRef,
             ];
 
-            $trasaction = $this->transaction->create($dataTrans);
+            $transaction = $this->transaction->create($dataTrans);
             
-         
+            $this->order->where('order_code',$transaction->order_code)->update([
+                'transaction_id' => $transaction->id
+            ]);
+
             return redirect()->to('http://127.0.0.1:8000/admin/login');
-        }else{
+        } else {
             return response()->json([
                 'message' => 'Thanh toán thất bại vui lòng kiểm tra lại!',
-                'status'=> 500
+                'status' => 500
             ]);
         }
-
-     }
+    }
 }
