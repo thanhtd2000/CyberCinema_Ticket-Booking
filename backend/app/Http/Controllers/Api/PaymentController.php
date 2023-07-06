@@ -33,7 +33,7 @@ class PaymentController extends Controller
         //them order
         //update order_id ->order_chedule
         //
-
+        $user = $request->user();
         $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
 
         $vnp_OrderInfo = 'thanh toan test';
@@ -44,7 +44,26 @@ class PaymentController extends Controller
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
         // $vnp_Inv_Email=$request->email;
         //Add Params of 2.0.1 Version
-        // dd($vnp_TxnRef);
+        // dd($request->seat_id );
+
+        $order = $this->order->create([
+            'total'=>$request->total,
+            'user_id'=> $user->id,
+            'discount_id'=>$request->discount_id,
+            'order_code' => $vnp_TxnRef
+        ]);
+        
+        // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
+
+        foreach($request->seat_id as $seatId){
+           
+                $orderSchedule = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id',$seatId)->update([
+                     'order_id'=>$order->id,
+                     'status'=>2
+                ]);
+          
+        }
+
         $inputData = array(
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => env('VNP_TMN_CODE'),
