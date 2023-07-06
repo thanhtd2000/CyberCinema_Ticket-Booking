@@ -6,6 +6,9 @@ import { TActor } from "./actor";
 export type TQueryMovies = TQueryParamsGetData<{
       isHot?: number;
     }>;
+export type TQueryCode = TQueryParamsGetData<{
+      code?: string;
+    }>;
 export type TMovies = {
       _id: string;
       name: string;
@@ -32,7 +35,6 @@ export type TSchedule = {
       schedule: Date;
 }
 export type TUpdateStatusChair = {
-      status: number | null,
       id: number;
       schedule_id: number;
 }

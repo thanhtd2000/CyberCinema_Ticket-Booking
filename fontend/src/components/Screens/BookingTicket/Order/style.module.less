@@ -1,0 +1,306 @@
+.order {
+  padding: 0 100px;
+  .time {
+      text-align: center;
+      padding-top: 40px;
+      padding-bottom: 30px;
+      p {
+        font-size: 18px;
+        color: rgb(171, 171, 171);
+        padding-bottom: 15px;
+      }
+      span {
+        color: orange;
+      }
+    }
+  .warning {
+    background-color: rgb(254, 185, 82);
+    text-align: center;
+    p {
+      color: red;
+      padding: 10px 0;
+    }
+  }
+  .InforUser {
+    .title {
+      padding: 15px 0;
+      p {
+        font-size: 17px;
+        padding-left: 10px;
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+      span {
+        font-size: 25px;
+        color: white;
+        display: flex;
+        align-items: center;
+      }
+    }
+    .combo {
+      display: flex;
+      padding-top: 35px;
+      align-items: center;
+      flex-wrap: nowrap;
+      padding-bottom: 30px;
+      p {
+        color: white;
+        font-size: 17px;
+        padding-left: 10px;
+      }
+    }
+    .getVoucher {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      p {
+        color: white;
+        cursor: pointer;
+        text-decoration: underline;
+        font-style: italic;
+      }
+    }
+    .inforUser {
+      color: white;
+      border-bottom: 1px dashed #b5b5b5;
+      padding-bottom: 16px;
+      h5 {
+        padding: 10px 0;
+      }
+    }
+    .tableCombo {
+      padding-bottom: 20px;
+      border-bottom: 1px dashed #b5b5b5;
+      .nameCombo,
+      .desc,
+      .mount {
+        display: flex;
+        justify-content: center;
+        p {
+          color: white;
+          font-size: 17px;
+        }
+      }
+    }
+    .comboSweet,
+    .comboFamily {
+      padding-top: 25px;
+      align-items: center;
+      img {
+      }
+      p {
+        color: white;
+      }
+    }
+    .countComboSweet {
+      > span {
+        color: white;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 10px;
+      }
+      > div {
+        display: flex;
+        justify-content: center;
+        color: white;
+        .increate,
+        .descrease {
+          width: 20px;
+          height: 20px;
+          text-align: center;
+          background-color: rgb(158, 80, 80);
+          color: white;
+          cursor: pointer;
+        }
+      }
+    }
+    .inputVoucher {
+      width: 500px !important;
+      height: 35px !important;
+      background-color: transparent;
+      color: white;
+    }
+    .inputVoucher::placeholder {
+      color: white;
+    }
+    .buttonSubmit, .buttonSubmit1 {
+      background-color: #b92c2c;
+      color: white;
+      padding: 4px 15px;
+      height: 35px;
+      border-color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      span {
+        font-size: 11px;
+      }
+    }
+    .buttonSubmit1{
+      display: none;
+    }
+    .totalMoney {
+      border-top: 1px solid #b5b5b5;
+      padding: 20px 0;
+      .money {
+        display: flex;
+        justify-content: flex-end;
+        padding: 8px 0;
+        p {
+          color: white;
+        }
+        span {
+          color: orange;
+          width: 125px;
+          display: flex;
+          justify-content: flex-end;
+        }
+      }
+    }
+    .payMent {
+      p {
+        color: white;
+        font-size: 17px;
+        border-bottom: 1px dashed #b5b5b5;
+        padding-bottom: 16px;
+      }
+      .allMethod {
+        display: flex;
+        justify-content: space-around;
+        padding: 30px 0;
+        .method {
+          display: flex;
+          align-items: center;
+          span {
+            color: white;
+            display: flex;
+            align-items: center;
+            padding-left: 10px;
+          }
+        }
+      }
+    }
+    .timeCount {
+      background: #b5b5b5;
+      height: 100px;
+      padding: 16px;
+      .time {
+        border-left: 1px solid #000;
+        padding-left: 20px;
+        text-align: center;
+        > span {
+          display: flex;
+          padding-top: 10px;
+          font-size: 20px;
+          color: white;
+          justify-content: center;
+        }
+      }
+    }
+    .headerDiscount {
+      color: white;
+      border-bottom: 1px solid #b5b5b5;
+      padding: 20px 0;
+      p {
+        color: white;
+        font-size: 17px;
+      }
+    }
+    .contentDiscount {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      text-align: center;
+      p {
+        color: white;
+      }
+      .code {
+        p {
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 1400px) {
+  .order {
+    padding: 0 50px;
+    .InforUser {
+      .timeCount {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .order {
+    padding: 0 0px;
+    .InforUser {
+      .timeCount {
+        margin-bottom: 30px;
+      }
+    }
+  }
+}
+@media screen and (max-width: 767.9px) {
+  .order {
+    padding: 0 0px;
+    .InforUser {
+      .tableCombo {
+        .nameCombo {
+          display: none;
+        }
+      }
+      .combo{
+            p{
+                  font-size: 15px;
+            }
+      }
+      .comboSweet {
+        .nameInforCombo {
+          display: none;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 576px) {
+  .order {
+    padding: 0 0px;
+    .InforUser {
+      .comboSweet {
+        img{
+            width: 70px;
+            height: 70px;
+        }
+      }
+      .inforUser{
+            .inforDetail{
+                  display: flex;
+                  align-items: center;
+                  justify-content: space-between;
+            }
+      }
+      .headerDiscount{
+            .expiredTime{
+                  display: none;
+            }
+      }
+      .contentDiscount{
+            .expiredTimeContent{
+                  display: none;
+            }
+            .buttonSubmit{
+                  display: none;
+            }
+            .buttonSubmit1{
+                  display: block;
+            }
+      }
+    }
+  }
+}
