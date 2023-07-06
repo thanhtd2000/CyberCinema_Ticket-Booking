@@ -25,8 +25,6 @@ class DiscountRequest extends FormRequest
     {
         return [
             'code' => 'required',
-            'min_price' => 'required',
-            'max_price' => 'required',
             'count' => 'required',
             'start_time' => 'required',
             'end_time' => 'required',

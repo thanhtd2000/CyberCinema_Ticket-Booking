@@ -17,32 +17,6 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Tiền tối thiểu áp dụng</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" name="min_price"
-                value="{{ old('min_price') }}">
-        </div>
-        <div class="error">
-            @if ($errors->has('min_price'))
-                <span class="text-danger fs-5">
-                    {{ $errors->first('min_price') }}
-                </span>
-            @endif
-        </div>
-
-        <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Tiền tối đa triết khấu</label>
-            <input type="number" class="form-control" id="exampleInputEmail1" name="max_price"
-                value="{{ old('max_price') }}">
-        </div>
-        <div class="error">
-            @if ($errors->has('max_price'))
-                <span class="text-danger fs-5">
-                    {{ $errors->first('max_price') }}
-                </span>
-            @endif
-        </div>
-
-        <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Số lượng</label>
             <input type="number" class="form-control" id="exampleInputEmail1" name="count" value="{{ old('count') }}">
         </div>
@@ -91,8 +65,7 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Mô tả</label>
-            <textarea name="description" id="" cols="30" rows="10" value="{{ old('description') }}">
-            </textarea>
+            <input class="form-control" type="text" name="description">
         </div>
         <div class="error">
             @if ($errors->has('description'))
