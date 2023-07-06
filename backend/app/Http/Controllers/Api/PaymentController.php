@@ -16,7 +16,7 @@ class PaymentController extends Controller
     public $transaction;
     public $order;
     public $orderSchedule;
-    public function __construct(Transaction $transaction , Orders $order , OrderSchedule $orderSchedule)
+    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule)
     {
         $this->transaction = $transaction;
         $this->order = $order;
@@ -30,7 +30,10 @@ class PaymentController extends Controller
         // $vnp_Returnurl = "https://localhost/vnpay_php/vnpay_return.php";
         // $vnp_TmnCode = "CLTVD813"; //Mã website tại VNPAY 
         // $vnp_HashSecret = "PNDTFXWNOMRTCKBHOYNVSTUDXRNJGNGQ"; //Chuỗi bí mật
-
+        //them order
+        //update order_id ->order_chedule
+        //
+        $user = $request->user();
         $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
 
         $vnp_OrderInfo = 'thanh toan test';
@@ -39,9 +42,27 @@ class PaymentController extends Controller
         $vnp_Locale = 'vn';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        $vnp_Inv_Email=$request->email;
+        // $vnp_Inv_Email=$request->email;
         //Add Params of 2.0.1 Version
-        // dd($vnp_TxnRef);
+        // dd($request->seat_id );
+
+        $order = $this->order->create([
+            'total' => $request->total,
+            'user_id' => $user->id,
+            'discount_id' => $request->discount_id,
+            'order_code' => $vnp_TxnRef
+        ]);
+
+        // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
+
+        foreach ($request->seat_id as $seatId) {
+
+            $orderSchedule = $this->orderSchedule->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->where('seat_id', $seatId)->update([
+                'order_id' => $order->id,
+                'status' => 2
+            ]);
+        }
+
         $inputData = array(
             "vnp_Version" => "2.1.0",
             "vnp_TmnCode" => env('VNP_TMN_CODE'),
@@ -53,9 +74,9 @@ class PaymentController extends Controller
             "vnp_Locale" => $vnp_Locale,
             "vnp_OrderInfo" => $vnp_OrderInfo,
             "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" =>'http://127.0.0.1:8000/api/payment',
+            "vnp_ReturnUrl" => 'http://127.0.0.1:8000/api/payment',
             "vnp_TxnRef" => $vnp_TxnRef,
-            "vnp_Inv_Email"=>$vnp_Inv_Email,
+            // "vnp_Inv_Email"=>$vnp_Inv_Email,
 
         );
 
@@ -87,45 +108,40 @@ class PaymentController extends Controller
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
         // dd($vnp_Url);
-       return response()->json(
-        ['message'=> 'Success',
-        'status'=> 00,
-        'data'=> $vnp_Url]
-       );
-
-
-
-        
-
-
+        return response()->json(
+            [
+                'message' => 'Success',
+                'status' => 00,
+                'data' => $vnp_Url
+            ]
+        );
     }
     public function insertPayment(Request $request)
-     {
-        $user = $request->user();
-        if($user && $request->vnp_TransactionStatus == 00){
+    {
+        // dd($request->toArray());
+        // $user = $request->user();
+        if ($request->vnp_TransactionStatus == 00) {
             $dataTrans = [
                 'transactions_code' => $request->vnp_TransactionNo,
                 'bank_code' => $request->vnp_BankCode,
                 'payment_code' => $request->vnp_CardType,
                 'status' => $request->vnp_TransactionStatus,
                 'amount' => $request->vnp_Amount,
-                'user_id' => $user->id
+                'order_code' => $request->vnp_TxnRef,
             ];
 
-            $trasaction = $this->transaction->create($dataTrans);
-
-         
-            return response()->json([
-                'message' => 'Thanh toán thành công!',
-                'transaction_id' => $trasaction->id,
-                'status'=> 200
+            $transaction = $this->transaction->create($dataTrans);
+            
+            $this->order->where('order_code',$transaction->order_code)->update([
+                'transaction_id' => $transaction->id
             ]);
-        }else{
+
+            return redirect()->to('http://127.0.0.1:8000/admin/login');
+        } else {
             return response()->json([
                 'message' => 'Thanh toán thất bại vui lòng kiểm tra lại!',
-                'status'=> 500
+                'status' => 500
             ]);
         }
-
-     }
+    }
 }
