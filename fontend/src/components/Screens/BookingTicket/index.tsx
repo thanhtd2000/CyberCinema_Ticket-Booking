@@ -1,21 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import style from './style.module.less';
-import { Breadcrumb, Col, Row, Spin } from 'antd';
+import { Breadcrumb, Button, Col, Row, Spin } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { queryAllChair } from '@/queries/hooks/schedule';
 import { useQueryPatchChair } from '@/queries/hooks/chair';
-import LineChair from '@/components/Elements/LineChair/LineChair';
-import dayjs from 'dayjs';
+import LineChair from '@/components/Elements/LineChair/LineChair';;
+import CounTime from '@/components/Elements/Timer/Timer';
+import OrderTicket from './Order';
 
 function BookingTicketScreen() {
-      const [selectedBoxes, setSelectedBoxes] = useState([]);
+      const [selectedBoxes, setSelectedBoxes] = useState<any>([]);
       const values = getLocalStored('values');
       const movieDetail = getLocalStored('data');
       const valueRoom = getLocalStored('valueRoom');
-      const [time, setTime] = useState()
       const [token, setToken] = useState<string>('');
+      const [component, setComponent] = useState(1)
       useEffect(() => {
             const accessTokenCurrent = checkAuth();
             setToken(accessTokenCurrent);
@@ -24,39 +25,26 @@ function BookingTicketScreen() {
                   setToken(accessToken);
             });
       }, []);
-      // const {data : listChair} = useQueryPatchChair({id:idChair, schedule_id: valueRoom.schedule_id },token)
-      const {mutate: updateChair, isLoading: loading, } = useQueryPatchChair()
-      const handleBoxClick = (box: any) => {
-            // console.log(data);
-            // updateStatusChair(data, token);
-            if(!loading){
-                  updateChair({params:{id:box?.id, schedule_id: valueRoom.schedule_id }, token:token})
+      const { mutate: updateChair, isLoading: loading, isError } = useQueryPatchChair()
+      const handleBoxClick = (box: any | never) => {
+            if (!loading) {
+                  updateChair({ params: { id: box?.id, schedule_id: valueRoom.schedule_id }, token: token })
             }
-            // setIdChair(box?.id)
-            const isSelected = selectedBoxes.includes(box?.id);
+            const isSelected = selectedBoxes.includes(box);
             if (isSelected) {
-                  const updatedBoxes = selectedBoxes.filter((selectedBox) => selectedBox !== box.id);
+                  const updatedBoxes = selectedBoxes.filter((selectedBox: any) => selectedBox !== box);
                   setSelectedBoxes(updatedBoxes);
             } else {
-                  const updatedBoxes = [...selectedBoxes, box.id];
+                  const updatedBoxes = [...selectedBoxes, box];
                   setSelectedBoxes(updatedBoxes);
             }
       };
-      const { data: dataChair, isLoading } = queryAllChair(
+      const { data: dataChair, isLoading, refetch, isFetching } = queryAllChair(
             { id: valueRoom?.id, schedule_id: valueRoom?.schedule_id },
             token,
       );
-      console.log(dataChair?.time?.start);
-      const handleTime = () =>{
-            const timeShow = +dayjs(dataChair?.time?.end).format('m') - +dayjs(dataChair?.time?.start).format('m')
-            
-      }
-      useEffect(() => {
-            const interval = setInterval(() => getTime(deadline), 1000);
-        
-            return () => clearInterval(interval);
-          }, []);
-      handleTime()
+      const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price, 0) : null, [selectedBoxes])
+      const numberWithComas = (num: number) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
       return (
             <div className={`${style.bookingTicket} booking`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
@@ -81,102 +69,159 @@ function BookingTicketScreen() {
                                     ]}
                               />
                         </div>
-                        <Row gutter={[50, 0]}>
-                              <Col span={18} style={{ padding: '0 100px' }}>
-                                    <div className={style.time}>
-                                          <p>Thời gian giữ ghế</p>
-                                          <span>04 : 58</span>
-                                    </div>
-                                    <div className={style.sreen}>
-                                          <Image src='/images/Screen (2).png' width={700} height={40} alt='empty chair' />
-                                    </div>
-                                    {!isLoading ? (
-                                          <div className={style.chairs}>
-                                                <LineChair dataChair={dataChair?.data?.A} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.B} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.C} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.D} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.E} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.F} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.G} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.H} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.I} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                <LineChair dataChair={dataChair?.data?.J} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                        <Row>
+                              {
+                                    component && component === 1 ? (<Col xs={24} sm={24} md={24} lg={18} className={style.bookChair}>
+                                          {
+                                                selectedBoxes.length > 0 ? (<div className={style.warning}>
+                                                      <p>Theo quy định của cục điện ảnh, phim này không dành cho khán giả dưới {movieDetail?.year_old} tuổi.</p>
+                                                </div>) : ''
+                                          }
+                                          <div className={style.time}>
+                                                <p>Thời gian giữ ghế</p>
+                                                <CounTime expiresAt={dataChair?.time} />
                                           </div>
-                                    ) : (
-                                          <Spin></Spin>
-                                    )}
-                                    <Row className={style.TypeChair}>
-                                          <Col span={8}>
-                                                <div style={{ textAlign: 'center' }}>
-                                                      <Image src='/images/NomarlChair.png' width={40} height={40} alt='empty chair' />
+                                          <Row className={style.TypeChairSelect}>
+                                                <Col span={6}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/NomarlChair.png' width={40} height={40} alt='empty chair' />
+                                                      </div>
+                                                      <p>Ghế Trống</p>
+                                                </Col>
+                                                <Col span={6}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/chair/seat-select-normal.png' width={40} height={40} alt='Booking chair' />
+                                                      </div>
+                                                      <p>Ghế Đang chọn</p>
+                                                </Col>
+                                                <Col span={6}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/chair/seat-process-normal.png' width={40} height={40} alt='Booking chair' />
+                                                      </div>
+                                                      <p>Ghế Đang Giữ</p>
+                                                </Col>
+                                                <Col span={6}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/chair/seat-buy-normal.png' width={40} height={40} alt='Booking chair' />
+                                                      </div>
+                                                      <p>Ghế Đã Bán</p>
+                                                </Col>
+                                          </Row>
+                                          <div className={style.sreen}>
+                                                <Image src='/images/Screen (2).png' width={700} height={40} alt='empty chair' />
+                                          </div>
+                                          {!isLoading || !isFetching ? (
+                                                <div className={style.chairs}>
+                                                      <div>
+                                                            <LineChair dataChair={dataChair?.data?.A} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.B} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.C} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.D} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.E} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.F} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.G} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.H} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.I} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair dataChair={dataChair?.data?.J} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                      </div>
                                                 </div>
-                                                <p>Ghế Đơn</p>
+                                          ) : (
+                                                <Spin></Spin>
+                                          )}
+                                          <Row className={style.TypeChair}>
+                                                <Col span={8}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/NomarlChair.png' width={40} height={40} alt='empty chair' />
+                                                      </div>
+                                                      <p>Ghế Đơn</p>
+                                                </Col>
+                                                <Col span={8}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/chair/ChairVip.png' width={50} height={50} alt='Booking chair' />
+                                                      </div>
+                                                      <p>Ghế Vip</p>
+                                                </Col>
+                                                <Col span={8}>
+                                                      <div style={{ textAlign: 'center' }}>
+                                                            <Image src='/images/chair/doubleChair.png' width={50} height={50} alt='Booking chair' />
+                                                      </div>
+                                                      <p>Ghế Đôi</p>
+                                                </Col>
+                                          </Row>
+                                    </Col>) : (<OrderTicket totalPrice={totalPrice} expiresAt={dataChair?.time}></OrderTicket>)
+                              }
+                              <Col xs={24} sm={24} md={24} lg={6} className={style.inforTicket}>
+                                    <Row gutter={[{sm: 24,md: 24,lg: 0},0]}>
+                                          <Col xs={24} sm={10} md={8} lg={24} style={{display: 'flex', justifyContent: 'center'}}>
+                                                <Image src={movieDetail?.image} alt='banner' width={150} height={330} />
                                           </Col>
-                                          <Col span={8}>
-                                                <div style={{ textAlign: 'center' }}>
-                                                      <Image src='/images/chair/ChairVip.png' width={50} height={50} alt='Booking chair' />
-                                                </div>
-                                                <p>Ghế Vip</p>
-                                          </Col>
-                                          <Col span={8}>
-                                                <div style={{ textAlign: 'center' }}>
-                                                      <Image src='/images/chair/doubleChair.png' width={50} height={50} alt='Booking chair' />
-                                                </div>
-                                                <p>Ghế Đôi</p>
-                                          </Col>
-                                    </Row>
-                              </Col>
-                              <Col span={6} className={style.inforTicket}>
-                                    <Image src={movieDetail?.image} alt='banner' width={150} height={300} />
-                                    <Row style={{ paddingTop: '10px' }}>
-                                          <Col>
-                                                <span className={style.title}>Tên phim : </span>
-                                          </Col>
-                                          <Col>
-                                                <p className={style.content}>{movieDetail?.name}</p>
-                                          </Col>
-                                    </Row>
-                                    <Row style={{ paddingTop: '10px', justifyContent: 'space-between' }}>
-                                          <Col>
-                                                <span className={style.title}>Thời lượng : </span>
-                                          </Col>
-                                          <Col>
-                                                <p className={style.content}>{movieDetail?.time}</p>
-                                          </Col>
-                                    </Row>
-                                    <Row style={{ paddingTop: '10px', justifyContent: 'space-between' }}>
-                                          <Col>
-                                                <span className={style.title}>Phòng : </span>
-                                          </Col>
-                                          <Col>
-                                                <p className={style.content}>{values?.room}</p>
-                                          </Col>
-                                    </Row>
-                                    <Row style={{ paddingTop: '10px' }}>
-                                          <Col>
-                                                <span className={style.title}>Suất chiếu : </span>
-                                          </Col>
-                                          <Col>
-                                                <p className={style.content}>
-                                                      {values?.time} - ngày {values?.date}
-                                                </p>
-                                          </Col>
-                                    </Row>
-                                    <Row style={{ paddingTop: '10px', justifyContent: 'space-between' }}>
-                                          <Col>
-                                                <span className={style.title}>Ghế : </span>
-                                          </Col>
-                                          <Col>
-                                                <p className={style.content}>L2</p>
-                                          </Col>
-                                    </Row>
-                                    <Row style={{ paddingTop: '10px', justifyContent: 'space-between' }}>
-                                          <Col>
-                                                <span className={style.title}>Giá : </span>
-                                          </Col>
-                                          <Col>
-                                                <p className={style.content}>200.000 đ</p>
+                                          <Col xs={24} sm={14} md={16} lg={24}>
+                                                <Row style={{ paddingTop: '30px' }}>
+                                                      <Col>
+                                                            <span className={style.title}>Tên phim : </span>
+                                                      </Col>
+                                                      <Col>
+                                                            <p className={style.content}>{movieDetail?.name}</p>
+                                                      </Col>
+                                                </Row>
+                                                <Row style={{ paddingTop: '15px', justifyContent: 'space-between' }}>
+                                                      <Col>
+                                                            <span className={style.title}>Thể loại : </span>
+                                                      </Col>
+                                                      <Col>
+                                                            <p className={style.content}>{movieDetail?.category[0]?.name}</p>
+                                                      </Col>
+                                                </Row>
+                                                <Row style={{ paddingTop: '15px', justifyContent: 'space-between' }}>
+                                                      <Col>
+                                                            <span className={style.title}>Thời lượng : </span>
+                                                      </Col>
+                                                      <Col>
+                                                            <p className={style.content}>{movieDetail?.time}</p>
+                                                      </Col>
+                                                </Row>
+                                                <Row style={{ paddingTop: '15px', justifyContent: 'space-between' }}>
+                                                      <Col>
+                                                            <span className={style.title}>Phòng : </span>
+                                                      </Col>
+                                                      <Col>
+                                                            <p className={style.content}>{values?.room}</p>
+                                                      </Col>
+                                                </Row>
+                                                <Row style={{ paddingTop: '15px' }}>
+                                                      <Col>
+                                                            <span className={style.title}>Suất chiếu : </span>
+                                                      </Col>
+                                                      <Col>
+                                                            <p className={style.content}>
+                                                                  {values?.time} - ngày {values?.date}
+                                                            </p>
+                                                      </Col>
+                                                </Row>
+                                                <Row style={{ paddingTop: '15px', justifyContent: 'space-between', paddingBottom: '30px' }}>
+                                                      <Col>
+                                                            <span className={style.title}>Ghế : </span>
+                                                      </Col>
+                                                      {
+                                                            selectedBoxes.length > 0 ? (<Col>
+                                                                  {selectedBoxes.map((item: any) => (<span className={style.content}> {item.name} </span>))}
+                                                            </Col>) : (<div>Vui lòng chọn ghế</div>)
+                                                      }
+                                                </Row>
+                                                {
+                                                      component === 1 ? (<Row className={style.submitTicket} style={{ justifyContent: 'center' }} gutter={[10, 10]}>
+                                                            <Col span={12}>
+                                                                  <Button onClick={(() => setComponent(2))}>Tiếp tục</Button>
+                                                            </Col>
+                                                      </Row>) : (<Row className={style.submitTicket} gutter={[10, 10]}>
+                                                            <Col span={12}>
+                                                                  <Button onClick={(() => setComponent(1))}>Quay lại</Button>
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                  <Button>Tiếp tục</Button>
+                                                            </Col>
+                                                      </Row>)
+                                                }
                                           </Col>
                                     </Row>
                               </Col>
