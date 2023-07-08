@@ -139,7 +139,7 @@ class PaymentController extends Controller
     }
     public function insertPayment(Request $request)
     {
-        dd($request->toArray());
+        // dd($request->toArray());
         // $user = $request->user();
         if ($request->vnp_TransactionStatus == 00) {
             $dataTrans = [
