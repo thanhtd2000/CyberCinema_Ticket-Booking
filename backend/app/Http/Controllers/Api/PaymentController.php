@@ -32,6 +32,7 @@ class PaymentController extends Controller
 
     public function createPayment(Request $request)
     {
+        // dd($request->all());
         if($request->typePayment == 'VNPay'){
             $user = $request->user();
             $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
@@ -42,11 +43,7 @@ class PaymentController extends Controller
             $vnp_Locale = 'vn';
             $vnp_BankCode = '';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        //     $jsonData = $request->items;
-    
-    
-        // dd(json_decode($jsonData, true));
-            // dd($request->product);
+       
            
             $order = $this->order->create([
                 'total' => $request->total,
@@ -57,19 +54,22 @@ class PaymentController extends Controller
             
             foreach ($request->product as $product)
             {
-                $this->orderProduct->create([
-                    'quantity' => $product['quantity'],
-                    'product_id' => $product['id'],
-                    'order_id'=> $order->id
-                ]);
+                if($product['amount'] != 0){
+                    $this->orderProduct->create([
+                        'quantity' => $product['amount'],
+                        'product_id' => $product['id'],
+                        'order_id'=> $order->id
+                    ]);
+        
+                    $products=$this->product->find($product['id']);
+                    $count = $products->count - $product['amount'];
+                    
+                    $products->update([
+                        'count' => $count
+                    ]);
     
-                $products=$this->product->find($product['id']);
-                $count = $products->count - $product['quantity'];
+                }
                 
-                $products->update([
-                    'count' => $count
-                ]);
-
                
             }
             // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
@@ -139,7 +139,7 @@ class PaymentController extends Controller
     }
     public function insertPayment(Request $request)
     {
-        // dd($request->toArray());
+        dd($request->toArray());
         // $user = $request->user();
         if ($request->vnp_TransactionStatus == 00) {
             $dataTrans = [
@@ -159,10 +159,7 @@ class PaymentController extends Controller
 
             return redirect()->to('http://localhost:3200/payment/success');
         } else {
-            return response()->json([
-                'message' => 'Thanh toán thất bại vui lòng kiểm tra lại!',
-                'status' => 500
-            ]);
+            return redirect()->to('http://localhost:3200/payment/failed');
         }
     }
 }
