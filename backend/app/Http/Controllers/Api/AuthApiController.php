@@ -74,7 +74,7 @@ class AuthApiController extends Controller
                   $user->password = bcrypt($newUser['password']);
             }
             if ($request->hasFile('image')) {
-                  $this->firebaseHelper->deleteImage($user->image, $path);
+                  // $this->firebaseHelper->deleteImage($user->image, $path);
                   $image = $request->file('image');
                   $user->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             }
