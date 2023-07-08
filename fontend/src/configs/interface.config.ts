@@ -1,3 +1,5 @@
+import { TUser } from '@/modules';
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export enum EStatusDoc {
   ACTIVE = 'active', // Đang hoạt động
@@ -112,3 +114,12 @@ export interface IFilter {
   companySizeTo?: number;
   s?: string;
 }
+export type TDocWithTimestamps = {
+  createdAt: Date;
+  updatedAt: Date;
+};
+
+export type TDocWithAuthor = {
+  author: TUser;
+  editedBy: string;
+};
