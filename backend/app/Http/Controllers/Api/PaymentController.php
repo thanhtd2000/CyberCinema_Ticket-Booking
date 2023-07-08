@@ -43,11 +43,7 @@ class PaymentController extends Controller
             $vnp_Locale = 'vn';
             $vnp_BankCode = '';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        //     $jsonData = $request->items;
-    
-    
-        // dd(json_decode($jsonData, true));
-            // dd($request->product);
+       
            
             $order = $this->order->create([
                 'total' => $request->total,
@@ -143,7 +139,7 @@ class PaymentController extends Controller
     }
     public function insertPayment(Request $request)
     {
-        // dd($request->toArray());
+        dd($request->toArray());
         // $user = $request->user();
         if ($request->vnp_TransactionStatus == 00) {
             $dataTrans = [
@@ -163,10 +159,7 @@ class PaymentController extends Controller
 
             return redirect()->to('http://localhost:3200/payment/success');
         } else {
-            return response()->json([
-                'message' => 'Thanh toán thất bại vui lòng kiểm tra lại!',
-                'status' => 500
-            ]);
+            return redirect()->to('http://localhost:3200/payment/failed');
         }
     }
 }
