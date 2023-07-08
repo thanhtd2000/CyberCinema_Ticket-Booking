@@ -6,6 +6,7 @@ use App\Models\Orders;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalHelper;
+use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
@@ -16,11 +17,13 @@ class PaymentController extends Controller
     public $transaction;
     public $order;
     public $orderSchedule;
-    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule)
+    public $orderProduct;
+    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule,OrderProducts $orderProduct)
     {
         $this->transaction = $transaction;
         $this->order = $order;
         $this->orderSchedule = $orderSchedule;
+        $this->orderProduct = $orderProduct;
         $this->convert = new GlobalHelper();
     }
 
@@ -42,17 +45,27 @@ class PaymentController extends Controller
         $vnp_Locale = 'vn';
         $vnp_BankCode = '';
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-        // $vnp_Inv_Email=$request->email;
-        //Add Params of 2.0.1 Version
-        // dd($request->seat_id );
+    //     $jsonData = $request->items;
 
+
+    // dd(json_decode($jsonData, true));
+        // dd($request->product);
+       
         $order = $this->order->create([
             'total' => $request->total,
             'user_id' => $user->id,
             'discount_id' => $request->discount_id,
             'order_code' => $vnp_TxnRef
         ]);
-
+        
+        foreach ($request->product as $product)
+        {
+            $this->orderProduct->create([
+                'quantity' => $product['quantity'],
+                'product_id' => $product['id'],
+                'order_id'=> $order->id
+            ]);
+        }
         // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
 
         foreach ($request->seat_id as $seatId) {
@@ -136,7 +149,7 @@ class PaymentController extends Controller
                 'transaction_id' => $transaction->id
             ]);
 
-            return redirect()->to('http://127.0.0.1:8000/admin/login');
+            return redirect()->to('http://localhost:3200/payment/success');
         } else {
             return response()->json([
                 'message' => 'Thanh toán thất bại vui lòng kiểm tra lại!',
