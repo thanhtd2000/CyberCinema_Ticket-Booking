@@ -32,6 +32,7 @@ class PaymentController extends Controller
 
     public function createPayment(Request $request)
     {
+        // dd($request->all());
         if($request->typePayment == 'VNPay'){
             $user = $request->user();
             $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
@@ -57,19 +58,22 @@ class PaymentController extends Controller
             
             foreach ($request->product as $product)
             {
-                $this->orderProduct->create([
-                    'quantity' => $product['quantity'],
-                    'product_id' => $product['id'],
-                    'order_id'=> $order->id
-                ]);
+                if($product['amount'] != 0){
+                    $this->orderProduct->create([
+                        'quantity' => $product['amount'],
+                        'product_id' => $product['id'],
+                        'order_id'=> $order->id
+                    ]);
+        
+                    $products=$this->product->find($product['id']);
+                    $count = $products->count - $product['amount'];
+                    
+                    $products->update([
+                        'count' => $count
+                    ]);
     
-                $products=$this->product->find($product['id']);
-                $count = $products->count - $product['quantity'];
+                }
                 
-                $products->update([
-                    'count' => $count
-                ]);
-
                
             }
             // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
