@@ -33,7 +33,7 @@ class RoomController extends Controller
                     ->where('order_schedule.schedule_id', $request->schedule_id);
             })
             ->leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
-            ->where('seats.room_id', $request->id)
+            ->where('seats.room_id', $request->id)  
             ->where('seats.status', 0)
             ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status','seat_types.price')
             ->get();
