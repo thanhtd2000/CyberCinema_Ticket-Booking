@@ -44,30 +44,29 @@ class PaymentController extends Controller
             $vnp_BankCode = '';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
        
-           
-            $order = $this->order->create([
-                'total' => $request->total,
-                'user_id' => $user->id,
-                'discount_id' => $request->discount_id,
-                'order_code' => $vnp_TxnRef
-            ]);
-            
+            if($request->discount_id == 0){
+                $order = $this->order->create([
+                    'total' => $request->total,
+                    'user_id' => $user->id,
+                    'order_code' => $vnp_TxnRef
+                ]);
+            } else {
+                $order = $this->order->create([
+                    'total' => $request->total,
+                    'user_id' => $user->id,
+                    'discount_id' => $request->discount_id,
+                    'order_code' => $vnp_TxnRef
+                ]);
+            }
             foreach ($request->product as $product)
             {
                 if($product['amount'] != 0){
                     $this->orderProduct->create([
                         'quantity' => $product['amount'],
                         'product_id' => $product['id'],
-                        'order_id'=> $order->id
+                        'order_id'=> $order->id,
+                        'status'=> 0
                     ]);
-        
-                    $products=$this->product->find($product['id']);
-                    $count = $products->count - $product['amount'];
-                    
-                    $products->update([
-                        'count' => $count
-                    ]);
-    
                 }
                 
                
@@ -153,12 +152,21 @@ class PaymentController extends Controller
 
             $transaction = $this->transaction->create($dataTrans);
             
-            $this->order->where('order_code',$transaction->order_code)->update([
+            $order=$this->order->where('order_code',$transaction->order_code)->update([
                 'transaction_id' => $transaction->id
             ]);
 
+            $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
+            $products=$this->product->find($orderProduct->product_id);
+            $count = $products->count - $orderProduct->quantity; ;
+            
+            $products->update([
+                'count' => $count
+            ]);
             return redirect()->to('http://localhost:3200/payment/success');
         } else {
+            $order=$this->order->where('order_code',$request->vnp_TxnRef)->delete();
+            // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');
         }
     }
