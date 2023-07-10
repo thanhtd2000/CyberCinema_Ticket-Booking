@@ -27,10 +27,13 @@ class MovieController extends Controller
             $limit = $request->input('limit', 10);
             $order = $request->input('order', 'DESC');
             $s = $request->input('s');
+
             $query = $this->movies->limit($limit)->orderBy($orderBy, $order);
             if ($s !== null) {
-                $query->search($s);
-                // $query->where('name', 'like', '%' . $s . '%');
+
+                $movie = $this->movies->search($s)->get();
+                $data = new MovieCollection($movie);
+                return response()->json($data, 200);
             }
             if ($isHot !== null) {
                 $query->where('isHot', $isHot);
