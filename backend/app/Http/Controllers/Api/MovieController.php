@@ -24,14 +24,14 @@ class MovieController extends Controller
         if (!$slug) {
             $isHot = $request->input('isHot');
             $orderBy = $request->input('orderBy', 'name');
-            $limit = $request->input('limit', 10);
+            $limit = $request->input('limit', 15);
             $order = $request->input('order', 'DESC');
             $s = $request->input('s');
 
             $query = $this->movies->limit($limit)->orderBy($orderBy, $order);
             if ($s !== null) {
 
-                $movie = $this->movies->search($s)->get();
+                $movie = $this->movies->search($s)->orderBy($orderBy, $order)->paginate($limit);
                 $data = new MovieCollection($movie);
                 return response()->json($data, 200);
             }
