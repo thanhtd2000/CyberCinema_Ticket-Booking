@@ -13,12 +13,13 @@ class ShowsController extends Controller
         $order = DB::table('orders')
             ->where('order_code', $order_code)
             ->first();
+
         $orderProducts = DB::table('order_products')
             ->join('products', 'order_products.product_id', '=', 'products.id')
             ->select('order_products.*', 'products.name')
             ->where('order_products.order_id', $order->id)
+            ->where('order_products.status', '=', 1)
             ->get();
-
         $orderSchedules = DB::table('order_schedule')
             ->join('schedules', 'order_schedule.schedule_id', '=', 'schedules.id')
             ->join('movies', 'schedules.movie_id', '=', 'movies.id')
@@ -27,6 +28,7 @@ class ShowsController extends Controller
             ->select('order_schedule.*', 'movies.name as movie_name', 'movies.time', 'schedules.time_start', 'rooms.name as room_name', 'seats.name as seat_name')
             ->where('order_schedule.order_id', $order->id)
             ->get();
+
         $orderDiscounts = DB::table('orders')
             ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')
             ->select('orders.*', 'discounts.*')
