@@ -1,4 +1,15 @@
+import { TDocWithAuthor, TDocWithTimestamps } from '@/configs/interface.config';
 import { TUser } from './user';
+export type TFolder = {
+      _id: string;
+      name: string;
+      nameSort: string;
+      parent: TFolder;
+      left: number;
+      right: number;
+      __v: number;
+    } & TDocWithTimestamps &
+      TDocWithAuthor;
 export type TFile = {
   _id: string;
   name: string;
