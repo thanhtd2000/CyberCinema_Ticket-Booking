@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d2448c2f053173db1b5bdef71c927abb",
+    "content-hash": "de82b651bd41df4b24b1bedee8213b3d",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -119,16 +119,16 @@
         },
         {
             "name": "ckeditor/ckeditor",
-            "version": "4.21.0",
+            "version": "4.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ckeditor/ckeditor4-releases.git",
-                "reference": "af71d07caa2172c53e0e426250e3b0189137915b"
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/af71d07caa2172c53e0e426250e3b0189137915b",
-                "reference": "af71d07caa2172c53e0e426250e3b0189137915b",
+                "url": "https://api.github.com/repos/ckeditor/ckeditor4-releases/zipball/0d51138b0a258165ac09724e8f5cda67cf9126a3",
+                "reference": "0d51138b0a258165ac09724e8f5cda67cf9126a3",
                 "shasum": ""
             },
             "type": "library",
@@ -163,7 +163,7 @@
                 "source": "https://github.com/ckeditor/ckeditor4",
                 "wiki": "https://ckeditor.com/docs/ckeditor4/latest/"
             },
-            "time": "2023-03-22T10:37:38+00:00"
+            "time": "2023-06-30T13:35:30+00:00"
         },
         {
             "name": "clue/stream-filter",
@@ -468,16 +468,16 @@
         },
         {
             "name": "doctrine/dbal",
-            "version": "3.6.3",
+            "version": "3.6.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/dbal.git",
-                "reference": "9a747d29e7e6b39509b8f1847e37a23a0163ea6a"
+                "reference": "19f0dec95edd6a3c3c5ff1d188ea94c6b7fc903f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/dbal/zipball/9a747d29e7e6b39509b8f1847e37a23a0163ea6a",
-                "reference": "9a747d29e7e6b39509b8f1847e37a23a0163ea6a",
+                "url": "https://api.github.com/repos/doctrine/dbal/zipball/19f0dec95edd6a3c3c5ff1d188ea94c6b7fc903f",
+                "reference": "19f0dec95edd6a3c3c5ff1d188ea94c6b7fc903f",
                 "shasum": ""
             },
             "require": {
@@ -560,7 +560,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/dbal/issues",
-                "source": "https://github.com/doctrine/dbal/tree/3.6.3"
+                "source": "https://github.com/doctrine/dbal/tree/3.6.4"
             },
             "funding": [
                 {
@@ -576,7 +576,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-06-01T05:46:46+00:00"
+            "time": "2023-06-15T07:40:12+00:00"
         },
         {
             "name": "doctrine/deprecations",
@@ -1065,54 +1065,16 @@
         },
         {
             "name": "elasticsearch/elasticsearch",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "version": "v8.8.0",
+            "version": "v8.8.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:elastic/elasticsearch-php.git",
-                "reference": "5c4d67870b92fedc06fcceec5be8c3be8563fe3d"
+                "reference": "d249dcd6b6740ed39d89d7f16d59fadbefceef49"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/5c4d67870b92fedc06fcceec5be8c3be8563fe3d",
-                "reference": "5c4d67870b92fedc06fcceec5be8c3be8563fe3d",
-=======
-=======
-
->>>>>>> a7edf4bf294d35d2ad5e2cb2dd5f3100b524ccaf
-=======
-=======
-
->>>>>>> adf98f61d0cd971291618df010338a618de0ae91
->>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
-=======
->>>>>>> 1af2a564fb9b84ed52620d6cbcd161a9f0e12927
-            "version": "v8.8.1",
-            "source": {
-                "type": "git",
-                "url": "git@github.com:elastic/elasticsearch-php.git",
-                "reference": "7f4ccfe9b11c92191bc06119848efa115a22924c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/7f4ccfe9b11c92191bc06119848efa115a22924c",
-                "reference": "7f4ccfe9b11c92191bc06119848efa115a22924c",
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> a282a39a8a58b8cc093cf5c7c9c2c6326ba81238
-=======
-
->>>>>>> a7edf4bf294d35d2ad5e2cb2dd5f3100b524ccaf
-=======
-=======
-
->>>>>>> adf98f61d0cd971291618df010338a618de0ae91
->>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
-=======
->>>>>>> 1af2a564fb9b84ed52620d6cbcd161a9f0e12927
+                "url": "https://api.github.com/repos/elastic/elasticsearch-php/zipball/d249dcd6b6740ed39d89d7f16d59fadbefceef49",
+                "reference": "d249dcd6b6740ed39d89d7f16d59fadbefceef49",
                 "shasum": ""
             },
             "require": {
@@ -1152,29 +1114,7 @@
                 "elasticsearch",
                 "search"
             ],
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-            "time": "2023-05-23T08:59:13+00:00"
-=======
-            "time": "2023-05-25T06:56:36+00:00"
->>>>>>> a282a39a8a58b8cc093cf5c7c9c2c6326ba81238
-=======
-            "time": "2023-05-25T06:56:36+00:00"
->>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
-=======
-
-            "time": "2023-05-25T06:56:36+00:00"
-
-<<<<<<< HEAD
->>>>>>> a7edf4bf294d35d2ad5e2cb2dd5f3100b524ccaf
-=======
->>>>>>> adf98f61d0cd971291618df010338a618de0ae91
->>>>>>> 139e76fd98a9dab2455c3acee529a08455e2f740
-=======
-            "time": "2023-05-25T06:56:36+00:00"
->>>>>>> 1af2a564fb9b84ed52620d6cbcd161a9f0e12927
+            "time": "2023-06-08T07:57:43+00:00"
         },
         {
             "name": "fig/http-message-util",
@@ -1435,32 +1375,32 @@
         },
         {
             "name": "google/cloud-core",
-            "version": "v1.51.2",
+            "version": "v1.52.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-core.git",
-                "reference": "85dc48d62143f4bbfaa34c24da95003371de7b79"
+                "reference": "8214910f79b5508d4cd1cd48f39d7970443071d5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/85dc48d62143f4bbfaa34c24da95003371de7b79",
-                "reference": "85dc48d62143f4bbfaa34c24da95003371de7b79",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-core/zipball/8214910f79b5508d4cd1cd48f39d7970443071d5",
+                "reference": "8214910f79b5508d4cd1cd48f39d7970443071d5",
                 "shasum": ""
             },
             "require": {
                 "google/auth": "^1.18",
                 "guzzlehttp/guzzle": "^5.3|^6.5.7|^7.4.4",
-                "guzzlehttp/promises": "^1.3",
+                "guzzlehttp/promises": "^1.4||^2.0",
                 "guzzlehttp/psr7": "^1.7|^2.0",
                 "monolog/monolog": "^1.1|^2.0|^3.0",
                 "php": ">=7.4",
-                "psr/http-message": "^1.0",
+                "psr/http-message": "^1.0|^2.0",
                 "rize/uri-template": "~0.3"
             },
             "require-dev": {
                 "erusev/parsedown": "^1.6",
                 "google/cloud-common-protos": "^0.4",
-                "google/gax": "^1.9",
+                "google/gax": "^1.19.1",
                 "opis/closure": "^3",
                 "phpdocumentor/reflection": "^5.0",
                 "phpspec/prophecy-phpunit": "^2.0",
@@ -1494,28 +1434,28 @@
             ],
             "description": "Google Cloud PHP shared dependency, providing functionality useful to all components.",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.51.2"
+                "source": "https://github.com/googleapis/google-cloud-php-core/tree/v1.52.1"
             },
-            "time": "2023-05-05T23:01:42+00:00"
+            "time": "2023-07-07T20:46:38+00:00"
         },
         {
             "name": "google/cloud-firestore",
-            "version": "v1.34.0",
+            "version": "v1.36.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-firestore.git",
-                "reference": "b59279f5daef432bbdd89701a28410ef56983d4f"
+                "reference": "cc1a91838c8c5f9ef479fae4333b585e355055ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-firestore/zipball/b59279f5daef432bbdd89701a28410ef56983d4f",
-                "reference": "b59279f5daef432bbdd89701a28410ef56983d4f",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-firestore/zipball/cc1a91838c8c5f9ef479fae4333b585e355055ed",
+                "reference": "cc1a91838c8c5f9ef479fae4333b585e355055ed",
                 "shasum": ""
             },
             "require": {
                 "ext-grpc": "*",
                 "google/cloud-core": "^1.49.4",
-                "google/gax": "^1.1",
+                "google/gax": "^1.19.1",
                 "php": ">=7.4",
                 "ramsey/uuid": "^3.0|^4.0"
             },
@@ -1550,26 +1490,26 @@
             ],
             "description": "Cloud Firestore Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-firestore/tree/v1.34.0"
+                "source": "https://github.com/googleapis/google-cloud-php-firestore/tree/v1.36.0"
             },
-            "time": "2023-06-02T23:56:27+00:00"
+            "time": "2023-07-07T20:46:38+00:00"
         },
         {
             "name": "google/cloud-storage",
-            "version": "v1.31.2",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-cloud-php-storage.git",
-                "reference": "7fe96d56856cda550b21779bb95a066b264852da"
+                "reference": "05ae33620feebe1107756b59fe0329cace3b5e13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-cloud-php-storage/zipball/7fe96d56856cda550b21779bb95a066b264852da",
-                "reference": "7fe96d56856cda550b21779bb95a066b264852da",
+                "url": "https://api.github.com/repos/googleapis/google-cloud-php-storage/zipball/05ae33620feebe1107756b59fe0329cace3b5e13",
+                "reference": "05ae33620feebe1107756b59fe0329cace3b5e13",
                 "shasum": ""
             },
             "require": {
-                "google/cloud-core": "^1.51.1",
+                "google/cloud-core": "^1.51.3",
                 "google/crc32": "^0.2.0",
                 "php": ">=7.4",
                 "ramsey/uuid": "^4.2.3"
@@ -1607,9 +1547,9 @@
             ],
             "description": "Cloud Storage Client for PHP",
             "support": {
-                "source": "https://github.com/googleapis/google-cloud-php-storage/tree/v1.31.2"
+                "source": "https://github.com/googleapis/google-cloud-php-storage/tree/v1.33.0"
             },
-            "time": "2023-05-05T23:01:42+00:00"
+            "time": "2023-07-07T20:46:38+00:00"
         },
         {
             "name": "google/common-protos",
@@ -1710,16 +1650,16 @@
         },
         {
             "name": "google/gax",
-            "version": "v1.21.0",
+            "version": "v1.21.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/gax-php.git",
-                "reference": "1462f84ab92acf6aa329288ede750b5e33b78318"
+                "reference": "a1497cc4d210848c12901f4e7bc66c0c2947a2bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/1462f84ab92acf6aa329288ede750b5e33b78318",
-                "reference": "1462f84ab92acf6aa329288ede750b5e33b78318",
+                "url": "https://api.github.com/repos/googleapis/gax-php/zipball/a1497cc4d210848c12901f4e7bc66c0c2947a2bd",
+                "reference": "a1497cc4d210848c12901f4e7bc66c0c2947a2bd",
                 "shasum": ""
             },
             "require": {
@@ -1759,9 +1699,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/gax-php/issues",
-                "source": "https://github.com/googleapis/gax-php/tree/v1.21.0"
+                "source": "https://github.com/googleapis/gax-php/tree/v1.21.1"
             },
-            "time": "2023-06-09T17:49:40+00:00"
+            "time": "2023-06-28T16:30:33+00:00"
         },
         {
             "name": "google/grpc-gcp",
@@ -1854,16 +1794,16 @@
         },
         {
             "name": "google/protobuf",
-            "version": "v3.23.3",
+            "version": "v3.23.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/protocolbuffers/protobuf-php.git",
-                "reference": "e611e00ffc99123fcbddc77774f26c813ead9294"
+                "reference": "fa784054760eec532fe8dd1919d3a0a11f5cef1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/e611e00ffc99123fcbddc77774f26c813ead9294",
-                "reference": "e611e00ffc99123fcbddc77774f26c813ead9294",
+                "url": "https://api.github.com/repos/protocolbuffers/protobuf-php/zipball/fa784054760eec532fe8dd1919d3a0a11f5cef1f",
+                "reference": "fa784054760eec532fe8dd1919d3a0a11f5cef1f",
                 "shasum": ""
             },
             "require": {
@@ -1892,9 +1832,9 @@
                 "proto"
             ],
             "support": {
-                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.3"
+                "source": "https://github.com/protocolbuffers/protobuf-php/tree/v3.23.4"
             },
-            "time": "2023-06-14T16:51:17+00:00"
+            "time": "2023-07-06T18:51:48+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -4153,12 +4093,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/microsoftgraph/msgraph-sdk-php.git",
-                "reference": "740dfc85187cce17e4bd86f8150c1d2f595fd33c"
+                "reference": "45a152bb59bc8188c328a1b81950edc806b9b3a9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/740dfc85187cce17e4bd86f8150c1d2f595fd33c",
-                "reference": "740dfc85187cce17e4bd86f8150c1d2f595fd33c",
+                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/45a152bb59bc8188c328a1b81950edc806b9b3a9",
+                "reference": "45a152bb59bc8188c328a1b81950edc806b9b3a9",
                 "shasum": ""
             },
             "require": {
@@ -4198,7 +4138,81 @@
                 "issues": "https://github.com/microsoftgraph/msgraph-sdk-php/issues",
                 "source": "https://github.com/microsoftgraph/msgraph-sdk-php/tree/dev"
             },
-            "time": "2023-06-21T10:00:28+00:00"
+            "time": "2023-07-07T06:59:57+00:00"
+        },
+        {
+            "name": "milon/barcode",
+            "version": "v10.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/milon/barcode.git",
+                "reference": "e643a713466f0109aa3ad7d29dae4900444187a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/milon/barcode/zipball/e643a713466f0109aa3ad7d29dae4900444187a5",
+                "reference": "e643a713466f0109aa3ad7d29dae4900444187a5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^7.0|^8.0|^9.0|^10.0",
+                "php": "^7.3 | ^8.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Milon\\Barcode\\BarcodeServiceProvider"
+                    ],
+                    "aliases": {
+                        "DNS1D": "Milon\\Barcode\\Facades\\DNS1DFacade",
+                        "DNS2D": "Milon\\Barcode\\Facades\\DNS2DFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Milon\\Barcode": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nuruzzaman Milon",
+                    "email": "contact@milon.im"
+                }
+            ],
+            "description": "Barcode generator like Qr Code, PDF417, C39, C39+, C39E, C39E+, C93, S25, S25+, I25, I25+, C128, C128A, C128B, C128C, 2-Digits UPC-Based Extention, 5-Digits UPC-Based Extention, EAN 8, EAN 13, UPC-A, UPC-E, MSI (Variation of Plessey code)",
+            "keywords": [
+                "CODABAR",
+                "CODE 128",
+                "CODE 39",
+                "barcode",
+                "datamatrix",
+                "ean",
+                "laravel",
+                "pdf417",
+                "qr code",
+                "qrcode"
+            ],
+            "support": {
+                "issues": "https://github.com/milon/barcode/issues",
+                "source": "https://github.com/milon/barcode/tree/v10.0.1"
+            },
+            "funding": [
+                {
+                    "url": "https://paypal.me/nuruzzamanmilon",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/milon",
+                    "type": "github"
+                }
+            ],
+            "time": "2023-06-16T13:03:37+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -4365,16 +4379,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.67.0",
+            "version": "2.68.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8"
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/c1001b3bc75039b07f38a79db5237c4c529e04c8",
-                "reference": "c1001b3bc75039b07f38a79db5237c4c529e04c8",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/4f991ed2a403c85efbc4f23eb4030063fdbe01da",
+                "reference": "4f991ed2a403c85efbc4f23eb4030063fdbe01da",
                 "shasum": ""
             },
             "require": {
@@ -4463,7 +4477,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T22:09:47+00:00"
+            "time": "2023-06-20T18:29:04+00:00"
         },
         {
             "name": "nette/schema",
@@ -4616,16 +4630,16 @@
         },
         {
             "name": "nikic/php-parser",
-            "version": "v4.15.5",
+            "version": "v4.16.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e"
+                "reference": "19526a33fb561ef417e822e85f08a00db4059c17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/11e2663a5bc9db5d714eedb4277ee300403b4a9e",
-                "reference": "11e2663a5bc9db5d714eedb4277ee300403b4a9e",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/19526a33fb561ef417e822e85f08a00db4059c17",
+                "reference": "19526a33fb561ef417e822e85f08a00db4059c17",
                 "shasum": ""
             },
             "require": {
@@ -4666,9 +4680,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-                "source": "https://github.com/nikic/PHP-Parser/tree/v4.15.5"
+                "source": "https://github.com/nikic/PHP-Parser/tree/v4.16.0"
             },
-            "time": "2023-05-19T20:20:00+00:00"
+            "time": "2023-06-25T14:52:30+00:00"
         },
         {
             "name": "nyholm/psr7",
@@ -6634,16 +6648,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v6.3.0",
+            "version": "v6.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "357bf04b1380f71e40b2d6592dbf7f2a948ca6b1"
+                "reference": "52cff7608ef6e38376ac11bd1fbb0a220107f066"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/357bf04b1380f71e40b2d6592dbf7f2a948ca6b1",
-                "reference": "357bf04b1380f71e40b2d6592dbf7f2a948ca6b1",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/52cff7608ef6e38376ac11bd1fbb0a220107f066",
+                "reference": "52cff7608ef6e38376ac11bd1fbb0a220107f066",
                 "shasum": ""
             },
             "require": {
@@ -6710,7 +6724,7 @@
                 "psr6"
             ],
             "support": {
-                "source": "https://github.com/symfony/cache/tree/v6.3.0"
+                "source": "https://github.com/symfony/cache/tree/v6.3.1"
             },
             "funding": [
                 {
@@ -6726,7 +6740,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-10T09:21:01+00:00"
+            "time": "2023-06-24T11:51:27+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -7327,16 +7341,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "3c59f97f6249ce552a44f01b93bfcbd786a954f5"
+                "reference": "f66be2706075c5f6325d2fe2b743a57fb5d23f6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/3c59f97f6249ce552a44f01b93bfcbd786a954f5",
-                "reference": "3c59f97f6249ce552a44f01b93bfcbd786a954f5",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/f66be2706075c5f6325d2fe2b743a57fb5d23f6b",
+                "reference": "f66be2706075c5f6325d2fe2b743a57fb5d23f6b",
                 "shasum": ""
             },
             "require": {
@@ -7383,7 +7397,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v5.4.24"
+                "source": "https://github.com/symfony/http-foundation/tree/v5.4.25"
             },
             "funding": [
                 {
@@ -7399,20 +7413,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-19T07:21:23+00:00"
+            "time": "2023-06-22T08:06:06+00:00"
         },
         {
             "name": "symfony/http-kernel",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-kernel.git",
-                "reference": "f38b722e1557eb3f487d351b48f5a1279b50e9d1"
+                "reference": "f6c92fe64bbdad7616cb90663c24f6350f3ca464"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f38b722e1557eb3f487d351b48f5a1279b50e9d1",
-                "reference": "f38b722e1557eb3f487d351b48f5a1279b50e9d1",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/f6c92fe64bbdad7616cb90663c24f6350f3ca464",
+                "reference": "f6c92fe64bbdad7616cb90663c24f6350f3ca464",
                 "shasum": ""
             },
             "require": {
@@ -7495,7 +7509,7 @@
             "description": "Provides a structured process for converting a Request into a Response",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-kernel/tree/v5.4.24"
+                "source": "https://github.com/symfony/http-kernel/tree/v5.4.25"
             },
             "funding": [
                 {
@@ -7511,7 +7525,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-27T08:06:30+00:00"
+            "time": "2023-06-26T05:58:08+00:00"
         },
         {
             "name": "symfony/mime",
@@ -8633,16 +8647,16 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v5.4.22",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "c2ac11eb34947999b7c38fb4c835a57306907e6d"
+                "reference": "56bfc1394f7011303eb2e22724f9b422d3f14649"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/routing/zipball/c2ac11eb34947999b7c38fb4c835a57306907e6d",
-                "reference": "c2ac11eb34947999b7c38fb4c835a57306907e6d",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/56bfc1394f7011303eb2e22724f9b422d3f14649",
+                "reference": "56bfc1394f7011303eb2e22724f9b422d3f14649",
                 "shasum": ""
             },
             "require": {
@@ -8703,7 +8717,7 @@
                 "url"
             ],
             "support": {
-                "source": "https://github.com/symfony/routing/tree/v5.4.22"
+                "source": "https://github.com/symfony/routing/tree/v5.4.25"
             },
             "funding": [
                 {
@@ -8719,7 +8733,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-03-14T14:59:20+00:00"
+            "time": "2023-06-05T14:18:47+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -9064,16 +9078,16 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v5.4.24",
+            "version": "v5.4.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "8e12706bf9c68a2da633f23bfdc15b4dce5970b3"
+                "reference": "82269f73c0f0f9859ab9b6900eebacbe54954ede"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/8e12706bf9c68a2da633f23bfdc15b4dce5970b3",
-                "reference": "8e12706bf9c68a2da633f23bfdc15b4dce5970b3",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/82269f73c0f0f9859ab9b6900eebacbe54954ede",
+                "reference": "82269f73c0f0f9859ab9b6900eebacbe54954ede",
                 "shasum": ""
             },
             "require": {
@@ -9132,7 +9146,7 @@
                 "dump"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-dumper/tree/v5.4.24"
+                "source": "https://github.com/symfony/var-dumper/tree/v5.4.25"
             },
             "funding": [
                 {
@@ -9148,7 +9162,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-25T13:05:00+00:00"
+            "time": "2023-06-20T20:56:26+00:00"
         },
         {
             "name": "symfony/var-exporter",

@@ -28,6 +28,7 @@
         "league/oauth2-client": ">=2.0",
         "meilisearch/meilisearch-php": "^1.1",
         "microsoft/microsoft-graph": ">=3.0",
+        "milon/barcode": "^10.0",
         "yoeunes/toastr": "^2.3"
     },
     "require-dev": {
