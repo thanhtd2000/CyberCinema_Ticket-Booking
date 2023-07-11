@@ -57,3 +57,4 @@ Route::get('get/products', [ProductController::class, 'index']);
 //Payment
 Route::middleware('auth:sanctum')->get('get/payment', [PaymentController::class, 'createPayment']);
 Route::get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_ReturnUrl');
+Route::get('/qr', [PaymentController::class, 'testQR']);

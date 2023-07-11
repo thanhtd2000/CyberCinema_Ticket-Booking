@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Orders;
 use App\Models\Product;
+use Milon\Barcode\DNS1D;
+use Milon\Barcode\DNS2D;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalHelper;
@@ -20,7 +22,7 @@ class PaymentController extends Controller
     public $orderSchedule;
     public $orderProduct;
     public $product;
-    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule,OrderProducts $orderProduct,Product $product)
+    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule, OrderProducts $orderProduct, Product $product)
     {
         $this->transaction = $transaction;
         $this->order = $order;
@@ -33,18 +35,18 @@ class PaymentController extends Controller
     public function createPayment(Request $request)
     {
         // dd($request->all());
-        if($request->typePayment == 'VNPay'){
+        if ($request->typePayment == 'VNPay') {
             $user = $request->user();
             $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
-    
+
             $vnp_OrderInfo = 'thanh toan test';
             $vnp_OrderType = 'billpayment';
             $vnp_Amount = $request->total * 100;
             $vnp_Locale = 'vn';
             $vnp_BankCode = '';
             $vnp_IpAddr = $_SERVER['REMOTE_ADDR'];
-       
-            if($request->discount_id == 0){
+
+            if ($request->discount_id == 0) {
                 $order = $this->order->create([
                     'total' => $request->total,
                     'user_id' => $user->id,
@@ -58,29 +60,26 @@ class PaymentController extends Controller
                     'order_code' => $vnp_TxnRef
                 ]);
             }
-            foreach ($request->product as $product)
-            {
-                if($product['amount'] != 0){
+            foreach ($request->product as $product) {
+                if ($product['amount'] != 0) {
                     $this->orderProduct->create([
                         'quantity' => $product['amount'],
                         'product_id' => $product['id'],
-                        'order_id'=> $order->id,
-                        'status'=> 0
+                        'order_id' => $order->id,
+                        'status' => 0
                     ]);
                 }
-                
-               
             }
             // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
-    
+
             foreach ($request->seat_id as $seatId) {
-    
+
                 $orderSchedule = $this->orderSchedule->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->where('seat_id', $seatId)->update([
                     'order_id' => $order->id,
                     'status' => 2
                 ]);
             }
-    
+
             $inputData = array(
                 "vnp_Version" => "2.1.0",
                 "vnp_TmnCode" => env('VNP_TMN_CODE'),
@@ -95,16 +94,16 @@ class PaymentController extends Controller
                 "vnp_ReturnUrl" => 'http://127.0.0.1:8000/api/payment',
                 "vnp_TxnRef" => $vnp_TxnRef,
                 // "vnp_Inv_Email"=>$vnp_Inv_Email,
-    
+
             );
-    
+
             if (isset($vnp_BankCode) && $vnp_BankCode != "") {
                 $inputData['vnp_BankCode'] = $vnp_BankCode;
             }
             if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
                 $inputData['vnp_Bill_State'] = $vnp_Bill_State;
             }
-    
+
             //var_dump($inputData);
             ksort($inputData);
             $query = "";
@@ -119,7 +118,7 @@ class PaymentController extends Controller
                 }
                 $query .= urlencode($key) . "=" . urlencode($value) . '&';
             }
-    
+
             $vnp_Url = env('VNP_URL') . "?" . $query;
             if (env('VNP_HASH_SECRET')) {
                 $vnpSecureHash =   hash_hmac('sha512', $hashdata, env('VNP_HASH_SECRET')); //  
@@ -134,8 +133,8 @@ class PaymentController extends Controller
                 ]
             );
         }
-        
     }
+
     public function insertPayment(Request $request)
     {
         // dd($request->toArray());
@@ -151,23 +150,35 @@ class PaymentController extends Controller
             ];
 
             $transaction = $this->transaction->create($dataTrans);
-            
-            $order=$this->order->where('order_code',$transaction->order_code)->update([
+
+            $order = $this->order->where('order_code', $transaction->order_code)->update([
                 'transaction_id' => $transaction->id
             ]);
 
-            $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
-            $products=$this->product->find($orderProduct->product_id);
-            $count = $products->count - $orderProduct->quantity; ;
-            
+            $orderProduct = $this->orderProduct->where('order_id', $order->id)->update(['status' => 1]);
+            $products = $this->product->find($orderProduct->product_id);
+            $count = $products->count - $orderProduct->quantity;;
+
             $products->update([
                 'count' => $count
             ]);
-            return redirect()->to('http://localhost:3200/payment/success');
+            $order_code  = $dataTrans['order_code'];
+            return redirect()->to(route('bill', ['details' => $order_code]));
         } else {
-            $order=$this->order->where('order_code',$request->vnp_TxnRef)->delete();
+            $order = $this->order->where('order_code', $request->vnp_TxnRef)->delete();
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');
         }
+    }
+    public function testQR(Request $request)
+    {
+        $dns2d = new DNS2D();
+        $user = $request->user();
+        $arr = [
+            'adasdakd', 'dsadas'
+        ];
+        $arr = implode(', ', $arr);
+        $vnp_TxnRef = DNS2D::getBarcodeHTML($arr, 'QRCODE'); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
+        return response()->json(['qrcode' => base64_encode($vnp_TxnRef), 'mg' => $arr]);
     }
 }

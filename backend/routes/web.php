@@ -1,6 +1,8 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ShowsController;
 use App\Http\Controllers\Admin\AreaController;
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\PostController;
@@ -21,7 +23,6 @@ use App\Http\Controllers\Admin\SeatTypeController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\Admin\StatisticalsController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,7 +45,10 @@ Route::prefix('admin')->group(function () {
     Route::post("/login", [AuthController::class, 'checkLogin'])->name('checkLogin');
     Route::get("/logout", [AuthController::class, 'Logout'])->name('logout');
 });
+
+
 //admin routes
+Route::get('/bill', [ShowsController::class, 'index'])->name('bill');
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [StatisticalsController::class, 'index'])->name('admin.index');
 
