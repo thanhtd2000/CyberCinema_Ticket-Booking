@@ -171,15 +171,4 @@ class PaymentController extends Controller
             return redirect()->to('http://localhost:3200/payment/failed');
         }
     }
-    public function testQR(Request $request)
-    {
-        $dns2d = new DNS2D();
-        $user = $request->user();
-        $arr = [
-            'adasdakd', 'dsadas'
-        ];
-        $arr = implode(', ', $arr);
-        $vnp_TxnRef = DNS2D::getBarcodeHTML($arr, 'QRCODE'); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
-        return response()->json(['qrcode' => base64_encode($vnp_TxnRef), 'mg' => $arr]);
-    }
 }
