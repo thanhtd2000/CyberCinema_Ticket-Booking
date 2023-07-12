@@ -21,7 +21,7 @@ function MovieScreen() {
                   order: handleFilter(value).order,
             });
       };
-      const {data : movies, isLoading, isFetching}= queryAllMoviesBySearch({
+      const {data : movies, isLoading}= queryAllMoviesBySearch({
             ...baseParams,...params
       })
       const moviesList = movies?.data

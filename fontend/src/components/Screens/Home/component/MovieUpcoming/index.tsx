@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Typography } from 'antd'
+import { Row, Col, Typography, Empty } from 'antd'
 const { Title } = Typography
 import MovieItem from '@/components/Elements/MovieItem'
 import style from './style.module.less'
@@ -15,9 +15,11 @@ function MovieUpcoming({ fetchAllMovies }: movies) {
                               <Title level={3}>PHIM SẮP CHIẾU</Title>
                         </Col>
                         <Col span={24}>
-                              <Row gutter={[{ xs: 0, sm: 20, md: 20, lg: 35, xl: 50 }, 50]}>
-                                    {fetchAllMovies && fetchAllMovies?.map((item) => (<MovieItem movies={item} />))}
-                              </Row>
+                              {
+                                    fetchAllMovies.length> 0 ? (<Row gutter={[{ xs: 0, sm: 20, md: 20, lg: 35, xl: 50 }, 50]}>
+                                          {fetchAllMovies && fetchAllMovies?.map((item) => (<MovieItem movies={item} />))}
+                                    </Row>) : (<div style={{textAlign: 'center', color: 'white'}}><Empty /> <p>Update late...</p></div>)
+                              }
                         </Col>
                   </Row>
             </div>

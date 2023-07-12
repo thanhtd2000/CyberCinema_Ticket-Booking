@@ -10,10 +10,10 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 
 import ListNews from '@/components/Elements/ListNews/ListNews';
-import MainNews from '@/components/Elements/MainNew/MainNews';
 import { TPost } from '@/modules/post';
 
 import style from './style.module.less';
+import Image from 'next/image';
 
 const { Title } = Typography;
 export interface IHotNews {
@@ -26,52 +26,66 @@ function New({ HotNews, News }: IHotNews) {
   return (
     <div className='container'>
       <div className={style.new}>
-        <Row gutter={[{ xs: 0, sm: 0, md: 64 }, 0]}>
-          <Col xs={24} sm={24} md={24} lg={15} xl={15}>
-            <Row>
-              <Col span={24} style={{ paddingBottom: '42px' }}>
-                <Swiper
-                  onInit={(swiper) => {
-                    setSwipe(swiper);
-                    swiper.navigation.init();
-                    swiper.navigation.update();
-                  }}
-                  navigation={false}
-                  modules={[Navigation]}
-                  spaceBetween={50}
-                >
-                  {HotNews.map((item) => (
-                    <Link href={`/post/${item?.slug ? item?.slug : '/#'}`}>
-                      <SwiperSlide className={style.slide}>
-                        <MainNews HotNews={item} />
-                      </SwiperSlide>
-                    </Link>
-                  ))}
-                </Swiper>
-              </Col>
-              <Col span={24}>
-                <div>
-                  <Button className={style.prev} onClick={() => swipe?.slidePrev()}>
-                    <FcPrevious />
-                  </Button>
-                  <Button className={style.next} onClick={() => swipe?.slideNext()}>
-                    <FcNext />
-                  </Button>
-                </div>
-              </Col>
-            </Row>
+        <Row>
+          <Col span={24}>
+            <Title level={3}>PHIM SẮP CHIẾU</Title>
           </Col>
-          <Col xs={24} sm={24} md={24} lg={9} xl={9}>
-            <Row style={{ paddingTop: '53px' }}>
-              <Col span={24} className={style.button}>
-                <Title level={3}>{t('list_news')}</Title>
-                <Button>{t('view_all')}</Button>
+          <Col span={24}>
+            <Row gutter={[{ xs: 0, sm: 0, md: 64 }, 24]}>
+              <Col xs={24} sm={24} md={24} lg={15} xl={15}>
+                <Row>
+                  <Col span={24} style={{ paddingBottom: '20px' }}>
+                    <Swiper
+                      onInit={(swiper) => {
+                        setSwipe(swiper);
+                        swiper.navigation.init();
+                        swiper.navigation.update();
+                      }}
+                      navigation={false}
+                      modules={[Navigation]}
+                      spaceBetween={50}
+                    >
+                      {HotNews.map((item) => (
+                        <SwiperSlide className={style.slide}>
+                          <Link href={`/news/${item?.slug ? item?.slug : '/#'}`}>
+                            <Row>
+                              <Col span={24}>
+                                <Image src={item?.image} width={700} height={456} alt='logoNew' />
+                              </Col>
+                              <Col span={24}>
+                                <Title level={4}>{item?.name}</Title>
+                              </Col>
+                            </Row>
+                          </Link>
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  </Col>
+                  <Col span={24}>
+                    <div>
+                      <Button className={style.prev} onClick={() => swipe?.slidePrev()}>
+                        <FcPrevious />
+                      </Button>
+                      <Button className={style.next} onClick={() => swipe?.slideNext()}>
+                        <FcNext />
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
               </Col>
-              <Col span={24}>
-                <Row gutter={[0, 16]}>
-                  {News.map((item) => (
-                    <ListNews News={item} />
-                  ))}
+              <Col xs={24} sm={24} md={24} lg={9} xl={9}>
+                <Row>
+                  <Col span={24} className={style.button}>
+                    <Title level={3}>Tin tức</Title>
+                    <Button>Xem thêm</Button>
+                  </Col>
+                  <Col span={24}>
+                    <Row gutter={[0, 16]}>
+                      {News.map((item) => (
+                        <ListNews News={item} />
+                      ))}
+                    </Row>
+                  </Col>
                 </Row>
               </Col>
             </Row>

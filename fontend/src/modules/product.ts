@@ -5,6 +5,7 @@ export type TProduct = {
       price: number,
       amount: number,
       count: number,
+      quantity: number,
 }
 export type TDiscount = {
       id: string,

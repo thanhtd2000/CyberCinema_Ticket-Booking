@@ -15,52 +15,20 @@ function ListNews({ News }: INews) {
   return (
     <Col span={24}>
       {News && News ? (
-        <Link href={`/post/${News?.slug ? News?.slug : '/#'}`}>
+        <Link href={`/news/${News?.slug ? News?.slug : '/#'}`}>
           <div className='space-align-block'>
             <Space align='start' className={style.newContent}>
               <Row>
                 <Col span={24} style={{ overflow: 'hidden', borderRadius: '10px' }}>
-                  <Image src={News.thumbnail.location} width={120} height={120} alt='new' />
-                </Col>
-                <Col span={24}>
-                  {News.source.name ? (
-                    <Paragraph
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        color: '#BFBFBF',
-                        fontFamily: 'SF UI Display',
-                        paddingTop: '10px',
-                        marginBottom: '0px',
-                      }}
-                    >
-                      Theo : {News.source.name}
-                    </Paragraph>
-                  ) : (
-                    ''
-                  )}
+                  <Image src={News.image} width={120} height={120} alt='new' />
                 </Col>
               </Row>
-              <Row className='mock-block'>
-                <Col span={24} style={{ paddingBottom: '8px' }}>
-                  {News.taxonomies.map((item) => (
-                    <Tag
-                      style={{
-                        color: 'rgba(47, 97, 230, 0.8)',
-                        fontSize: '12px',
-                        background: 'rgba(47, 97, 230, 0.1)',
-                        borderColor: 'rgba(47, 97, 230, 0.1)',
-                      }}
-                    >
-                      {item.name}
-                    </Tag>
-                  ))}
-                </Col>
+              <Row className='mock-block' style={{justifyContent: 'space-between', height: '110px'}}>
                 <Col span={24}>
                   <Title level={5}>{News.name}</Title>
                 </Col>
-                <Col span={24}>
-                  <Paragraph className={style.infor}>{News.excerpt}</Paragraph>
+                <Col span={24} className={style.editor}>
+                  <p>Edit by: <span>{News?.user[0]?.name}</span></p>
                 </Col>
               </Row>
             </Space>

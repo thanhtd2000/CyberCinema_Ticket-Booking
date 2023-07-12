@@ -1,11 +1,10 @@
 
-import { TResApi, TResApiErr, TResDataListApi } from "@/configs/interface.config";
+import { TResDataListApi } from "@/configs/interface.config";
 import { LIST_DISCOUNT, LIST_DISCOUNT_DETAIL, LIST_PRODUCT } from "../keys/product";
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { getListDiscount, getListDiscountDetail, getListProduct } from "../apis/product";
 import { TDiscount, TProduct } from "@/modules/product";
 import { TQueryCode } from "@/modules/movies";
-import logger from "@/libs/logger";
 
 export const queryAllProduct = () =>
   useQuery<TResDataListApi<TProduct[]>>({

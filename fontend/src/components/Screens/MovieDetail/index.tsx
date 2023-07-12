@@ -54,7 +54,6 @@ function checkAllKeysHaveData(obj: any) {
   return false;
 }
 function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
-//   const [active,setActive] = useState({activeDate: false, activeTime: false, activeRoom: false})
   const [activeItemDate, setActiveItemDate] = useState(null);
   const [activeItemTime, setActiveItemTime] = useState(null);
   const [activeItemRoom, setActiveItemRoom] = useState(null);
