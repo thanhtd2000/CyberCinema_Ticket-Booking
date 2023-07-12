@@ -31,7 +31,7 @@ class FirebaseHelper
         $file = $name . '.' . $extension;
         if ($image->move($localfolder, $file)) {
             $uploadedfile = fopen($localfolder . $file, 'r');
-            app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $file]);
+            app('firebase.storage')->getBucket()->upload($uploadedfile, ['name' => $firebase_storage_path . $file]);    
             unlink($localfolder . $file);
         }
         $time = new DateTime();
