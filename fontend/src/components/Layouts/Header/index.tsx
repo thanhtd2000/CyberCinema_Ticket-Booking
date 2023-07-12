@@ -13,7 +13,7 @@ import style from './style.module.less';
 import { useMutationSignOut } from '@/queries/hooks';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { USER_PROFILE } from '@/queries/keys';
-import {  UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 
 function Header() {
       const router = useRouter();
@@ -25,18 +25,18 @@ function Header() {
       const { mutate: signOut } = useMutationSignOut();
       const [token, setToken] = useState<string>('');
       useEffect(() => {
-        const accessTokenCurrent = checkAuth();
-        setToken(accessTokenCurrent);
-        window.addEventListener('storage', () => {
-          const accessToken = checkAuth();
-          setToken(accessToken);
-        });
+            const accessTokenCurrent = checkAuth();
+            setToken(accessTokenCurrent);
+            window.addEventListener('storage', () => {
+                  const accessToken = checkAuth();
+                  setToken(accessToken);
+            });
       }, []);
       const user = getLocalStored(USER_PROFILE);
       function Tag() {
             return (
                   <Link className={style.logo2} href='/'>
-                        <Image src='/images/Group 8 (2).png' height={48} width={186.43} alt='logo' />
+                        <Image src='/images/logoMovieBackgroundWhite.png' height={70} width={130} alt='logo' />
                   </Link>
             );
       }
@@ -55,38 +55,38 @@ function Header() {
       });
       const items: MenuProps['items'] = [
             {
-              key: '1',
-              icon: <UserOutlined />,
-              label: (
-                <Link href='/user'>Thông tin tài khoản</Link>
-              ),
+                  key: '1',
+                  icon: <UserOutlined />,
+                  label: (
+                        <Link href='/user'>Thông tin tài khoản</Link>
+                  ),
             },
             {
                   key: '2',
                   icon: <IoDiamondOutline />,
                   label: (
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                      Thành viên Vip
-                    </a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                              Thành viên Vip
+                        </a>
                   ),
             },
             {
                   key: '3',
                   icon: <TbArrowsExchange2 />,
                   label: (
-                    <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                      Thay đổi mật khẩu
-                    </a>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
+                              Thay đổi mật khẩu
+                        </a>
                   ),
             },
             {
                   key: '3',
                   icon: <IoLogOutOutline />,
                   label: (
-                    <Link onClick={()=> signOut()} href='/'>Đăng xuất</Link>
+                        <Link onClick={() => signOut()} href='/'>Đăng xuất</Link>
                   ),
             },
-          ];
+      ];
       return (
             <div className={navbar ? `${style.header} ${style.active}` : `${style.header}`}>
                   <Row>
@@ -126,11 +126,11 @@ function Header() {
                                                                   {
                                                                         token && user ? (<Dropdown menu={{ items }}>
                                                                               <a onClick={(e) => e.preventDefault()}>
-                                                                                <Space className={style.userHeader}>
-                                                                                  {user.name}
-                                                                                </Space>
+                                                                                    <Space className={style.userHeader}>
+                                                                                          {user.name}
+                                                                                    </Space>
                                                                               </a>
-                                                                            </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
+                                                                        </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
                                                                   }
                                                             </Col>
                                                       </Row>

@@ -3,7 +3,7 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { ELanguage, TResApi, TResDataListApi } from '@/configs/interface.config';
 import { TPost, TQueryPost } from '@/modules/post';
 
-import { getListPost, getListPostByViewer, getListPostFromDatabase, getPostBySlug } from '../apis/post';
+import { getListPostFromDatabase, getPostBySlug } from '../apis/post';
 import { LIST_POST } from '../keys/post';
 
 export const queryAllPost = (params: TQueryPost, lang: ELanguage) =>
