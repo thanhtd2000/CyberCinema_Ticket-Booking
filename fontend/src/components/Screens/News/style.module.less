@@ -4,6 +4,7 @@
             border-left: 5px solid orange;
             padding-left: 15px;
             margin-bottom: 50px;
+            color: white;
             cursor: pointer;
       }
       img{
@@ -15,13 +16,23 @@
       }
       h3{
             font-size: 30px;
-            padding: 10px 0;
+            padding-top: 10px;
             cursor: pointer;
+            color: white;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
       }
       h4{
             cursor: pointer;
             font-size: 18px;
-            padding: 10px 0;
+            color: white;
+            padding-top: 10px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
       }
       .watchMore{
             padding-top: 40px;
@@ -40,6 +51,7 @@
             border-left: 5px solid orange;
             padding-left: 15px;
             margin-bottom: 50px;
+            color: white;
             cursor: pointer;
       }
       img{
@@ -51,6 +63,7 @@
       }
       h3{
             font-size: 30px;
+            color: white;
             padding: 10px 0;
             cursor: pointer;
       }
@@ -58,6 +71,7 @@
             cursor: pointer;
             font-size: 18px;
             padding: 10px 0;
+            color: white;
       }
       .watchMore{
             padding-top: 40px;
@@ -70,3 +84,42 @@
             }
       }
 }
+@media screen and (max-width: 1200px) {
+      .New {  
+            padding: 150px 5.86111111% 80px 5.86111111%;
+      }
+      .Offer{
+            padding: 0px 5.86111111% 80px 5.86111111%;
+
+      }
+    }
+    @media screen and (max-width: 992px) {
+      .New {  
+            padding: 100px 5.86111111% 80px 5.86111111%;
+      }
+    }
+@media screen and (max-width: 768px) {
+      .New, .Offer {  
+            h2{
+                  font-size: 20px;
+            }
+            h3{
+                  font-size: 18px;
+            }
+            h4{
+                  font-size: 16px;
+            }
+            .watchMore{
+                  padding-top: 20px;
+            }
+      }
+    }
+    @media screen and (max-width: 400px) {
+      .New, .Offer {  
+            .mainNews{
+                  img{
+                        height: 300px;
+                  }
+            }
+      }
+    }

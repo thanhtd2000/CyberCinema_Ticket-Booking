@@ -2,6 +2,7 @@ import { TQueryParamsGetData } from "@/configs/interface.config";
 import { TDirector } from "./director";
 import { TCategory } from "./category";
 import { TActor } from "./actor";
+import { TProduct } from "./product";
 
 export type TQueryMovies = TQueryParamsGetData<{
       isHot?: number;
@@ -50,4 +51,12 @@ export type TQueryUpdateChair = {
       status: number,
       id: string;
       schedule_id: number;
+}
+export type TQueryPayment = {
+      typePayment : string,
+      total : number,
+      discount_id: number,
+      schedule_id: number;
+      seat_id: TChair[],
+      product: TProduct[]
 }

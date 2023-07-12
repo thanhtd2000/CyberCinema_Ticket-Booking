@@ -5,10 +5,12 @@ import { Breadcrumb, Button, Checkbox, Col, DatePicker, Form, Input, Radio, Row,
 import { USER_PROFILE } from '@/queries/keys';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import dayjs from 'dayjs';
+import { UploadOutlined } from '@ant-design/icons';
 import { useMutationUpdateUser } from '@/queries/hooks/user';
 import Image from 'next/image';
 import type { MenuProps } from 'antd';
 import Link from 'next/link';
+import type { TabsProps } from 'antd';
 function UserScreen() {
       const token = checkAuth()
       const { mutate: updateUser } = useMutationUpdateUser()
@@ -50,13 +52,10 @@ function UserScreen() {
                         </div>
                         <Row>
                               <Col span={24}>
-                                    <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-                              </Col>
-                              <Col span={24}>
                                     <Form
                                           name="basic"
-                                          labelCol={{ span: 8 }}
-                                          wrapperCol={{ span: 16 }}
+                                          labelCol={{ span: 2 }}
+                                          wrapperCol={{ span: 14 }}
                                           initialValues={{ remember: true }}
                                           onFinish={onFinish}
                                           onFinishFailed={onFinishFailed}
@@ -101,7 +100,7 @@ function UserScreen() {
                                                 <Input defaultValue={user?.sex} disabled style={{ backgroundColor: 'white' }} />
                                           </Form.Item>
 
-                                          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+                                          <Form.Item wrapperCol={{ offset: 2, span: 16 }}>
                                                 <Button type="primary" htmlType="submit">
                                                       Update
                                                 </Button>

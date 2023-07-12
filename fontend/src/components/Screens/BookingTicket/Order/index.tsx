@@ -1,35 +1,40 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import style from './style.module.less';
-import { Button, Col, Dropdown, Form, Input, Radio, Row } from 'antd';
+import { Button, Col, Form, Radio, Row, Spin } from 'antd';
 import Image from 'next/image';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { FaRegUserCircle } from 'react-icons/fa';
 import CounTime from '@/components/Elements/Timer/Timer';
-import { queryAllDiscount, queryAllProduct, queryDiscountDetail } from '@/queries/hooks/product';
+import { queryAllDiscount, queryAllProduct } from '@/queries/hooks/product';
 import { useRouter } from 'next/router';
 import { TbDiscountCheck } from "react-icons/tb";
 import { TDiscount, TProduct } from '@/modules/product';
-import { AiOutlineCopy } from 'react-icons/ai';
-import { toast } from 'react-toastify';
-import { TQueryCode } from '@/modules/movies';
-import { EOrder, EOrderBy } from '@/configs/interface.config';
+import { queryPayment } from '@/queries/hooks/payment';
+import { useGlobalState } from '@/libs/GlobalStateContext';
 interface IOrderTicket {
       expiresAt: any;
-      totalPrice: number
+      totalPrice: number;
+      selectedBoxes: any;
 }
-function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
-      const { data: product } = queryAllProduct()
-      const [params, setParams] = useState<TQueryCode>({
-            page: 1,
-            limit: 8,
-            order: EOrder.DESC,
-            orderBy: EOrderBy.CREATED_DATE,
-      });
-      const [percent, setPercent] = useState(0)
-      const [enabled, setEnabled] = useState(false)
-      // const values = getLocalStored('values');
-      const movieDetail = getLocalStored('data');
+function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
+      const { data: product, isLoading } = queryAllProduct()
       const [sweetCombo, setSweetCombo] = useState(product)
+      const [typePayment, setTypePayment] = useState<string>()
+      const [percent, setPercent] = useState(0)
+      const valueRoom = getLocalStored('valueRoom');
+      const [idDiscount, setIdDiscount] = useState<any>()
+      const { setGlobalState } = useGlobalState();
+      const arrayIdChair = selectedBoxes.map((item: any) => item.id)
+      const priceProduct = useMemo(() => sweetCombo?.length > 0 ? sweetCombo?.reduce((amount: any, current: any) => amount + current?.amount * current?.price, 0) : null, [sweetCombo])
+      const total = totalPrice + priceProduct - percent
+      const productChoice = sweetCombo?.map((item: any) => {
+            return {
+                  id: item.id,
+                  amount: item.amount
+            }
+      })
+      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.id, seat_id: arrayIdChair, product: productChoice })
+      const movieDetail = getLocalStored('data');
       const [token, setToken] = useState<string>('');
       const router = useRouter()
       useEffect(() => {
@@ -43,26 +48,14 @@ function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
       useEffect(() => {
             if (expiresAt <= 0) { router.push('/') }
       }, [expiresAt])
+      const handleTransfer = (values: any) => {
+            setTypePayment(values)
+      };
+      useEffect(() => {
+            setBodyPayment({ ...bodyPayment, discount_id: idDiscount, product: productChoice,total: total, typePayment: typePayment as string })
+      }, [bodyPayment])
       const { data: discount } = queryAllDiscount(token)
-      const priceProduct = useMemo(() => sweetCombo?.length > 0 ? sweetCombo?.reduce((amount: any, current: any) => amount + current?.amount * current?.price, 0) : null, [sweetCombo])
       const user = getLocalStored('USER_PROFILE')
-      // const items: any = [
-      //       {
-      //             key: '1',
-      //             label: (
-      //                   discount && discount?.map((item: TDiscount) => (
-      //                         <Row style={{ justifyContent: 'space-between' }}>
-      //                               <Col><p>{item?.code}</p></Col>
-      //                               <Col>
-      //                                     <CopyToClipboard text={item.code} onCopy={() => toast.success('Copied')}>
-      //                                           <AiOutlineCopy />
-      //                                     </CopyToClipboard>
-      //                               </Col>
-      //                         </Row>
-      //                   ))
-      //             ),
-      //       },
-      // ];
       useEffect(() => {
             setSweetCombo(product)
       }, [product])
@@ -72,20 +65,18 @@ function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
       const handleDeincreateSweetCombo = (id: any) => {
             setSweetCombo((prev) => prev?.map((item: TProduct) => item.id === id && item.amount > 0 ? { ...item, amount: item?.amount - 1 } : item))
       }
-      // const { data: DetailDiscount } = queryDiscountDetail(token, params, enabled)
-      // const onFinish = (values: any) => {
-      //       setParams({ ...params, code: values?.code })
-      //       setEnabled(true)
-      // };
       const numberWithComas = (num: number) => num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
       const handleUsingDiscount = (item: TDiscount) => {
             const moneyDiscount = ((item?.percent) / 100) * totalPrice;
             setPercent(moneyDiscount)
+            setIdDiscount(item?.id)
       }
       useEffect(() => {
             setPercent(0)
       }, [totalPrice])
-      console.log(discount);
+      const { data } = queryPayment(bodyPayment, token)
+      const linkOrder = data?.data;
+      setGlobalState(linkOrder)
       return (
             <Col xs={24} sm={24} md={24} lg={18} className={style.order}>
                   <div className={style.warning}>
@@ -139,7 +130,7 @@ function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
                               </Row>
                         </Col>
                         {
-                              sweetCombo?.map((item: TProduct) => (
+                              !isLoading ? (sweetCombo?.map((item: TProduct) => (
                                     <Col span={24}>
                                           <Row className={style.comboSweet}>
                                                 <Col xs={6} sm={5} md={5}>
@@ -160,7 +151,7 @@ function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
                                                 </Col>
                                           </Row>
                                     </Col>
-                              ))
+                              ))) : (<div style={{width: '100%', textAlign: 'center'}}><Spin></Spin></div>)
                         }
                         <Col span={24}>
                               <Row>
@@ -284,7 +275,7 @@ function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
                                     </Col>
                                     <Col span={24} className={style.money}>
                                           <p>Số tiền cần thanh toán:</p>
-                                          <span>{numberWithComas(totalPrice + priceProduct - percent)} vnđ</span>
+                                          <span>{numberWithComas(total)} vnđ</span>
                                     </Col>
                               </Row>
                         </Col>
@@ -307,13 +298,13 @@ function OrderTicket({ expiresAt, totalPrice }: IOrderTicket) {
                                                       <Radio.Group className={style.allMethod}>
                                                             <Row gutter={[24, 24]}>
                                                                   <Col xs={24} sm={8}>
-                                                                        <Radio className={style.method} value="apple"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>Banking</span></Radio>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="VNPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>Banking</span></Radio>
                                                                   </Col>
                                                                   <Col xs={24} sm={8}>
-                                                                        <Radio className={style.method} value="apple1"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>ShoppePay</span></Radio>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="ShoppePay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>ShoppePay</span></Radio>
                                                                   </Col>
                                                                   <Col xs={24} sm={8}>
-                                                                        <Radio className={style.method} value="apple2"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>MomoPay</span></Radio>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="MomoPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>MomoPay</span></Radio>
                                                                   </Col>
                                                             </Row>
                                                       </Radio.Group>

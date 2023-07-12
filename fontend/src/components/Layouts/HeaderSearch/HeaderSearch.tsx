@@ -12,7 +12,7 @@ import { ELanguage } from '@/configs/interface.config';
 
 import style from './style.module.less';
 import { queryAllMoviesBySearch } from '@/queries/hooks/movies';
-import { debounce } from 'lodash';
+
 import { TQueryMovies } from '@/modules/movies';
 import { baseParams } from '@/configs/const.config';
 

@@ -9,6 +9,7 @@ import { useQueryPatchChair } from '@/queries/hooks/chair';
 import LineChair from '@/components/Elements/LineChair/LineChair';;
 import CounTime from '@/components/Elements/Timer/Timer';
 import OrderTicket from './Order';
+import { useGlobalState } from '@/libs/GlobalStateContext';
 
 function BookingTicketScreen() {
       const [selectedBoxes, setSelectedBoxes] = useState<any>([]);
@@ -17,6 +18,7 @@ function BookingTicketScreen() {
       const valueRoom = getLocalStored('valueRoom');
       const [token, setToken] = useState<string>('');
       const [component, setComponent] = useState(1)
+      const { globalState } = useGlobalState();
       useEffect(() => {
             const accessTokenCurrent = checkAuth();
             setToken(accessTokenCurrent);
@@ -25,6 +27,8 @@ function BookingTicketScreen() {
                   setToken(accessToken);
             });
       }, []);
+      
+      
       const { mutate: updateChair, isLoading: loading, isError } = useQueryPatchChair()
       const handleBoxClick = (box: any | never) => {
             if (!loading) {
@@ -44,7 +48,6 @@ function BookingTicketScreen() {
             token,
       );
       const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price, 0) : null, [selectedBoxes])
-      const numberWithComas = (num: number) => num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
       return (
             <div className={`${style.bookingTicket} booking`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
@@ -125,9 +128,7 @@ function BookingTicketScreen() {
                                                             <LineChair dataChair={dataChair?.data?.J} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
                                                       </div>
                                                 </div>
-                                          ) : (
-                                                <Spin></Spin>
-                                          )}
+                                          ) : (<div style={{width: '100%', textAlign: 'center'}}><Spin></Spin></div>)}
                                           <Row className={style.TypeChair}>
                                                 <Col span={8}>
                                                       <div style={{ textAlign: 'center' }}>
@@ -148,7 +149,7 @@ function BookingTicketScreen() {
                                                       <p>Ghế Đôi</p>
                                                 </Col>
                                           </Row>
-                                    </Col>) : (<OrderTicket totalPrice={totalPrice} expiresAt={dataChair?.time}></OrderTicket>)
+                                    </Col>) : (<OrderTicket selectedBoxes={selectedBoxes}  totalPrice={totalPrice} expiresAt={dataChair?.time}></OrderTicket>)
                               }
                               <Col xs={24} sm={24} md={24} lg={6} className={style.inforTicket}>
                                     <Row gutter={[{sm: 24,md: 24,lg: 0},0]}>
@@ -218,7 +219,7 @@ function BookingTicketScreen() {
                                                                   <Button onClick={(() => setComponent(1))}>Quay lại</Button>
                                                             </Col>
                                                             <Col span={12}>
-                                                                  <Button>Tiếp tục</Button>
+                                                                  <Button href={globalState as string}>Tiếp tục</Button>
                                                             </Col>
                                                       </Row>)
                                                 }
