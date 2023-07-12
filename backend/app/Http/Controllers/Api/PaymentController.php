@@ -156,13 +156,17 @@ class PaymentController extends Controller
             ]);
             $order = $this->order->where('order_code', $transaction->order_code)->first();
             $this->orderProduct->where('order_id', $order->id)->update(['status' => 1]);
+            
             $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
-            $products = $this->product->find($orderProduct->product_id);
-            $count = $products->count - $orderProduct->quantity;;
-
-            $products->update([
-                'count' => $count
-            ]);
+            if($orderProduct){
+                $products = $this->product->find($orderProduct->product_id);
+                $count = $products->count - $orderProduct->quantity;;
+    
+                $products->update([
+                    'count' => $count
+                ]);
+            }
+            
             $order_code  = $dataTrans['order_code'];
             return redirect()->to(route('bill', ['details' => $order_code]));
         } else {
