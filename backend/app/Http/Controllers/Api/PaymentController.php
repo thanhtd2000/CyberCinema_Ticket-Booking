@@ -13,6 +13,7 @@ use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class PaymentController extends Controller
 {
@@ -169,7 +170,7 @@ class PaymentController extends Controller
             }
 
             $order_code  = $dataTrans['order_code'];
-            return redirect()->to(route('bill', ['details' => $order_code]));
+            return redirect()->to(route('bill', ['details' =>Crypt::encrypt($order_code)]));
         } else {
             $order = $this->order->where('order_code', $request->vnp_TxnRef)->delete();
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
