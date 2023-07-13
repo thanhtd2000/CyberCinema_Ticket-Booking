@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Orders;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
@@ -56,4 +57,18 @@ class ShowsController extends Controller
         // dd($orderSchedules);
         return view('index', compact('order', 'orderProducts', 'orderSchedules', 'orderDiscounts',  'seatNames', 'datePart', 'timePart', 'productNames',  'orderTransaction','enOrderCode'));
     }
+
+    public function listTickets(Request $request)
+    {
+        // dd($request->user());
+        $user = $request->user();
+        $data = Orders::where('user_id', $user->id)->select('order_code', 'order_id')->get();
+
+        // if (!empty($data->toArray())) {
+        //     // $data
+        // }
+        return response()->json('Not found', 404);
+    }
 }
+
+// order_code, name_movie, room, schedule, seat, product, total
