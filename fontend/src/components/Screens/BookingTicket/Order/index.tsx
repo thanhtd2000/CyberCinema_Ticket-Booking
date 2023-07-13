@@ -33,7 +33,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                   amount: item.amount
             }
       })
-      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.id, seat_id: arrayIdChair, product: productChoice })
+      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.schedule_id, seat_id: arrayIdChair, product: productChoice })
       const movieDetail = getLocalStored('data');
       const [token, setToken] = useState<string>('');
       const router = useRouter()

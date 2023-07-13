@@ -1,8 +1,6 @@
-import React from 'react'
-import style from './style.module.less'
-import { Breadcrumb,Col,Row} from 'antd'
-import type { MenuProps } from 'antd';
-type MenuItem = Required<MenuProps>['items'][number];
+import React from 'react';
+import style from './style.module.less';
+import { Breadcrumb, Col, Row } from 'antd';
 function HistoryScreen() {
       return (
             <div className={`${style.infor} inforUser`} style={{ background: '#0D0E10' }}>
@@ -15,62 +13,97 @@ function HistoryScreen() {
                                                 title: 'Home',
                                           },
                                           {
-                                                title: <a href="" style={{ color: 'white' }}>Lịch sử giao dịch</a>,
-                                          }
+                                                title: (
+                                                      <a href='' style={{ color: 'white' }}>
+                                                            Lịch sử giao dịch
+                                                      </a>
+                                                ),
+                                          },
                                     ]}
                               />
                         </div>
-                        <div style={{overflowX: 'auto'}}>
-                              <Row gutter={[0, 24]} style={{width: '100%'}}>
-                                    <Col span={24} style={{ border: '1px solid orange' }}>
-                                          <Row>
-                                                <Col span={3} className={style.tabHead}>
-                                                      <p>Mã đơn hàng</p>
+                        <Col span={24} className={style.tableUser}>
+                              <Row className={style.tableSize}>
+                                    <Col span={24}>
+                                          <Row className={style.titleTable}>
+                                                <Col span={2}>
+                                                      <p>Mã đơn</p>
                                                 </Col>
-                                                <Col span={5} className={style.tabHead} >
+                                                <Col span={5}>
                                                       <p>Phim</p>
                                                 </Col>
-                                                <Col span={3} className={style.tabHead}>
-                                                      <p>Ghế</p>
+                                                <Col span={3}>
+                                                      <p>Phòng chiếu</p>
                                                 </Col>
-                                                <Col span={6} className={style.tabHead}>
+                                                <Col span={3}>
+                                                      <p>Suất chiếu</p>
+                                                </Col>
+                                                <Col span={3}>
+                                                      <p>Ghế đã đặt</p>
+                                                </Col>
+                                                <Col span={4}>
                                                       <p>Combo</p>
                                                 </Col>
-                                                <Col span={4} className={style.tabHead}>
-                                                      <p>Ngày đặt</p>
-                                                </Col>
-                                                <Col span={3} className={style.tabHead}>
+                                                <Col span={4}>
                                                       <p>Tổng tiền</p>
                                                 </Col>
                                           </Row>
                                     </Col>
                                     <Col span={24}>
-                                          <Row style={{ border: '1px solid orange' }}>
-                                                <Col span={3}>
-                                                      <p>Mã đơn hàng</p>
+                                          <Row className={style.contentTable}>
+                                                <Col span={2} className={style.th}>
+                                                      M12
                                                 </Col>
-                                                <Col span={5} >
-                                                      <p>Phim</p>
+                                                <Col span={5} className={style.th}>
+                                                      Transformer: Ngày khởi hoàn của anhvdfgdsfgdgfgsdfgsdfg 
                                                 </Col>
-                                                <Col span={3}>
-                                                      <p>Ghế</p>
+                                                <Col span={3} className={style.th}>
+                                                      B302
                                                 </Col>
-                                                <Col span={6}>
-                                                      <p>Combo</p>
+                                                <Col span={3} className={style.th}>
+                                                      20:30 12-20-2023
                                                 </Col>
-                                                <Col span={4}>
-                                                      <p>Ngày đặt</p>
+                                                <Col span={3} className={style.th}>
+                                                      G1,G2,G3,G4,G5,G6
                                                 </Col>
-                                                <Col span={3}>
-                                                      <p>Tổng tiền</p>
+                                                <Col span={4} className={style.th}>
+                                                      FAMILY 202222222
+                                                </Col>
+                                                <Col span={4} className={style.th}>
+                                                      200.000.000VNĐ
+                                                </Col>
+                                          </Row>
+                                    </Col>
+                                    <Col span={24}>
+                                          <Row className={style.contentTable}>
+                                                <Col span={2} className={style.th}>
+                                                      M12
+                                                </Col>
+                                                <Col span={5} className={style.th}>
+                                                      Transformer: Ngày khởi hoàn của anhvdfgdsfgdgfgsdfgsdfg 
+                                                </Col>
+                                                <Col span={3} className={style.th}>
+                                                      B302
+                                                </Col>
+                                                <Col span={3} className={style.th}>
+                                                      20:30 12-20-2023
+                                                </Col>
+                                                <Col span={3} className={style.th}>
+                                                      G1,G2,G3,G4,G5,G6
+                                                </Col>
+                                                <Col span={4} className={style.th}>
+                                                      FAMILY 202222222
+                                                </Col>
+                                                <Col span={4} className={style.th}>
+                                                      200.000.000VNĐ
                                                 </Col>
                                           </Row>
                                     </Col>
                               </Row>
-                        </div>
+                        </Col>
                   </div>
             </div>
-      )
+      );
 }
 
-export default HistoryScreen
+export default HistoryScreen;
