@@ -26,13 +26,13 @@ class ShowsController extends Controller
 
         $orderSchedules = DB::table('order_schedule')
             ->join('schedules', 'order_schedule.schedule_id', '=', 'schedules.id')
+            
             ->join('movies', 'schedules.movie_id', '=', 'movies.id')
             ->join('rooms', 'schedules.room_id', '=', 'rooms.id')
             ->join('seats', 'order_schedule.seat_id', '=', 'seats.id')
             ->select('order_schedule.*', 'movies.name as movie_name', 'movies.time', 'schedules.time_start', 'rooms.name as room_name', 'seats.name as seat_name')
             ->where('order_schedule.order_id', $order->id)
             ->get();
-        // dd($orderSchedules);
 
         $orderDiscounts = DB::table('orders')
             ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')

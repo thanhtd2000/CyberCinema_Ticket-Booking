@@ -1,16 +1,11 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import style from './style.module.less'
 import { BsImageAlt } from 'react-icons/bs';
-import { Breadcrumb, Button, Checkbox, Col, DatePicker, Form, Input, Radio, Row, Select, Tabs, Upload } from 'antd'
+import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Upload } from 'antd'
 import { USER_PROFILE } from '@/queries/keys';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import dayjs from 'dayjs';
-import { UploadOutlined } from '@ant-design/icons';
 import { useMutationUpdateUser } from '@/queries/hooks/user';
-import Image from 'next/image';
-import type { MenuProps } from 'antd';
-import Link from 'next/link';
-import type { TabsProps } from 'antd';
 function UserScreen() {
       const token = checkAuth()
       const { mutate: updateUser } = useMutationUpdateUser()
@@ -21,15 +16,6 @@ function UserScreen() {
 
       const onFinishFailed = (errorInfo: any) => {
             // console.log('Failed:', errorInfo);
-      };
-      const normFile = (e: any) => {
-            if (Array.isArray(e)) {
-                  return e;
-            }
-            return e?.fileList;
-      };
-      const onClick: MenuProps['onClick'] = (e) => {
-            console.log('click ', e);
       };
       const user = getLocalStored(USER_PROFILE)
       const dateFormat = 'YYYY/MM/DD';
@@ -62,7 +48,7 @@ function UserScreen() {
                                           autoComplete="off"
                                     >
 
-                                          <Form.Item label="Upload" name='image'>
+                                          <Form.Item label="Upload" name='image' initialValue={user?.image}>
                                                 <Upload listType="picture-card">
                                                       <div>
                                                             <BsImageAlt style={{ fill: 'white' }} />
@@ -73,31 +59,34 @@ function UserScreen() {
                                           <Form.Item
                                                 label="Username"
                                                 name="username"
-
+                                                initialValue={user?.name}
                                           >
-                                                <Input defaultValue={user?.name} />
+                                                <Input />
                                           </Form.Item>
 
                                           <Form.Item
                                                 label="Email"
                                                 name="email"
+                                                initialValue={user?.email}
                                           >
-                                                <Input disabled style={{ backgroundColor: 'white' }} defaultValue={user?.email} />
+                                                <Input disabled style={{ backgroundColor: 'white' }} />
                                           </Form.Item>
 
                                           <Form.Item
                                                 label="Phone"
                                                 name="phone"
+                                                initialValue={user?.phone}
+
                                           >
-                                                <Input defaultValue={user?.phone} />
+                                                <Input />
                                           </Form.Item>
 
 
-                                          <Form.Item label="DatePicker" name="birth">
+                                          <Form.Item label="DatePicker" name="birth" initialValue={user?.birthday}>
                                                 <DatePicker defaultValue={dayjs(user?.birthday, dateFormat)} format={dateFormat} />
                                           </Form.Item>
-                                          <Form.Item label="Sex" name='sex'>
-                                                <Input defaultValue={user?.sex} disabled style={{ backgroundColor: 'white' }} />
+                                          <Form.Item label="Sex" name='sex' initialValue={user?.sex}>
+                                                <Input disabled style={{ backgroundColor: 'white' }} />
                                           </Form.Item>
 
                                           <Form.Item wrapperCol={{ offset: 2, span: 16 }}>
