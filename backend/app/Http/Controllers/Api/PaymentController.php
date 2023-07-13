@@ -156,13 +156,17 @@ class PaymentController extends Controller
             ]);
             $order = $this->order->where('order_code', $transaction->order_code)->first();
             $this->orderProduct->where('order_id', $order->id)->update(['status' => 1]);
+            
             $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
-            $products = $this->product->find($orderProduct->product_id);
-            $count = $products->count - $orderProduct->quantity;;
-
-            $products->update([
-                'count' => $count
-            ]);
+            if($orderProduct){
+                $products = $this->product->find($orderProduct->product_id);
+                $count = $products->count - $orderProduct->quantity;;
+    
+                $products->update([
+                    'count' => $count
+                ]);
+            }
+            
             $order_code  = $dataTrans['order_code'];
             return redirect()->to(route('bill', ['details' => $order_code]));
         } else {
@@ -170,16 +174,5 @@ class PaymentController extends Controller
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');
         }
-    }
-    public function testQR(Request $request)
-    {
-        $dns2d = new DNS2D();
-        $user = $request->user();
-        $arr = [
-            'adasdakd', 'dsadas'
-        ];
-        $arr = implode(', ', $arr);
-        $vnp_TxnRef = DNS2D::getBarcodeHTML($arr, 'QRCODE'); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
-        return response()->json(['qrcode' => base64_encode($vnp_TxnRef), 'mg' => $arr]);
     }
 }
