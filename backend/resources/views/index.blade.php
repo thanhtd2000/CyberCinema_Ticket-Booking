@@ -61,7 +61,7 @@
         <div class="pt-4"
             style="border-top: 6px dotted rgb(196, 196, 196); background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div>
-                {!! DNS2D::getBarcodeHTML('http://127.0.0.1:8000/bill?details='.$order->order_code, 'QRCODE', 6.5, 6.5) !!}
+                {!! DNS2D::getBarcodeHTML('http://127.0.0.1:8000/bill?details='.$enOrderCode, 'QRCODE', 3,3) !!}
             </div>
             <div class="pt-2">{{ $order->order_code }}</div>
         </div>

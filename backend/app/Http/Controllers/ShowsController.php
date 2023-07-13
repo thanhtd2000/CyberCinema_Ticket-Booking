@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class ShowsController extends Controller
 {
     public function index()
     {
-        $order_code = request()->query('details', 0);
+        
+        $order_code = Crypt::decrypt(request()->query('details', 0));
+        
         $order = DB::table('orders')
             ->where('order_code', $order_code)
             ->first();
+        $enOrderCode = Crypt::encrypt($order->order_code);
         $orderProducts = DB::table('order_products')
             ->join('products', 'order_products.product_id', '=', 'products.id')
             ->select('order_products.*', 'products.name')
@@ -28,7 +32,7 @@ class ShowsController extends Controller
             ->select('order_schedule.*', 'movies.name as movie_name', 'movies.time', 'schedules.time_start', 'rooms.name as room_name', 'seats.name as seat_name')
             ->where('order_schedule.order_id', $order->id)
             ->get();
-        dd($orderSchedules);
+        // dd($orderSchedules);
 
         $orderDiscounts = DB::table('orders')
             ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')
@@ -50,6 +54,6 @@ class ShowsController extends Controller
 
 
         // dd($orderSchedules);
-        return view('index', compact('order', 'orderProducts', 'orderSchedules', 'orderDiscounts',  'seatNames', 'datePart', 'timePart', 'productNames',  'orderTransaction'));
+        return view('index', compact('order', 'orderProducts', 'orderSchedules', 'orderDiscounts',  'seatNames', 'datePart', 'timePart', 'productNames',  'orderTransaction','enOrderCode'));
     }
 }
