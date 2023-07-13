@@ -28,7 +28,6 @@ class ShowsController extends Controller
             ->select('order_schedule.*', 'movies.name as movie_name', 'movies.time', 'schedules.time_start', 'rooms.name as room_name', 'seats.name as seat_name')
             ->where('order_schedule.order_id', $order->id)
             ->get();
-        dd($orderSchedules);
 
         $orderDiscounts = DB::table('orders')
             ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')
