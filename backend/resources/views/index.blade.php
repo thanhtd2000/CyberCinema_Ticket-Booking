@@ -55,13 +55,13 @@
             <div class="col-md-4  "
                 style="display: flex;align-items: center; justify-content: center; flex-direction: column;font-weight: bold; border-left: 1px solid;">
                 <div>Tổng tiền</div>
-                <div style="color: red;">{{ $order->total }}đ</div>
+                <div style="color: red;">{{ number_format($order->total, 0, ',', '.') }} VNĐ</div>
             </div>
         </div>
         <div class="pt-4"
             style="border-top: 6px dotted rgb(196, 196, 196); background-color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div>
-                {!! DNS2D::getBarcodeHTML('http://127.0.0.1:8000/bill?details='.$order->order_code, 'QRCODE', 6.5, 6.5) !!}
+                {!! DNS2D::getBarcodeHTML('http://127.0.0.1:8000/bill?details=' . $order->order_code, 'QRCODE', 6.5, 6.5) !!}
             </div>
             <div class="pt-2">{{ $order->order_code }}</div>
         </div>
@@ -73,7 +73,7 @@
                 <p>Vui lòng đưa mã số này đến quầy vé Cyber để nhận vé</p>
             </div>
             <div>
-                <p><b style="color: red;">Lưu ý</b>: Cyber không chấp nhận hoàn tiền hoặc đổi vé đã thanh toán thành
+                <p><b style="color: red;">Lưu ý</b>: Cyber Cinema không chấp nhận hoàn tiền hoặc đổi vé đã thanh toán thành
                     công trên Website</p>
             </div>
         </div>
