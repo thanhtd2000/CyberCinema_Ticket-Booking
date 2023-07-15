@@ -27,15 +27,15 @@ class RoomController extends Controller
     }
     public function getSeats(Request $request)
     {
-        $seats = DB::table('seats')
-            ->leftJoin('order_schedule', function ($join) use ($request) {
-                $join->on('seats.id', '=', 'order_schedule.seat_id')
-                    ->where('order_schedule.schedule_id', $request->schedule_id);
-            })
+        $seats = Seat::leftJoin('order_schedule', function ($join) use ($request) {
+            $join->on('seats.id', '=', 'order_schedule.seat_id')
+                ->where('order_schedule.schedule_id', $request->schedule_id)
+                ->whereNull('order_schedule.deleted_at');
+        })
             ->leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
-            ->where('seats.room_id', $request->id)  
+            ->where('seats.room_id', $request->id)
             ->where('seats.status', 0)
-            ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status','seat_types.price')
+            ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status', 'seat_types.price')
             ->get();
         $seats = $seats->map(function ($seat) {
             $seat->status = $seat->status ?? 0;

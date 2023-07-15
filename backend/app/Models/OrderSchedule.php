@@ -7,11 +7,12 @@ use App\Models\User;
 use App\Models\Orders;
 use App\Models\Schedule;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class OrderSchedule extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $table = 'order_schedule';
     protected $guarded = [];
 

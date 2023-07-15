@@ -39,7 +39,7 @@ class SeatController extends Controller
                 ->where('schedule_id', $request->schedule_id)
                 ->where('user_id', $user->id)
                 ->where('status', 1)
-                ->delete();
+                ->forceDelete();
             if (empty($data1)) {
                 return response()->json(['message' => 'Ghế đã bị đặt', 'status_code' => 404], 404);
             }
