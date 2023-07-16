@@ -14,12 +14,13 @@ class OrderProducts extends Model
     protected $guarded = [];
 
 
-    public function user()
-    {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
+
     public function order()
     {
         return $this->belongsTo(Orders::class, 'order_id');
+    }
+    public function products()
+    {
+        return $this->hasMany(Products::class, 'product_id');
     }
 }
