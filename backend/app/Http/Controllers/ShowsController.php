@@ -77,7 +77,6 @@ class ShowsController extends Controller
                     ->join('products', 'order_products.product_id', '=', 'products.id')
                     ->select('products.name as name')
                     ->where('order_products.order_id', $d->id)
-                    ->where('order_products.status', '=', 1)
                     ->get()->pluck('name');
                 $orderSchedules = DB::table('order_schedule')
                     ->join('schedules', 'order_schedule.schedule_id', '=', 'schedules.id')
