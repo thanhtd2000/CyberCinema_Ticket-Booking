@@ -23,4 +23,8 @@ class Orders extends Model
     {
         return $this->hasMany(OrderSchedule::class, 'order_id');
     }
+    public function order_products()
+    {
+        return $this->hasMany(OrderProducts::class, 'order_id');
+    }
 }
