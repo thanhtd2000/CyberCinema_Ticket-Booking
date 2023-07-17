@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\SeatRowController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DirectorController;
 use App\Http\Controllers\Admin\DiscountController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SeatTypeController;
 use App\Http\Controllers\Admin\PermissionController;
@@ -183,5 +184,9 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('/transaction')->group(function () {
         Route::get('/', [TransactionController::class, 'index'])->name('admin.transaction');
+    });
+
+    Route::prefix('/order')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('admin.order');;
     });
 });
