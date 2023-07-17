@@ -33,10 +33,21 @@
                 <tr>
                     <td class="">{{ $key += 1 }}</td>
                     <td class="">{{ $order->user->name }}</td>
-                    <td class="">{{ $order->discount->code }}</td>
-                    <td class="">{{ $order->transaction->transactions_code }}</td>
+                    <td class="">
+                        {{ $order->discount == null ? 'Không có' : $order->discount->code }}</td>
+                    <td class="">
+                        {{ $order->transaction == null ? 'Không có' : $order->transaction->transactions_code }}
+                    </td>
                     <td class="">{{ $order->order_code }}</td>
-                    <td class="">{{ $order->status === 0 ? 'Đã thanh toán' : 'Chưa thanh toán' }}</td>
+                    <td class="">
+                        @if ($order->status === 1)
+                            Chờ thanh toán
+                        @elseif ($order->status === 2)
+                            Đã thanh toán
+                        @elseif ($order->status === 3)
+                            Đã hủy
+                        @endif
+                    </td>
                     <td class="">{{ $order->created_at }}</td>
                     <td class="">{{ $order->total }}</td>
                     <td class="">
