@@ -13,6 +13,7 @@ use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 
 class PaymentController extends Controller
 {
@@ -60,16 +61,7 @@ class PaymentController extends Controller
                     'order_code' => $vnp_TxnRef
                 ]);
             }
-            foreach ($request->product as $product) {
-                if ($product['amount'] != 0) {
-                    $this->orderProduct->create([
-                        'quantity' => $product['amount'],
-                        'product_id' => $product['id'],
-                        'order_id' => $order->id,
-                        'status' => 0
-                    ]);
-                }
-            }
+
             // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
 
             foreach ($request->seat_id as $seatId) {
@@ -80,6 +72,16 @@ class PaymentController extends Controller
                 ]);
             }
 
+            foreach ($request->product as $product) {
+                if ($product['amount'] != 0) {
+                    $this->orderProduct->create([
+                        'quantity' => $product['amount'],
+                        'product_id' => $product['id'],
+                        'order_id' => $order->id,
+                        'status' => 0
+                    ]);
+                }
+            }
             $inputData = array(
                 "vnp_Version" => "2.1.0",
                 "vnp_TmnCode" => env('VNP_TMN_CODE'),
@@ -156,19 +158,19 @@ class PaymentController extends Controller
             ]);
             $order = $this->order->where('order_code', $transaction->order_code)->first();
             $this->orderProduct->where('order_id', $order->id)->update(['status' => 1]);
-            
+
             $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
-            if($orderProduct){
+            if ($orderProduct) {
                 $products = $this->product->find($orderProduct->product_id);
                 $count = $products->count - $orderProduct->quantity;;
-    
+
                 $products->update([
                     'count' => $count
                 ]);
             }
-            
+
             $order_code  = $dataTrans['order_code'];
-            return redirect()->to(route('bill', ['details' => $order_code]));
+            return redirect()->to(route('bill', ['details' =>Crypt::encrypt($order_code)]));
         } else {
             $order = $this->order->where('order_code', $request->vnp_TxnRef)->delete();
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);

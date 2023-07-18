@@ -4095,12 +4095,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/microsoftgraph/msgraph-sdk-php.git",
-                "reference": "ece6bf596b3d41414fb67016ca7a807ae2327de5"
+                "reference": "e9b2a9949dffe97c1687c98cae87cbeea82dd959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/ece6bf596b3d41414fb67016ca7a807ae2327de5",
-                "reference": "ece6bf596b3d41414fb67016ca7a807ae2327de5",
+                "url": "https://api.github.com/repos/microsoftgraph/msgraph-sdk-php/zipball/e9b2a9949dffe97c1687c98cae87cbeea82dd959",
+                "reference": "e9b2a9949dffe97c1687c98cae87cbeea82dd959",
                 "shasum": ""
             },
             "require": {
@@ -4140,7 +4140,7 @@
                 "issues": "https://github.com/microsoftgraph/msgraph-sdk-php/issues",
                 "source": "https://github.com/microsoftgraph/msgraph-sdk-php/tree/dev"
             },
-            "time": "2023-07-12T11:19:10+00:00"
+            "time": "2023-07-11T11:30:55+00:00"
         },
         {
             "name": "milon/barcode",
