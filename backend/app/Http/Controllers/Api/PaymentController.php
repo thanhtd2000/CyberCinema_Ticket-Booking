@@ -146,7 +146,7 @@ class PaymentController extends Controller
                 'transactions_code' => $request->vnp_TransactionNo,
                 'bank_code' => $request->vnp_BankCode,
                 'payment_code' => $request->vnp_CardType,
-                'status' => $request->vnp_TransactionStatus,
+                'status' => 2,
                 'amount' => $request->vnp_Amount,
                 'order_code' => $request->vnp_TxnRef,
             ];
@@ -154,7 +154,8 @@ class PaymentController extends Controller
             $transaction = $this->transaction->create($dataTrans);
 
             $this->order->where('order_code', $transaction->order_code)->update([
-                'transaction_id' => $transaction->id
+                'transaction_id' => $transaction->id,
+                'status' => 2
             ]);
             $order = $this->order->where('order_code', $transaction->order_code)->first();
             $this->orderProduct->where('order_id', $order->id)->update(['status' => 1]);
@@ -172,7 +173,21 @@ class PaymentController extends Controller
             $order_code  = $dataTrans['order_code'];
             return redirect()->to(route('bill', ['details' =>Crypt::encrypt($order_code)]));
         } else {
-            $order = $this->order->where('order_code', $request->vnp_TxnRef)->delete();
+            $dataTrans = [
+                'transactions_code' => $request->vnp_TransactionNo,
+                'bank_code' => $request->vnp_BankCode,
+                'payment_code' => $request->vnp_CardType,
+                'status' => 3,
+                'amount' => $request->vnp_Amount,
+                'order_code' => $request->vnp_TxnRef,
+            ];
+
+            $transaction = $this->transaction->create($dataTrans);
+            $this->order->where('order_code', $transaction->order_code)->update([
+                'transaction_id' => $transaction->id,
+                'status' => 3
+            ]);
+           
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');
         }
