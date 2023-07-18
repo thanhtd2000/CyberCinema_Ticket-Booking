@@ -51,9 +51,14 @@
                     <td class="">{{ $order->created_at }}</td>
                     <td class="">{{ $order->total }}</td>
                     <td class="">
-                        <button class="btn btn-warning">
-                            <a class="text-white" href="#"><i class="fas fa-trash-alt"></i></a>
-                        </button>
+                        <form action="{{ route('admin.order.cancel', $order->id) }}" method="post">
+                            @csrf
+                            @method('put')
+                            <button type="submit" onclick='return confirm("Bạn có muốn hủy không")'
+                                class="btn btn-warning">
+                                <i class="fas fa-trash-alt text-white"></i>
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach

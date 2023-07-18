@@ -206,9 +206,10 @@
                     <use xlink:href="{{ asset('dist/vendors/@coreui/icons/svg/free.svg#cil-description') }}"></use>
                 </svg>Giao dịch</a>
             <ul class="nav-group-items">
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.transaction') }}">Hóa đơn</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('admin.order') }}">Lịch sử giao
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.transaction') }}">Lịch sử giao
                         dịch</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('admin.order') }}">Hóa đơn
+                    </a></li>
             </ul>
         </li>
 
