@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\DiscountController;
 use App\Http\Controllers\Api\ScheduleController;
+use App\Http\Controllers\Api\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,4 +62,4 @@ Route::get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_R
 Route::get('/qr', [PaymentController::class, 'testQR']);
 
 //listTickets
-Route::middleware('auth:sanctum')->get('get/tickets', [ShowsController::class, 'listTickets']);
+Route::middleware('auth:sanctum')->get('get/tickets', [TicketController::class, 'listTickets']);
