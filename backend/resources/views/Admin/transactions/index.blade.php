@@ -35,7 +35,7 @@
                     <td class="">{{ $transaction->transactions_code }}</td>
                     <td class="">{{ $transaction->bank_code }}</td>
                     <td class="">{{ $transaction->payment_code }}</td>
-                    <td class="">{{ $transaction->status === 0 ? 'Đã thanh toán' : 'Chưa thanh toán' }}</td>
+                    <td class="">{{ $transaction->status === 2 ? 'Đã thanh toán' : 'Đã hủy' }}</td>
                     <td class="">{{ $transaction->amount }}</td>
                     <td class="">{{ $transaction->created_at }}</td>
                 </tr>
