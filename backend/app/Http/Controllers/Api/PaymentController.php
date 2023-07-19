@@ -187,7 +187,8 @@ class PaymentController extends Controller
                 'transaction_id' => $transaction->id,
                 'status' => 3
             ]);
-           
+           $orders= $this->order->where('order_code', $transaction->order_code)->first();
+            $this->orderSchedule->where('order_id', $orders->id)->delete();
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');
         }
