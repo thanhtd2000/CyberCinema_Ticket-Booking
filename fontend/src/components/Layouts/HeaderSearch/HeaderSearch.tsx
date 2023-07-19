@@ -19,8 +19,6 @@ import { baseParams } from '@/configs/const.config';
 const { Search } = Input;
 
 function HeaderSearch() {
-      const { t } = useTranslation();
-      const [search, setSearch] = useState();
       const [params, setParams] = useState<TQueryMovies>();
       const router = useRouter();
       const [open, setOpen] = useState(false);
@@ -32,7 +30,6 @@ function HeaderSearch() {
             setOpen(false);
       };
       const onSearch = (value: string) => {
-            // router.push({ pathname: '/search', query: { s: value } });
             setParams({...params, s: value})
       };
       const {

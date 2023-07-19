@@ -3,3 +3,5 @@ import { TQueryPayment } from "@/modules/movies";
 
 export const getPayment = (params:TQueryPayment,token: string) =>
 request({ url: 'get/payment', method: 'GET', params: { ...params } },{ token });
+export const getHistory = (token: string) =>
+request({ url: 'get/tickets', method: 'GET'},{ token });

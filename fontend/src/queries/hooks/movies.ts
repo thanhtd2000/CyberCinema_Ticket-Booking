@@ -10,14 +10,12 @@ export const queryAllMovies = () =>
     queryKey: [LIST_MOVIES],
     queryFn: () => getListMovieFromDatabase(),
     refetchOnMount: false,
-    keepPreviousData: true,
   });
 export const queryAllMoviesBySearch = (params: TQueryMovies) =>
   useQuery<TResDataListApi<TMovies[]>>({
     queryKey: [LIST_MOVIES_SEARCH, JSON.stringify(params)],
     queryFn: () => getListMovieBySearch(params),
     refetchOnMount: false,
-    keepPreviousData: true,
   });
 export const queryAllMoviesBySlug = (slug:string) =>
   useQuery<TResDataListApi<TMovies[]>>({
