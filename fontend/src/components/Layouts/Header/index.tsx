@@ -36,7 +36,7 @@ function Header() {
       function Tag() {
             return (
                   <Link className={style.logo2} href='/'>
-                        <Image src='/images/logoMovieBackgroundWhite.png' height={70} width={130} alt='logo' />
+                        <Image src='/images/logoMovieBackgroundWhite.png' height={70} width={70} alt='logo' />
                   </Link>
             );
       }
@@ -65,9 +65,7 @@ function Header() {
                   key: '2',
                   icon: <IoDiamondOutline />,
                   label: (
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                              Thành viên Vip
-                        </a>
+                        <Link href='/user/history'>Lịch sử đặt vé</Link>
                   ),
             },
             {

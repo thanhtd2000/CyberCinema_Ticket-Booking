@@ -21,7 +21,6 @@ export interface IHotNews {
   News: TPost[];
 }
 function New({ HotNews, News }: IHotNews) {
-  const { t } = useTranslation();
   const [swipe, setSwipe] = useState<any>();
   return (
     <div className='container'>
@@ -77,7 +76,7 @@ function New({ HotNews, News }: IHotNews) {
                 <Row>
                   <Col span={24} className={style.button}>
                     <Title level={3}>Tin tức</Title>
-                    <Button>Xem thêm</Button>
+                    <Button href='/news'>Xem thêm</Button>
                   </Col>
                   <Col span={24}>
                     <Row gutter={[0, 16]}>

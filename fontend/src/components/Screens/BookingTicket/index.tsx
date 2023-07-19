@@ -46,8 +46,9 @@ function BookingTicketScreen() {
       const { data: dataChair, isLoading, refetch, isFetching } = queryAllChair(
             { id: valueRoom?.id, schedule_id: valueRoom?.schedule_id },
             token,
-      );
-      const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price, 0) : null, [selectedBoxes])
+            );
+            console.log(dataChair?.time === 0 ? true: false);
+      const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price , 0) : null, [selectedBoxes])
       return (
             <div className={`${style.bookingTicket} booking`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
