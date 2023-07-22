@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\DiscountController;
+use App\Http\Controllers\Api\PointController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\TicketController;
 
@@ -62,3 +63,6 @@ Route::get('/payment', [PaymentController::class, 'insertPayment'])->name('vnp_R
 
 //listTickets
 Route::middleware('auth:sanctum')->get('get/tickets', [TicketController::class, 'listTickets']);
+
+//points 
+Route::middleware('auth:sanctum')->get('get/points', [PointController::class, 'getpoints']);
