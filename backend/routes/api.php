@@ -48,9 +48,11 @@ Route::middleware('auth:sanctum')->post('/get/room', [RoomController::class, 'ge
 
 //users
 Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);
+Route::middleware('auth:sanctum')->post('/users/get', [AuthApiController::class, 'get']);
 
+//seats
 Route::middleware('auth:sanctum')->patch('/update-status-seat', [SeatController::class, 'updateStatusSeat']);
-
+//discount
 Route::middleware('auth:sanctum')->get('/get/discount/detail ', [DiscountController::class, 'getDiscount']);
 Route::middleware('auth:sanctum')->get('/get/discount/list', [DiscountController::class, 'getAllDiscount']);
 
