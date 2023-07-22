@@ -48,7 +48,7 @@ Route::middleware('auth:sanctum')->post('/get/room', [RoomController::class, 'ge
 
 //users
 Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);
-Route::middleware('auth:sanctum')->get('/users/get', [AuthApiController::class, 'get']);
+Route::middleware('auth:sanctum')->get('/users/profile', [AuthApiController::class, 'get']);
 
 //seats
 Route::middleware('auth:sanctum')->patch('/update-status-seat', [SeatController::class, 'updateStatusSeat']);

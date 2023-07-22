@@ -198,7 +198,15 @@ class AuthApiController extends Controller
       public function get(Request $request)
       {
             $user = $request->user();
-            $data = UserResource::collection($user);
+            $data = [
+                  'name' =>  $user->name,
+                  'email' => $user->email,
+                  'sex' => $user->sex,
+                  'phone' => $user->phone,
+                  'birthday' => $user->birthday,
+                  'image' => $user->image,
+                  'points' => $user->points,
+            ];
             return response()->json($data, 200);
       }
 }
