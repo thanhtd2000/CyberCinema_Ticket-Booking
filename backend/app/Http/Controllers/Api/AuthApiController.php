@@ -10,6 +10,7 @@ use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProfileRequests;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -191,5 +192,13 @@ class AuthApiController extends Controller
                         'message' => 'Logout Fail Or Account not Exist!!',
                   ], 409);
             }
+      }
+
+
+      public function get(Request $request)
+      {
+            $user = $request->user();
+            $data = UserResource::collection($user);
+            return response()->json($data, 200);
       }
 }
