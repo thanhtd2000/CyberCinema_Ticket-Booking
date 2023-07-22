@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\User;
 use App\Models\Orders;
 use App\Models\Product;
 use Milon\Barcode\DNS1D;
@@ -66,10 +67,7 @@ class PaymentController extends Controller
 
             foreach ($request->seat_id as $seatId) {
 
-                $orderSchedule = $this->orderSchedule->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->where('seat_id', $seatId)->update([
-                    'order_id' => $order->id,
-                    'status' => 2
-                ]);
+                $orderSchedule = $this->orderSchedule->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->where('seat_id', $seatId)->update(['order_id' => $order->id]);
             }
 
             foreach ($request->product as $product) {
@@ -157,9 +155,12 @@ class PaymentController extends Controller
                 'transaction_id' => $transaction->id,
                 'status' => 2
             ]);
-            $order = $this->order->where('order_code', $transaction->order_code)->first();
-            $this->orderProduct->where('order_id', $order->id)->update(['status' => 1]);
 
+            $order = $this->order->where('order_code', $transaction->order_code)->first();
+            $this->orderProduct->where('order_id', $order->id)->update(['status' => 2]);
+            $this->orderSchedule->where('order_id', $order->id)->update(['status' => 2]);
+            $points = ceil($order->total / 10000);
+            User::find($order->user_id)->update(['points' => $points]);
             $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
             if ($orderProduct) {
                 $products = $this->product->find($orderProduct->product_id);
@@ -171,7 +172,7 @@ class PaymentController extends Controller
             }
 
             $order_code  = $dataTrans['order_code'];
-            return redirect()->to(route('bill', ['details' =>Crypt::encrypt($order_code)]));
+            return redirect()->to(route('bill', ['details' => Crypt::encrypt($order_code)]));
         } else {
             $dataTrans = [
                 'transactions_code' => $request->vnp_TransactionNo,
@@ -187,7 +188,7 @@ class PaymentController extends Controller
                 'transaction_id' => $transaction->id,
                 'status' => 3
             ]);
-           $orders= $this->order->where('order_code', $transaction->order_code)->first();
+            $orders = $this->order->where('order_code', $transaction->order_code)->first();
             $this->orderSchedule->where('order_id', $orders->id)->delete();
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');

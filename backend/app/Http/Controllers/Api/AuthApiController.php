@@ -147,6 +147,7 @@ class AuthApiController extends Controller
                               'phone' => $user->phone,
                               'birthday' => $user->birthday,
                               'image' => $user->image,
+                              'points' => $user->points,
                         ]
                   ],  200);
             } catch (ValidationException $error) {
