@@ -40,6 +40,7 @@ class TicketController extends Controller
                 $d->room_name = $orderSchedules->room_name;
                 $d->time_start = $orderSchedules->time_start;
                 $d->movie_name = $orderSchedules->movie_name;
+                $d->addPoints = ceil($d->total / 10000);
                 if ($d->status == 1) {
                     $d->link = "http://127.0.0.1:8000/bill?details=" . Crypt::encrypt($d->order_code);
                 }
