@@ -36,11 +36,22 @@ class PaymentController extends Controller
 
     public function createPayment(Request $request)
     {
+        $user = $request->user();
+        if ($request->points > $user->points) {
+            return response()->json(
+                [
+                    'message' => 'Điểm của khách không đủ !!!',
+                    'status_code' => 404
+                ],
+                404
+            );
+        }
+        $usedpoints = $user->points - $request->points;
+        User::find($user->id)->update(['points' =>  $usedpoints]);
         // dd($request->all());
         if ($request->typePayment == 'VNPay') {
             $user = $request->user();
             $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(15); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
-
             $vnp_OrderInfo = 'thanh toan test';
             $vnp_OrderType = 'billpayment';
             $vnp_Amount = $request->total * 100;
@@ -52,14 +63,18 @@ class PaymentController extends Controller
                 $order = $this->order->create([
                     'total' => $request->total,
                     'user_id' => $user->id,
-                    'order_code' => $vnp_TxnRef
+                    'order_code' => $vnp_TxnRef,
+                    'points' => $request->points,
+                    'status' => 1
                 ]);
             } else {
                 $order = $this->order->create([
                     'total' => $request->total,
                     'user_id' => $user->id,
                     'discount_id' => $request->discount_id,
-                    'order_code' => $vnp_TxnRef
+                    'order_code' => $vnp_TxnRef,
+                    'points' => $request->points,
+                    'status' => 1
                 ]);
             }
 
@@ -170,7 +185,6 @@ class PaymentController extends Controller
                     'count' => $count
                 ]);
             }
-
             $order_code  = $dataTrans['order_code'];
             return redirect()->to(route('bill', ['details' => Crypt::encrypt($order_code)]));
         } else {
@@ -182,13 +196,15 @@ class PaymentController extends Controller
                 'amount' => $request->vnp_Amount,
                 'order_code' => $request->vnp_TxnRef,
             ];
-
             $transaction = $this->transaction->create($dataTrans);
             $this->order->where('order_code', $transaction->order_code)->update([
                 'transaction_id' => $transaction->id,
                 'status' => 3
             ]);
             $orders = $this->order->where('order_code', $transaction->order_code)->first();
+            $user = User::find($orders->user_id);
+            $backpoints = $user->points + $orders->points;
+            $user->update(['points' =>  $backpoints]);
             $this->orderSchedule->where('order_id', $orders->id)->delete();
             // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
             return redirect()->to('http://localhost:3200/payment/failed');
