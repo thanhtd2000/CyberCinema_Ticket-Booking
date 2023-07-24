@@ -16,14 +16,6 @@ class Orders extends Model
 
     protected $table = 'orders';
     protected $guarded = [];
-    protected $fillable = [
-        'total',
-        'user_id',
-        'discount_id',
-        'transaction_id',
-        'order_code',
-        'status',
-    ];
 
 
     public function user()
