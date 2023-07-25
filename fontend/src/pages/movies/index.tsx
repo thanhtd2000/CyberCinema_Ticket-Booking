@@ -1,6 +1,11 @@
+import Loading from '@/components/Elements/Loading';
+import dynamic from 'next/dynamic';
 import React from 'react'
-import Layout from '@/components/Layouts'
-import MovieScreen from '@/components/Screens/MovieScreen'
+const MovieScreen = dynamic(() => import('@/components/Screens/MovieScreen'), {
+      loading: () => <Loading />,
+      ssr: false,
+});
+const Layout = dynamic(() => import('@/components/Layouts'));
 function Movies() {
       return (
             <Layout>

@@ -7,8 +7,9 @@ import { LANGUAGE_DEFAULT, baseParams } from '@/configs/const.config';
 import { getListMovieFromDatabase } from '@/queries/apis/movies';
 import { Spin } from 'antd';
 import { getListPostFromDatabase } from '@/queries/apis/post';
-const HomeScreen = dynamic(() => import('@components/Screens/Home'), { loading: () => <Spin></Spin> });
-const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Spin></Spin> });
+import Loading from '@/components/Elements/Loading';
+const HomeScreen = dynamic(() => import('@components/Screens/Home'), { loading: () => <Loading /> });
+const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Loading /> });
 export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 //   Movies

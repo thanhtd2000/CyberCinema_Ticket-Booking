@@ -10,6 +10,7 @@ import LineChair from '@/components/Elements/LineChair/LineChair';;
 import CounTime from '@/components/Elements/Timer/Timer';
 import OrderTicket from './Order';
 import { useGlobalState } from '@/libs/GlobalStateContext';
+import CountTime from '@/components/Elements/Timer/Timer';
 
 function BookingTicketScreen() {
       const [selectedBoxes, setSelectedBoxes] = useState<any>([]);
@@ -50,7 +51,7 @@ function BookingTicketScreen() {
             console.log(dataChair?.time === 0 ? true: false);
       const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price , 0) : null, [selectedBoxes])
       return (
-            <div className={`${style.bookingTicket} booking`} style={{ background: '#0D0E10' }}>
+            <div className={`${style.bookingTicket} booking Loading`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
                         <div>
                               <Breadcrumb
@@ -83,7 +84,7 @@ function BookingTicketScreen() {
                                           }
                                           <div className={style.time}>
                                                 <p>Thời gian giữ ghế</p>
-                                                <CounTime expiresAt={dataChair?.time} />
+                                                {dataChair?.time ? (<CountTime expiresAt={dataChair?.time} />) : (<Spin></Spin>)}
                                           </div>
                                           <Row className={style.TypeChairSelect}>
                                                 <Col span={6}>

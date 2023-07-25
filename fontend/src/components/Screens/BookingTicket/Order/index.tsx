@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import style from './style.module.less';
-import { Button, Col, Form, Radio, Row, Spin } from 'antd';
+import { Button, Col, Form, Input, InputNumber, Radio, Row, Spin } from 'antd';
 import Image from 'next/image';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { FaRegUserCircle } from 'react-icons/fa';
@@ -9,8 +9,10 @@ import { queryAllDiscount, queryAllProduct } from '@/queries/hooks/product';
 import { useRouter } from 'next/router';
 import { TbDiscountCheck } from "react-icons/tb";
 import { TDiscount, TProduct } from '@/modules/product';
-import { queryPayment } from '@/queries/hooks/payment';
+import { queryGetPoints, queryPayment } from '@/queries/hooks/payment';
 import { useGlobalState } from '@/libs/GlobalStateContext';
+import { debounce } from 'lodash';
+import CountTime from '@/components/Elements/Timer/Timer';
 interface IOrderTicket {
       expiresAt: any;
       totalPrice: number;
@@ -23,20 +25,22 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
       const [percent, setPercent] = useState(0)
       const valueRoom = getLocalStored('valueRoom');
       const [idDiscount, setIdDiscount] = useState<any>()
+      const [points, setPoints] = useState(0);
       const { setGlobalState } = useGlobalState();
       const arrayIdChair = selectedBoxes.map((item: any) => item.id)
       const priceProduct = useMemo(() => sweetCombo?.length > 0 ? sweetCombo?.reduce((amount: any, current: any) => amount + current?.amount * current?.price, 0) : null, [sweetCombo])
-      const total = totalPrice + priceProduct - percent
       const productChoice = sweetCombo?.map((item: any) => {
             return {
                   id: item.id,
                   amount: item.amount
             }
       })
-      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.schedule_id, seat_id: arrayIdChair, product: productChoice })
+      const total = totalPrice + priceProduct - percent - points*1000
+      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.schedule_id, seat_id: arrayIdChair, product: productChoice, points: 0 })
       const movieDetail = getLocalStored('data');
       const [token, setToken] = useState<string>('');
       const router = useRouter()
+      const { data: point } = queryGetPoints(token)
       useEffect(() => {
             const accessTokenCurrent = checkAuth();
             setToken(accessTokenCurrent);
@@ -52,7 +56,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
             setTypePayment(values)
       };
       useEffect(() => {
-            setBodyPayment({ ...bodyPayment, discount_id: idDiscount, product: productChoice,total: total, typePayment: typePayment as string })
+            setBodyPayment({ ...bodyPayment, discount_id: idDiscount, product: productChoice, total: total, typePayment: typePayment as string, points: points })
       }, [bodyPayment])
       const { data: discount } = queryAllDiscount(token)
       const user = getLocalStored('USER_PROFILE')
@@ -77,6 +81,10 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
       const { data } = queryPayment(bodyPayment, token)
       const linkOrder = data?.data;
       setGlobalState(linkOrder)
+      const onChange = (value: any) => {
+            console.log(value);
+            setPoints(value);
+          };
       return (
             <Col xs={24} sm={24} md={24} lg={18} className={style.order}>
                   <div className={style.warning}>
@@ -84,7 +92,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                   </div>
                   <div className={style.time}>
                         <p>Thời gian giữ ghế</p>
-                        <CounTime expiresAt={expiresAt} />
+                        {expiresAt? (<CountTime expiresAt={expiresAt} />) : (<Spin></Spin>)}
                   </div>
                   <Row className={style.InforUser}>
                         <Col span={24} className={style.title}>
@@ -151,7 +159,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                                 </Col>
                                           </Row>
                                     </Col>
-                              ))) : (<div style={{width: '100%', textAlign: 'center'}}><Spin></Spin></div>)
+                              ))) : (<div style={{ width: '100%', textAlign: 'center' }}><Spin></Spin></div>)
                         }
                         <Col span={24}>
                               <Row>
@@ -261,6 +269,21 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                                 ))
                                           }
                                     </Col>
+                                    <Col span={24}>
+                                          <Row className={style.changePoint}>
+                                                <Col>
+                                                      <p style={{ paddingBottom: '16px' }}>Tổng số điểm bạn đang có là: {point as any}</p>
+                                                      <InputNumber min={1} max={10} onChange={onChange} />
+                                                      {(points*1000) > (totalPrice + priceProduct) ? (<p style={{ paddingTop: '16px', color: 'red' }}>Điểm không hợp lệ</p>) : ''}
+                                                </Col>
+                                                <Col>
+                                                      <p>=</p>
+                                                </Col>
+                                                <Col>
+                                                      <p>{numberWithComas(points*1000)} vnđ</p>
+                                                </Col>
+                                          </Row>
+                                    </Col>
                               </Row>
                         </Col>
                         <Col span={24}>
@@ -271,7 +294,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                     </Col>
                                     <Col span={24} className={style.money}>
                                           <p>Số tiền được giảm:</p>
-                                          <span>{numberWithComas(percent)} vnđ</span>
+                                          <span>{numberWithComas(percent + points*1000)} vnđ</span>
                                     </Col>
                                     <Col span={24} className={style.money}>
                                           <p>Số tiền cần thanh toán:</p>

@@ -1,11 +1,8 @@
 import React from 'react'
 import style from './style.module.less'
-import { BsImageAlt } from 'react-icons/bs';
-import { Breadcrumb, Button, Col, DatePicker, Form, Input, Row, Upload } from 'antd'
-import { USER_PROFILE } from '@/queries/keys';
-import { checkAuth, getLocalStored } from '@/libs/localStorage';
-import dayjs from 'dayjs';
-import { useMutationUpdateUser } from '@/queries/hooks/user';
+import { Breadcrumb, Button, Col, Form, Input, Row } from 'antd'
+import { checkAuth } from '@/libs/localStorage';
+import { queryGetProfile, useMutationUpdateUser } from '@/queries/hooks/user';
 function UserScreen() {
       const token = checkAuth()
       const { mutate: updateUser } = useMutationUpdateUser()
@@ -13,13 +10,7 @@ function UserScreen() {
             console.log('Success:', values);
             updateUser({ token, data: { ...values, image: values.image?.file } })
       };
-
-      const onFinishFailed = (errorInfo: any) => {
-            // console.log('Failed:', errorInfo);
-      };
-      const user = getLocalStored(USER_PROFILE)
-      const dateFormat = 'YYYY/MM/DD';
-      // console.log(user);
+      const {data: user } = queryGetProfile(token);
       return (
             <div className={`${style.infor} inforUser`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
@@ -37,28 +28,19 @@ function UserScreen() {
                               />
                         </div>
                         <Row>
-                              <Col span={24}>
+                              <Col span={12}>
                                     <Form
                                           name="basic"
-                                          labelCol={{ span: 2 }}
-                                          wrapperCol={{ span: 14 }}
+                                          labelCol={{ span: 4 }}
+                                          wrapperCol={{ span: 24 }}
                                           initialValues={{ remember: true }}
                                           onFinish={onFinish}
-                                          onFinishFailed={onFinishFailed}
                                           autoComplete="off"
                                     >
 
-                                          <Form.Item label="Upload" name='image' initialValue={user?.image}>
-                                                <Upload listType="picture-card">
-                                                      <div>
-                                                            <BsImageAlt style={{ fill: 'white' }} />
-                                                            <div style={{ marginTop: 8, color: 'white' }}>Upload</div>
-                                                      </div>
-                                                </Upload>
-                                          </Form.Item>
                                           <Form.Item
                                                 label="Username"
-                                                name="username"
+                                                name="name"
                                                 initialValue={user?.name}
                                           >
                                                 <Input />
@@ -80,21 +62,20 @@ function UserScreen() {
                                           >
                                                 <Input />
                                           </Form.Item>
-
-
-                                          <Form.Item label="DatePicker" name="birth" initialValue={user?.birthday}>
-                                                <DatePicker defaultValue={dayjs(user?.birthday, dateFormat)} format={dateFormat} />
-                                          </Form.Item>
                                           <Form.Item label="Sex" name='sex' initialValue={user?.sex}>
                                                 <Input disabled style={{ backgroundColor: 'white' }} />
                                           </Form.Item>
-
+                                          <Form.Item label="Số Points" name='points' initialValue={user?.points}>
+                                                <Input disabled style={{ backgroundColor: 'white' }} />
+                                          </Form.Item>
                                           <Form.Item wrapperCol={{ offset: 2, span: 16 }}>
                                                 <Button type="primary" htmlType="submit">
                                                       Update
                                                 </Button>
                                           </Form.Item>
                                     </Form>
+                              </Col>
+                              <Col span={12}>
                               </Col>
                         </Row>
                   </div>
