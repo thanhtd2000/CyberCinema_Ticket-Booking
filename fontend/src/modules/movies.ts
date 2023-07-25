@@ -6,6 +6,7 @@ import { TProduct } from "./product";
 
 export type TQueryMovies = TQueryParamsGetData<{
       isHot?: number;
+      time?: any;
     }>;
 export type TQueryCode = TQueryParamsGetData<{
       code?: string;

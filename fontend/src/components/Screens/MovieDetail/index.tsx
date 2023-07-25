@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import style from './style.module.less';
 import { Breadcrumb, Col, Form, Radio, Row, Spin, Tag } from 'antd';
 import Image from 'next/image';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import VideoIframe from '@/components/Elements/VideoTrailer';
 import ReactPlayer from 'react-player';
 import { TMovies, TQueryMovies } from '@/modules/movies';
 import dayjs from 'dayjs';
@@ -97,7 +96,12 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
   const handleChoseTime = (time: Date | undefined) => {
     setParams((prev) => ({ ...prev, time }));
   };
-
+  const [hasWindow, setHasWindow] = useState(false);
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setHasWindow(true);
+    }
+  }, []);
   const { data: choseHours,isLoading } = queryAllHours(params, enableHour);
   const { data: choseRoom,isLoading:loading } = queryAllRoom(params, enableRoom);
   return (
@@ -281,7 +285,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                         <Col>
                           <Form.Item name='room'>
                               {!loading ? (<Radio.Group>
-                              {choseRoom && params.time ? (
+                              {choseRoom && params?.time ? (
                                 choseRoom.map((item: any,index:number) => (
                                   <Radio value={item.name} onChange={() => handleItemClickRoom(index)} onClick={() => setValueRoom(item)}>
                                     <div className={activeItemRoom === index ? style.active : style.calendarItem}>
@@ -313,13 +317,13 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
             </Form.Item>
           </Form>
         )}
-        {/* <div>
+        <div>
           <Row className={style.trailerMovies}>
             <Col>
               <h3>Trailer Movies</h3>
             </Col>
             <Col span={24} style={{ color: '#fff' }}>
-              {videoLink ? (
+              {hasWindow  && videoLink ? (
                 <ReactPlayer
                   title={videoTitle}
                   controls
@@ -331,11 +335,13 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                   allowFullScreen
                 />
               ) : (
-                <p>Loading...</p>
+                <div style={{textAlign: 'center'}}>
+                  <Spin/>
+                </div>
               )}
             </Col>
           </Row>
-        </div> */}
+        </div>
       </div>
     </div>
   );
