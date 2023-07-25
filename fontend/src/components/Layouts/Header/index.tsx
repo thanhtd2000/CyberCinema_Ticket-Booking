@@ -112,9 +112,9 @@ function Header() {
                                           <Row style={{ display: 'flex', justifyContent: 'flex-end' }} gutter={[16, 0]}>
                                                 <Col span={17} className={style.button}>
                                                       <Row gutter={[12, 0]}>
-                                                            {!Loading ? (<Col span={24}>
+                                                      <Col span={24}>
                                                                   {
-                                                                        token ? (<Dropdown menu={{ items }}>
+                                                                        !Loading && token ? (<Dropdown menu={{ items }}>
                                                                               <a onClick={(e) => e.preventDefault()}>
                                                                                     <Space className={style.userHeader}>
                                                                                           {user?.name}
@@ -122,7 +122,7 @@ function Header() {
                                                                               </a>
                                                                         </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
                                                                   }
-                                                            </Col>) : ''}
+                                                            </Col>
                                                       </Row>
                                                 </Col>
                                                 <Col span={5} className={style.select}>
