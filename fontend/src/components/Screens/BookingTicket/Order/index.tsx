@@ -321,13 +321,10 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                                       <Radio.Group className={style.allMethod}>
                                                             <Row gutter={[24, 24]}>
                                                                   <Col xs={24} sm={8}>
-                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="VNPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>Banking</span></Radio>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="VNPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>VN Pay</span></Radio>
                                                                   </Col>
                                                                   <Col xs={24} sm={8}>
-                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="ShoppePay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>ShoppePay</span></Radio>
-                                                                  </Col>
-                                                                  <Col xs={24} sm={8}>
-                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="MomoPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>MomoPay</span></Radio>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="Momo"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>MoMo</span></Radio>
                                                                   </Col>
                                                             </Row>
                                                       </Radio.Group>

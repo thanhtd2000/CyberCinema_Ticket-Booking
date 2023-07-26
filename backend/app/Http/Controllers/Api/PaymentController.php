@@ -252,7 +252,7 @@ class PaymentController extends Controller
                 $order = $this->order->where('order_code', $transaction->order_code)->first();
                 $this->orderProduct->where('order_id', $order->id)->update(['status' => 2]);
                 $this->orderSchedule->where('order_id', $order->id)->update(['status' => 2]);
-                $points = ceil($order->total / 10000);
+                $points = round($order->total / 10000);
                 $user = User::find($order->user_id);
                 $addpoints = $user->points + $points;
                 $user->update(['points' =>  $addpoints]);
@@ -310,7 +310,7 @@ class PaymentController extends Controller
                 $order = $this->order->where('order_code', $transaction->order_code)->first();
                 $this->orderProduct->where('order_id', $order->id)->update(['status' => 2]);
                 $this->orderSchedule->where('order_id', $order->id)->update(['status' => 2]);
-                $points = ceil($order->total / 10000);
+                $points = round($order->total / 10000);
                 $user = User::find($order->user_id);
                 $addpoints = $user->points + $points;
                 $user->update(['points' =>  $addpoints]);
