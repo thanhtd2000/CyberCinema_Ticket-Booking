@@ -11,7 +11,6 @@ class PointController extends Controller
     public function getpoints(Request $request)
     {
         $user = $request->user();
-        $data = PointResource::collection($user->points);
-        return response()->json($data, 200);
+        return response()->json($user->points, 200);
     }
 }

@@ -37,9 +37,9 @@ class TicketController extends Controller
                     ->select('movies.name as movie_name', 'schedules.time_start as time_start', 'rooms.name as room_name')
                     ->where('order_schedule.order_id', $d->id)
                     ->first();
-                $d->room_name = $orderSchedules->room_name;
-                $d->time_start = $orderSchedules->time_start;
-                $d->movie_name = $orderSchedules->movie_name;
+                $d->room_name = $orderSchedules->room_name ?? 'Không tồn tại';
+                $d->time_start = $orderSchedules->time_start ?? 'Không tồn tại';
+                $d->movie_name = $orderSchedules->movie_name ?? 'Không tồn tại';
                 $d->addPoints = ceil($d->total / 10000);
                 if ($d->status == 1) {
                     $d->link = "http://127.0.0.1:8000/bill?details=" . Crypt::encrypt($d->order_code);

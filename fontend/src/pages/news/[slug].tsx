@@ -1,12 +1,12 @@
 
+import Loading from '@/components/Elements/Loading';
 import { getPostBySlug } from '@/queries/apis/post';
-import { Spin } from 'antd';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import dynamic from 'next/dynamic';
 import React from 'react'
 import { QueryClient, dehydrate } from 'react-query';
-const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Spin></Spin> });
-const NewDetailScreen = dynamic(() => import('@/components/Screens/NewDetail'), { loading: () => <Spin></Spin> });
+const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Loading/> });
+const NewDetailScreen = dynamic(() => import('@/components/Screens/NewDetail'), { loading: () => <Loading/> });
 export async function getServerSideProps({ query }: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
   // News

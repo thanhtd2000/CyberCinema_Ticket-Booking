@@ -1,8 +1,13 @@
 import React from 'react'
-import Layout from '@/components/Layouts'
-import MovieDetailScreen from '@/components/Screens/MovieDetail'
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { getListMovieFromDatabaseBySlug } from '@/queries/apis/movies';
+import dynamic from 'next/dynamic';
+import Loading from '@/components/Elements/Loading';
+const MovieDetailScreen = dynamic(() => import('@/components/Screens/MovieDetail'), {
+      loading: () => <Loading />,
+      ssr: false,
+});
+const Layout = dynamic(() => import('@/components/Layouts'));
 export async function getServerSideProps({ params }: GetServerSidePropsContext) {
       const moviesDetail = await getListMovieFromDatabaseBySlug(params?.slug as string)
       return {

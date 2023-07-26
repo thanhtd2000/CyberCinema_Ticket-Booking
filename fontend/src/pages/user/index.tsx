@@ -1,6 +1,11 @@
+import Loading from '@/components/Elements/Loading';
+import dynamic from 'next/dynamic';
 import React from 'react'
-import Layout from '@/components/Layouts'
-import UserScreen from '@/components/Screens/User'
+const UserScreen = dynamic(() => import('@/components/Screens/User'), {
+      loading: () => <Loading />,
+      ssr: false,
+});
+const Layout = dynamic(() => import('@/components/Layouts'));
 function index() {
   return (
     <Layout>

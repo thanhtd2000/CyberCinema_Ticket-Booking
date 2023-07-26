@@ -11,9 +11,9 @@ import { ELanguage } from '@/configs/interface.config';
 
 import style from './style.module.less';
 import { useMutationSignOut } from '@/queries/hooks';
-import { checkAuth, getLocalStored } from '@/libs/localStorage';
-import { USER_PROFILE } from '@/queries/keys';
+import { checkAuth } from '@/libs/localStorage';
 import { UserOutlined } from '@ant-design/icons';
+import { queryGetProfile } from '@/queries/hooks/user';
 
 function Header() {
       const router = useRouter();
@@ -23,16 +23,8 @@ function Header() {
             setOpen(true);
       };
       const { mutate: signOut } = useMutationSignOut();
-      const [token, setToken] = useState<string>('');
-      useEffect(() => {
-            const accessTokenCurrent = checkAuth();
-            setToken(accessTokenCurrent);
-            window.addEventListener('storage', () => {
-                  const accessToken = checkAuth();
-                  setToken(accessToken);
-            });
-      }, []);
-      const user = getLocalStored(USER_PROFILE);
+      const [token] = useState<string>(checkAuth() || '');
+      const {data: user, isLoading: Loading } = queryGetProfile(token);
       function Tag() {
             return (
                   <Link className={style.logo2} href='/'>
@@ -118,14 +110,14 @@ function Header() {
                                     </Col>
                                     <Col span={8}>
                                           <Row style={{ display: 'flex', justifyContent: 'flex-end' }} gutter={[16, 0]}>
-                                                <Col span={18} className={style.button}>
+                                                <Col span={17} className={style.button}>
                                                       <Row gutter={[12, 0]}>
-                                                            <Col span={24}>
+                                                      <Col span={24}>
                                                                   {
-                                                                        token && user ? (<Dropdown menu={{ items }}>
+                                                                        !Loading && token ? (<Dropdown menu={{ items }}>
                                                                               <a onClick={(e) => e.preventDefault()}>
                                                                                     <Space className={style.userHeader}>
-                                                                                          {user.name}
+                                                                                          {user?.name}
                                                                                     </Space>
                                                                               </a>
                                                                         </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)

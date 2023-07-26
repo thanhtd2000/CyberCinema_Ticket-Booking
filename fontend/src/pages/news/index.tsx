@@ -1,13 +1,13 @@
 import React from 'react'
-import NewScreen from '@/components/Screens/News'
 import dynamic from 'next/dynamic';
-import { Spin } from 'antd';
 import { GetServerSidePropsContext, InferGetServerSidePropsType } from 'next';
 import { QueryClient, dehydrate } from 'react-query';
 import { getListPostFromDatabase } from '@/queries/apis/post';
 import { LANGUAGE_DEFAULT, baseParams } from '@/configs/const.config';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Spin></Spin> });
+import Loading from '@/components/Elements/Loading';
+const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Loading /> });
+const NewScreen = dynamic(() => import('@/components/Screens/News'), { loading: () => <Loading /> });
 export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
   // News

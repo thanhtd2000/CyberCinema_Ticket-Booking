@@ -1,9 +1,9 @@
 
-import { Spin } from 'antd';
+import Loading from '@/components/Elements/Loading';
 import dynamic from 'next/dynamic';
 import React from 'react'
 const BookingTicketScreen = dynamic(() => import('@/components/Screens/BookingTicket'), {
-      loading: () => <Spin />,
+      loading: () => <Loading />,
       ssr: false,
 });
 const Layout = dynamic(() => import('@/components/Layouts'));

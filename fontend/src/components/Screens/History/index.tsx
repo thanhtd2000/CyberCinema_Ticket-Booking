@@ -6,8 +6,6 @@ import { queryHistory } from '@/queries/hooks/payment';
 function HistoryScreen() {
   const token = checkAuth();
   const { data: history } = queryHistory(token);
-  console.log(history);
-  const numberWithComas = (num: number) => num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   return (
     <div className={`${style.infor} inforUser`} style={{ background: '#0D0E10' }}>
       <div className='container'>
@@ -51,7 +49,7 @@ function HistoryScreen() {
                   <p>Combo</p>
                 </Col>
                 <Col span={4}>
-                  <p>Tổng tiền</p>
+                  <p>Số point</p>
                 </Col>
               </Row>
             </Col>
@@ -80,12 +78,12 @@ function HistoryScreen() {
                       {item?.product_name.length > 0 ? item?.product_name?.map((item: any) => <p>{item}</p>) : '--'}
                     </Col>
                     <Col span={4} className={style.th}>
-                      {numberWithComas(item?.total)} đ
+                      {item?.addPoints} point
                     </Col>
                   </Row>
                 </Col>
               )) : (<div style={{display: 'flex', justifyContent: 'center', width: '100%', padding: '50px 0'}}>
-                  <Spin style={{background: 'orange'}}></Spin>
+                  <Spin style={{color: 'orange'}}></Spin>
               </div>)}
           </Row>
         </Col>

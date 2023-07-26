@@ -1,5 +1,6 @@
 import { Typography } from 'antd';
 import moment from 'moment';
+import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
 
 // import style from './style.module.less';
@@ -8,7 +9,7 @@ const { Text } = Typography;
 interface ICount {
   expiresAt: number;
 }
-function CounTime({ expiresAt }: ICount) {
+function CountTime({ expiresAt }: ICount) {
   const [now, setNow] = useState(Math.round(new Date().getTime()));
 
   useEffect(() => {
@@ -17,13 +18,18 @@ function CounTime({ expiresAt }: ICount) {
   }, []);
 
   const startDate = now;
+  const router = useRouter(); 
   const endDate = moment(expiresAt);
   const duration = moment.duration(endDate.diff(startDate));
   const exp = +endDate - +startDate;
   const seconds = useMemo(() => (duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds()), [duration]);
   const minutes = useMemo(() => (duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes()), [duration]);
+  if(exp <= 0){
+      router.push('/')
+      return false;
+  }
   return (
     <Text>{exp <= 0 || !expiresAt ? 'Token Expried' : `${minutes}:${seconds}`}</Text>
   );
 }
-export default CounTime;
+export default CountTime;
