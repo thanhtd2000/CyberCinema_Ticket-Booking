@@ -33,28 +33,7 @@ class PaymentController extends Controller
         $this->product = $product;
         $this->convert = new GlobalHelper();
     }
-    public function execPostRequest($url, $data)
-    {
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt(
-            $ch,
-            CURLOPT_HTTPHEADER,
-            array(
-                'Content-Type: application/json',
-                'Content-Length: ' . strlen($data)
-            )
-        );
-        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
-        //execute post
-        $result = curl_exec($ch);
-        //close connection
-        curl_close($ch);
-        return $result;
-    }
+
     public function createPayment(Request $request)
     {
         $user = $request->user();
@@ -69,7 +48,6 @@ class PaymentController extends Controller
         }
         $usedpoints = $user->points - $request->points;
         User::find($user->id)->update(['points' =>  $usedpoints]);
-        // dd($request->all());
         $typePayment = $request->typePayment;
 
         switch ($typePayment) {
@@ -101,7 +79,6 @@ class PaymentController extends Controller
                     ]);
                 }
 
-                // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
 
                 foreach ($request->seat_id as $seatId) {
 
@@ -131,7 +108,6 @@ class PaymentController extends Controller
                     "vnp_OrderType" => $vnp_OrderType,
                     "vnp_ReturnUrl" => 'http://127.0.0.1:8000/api/payment',
                     "vnp_TxnRef" => $vnp_TxnRef,
-                    // "vnp_Inv_Email"=>$vnp_Inv_Email,
 
                 );
 
@@ -141,8 +117,6 @@ class PaymentController extends Controller
                 if (isset($vnp_Bill_State) && $vnp_Bill_State != "") {
                     $inputData['vnp_Bill_State'] = $vnp_Bill_State;
                 }
-
-                //var_dump($inputData);
                 ksort($inputData);
                 $query = "";
                 $i = 0;
@@ -202,13 +176,10 @@ class PaymentController extends Controller
                     ]);
                 }
 
-                // $orderSchedules = $this->orderSchedule->where('schedule_id',$request->schedule_id)->where('user_id',$user->id)->where('seat_id')->update();
-
                 foreach ($request->seat_id as $seatId) {
 
                     $orderSchedule = $this->orderSchedule->where('schedule_id', $request->schedule_id)->where('user_id', $user->id)->where('seat_id', $seatId)->update(['order_id' => $order->id]);
                 }
-
                 foreach ($request->product as $product) {
                     if ($product['amount'] != 0) {
                         $this->orderProduct->create([
@@ -221,8 +192,6 @@ class PaymentController extends Controller
                 }
                 $requestId = time() . "";
                 $requestType = "captureWallet";
-
-                //before sign HMAC SHA256 signature
                 $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
                 $signature = hash_hmac("sha256", $rawHash, $secretKey);
                 $data = array(
@@ -240,7 +209,7 @@ class PaymentController extends Controller
                     'requestType' => $requestType,
                     'signature' => $signature
                 );
-                $result = $this->execPostRequest($endpoint, json_encode($data));
+                $result = $this->convert->execPostRequest($endpoint, json_encode($data));
                 $jsonResult = json_decode($result, true);
                 $data = [
 
@@ -256,13 +225,11 @@ class PaymentController extends Controller
                 break;
         }
         return response()->json($data);
-        
     }
 
 
     public function insertPayment(Request $request)
     {
-        // dd($request->toArray());
         if (isset($request->vnp_TransactionStatus)) {
 
             if ($request->vnp_TransactionStatus == 00) {
@@ -319,15 +286,14 @@ class PaymentController extends Controller
                 $backpoints = $user->points + $orders->points;
                 $user->update(['points' =>  $backpoints]);
                 $this->orderSchedule->where('order_id', $orders->id)->delete();
-                // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
                 return redirect()->to('http://localhost:3200/payment/failed');
             }
         }
-        if(isset($request->resultCode)){
+        if (isset($request->resultCode)) {
             if ($request->resultCode == 0) {
                 $dataTrans = [
                     'transactions_code' => $request->transId,
-                    
+
                     'payment_code' => 'Momo',
                     'status' => 2,
                     'amount' => $request->amount,
@@ -362,7 +328,7 @@ class PaymentController extends Controller
             } else {
                 $dataTrans = [
                     'transactions_code' => $request->transId,
-                    
+
                     'payment_code' => 'Momo',
                     'status' => 2,
                     'amount' => $request->amount,
@@ -378,7 +344,6 @@ class PaymentController extends Controller
                 $backpoints = $user->points + $orders->points;
                 $user->update(['points' =>  $backpoints]);
                 $this->orderSchedule->where('order_id', $orders->id)->delete();
-                // $orderProduct = $this->orderProduct->where('order_id',$order->id)->update(['status' => 1]);
                 return redirect()->to('http://localhost:3200/payment/failed');
             }
         }
