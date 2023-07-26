@@ -23,7 +23,7 @@ class ShowsController extends Controller
             ->join('products', 'order_products.product_id', '=', 'products.id')
             ->select('order_products.*', 'products.name')
             ->where('order_products.order_id', $order->id)
-            ->where('order_products.status', '=', 1)
+            ->where('order_products.status', '=', 2)
             ->get();
 
         $orderSchedules = DB::table('order_schedule')

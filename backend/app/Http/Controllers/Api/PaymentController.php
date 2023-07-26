@@ -226,8 +226,6 @@ class PaymentController extends Controller
         }
         return response()->json($data);
     }
-
-
     public function insertPayment(Request $request)
     {
         if (isset($request->vnp_TransactionStatus)) {
