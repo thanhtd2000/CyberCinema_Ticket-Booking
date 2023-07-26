@@ -38,8 +38,10 @@ class DiscountController extends Controller
     }
     public function getAllDiscount(Request $request)
     {
-        $currentDate = now()->format('Y-m-d');
         $user = $request->user();
+        
+        $currentDate = now()->format('Y-m-d');
+        
         $discounts = Discount::leftJoin('orders', function ($join) use ($user) {
             $join->on('discounts.id', '=', 'orders.discount_id')
                 ->where('orders.user_id', '=', $user->id);
