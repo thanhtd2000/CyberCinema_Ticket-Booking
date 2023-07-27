@@ -183,11 +183,11 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     });
 
     Route::prefix('/transaction')->group(function () {
-        Route::get('/', [TransactionController::class, 'index'])->name('admin.transaction');
+        Route::get('/', [TransactionController::class, 'index'])->name('admin.transaction')->middleware('can:list-transaction');
     });
 
     Route::prefix('/order')->group(function () {
-        Route::get('/', [OrderController::class, 'index'])->name('admin.order');
+        Route::get('/', [OrderController::class, 'index'])->name('admin.order')->middleware('can:list-order');
         Route::put('/cancel/{id}', [OrderController::class, 'cancel'])->name('admin.order.cancel');
     });
 });

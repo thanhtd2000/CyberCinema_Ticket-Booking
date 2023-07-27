@@ -105,5 +105,12 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('create-discount', 'App\Policies\DiscountPolicy@create');
         Gate::define('edit-discount', 'App\Policies\DiscountPolicy@update');
         Gate::define('delete-discount', 'App\Policies\DiscountPolicy@delete');
+
+        //Order
+        Gate::define('list-order', 'App\Policies\OrderPolicy@view');
+        Gate::define('delete-order', 'App\Policies\OrderPolicy@delete');
+
+        //Transaction
+        Gate::define('list-transaction', 'App\Policies\TransactionPolicy@view');
     }
 }
