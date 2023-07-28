@@ -54,6 +54,26 @@ class StatisticalsController extends Controller
             ]
         ];
 
-        return view('Admin/statisticals/index', compact('orders','orderMonth'))->with('chartData', json_encode($data));
+        return view('Admin/statisticals/index', compact('orders', 'orderMonth'))->with('chartData', json_encode($data));
+    }
+
+    public function showMonth(Request $request)
+    {
+        $dateString =$request->query('month');
+        $carbonDate = Carbon::parse($dateString);
+
+        $months = $carbonDate->month; // Kết quả: 7
+        $year = $carbonDate->year; // Năm 2023
+        // dd($year);
+
+        $startDate = Carbon::createFromDate($year, $months, 1)->startOfDay();
+        $endDate = Carbon::createFromDate($year, $months, 1)->endOfMonth()->endOfDay();
+
+        $orders = Orders::select(DB::raw('DATE(created_at) as order_date'), DB::raw('SUM(total) AS total_sum'))
+            ->where('status', 2)
+            ->whereBetween('created_at', [$startDate, $endDate])
+            ->groupBy('order_date')
+            ->get();
+         return response()->json(['month'=>$orders]);
     }
 }
