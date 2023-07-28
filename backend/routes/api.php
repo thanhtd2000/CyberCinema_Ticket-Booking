@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->get('/users/profile', [AuthApiController::cla
 Route::middleware('auth:sanctum')->patch('/update-status-seat', [SeatController::class, 'updateStatusSeat']);
 //discount
 Route::middleware('auth:sanctum')->get('/get/discount/detail ', [DiscountController::class, 'getDiscount']);
-Route::middleware('auth:sanctum')->get('/get/discount/list', [DiscountController::class, 'getAllDiscount']);
+Route::middleware('auth:sanctum')->get('/get/discount/  list', [DiscountController::class, 'getAllDiscount']);
 
 //Products
 Route::get('get/products', [ProductController::class, 'index']);
@@ -71,4 +71,5 @@ Route::middleware('auth:sanctum')->get('get/tickets', [TicketController::class, 
 Route::middleware('auth:sanctum')->get('get/points', [PointController::class, 'getpoints']);
 
 //email
-Route::get('send/code', [AuthApiController::class, 'sendcode']);
+Route::post('send/code', [AuthApiController::class, 'sendcode']);
+Route::post('check/code', [AuthApiController::class, 'checkcode']);
