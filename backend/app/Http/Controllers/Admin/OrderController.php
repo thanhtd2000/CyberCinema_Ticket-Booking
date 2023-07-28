@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -35,7 +36,8 @@ class OrderController extends Controller
 
     public function cancel($id)
     {
-        $orders =  $this->orders->find($id);
+        if (Gate::allows('delete-room')) {
+            $orders =  $this->orders->find($id);
 
         $orders->update([
             'status' => 3
@@ -56,5 +58,9 @@ class OrderController extends Controller
         $this->orderSchedule->where('order_id', $orders->id)->delete();
 
         return back()->with('message', 'Hủy thành công');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
+        
     }
 }

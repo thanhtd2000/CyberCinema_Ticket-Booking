@@ -4,13 +4,17 @@ namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Mail\SendEmail;
 use Illuminate\Http\Request;
 use App\Helpers\FirebaseHelper;
 use App\Http\Requests\UserRequest;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\ProfileRequests;
 use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\ProfileRequests;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Validation\ValidationException;
@@ -208,5 +212,46 @@ class AuthApiController extends Controller
                   'points' => $user->points,
             ];
             return response()->json($data, 200);
+      }
+      public function changepassword(Request $request)
+      {
+            $user = $request->user();
+            if (Hash::check($request->current_password, $user->password)) {
+                  $user->update([
+                        'password' => Hash::make($request->new_password)
+                  ]);
+                  return response()->json('Đổi mật khẩu thành công', 200);
+            }
+            return response()->json('Mật khẩu hiện tại không đúng', 401);
+      }
+      public function sendcode(Request $request)
+      {
+
+            $rule = [
+                  'email' => 'required|email',
+            ];
+            $messages = [
+                  'required' => 'Trường bắt buộc phải nhập',
+                  'email' => 'Trường là email chứa @'
+            ];
+            $request->validate($rule, $messages);
+            if (User::where('email', $request->email)->doesntExist()) {
+                  return response()->json('Tài khoản KHÔNG tồn tại', 404);
+            } else {
+                  $email = $request->email;
+                  DB::table('password_resets')->where('email', $email)->delete();
+                  $pass_code = rand(11111, 99999);
+                  DB::table('password_resets')->insert([
+                        'email' => $email,
+                        'token' => $pass_code,
+                        'created_at' => Carbon::now(),
+                        'expires_at' => Carbon::now()->addMinutes(15),
+                  ]);
+                  Mail::to($email)->send(new SendEmail($pass_code, $email));
+                  return response()->json([
+                        'email' => $email,
+                        'message' => 'Emai đã gửi thành công',
+                  ], 200);
+            }
       }
 }
