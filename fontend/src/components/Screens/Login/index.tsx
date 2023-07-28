@@ -66,6 +66,9 @@ function LoginScreen() {
                                                       <Button type='primary' className={style.buttonLogin} htmlType='submit'>
                                                             Đăng nhập
                                                       </Button>
+                                                      <Button type='primary' href='/forgot-password' className={style.forgotPass}>
+                                                            Quên mật khẩu
+                                                      </Button>
                                                 </Form.Item>
                                           </Form>
                                     </Col>

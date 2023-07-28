@@ -11,20 +11,19 @@ import { ELanguage } from '@/configs/interface.config';
 
 import style from './style.module.less';
 import { useMutationSignOut } from '@/queries/hooks';
-import { checkAuth } from '@/libs/localStorage';
+import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { UserOutlined } from '@ant-design/icons';
-import { queryGetProfile } from '@/queries/hooks/user';
 
 function Header() {
       const router = useRouter();
       const [open, setOpen] = useState(false);
       const [navbar, setNavbar] = useState(false);
+      const token = checkAuth();
       const showDrawer = () => {
             setOpen(true);
       };
+      const user = getLocalStored('USER_PROFILE')
       const { mutate: signOut } = useMutationSignOut();
-      const [token] = useState<string>(checkAuth() || '');
-      const {data: user, isLoading: Loading } = queryGetProfile(token);
       function Tag() {
             return (
                   <Link className={style.logo2} href='/'>
@@ -112,9 +111,9 @@ function Header() {
                                           <Row style={{ display: 'flex', justifyContent: 'flex-end' }} gutter={[16, 0]}>
                                                 <Col span={17} className={style.button}>
                                                       <Row gutter={[12, 0]}>
-                                                      <Col span={24}>
+                                                            <Col span={24}>
                                                                   {
-                                                                        !Loading && token ? (<Dropdown menu={{ items }}>
+                                                                        token ? (<Dropdown menu={{ items }}>
                                                                               <a onClick={(e) => e.preventDefault()}>
                                                                                     <Space className={style.userHeader}>
                                                                                           {user?.name}
