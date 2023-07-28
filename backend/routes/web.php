@@ -52,7 +52,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/bill', [ShowsController::class, 'index'])->name('bill');
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [StatisticalsController::class, 'index'])->name('admin.index');
-
+   
     Route::prefix('users')->group(function () {
         Route::get("/index", [UserController::class, 'show'])->name('users.show')->middleware('can:list-user');
         Route::post("/index", [UserController::class, 'show'])->name('users.search')->middleware('can:list-user');
@@ -190,4 +190,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('admin.order')->middleware('can:list-order');
         Route::put('/cancel/{id}', [OrderController::class, 'cancel'])->name('admin.order.cancel');
     });
+    Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
+
+
 });

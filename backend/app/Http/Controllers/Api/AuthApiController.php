@@ -226,15 +226,6 @@ class AuthApiController extends Controller
       }
       public function sendcode(Request $request)
       {
-
-            $rule = [
-                  'email' => 'required|email',
-            ];
-            $messages = [
-                  'required' => 'Trường bắt buộc phải nhập',
-                  'email' => 'Trường là email chứa @'
-            ];
-            $request->validate($rule, $messages);
             if (User::where('email', $request->email)->doesntExist()) {
                   return response()->json('Tài khoản KHÔNG tồn tại', 404);
             } else {
@@ -253,5 +244,16 @@ class AuthApiController extends Controller
                         'message' => 'Emai đã gửi thành công',
                   ], 200);
             }
+      }
+
+      public function checkcode(Request $request)
+      {
+
+            $check =  DB::table('password_resets')->where('email', $request->email)->where('token', $request->code)->get();
+            if (!empty($check->toArray())) {
+                  User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+                  return response()->json(['message' => 'Đổi mật khẩu thành công'], 200);
+            }
+            return response()->json(['message' => 'Sai mã code xin mời kiểm tra lại'], 200);
       }
 }
