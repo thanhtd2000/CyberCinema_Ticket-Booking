@@ -26,36 +26,13 @@
                     </tr>
                 </thead>
                 <tbody class="data-container">
-                   
-                    <!-- Truyền dữ liệu vào đây theo tháng $order->order_month -->
                 </tbody>
             </table>
         </div>
     </div>
 
 
-    {{-- <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Ngày</th>
-                    <th scope="col">Doanh số</th>
-                    
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-
-                  </tr>
-                
-                </tbody>
-              </table>
-            
-        </div>
-    </div> --}}
+  
     <script>
         const chartData = JSON.parse('{!! $chartData !!}');
         console.log(chartData)
@@ -83,8 +60,6 @@
     <script>
         $(document).on('click', '.month-button', function(e) {
             var month = $(this).data('month');
-            // console.log(seat_id);
-            // $('#seats').modal('show');
             $.ajax({
                 url: '/admin/showMonth' ,
                 type: 'GET',
@@ -96,8 +71,6 @@
                     // console.log(data.month);
                     const tableBody = $('.data-container');
                     tableBody.empty(); // Xóa dữ liệu cũ trước khi đổ mới
-                
-                    
                     data.month.forEach (function(item) {
                         tableBody.append('<tr><td>' + item.order_date + '</td><td>' + new Intl.NumberFormat().format(item.total_sum)  + ' VND </td></tr>');
                     })
