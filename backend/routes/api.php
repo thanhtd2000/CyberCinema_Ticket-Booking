@@ -48,6 +48,7 @@ Route::middleware('auth:sanctum')->post('/get/room', [RoomController::class, 'ge
 
 //users
 Route::middleware('auth:sanctum')->post('/users/update-profile', [AuthApiController::class, 'update']);
+Route::middleware('auth:sanctum')->post('/users/update-password', [AuthApiController::class, 'changepassword']);
 Route::middleware('auth:sanctum')->get('/users/profile', [AuthApiController::class, 'get']);
 
 //seats
@@ -68,3 +69,6 @@ Route::middleware('auth:sanctum')->get('get/tickets', [TicketController::class, 
 
 //points 
 Route::middleware('auth:sanctum')->get('get/points', [PointController::class, 'getpoints']);
+
+//email
+Route::get('send/code', [AuthApiController::class, 'sendcode']);
