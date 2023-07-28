@@ -1,17 +1,15 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import style from './style.module.less';
-import { Button, Col, Form, Input, InputNumber, Radio, Row, Spin } from 'antd';
+import { Button, Col, Form, InputNumber, Radio, Row, Spin } from 'antd';
 import Image from 'next/image';
 import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { FaRegUserCircle } from 'react-icons/fa';
-import CounTime from '@/components/Elements/Timer/Timer';
 import { queryAllDiscount, queryAllProduct } from '@/queries/hooks/product';
 import { useRouter } from 'next/router';
 import { TbDiscountCheck } from "react-icons/tb";
 import { TDiscount, TProduct } from '@/modules/product';
 import { queryGetPoints, queryPayment } from '@/queries/hooks/payment';
 import { useGlobalState } from '@/libs/GlobalStateContext';
-import { debounce } from 'lodash';
 import CountTime from '@/components/Elements/Timer/Timer';
 interface IOrderTicket {
       expiresAt: any;
@@ -57,7 +55,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
       };
       useEffect(() => {
             setBodyPayment({ ...bodyPayment, discount_id: idDiscount, product: productChoice, total: total, typePayment: typePayment as string, points: points })
-      }, [bodyPayment])
+      }, [typePayment])
       const { data: discount } = queryAllDiscount(token)
       const user = getLocalStored('USER_PROFILE')
       useEffect(() => {
@@ -82,7 +80,6 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
       const linkOrder = data?.data;
       setGlobalState(linkOrder)
       const onChange = (value: any) => {
-            console.log(value);
             setPoints(value);
           };
       return (
@@ -159,7 +156,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                                 </Col>
                                           </Row>
                                     </Col>
-                              ))) : (<div style={{ width: '100%', textAlign: 'center' }}><Spin></Spin></div>)
+                              ))) : (<div style={{ width: '100%', textAlign: 'center', paddingTop: '50px' }}><Spin></Spin></div>)
                         }
                         <Col span={24}>
                               <Row>
@@ -167,71 +164,8 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                           <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' />
                                           <p>GIẢM GIÁ</p>
                                     </Col>
-                                    {/* <Col span={12} className={style.getVoucher}>
-                                          <Dropdown menu={{ items }} placement="top" arrow={{ pointAtCenter: true }}>
-                                                <p>Lấy mã voucher của bạn</p>
-                                          </Dropdown>
-                                    </Col> */}
                               </Row>
                         </Col>
-                        {/* <Col span={24}>
-                              <Form
-                                    name="basic"
-                                    initialValues={{ remember: true }}
-                                    onFinish={onFinish}
-                                    onFinishFailed={onFinishFailed}
-                                    autoComplete="off"
-                                    style={{ display: 'flex', justifyContent: 'space-between' }}
-                              >
-                                    <Form.Item
-                                          name="code"
-                                    >
-                                          <Input placeholder='Vui lòng nhập mã ...' className={style.inputVoucher} />
-                                    </Form.Item>
-
-                                    <Form.Item>
-                                          <Button className={style.buttonSubmit} htmlType="submit">
-                                                TÌM DISCOUNT
-                                          </Button>
-                                    </Form.Item>
-                              </Form>
-                        </Col> */}
-                        {/* {
-                              DetailDiscount && DetailDiscount ? (<Col span={24}>
-                                    <Row>
-                                          <Col span={24} className={style.headerDiscount}>
-                                                <Row style={{ textAlign: 'center' }}>
-                                                      <Col span={6}>
-                                                            <p>Mã voucher</p>
-                                                      </Col>
-                                                      <Col span={8}>
-                                                            <p>Nội dung voucher</p>
-                                                      </Col>
-                                                      <Col span={6}>
-                                                            <p>Ngày hết hạn</p>
-                                                      </Col>
-                                                      <Col span={4}></Col>
-                                                </Row>
-                                          </Col>
-                                          <Col span={24}>
-                                                <Row className={style.contentDiscount} gutter={[24, 0]}>
-                                                      <Col span={6} className={style.code}>
-                                                            <p>{DetailDiscount?.code}</p>
-                                                      </Col>
-                                                      <Col span={8}>
-                                                            <p>Giảm ${DetailDiscount?.percent} % trên tổng hoá đơn</p>
-                                                      </Col>
-                                                      <Col span={6}>
-                                                            <p>{DetailDiscount?.end_time}</p>
-                                                      </Col>
-                                                      <Col span={4}>
-                                                            <Button className={style.buttonSubmit} onClick={()=>handleUsingDiscount(DetailDiscount)}>ÁP DỤNG</Button>
-                                                      </Col>
-                                                </Row>
-                                          </Col>
-                                    </Row>
-                              </Col>) : ''
-                        } */}
                         <Col span={24}>
                               <Row>
                                     <Col span={24} className={style.headerDiscount}>
@@ -320,11 +254,11 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                                 <Form.Item>
                                                       <Radio.Group className={style.allMethod}>
                                                             <Row gutter={[24, 24]}>
-                                                                  <Col xs={24} sm={8}>
-                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="VNPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>VN Pay</span></Radio>
+                                                                  <Col xs={24} sm={12}>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="VNPay"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>Banking</span></Radio>
                                                                   </Col>
-                                                                  <Col xs={24} sm={8}>
-                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="Momo"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>MoMo</span></Radio>
+                                                                  <Col xs={24} sm={12}>
+                                                                        <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value="Momo"> <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>MomoPay</span></Radio>
                                                                   </Col>
                                                             </Row>
                                                       </Radio.Group>

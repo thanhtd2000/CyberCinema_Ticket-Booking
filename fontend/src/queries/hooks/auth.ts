@@ -12,7 +12,6 @@ import { getProfile } from '../apis/user';
 import { getRoleCurrent } from '../apis/role';
 import { useRouter } from 'next/router';
 import { urlHeader } from '@/configs/const.config';
-import { StringDecoder } from 'string_decoder';
 
 /**
  * @method useQuerySignIn

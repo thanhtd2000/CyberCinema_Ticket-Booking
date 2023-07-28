@@ -11,6 +11,9 @@ export type TQueryMovies = TQueryParamsGetData<{
 export type TQueryCode = TQueryParamsGetData<{
       code?: string;
     }>;
+export type TQueryEmail = {
+      email: string;
+}
 export type TMovies = {
       _id: string;
       name: string;

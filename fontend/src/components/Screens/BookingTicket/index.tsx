@@ -7,7 +7,6 @@ import { checkAuth, getLocalStored } from '@/libs/localStorage';
 import { queryAllChair } from '@/queries/hooks/schedule';
 import { useQueryPatchChair } from '@/queries/hooks/chair';
 import LineChair from '@/components/Elements/LineChair/LineChair';;
-import CounTime from '@/components/Elements/Timer/Timer';
 import OrderTicket from './Order';
 import { useGlobalState } from '@/libs/GlobalStateContext';
 import CountTime from '@/components/Elements/Timer/Timer';

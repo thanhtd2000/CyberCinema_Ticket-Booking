@@ -33,7 +33,7 @@ function Carousel () {
               </ul>
             </Col>
             <Col span={24}>
-              <Title level={3}>HACKSAW RIDGE</Title>
+              <Title level={3}>Quỷ quyệt: Cửa đỏ vô định</Title>
             </Col>
             <Col span={24}>
               <Paragraph className={style.name}>2D Digital</Paragraph>

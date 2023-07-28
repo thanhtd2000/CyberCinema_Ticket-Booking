@@ -38,10 +38,4 @@ export const queryAllPostBySlug = (slug: string, lang: ELanguage) =>
     refetchOnMount: false,
     keepPreviousData: true,
   });
-export const queryAllPostByView = (params: TQueryPost, lang: ELanguage) =>
-  useQuery<TResDataListApi<TPost[]>>({
-    queryKey: [LIST_POST, JSON.stringify(params), lang],
-    queryFn: () => getListPostByViewer(params, lang),
-    refetchOnMount: false,
-    keepPreviousData: true,
-  });
+
