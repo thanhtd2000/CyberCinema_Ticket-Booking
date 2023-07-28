@@ -3,12 +3,11 @@ import React, { useState } from 'react'
 import style from './style.module.less';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 import { useQueryGetNewEmail } from '@/queries/hooks/user';
 const { Title } = Typography;
 
 
-function ForgotPasswordScreen() {
+function ConfirmPassword() {
       const [error,setError] = useState(false)
       const router = useRouter();
       const {mutate: getNewPass} = useQueryGetNewEmail()
@@ -32,7 +31,7 @@ function ForgotPasswordScreen() {
             <Col className={style.formLogin}>
                   <Row>
                         <Col span={24}>
-                              <Title level={2}>Quên mật khẩu</Title>
+                              <Title level={2}>Đổi mật khẩu</Title>
                         </Col>
                         <Col span={24}>
                               <Form
@@ -43,21 +42,29 @@ function ForgotPasswordScreen() {
                                     autoComplete='off'
                               >
                                     <Form.Item
-                                          name='email'
-                                          rules={[{ required: true, message: 'Vui lòng nhập email hợp lệ.' }]}
+                                          name='code'
+                                          rules={[{ required: true, message: 'Vui lòng nhập code hợp lệ.' }]}
                                     >
-                                          <Input className={style.input} placeholder='Email' />
+                                          <Input className={style.input} placeholder='Mã đổi mật khẩu' />
                                     </Form.Item>
                                     <span>
-                                          {error? (<div style={{color: 'red'}}>Email không chính xác</div>) : null}
+                                          {error? (<div style={{color: 'red'}}>Code không chính xác</div>) : null}
                                     </span>
-                                    <Form.Item>
-                                          <span style={{ color: '#b3b3b3', fontSize: '12px' }}>Đã có tài khoản <Link href='login' style={{ color: 'orange', textDecoration: 'underline' }}>Đăng nhập ngay</Link></span>
+                                    <Form.Item
+                                          name='pass'
+                                          rules={[{ required: true, message: 'Vui lòng nhập mật khẩu hợp lệ.' }]}
+                                    >
+                                          <Input className={style.input} placeholder='Mật khẩu' />
                                     </Form.Item>
-
+                                    <Form.Item
+                                          name='re-pass'
+                                          rules={[{ required: true, message: 'Vui lòng nhập lại mật khẩu hợp lệ.' }]}
+                                    >
+                                          <Input className={style.input} placeholder='Nhập lại mật khẩu' />
+                                    </Form.Item>
                                     <Form.Item>
                                           <Button type='primary' className={style.buttonLogin} htmlType='submit'>
-                                                Tiếp theo
+                                                Đổi mật khẩu
                                           </Button>
                                     </Form.Item>
                               </Form>
@@ -69,4 +76,4 @@ function ForgotPasswordScreen() {
   )
 }
 
-export default ForgotPasswordScreen
+export default ConfirmPassword

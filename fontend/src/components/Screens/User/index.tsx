@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './style.module.less'
 import { Breadcrumb, Button, Col, Form, Input, Row } from 'antd'
 import { checkAuth } from '@/libs/localStorage';
 import { queryGetProfile, useMutationUpdatePassword, useMutationUpdateUser } from '@/queries/hooks/user';
 function UserScreen() {
-      const token = checkAuth()
       const { mutate: updateUser } = useMutationUpdateUser()
       const { mutate: updatePassword } = useMutationUpdatePassword()
+      const [token, setToken] = useState("");
+      useEffect(() => {
+            if (checkAuth()) {
+                  setToken(checkAuth())
+            }
+      }, [checkAuth()])
       const onFinish = (values: any) => {
             console.log('Success:', values);
             updateUser({ token, data: { ...values, image: values.image?.file } })
       };
-      const onFinishForm = (values: any) =>{
-            updatePassword({token, data: {values} })
+      const onFinishForm = (body: any) =>{
+            updatePassword({token, data: {body} })
       }
       const { data: user } = queryGetProfile(token);
       return (
@@ -36,6 +41,7 @@ function UserScreen() {
                                     <Form
                                           name="basic"
                                           wrapperCol={{ span: 24 }}
+                                          labelCol={{ md: 6,lg: 5 }}
                                           initialValues={{ remember: true }}
                                           onFinish={onFinish}
                                           autoComplete="off"
@@ -82,6 +88,7 @@ function UserScreen() {
                                     <Form
                                           name="basic"
                                           wrapperCol={{ span: 24 }}
+                                          labelCol={{ lg: 8,xl: 6 }}
                                           initialValues={{ remember: true }}
                                           onFinish={onFinishForm}
                                           autoComplete="off"
@@ -90,7 +97,6 @@ function UserScreen() {
                                           <Form.Item
                                                 label="Mật khẩu hiện tại"
                                                 name="current_password"
-                                                initialValue={user?.name}
                                           >
                                                 <Input />
                                           </Form.Item>
@@ -98,7 +104,6 @@ function UserScreen() {
                                           <Form.Item
                                                 label="Mật khẩu mới"
                                                 name="new_password"
-                                                initialValue={user?.email}
                                           >
                                                 <Input style={{ backgroundColor: 'white' }} />
                                           </Form.Item>

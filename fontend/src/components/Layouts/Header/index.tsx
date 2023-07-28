@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-no-undef */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Row, Col, Button, Drawer, Dropdown, Space, MenuProps } from 'antd';
+import { Row, Col, Button, Drawer, Dropdown, Space, MenuProps, Spin } from 'antd';
 import { useRouter } from 'next/router';
 import { IoDiamondOutline, IoLogOutOutline } from 'react-icons/io5';
 import { TbArrowsExchange2 } from 'react-icons/tb';
@@ -11,19 +11,31 @@ import { ELanguage } from '@/configs/interface.config';
 
 import style from './style.module.less';
 import { useMutationSignOut } from '@/queries/hooks';
-import { checkAuth, getLocalStored } from '@/libs/localStorage';
+import { checkAuth } from '@/libs/localStorage';
 import { UserOutlined } from '@ant-design/icons';
+import { queryGetProfile } from '@/queries/hooks/user';
 
 function Header() {
       const router = useRouter();
       const [open, setOpen] = useState(false);
       const [navbar, setNavbar] = useState(false);
-      const token = checkAuth();
+      const [token, setToken] = useState(undefined);
+      useEffect(() => {
+            if (checkAuth()) {
+                  setToken(checkAuth() as any)
+            }
+      }, [checkAuth()])
+
       const showDrawer = () => {
             setOpen(true);
       };
-      const user = getLocalStored('USER_PROFILE')
+      const { data: user, isLoading, isFetching } = queryGetProfile(token)
       const { mutate: signOut } = useMutationSignOut();
+
+      const handleLogout = () => {
+            signOut()
+            setToken(undefined)
+      }
       function Tag() {
             return (
                   <Link className={style.logo2} href='/'>
@@ -72,7 +84,7 @@ function Header() {
                   key: '3',
                   icon: <IoLogOutOutline />,
                   label: (
-                        <Link onClick={() => signOut()} href='/'>Đăng xuất</Link>
+                        <Link onClick={() => handleLogout()} href='/'>Đăng xuất</Link>
                   ),
             },
       ];
@@ -111,17 +123,26 @@ function Header() {
                                           <Row style={{ display: 'flex', justifyContent: 'flex-end' }} gutter={[16, 0]}>
                                                 <Col span={17} className={style.button}>
                                                       <Row gutter={[12, 0]}>
-                                                            <Col span={24}>
-                                                                  {
-                                                                        token ? (<Dropdown menu={{ items }}>
-                                                                              <a onClick={(e) => e.preventDefault()}>
-                                                                                    <Space className={style.userHeader}>
-                                                                                          {user?.name}
-                                                                                    </Space>
-                                                                              </a>
-                                                                        </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
-                                                                  }
-                                                            </Col>
+                                                            {
+                                                                  isLoading && isFetching ? <Spin /> :
+                                                                        <Col span={24}>
+                                                                              {
+                                                                                    user && !!token ? (<Dropdown menu={{ items }}>
+                                                                                          <a onClick={(e) => e.preventDefault()}>
+                                                                                                {
+                                                                                                      user && (<Space className={style.userHeader}>
+                                                                                                            {user?.name}
+                                                                                                      </Space>)
+                                                                                                }
+                                                                                          </a>
+                                                                                    </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
+
+
+
+                                                                              }
+                                                                        </Col>
+                                                            }
+
                                                       </Row>
                                                 </Col>
                                                 <Col span={5} className={style.select}>
