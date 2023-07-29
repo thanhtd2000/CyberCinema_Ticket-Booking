@@ -56,7 +56,7 @@ function MovieScreen () {
         </div>
         <div className={style.sortMovie}>
           <Row style={{ justifyContent: 'space-between', width: '100%' }} gutter={[0, 24]}>
-            <Col xs={24} sm={24} md={14} style={{ display: 'flex', alignItems: 'center' }}>
+            <Col xs={24} sm={24} md={10} style={{ display: 'flex', alignItems: 'center' }}>
               <Search className={style.search} onSearch={onSearch} placeholder='Nhập tên phim' enterButton />
             </Col>
             <Col>
