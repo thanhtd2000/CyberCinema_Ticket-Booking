@@ -32,7 +32,7 @@
             <tr>
                 <th class="">STT</th>
                 <th class="">Khách hàng</th>
-                <th class="">Mã giảm giá</th>
+               
                
                 <th class="">Mã thanh toán</th>
                 <th class="">Trạng thái</th>
@@ -46,8 +46,7 @@
                 <tr>
                     <td class="">{{ $key += 1 }}</td>
                     <td class="" style="font-weight: bold">{{ $order->user->name }}</td>
-                    <td class="">
-                        {{ $order->discount == null ? 'Không có' : $order->code }}</td>
+                    
                     
                     <td class="">{{ $order->order_code }}</td>
                     <td class="">
@@ -61,7 +60,7 @@
                     </td>
                     <td class="">{{ $order->created_at }}</td>
                     <td class="" style="font-weight: bold">{{ number_format($order->total) }} VND</td>
-                    <td class="">
+                    <td class="" style="width:200px ; display: flex;    justify-content: space-around">
                         @if ($order->status === 3)
 
                         @else
@@ -74,6 +73,7 @@
                                 </button>
                             </form>
                         @endif
+                        <a href="" class="btn btn-primary" style="">Chi tiết</a>
                     </td>
                 </tr>
             @endforeach
