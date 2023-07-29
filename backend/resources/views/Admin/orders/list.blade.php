@@ -5,20 +5,21 @@
     <div class="d-flex align-items-center justify-content-between">
         <div></div>
         <div class="row align-items-center">
-            <form action="" method="POST" class="d-flex">
+            <form action="{{route('admin.order.search')}}" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
-                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập tên khách hàng">
+                    <input type="text" name="keyname" id="inputEmail6" class="form-control" placeholder="Nhập tên khách hàng"  value="{{ isset($keyname) ? $keyname : '' }}">
                 </div>
                 <div class="col-auto">
-                    <input type="date" name="keywords" id="inputEmail6" class="form-control" placeholder="Tìm kiếm theo ngày">
+                    <input type="date" name="keydate" id="inputEmail6" class="form-control" placeholder="Tìm kiếm theo ngày" value="{{ isset($keydate) ? $keydate : '' }}">
                 </div>
                 <div class="col-auto">
-                    <select  class="form-control" id="">
+                    <select  class="form-control" id="" name="keystatus">
+                       
                         <option value="">Trạng thái</option>
-                        <option value="1">Chờ thanh toán</option>
-                        <option value="2">Đã thanh toán</option>
-                        <option value="3">Đã hủy</option>
+                        <option @if(isset($keystatus) && $keystatus ==1) selected @endif value="1">Chờ thanh toán</option>
+                        <option @if(isset($keystatus) && $keystatus ==2) selected @endif value="2">Đã thanh toán</option>
+                        <option @if(isset($keystatus) && $keystatus ==3) selected @endif value="3">Đã hủy</option>
                        
                       </select>
                 </div>
@@ -46,16 +47,16 @@
                     <td class="">{{ $key += 1 }}</td>
                     <td class="" style="font-weight: bold">{{ $order->user->name }}</td>
                     <td class="">
-                        {{ $order->discount == null ? 'Không có' : $order->discount->code }}</td>
+                        {{ $order->discount == null ? 'Không có' : $order->code }}</td>
                     
                     <td class="">{{ $order->order_code }}</td>
                     <td class="">
                         @if ($order->status === 1)
-                            <button type="button" class="btn btn-primary" style="width:140px ; font-size: 14px ; font-weight:bold">Chờ thanh toán</button>
+                            <button type="button" class="btn btn-primary" style="width:140px ; font-size: 13px ; font-weight:bold"><i class="far fa-clock"></i> Chờ thanh toán</button>
                         @elseif ($order->status === 2)
-                           <button type="button" class="btn btn-success" style="width:140px ; font-size: 14px ; font-weight:bold"> Đã thanh toán</button>
+                           <button type="button" class="btn btn-success" style="width:140px ; font-size: 13px ; font-weight:bold"><i class="fas fa-check"></i> Đã thanh toán</button>
                         @elseif ($order->status === 3)
-                            <button type="button" class="btn btn-danger" style="width:140px ; font-size: 14px ;font-weight:bold">Đã hủy</button>
+                            <button type="button" class="btn btn-danger" style="width:140px ; font-size: 13px ;font-weight:bold"><i class="fas fa-times"></i> Đã hủy</button>
                         @endif
                     </td>
                     <td class="">{{ $order->created_at }}</td>
