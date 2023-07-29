@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\User;
 use App\Models\Orders;
 use App\Models\Product;
 use App\Models\Transaction;
@@ -32,77 +33,73 @@ class OrderController extends Controller
     public function index(Request $request)
     {
         //  dd($request->input('keyname'));
-        $keyname = $request -> input('keyname');
-        $keydate = $request -> input('keydate');
-        $keystatus = $request -> input('keystatus');
-        if($keyname && $keydate && $keystatus){
+        $keyname = $request->input('keyname');
+        $keydate = $request->input('keydate');
+        $keystatus = $request->input('keystatus');
+        if ($keyname && $keydate && $keystatus) {
             $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->where('users.name', 'LIKE' , "%$keyname%")
-            ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            ->where('orders.status', '=' , $keystatus)
-            ->select('orders.*')->latest()
-            ->paginate(20);
-            return view("Admin.orders.list", compact('orders','keyname','keydate','keystatus'));
-        }elseif($keyname && $keydate){
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                ->where('users.name', 'LIKE', "%$keyname%")
+                ->where('orders.created_at', 'LIKE', "%$keydate%")
+                ->where('orders.status', '=', $keystatus)
+                ->select('orders.*')->latest()
+                ->paginate(20);
+            return view("Admin.orders.list", compact('orders', 'keyname', 'keydate', 'keystatus'));
+        } elseif ($keyname && $keydate) {
             $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->where('users.name', 'LIKE' , "%$keyname%")
-            ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            ->select('orders.*')->latest()
-            ->paginate(20);
-            return view("Admin.orders.list", compact('orders','keyname','keydate'));
-        }elseif($keyname && $keystatus){
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                ->where('users.name', 'LIKE', "%$keyname%")
+                ->where('orders.created_at', 'LIKE', "%$keydate%")
+                ->select('orders.*')->latest()
+                ->paginate(20);
+            return view("Admin.orders.list", compact('orders', 'keyname', 'keydate'));
+        } elseif ($keyname && $keystatus) {
             $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->where('users.name', 'LIKE' , "%$keyname%")
-            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            ->where('orders.status', '=' , $keystatus)
-            ->select('orders.*')->latest()
-            ->paginate(20);
-            return view("Admin.orders.list", compact('orders','keyname','keystatus'));
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                ->where('users.name', 'LIKE', "%$keyname%")
+                // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+                ->where('orders.status', '=', $keystatus)
+                ->select('orders.*')->latest()
+                ->paginate(20);
+            return view("Admin.orders.list", compact('orders', 'keyname', 'keystatus'));
+        } elseif ($keydate && $keystatus) {
+            $orders = $this->orders
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                ->where('users.name', 'LIKE', "%$keyname%")
+                // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+                ->where('orders.status', '=', $keystatus)
+                ->select('orders.*')->latest()
+                ->paginate(50);
+            return view("Admin.orders.list", compact('orders', 'keydate', 'keystatus'));
+        } elseif ($keyname) {
+            $orders = $this->orders
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                ->where('users.name', 'LIKE', "%$keyname%")
+                // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+                // ->where('orders.status', '=' , $keystatus)
+                ->select('orders.*')->latest()
+                ->paginate(50);
+            return view("Admin.orders.list", compact('orders', 'keyname'));
+        } elseif ($keydate) {
+            $orders = $this->orders
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                // ->where('users.name', 'LIKE' , "%$keyname%")
+                ->where('orders.created_at', 'LIKE', "%$keydate%")
+                // ->where('orders.status', '=' , $keystatus)
+                ->select('orders.*')->latest()
+                ->paginate(50);
+            return view("Admin.orders.list", compact('orders', 'keydate'));
+        } elseif ($keystatus) {
+            $orders = $this->orders
+                ->join('users', 'orders.user_id', '=', 'users.id')
+                // ->where('users.name', 'LIKE' , "%$keyname%")
+                // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+                ->where('orders.status', '=', $keystatus)
+                ->select('orders.*')->latest()
+                ->paginate(50);
+            return view("Admin.orders.list", compact('orders', 'keystatus'));
+        }
 
-        }elseif($keydate && $keystatus){
-            $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->where('users.name', 'LIKE' , "%$keyname%")
-            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            ->where('orders.status', '=' , $keystatus)
-            ->select('orders.*')->latest()
-            ->paginate(50);
-            return view("Admin.orders.list", compact('orders','keydate','keystatus'));
-        }
-        elseif($keyname){
-            $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->where('users.name', 'LIKE' , "%$keyname%")
-            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            // ->where('orders.status', '=' , $keystatus)
-            ->select('orders.*')->latest()
-            ->paginate(50);
-            return view("Admin.orders.list", compact('orders','keyname'));
-        }
-        elseif($keydate){
-            $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            // ->where('users.name', 'LIKE' , "%$keyname%")
-            ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            // ->where('orders.status', '=' , $keystatus)
-            ->select('orders.*')->latest()
-            ->paginate(50);
-            return view("Admin.orders.list", compact('orders','keydate'));
-        }
-        elseif($keystatus){
-            $orders = $this->orders
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            // ->where('users.name', 'LIKE' , "%$keyname%")
-            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
-            ->where('orders.status', '=' , $keystatus)
-            ->select('orders.*')->latest()
-            ->paginate(50);
-            return view("Admin.orders.list", compact('orders','keystatus'));
-        }
-        
         $orders = $this->orders->latest()->paginate(10);
         return view("Admin.orders.list", compact('orders'));
     }
@@ -112,28 +109,30 @@ class OrderController extends Controller
         if (Gate::allows('delete-room')) {
             $orders =  $this->orders->find($id);
 
-        $orders->update([
-            'status' => 3
-        ]);
+            $orders->update([
+                'status' => 3
 
-        $orderProduct = $this->orderProduct->where('order_id', $orders->id)->first();
-        if ($orderProduct) {
-            $orderProduct1 = $this->orderProduct->where('order_id', $orders->id)->update(['status' => 3]);
-
-            $products = $this->product->find($orderProduct->product_id);
-            $count = $products->count + $orderProduct->quantity;
-            $products->update([
-                'count' => $count
             ]);
-        }
-        $this->transaction->where('order_code', $orders->order_code)->update(['status' => 3]);
+            $user = User::find($orders->user_id);
+            $backpoints = $user->points + $orders->points;
+            $user->update(['points' =>  $backpoints]);
+            $orderProduct = $this->orderProduct->where('order_id', $orders->id)->first();
+            if ($orderProduct) {
+                $orderProduct1 = $this->orderProduct->where('order_id', $orders->id)->update(['status' => 3]);
 
-        $this->orderSchedule->where('order_id', $orders->id)->delete();
+                $products = $this->product->find($orderProduct->product_id);
+                $count = $products->count + $orderProduct->quantity;
+                $products->update([
+                    'count' => $count
+                ]);
+            }
+            $this->transaction->where('order_code', $orders->order_code)->update(['status' => 3]);
 
-        return back()->with('message', 'Hủy thành công');
+            $this->orderSchedule->where('order_id', $orders->id)->delete();
+
+            return back()->with('message', 'Hủy thành công');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-        
     }
 }
