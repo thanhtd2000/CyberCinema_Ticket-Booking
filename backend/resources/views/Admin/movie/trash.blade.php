@@ -9,7 +9,7 @@
                 @csrf
                 <div class="col-auto">
                     <input type="text" name="keywords" id="inputEmail6" value="{{ isset($keywords) ? $keywords : '' }}"
-                        class="form-control" placeholder="Nhập từ khoá">
+                        class="form-control" placeholder="Nhập tên phim">
                 </div>
                 <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
