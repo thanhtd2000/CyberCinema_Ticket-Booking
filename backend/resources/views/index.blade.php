@@ -74,11 +74,6 @@
             <div>
                 <p>Vui lòng đưa mã số này đến quầy vé Cyber để nhận vé</p>
             </div>
-            <div>
-                <p><b style="color: red;">Lưu ý</b>: Cyber Cinema không chấp nhận hoàn tiền hoặc đổi vé đã thanh toán
-                    thành
-                    công trên Website</p>
-            </div>
         </div>
 
         <a href="http://localhost:3200/" class="btn btn-success" style="width: 100%;">Trang chủ</a>

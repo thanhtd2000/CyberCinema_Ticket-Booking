@@ -241,7 +241,7 @@ class AuthApiController extends Controller
                   Mail::to($email)->send(new SendEmail($pass_code, $email));
                   return response()->json([
                         'email' => $email,
-                        'message' => 'Emai đã gửi thành công',
+                        'message' => 'Email đã gửi thành công',
                   ], 200);
             }
       }
@@ -251,9 +251,10 @@ class AuthApiController extends Controller
 
             $check =  DB::table('password_resets')->where('email', $request->email)->where('token', $request->code)->get();
             if (!empty($check->toArray())) {
-                  User::where('email', $request->email)->update(['password' => Hash::make($request->password)]);
+                  User::where('email', $request->email)->update(['password' => bcrypt($request->password)]);
+                  DB::table('password_resets')->where('email', $request->email)->delete();
                   return response()->json(['message' => 'Đổi mật khẩu thành công'], 200);
             }
-            return response()->json(['message' => 'Sai mã code xin mời kiểm tra lại'], 200);
+            return response()->json(['message' => 'Sai mã code xin mời kiểm tra lại'], 401);
       }
 }
