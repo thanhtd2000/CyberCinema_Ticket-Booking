@@ -8,7 +8,19 @@
             <form action="" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
-                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
+                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập tên khách hàng">
+                </div>
+                <div class="col-auto">
+                    <input type="date" name="keywords" id="inputEmail6" class="form-control" placeholder="Tìm kiếm theo ngày">
+                </div>
+                <div class="col-auto">
+                    <select  class="form-control" id="">
+                        <option value="">Trạng thái</option>
+                        <option value="1">Chờ thanh toán</option>
+                        <option value="2">Đã thanh toán</option>
+                        <option value="3">Đã hủy</option>
+                       
+                      </select>
                 </div>
                 <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
@@ -20,7 +32,7 @@
                 <th class="">STT</th>
                 <th class="">Khách hàng</th>
                 <th class="">Mã giảm giá</th>
-                <th class="">Mã giao dịch</th>
+               
                 <th class="">Mã thanh toán</th>
                 <th class="">Trạng thái</th>
                 <th class="">Ngày thanh toán</th>
@@ -32,37 +44,39 @@
             @foreach ($orders as $key => $order)
                 <tr>
                     <td class="">{{ $key += 1 }}</td>
-                    <td class="">{{ $order->user->name }}</td>
+                    <td class="" style="font-weight: bold">{{ $order->user->name }}</td>
                     <td class="">
                         {{ $order->discount == null ? 'Không có' : $order->discount->code }}</td>
-                    <td class="">
-                        {{ $order->transaction == null ? 'Không có' : $order->transaction->transactions_code }}
-                    </td>
+                    
                     <td class="">{{ $order->order_code }}</td>
                     <td class="">
                         @if ($order->status === 1)
-                            Chờ thanh toán
+                            <button type="button" class="btn btn-primary" style="width:140px ; font-size: 14px ; font-weight:bold">Chờ thanh toán</button>
                         @elseif ($order->status === 2)
-                            Đã thanh toán
+                           <button type="button" class="btn btn-success" style="width:140px ; font-size: 14px ; font-weight:bold"> Đã thanh toán</button>
                         @elseif ($order->status === 3)
-                            Đã hủy
+                            <button type="button" class="btn btn-danger" style="width:140px ; font-size: 14px ;font-weight:bold">Đã hủy</button>
                         @endif
                     </td>
                     <td class="">{{ $order->created_at }}</td>
-                    <td class="">{{ $order->total }}</td>
+                    <td class="" style="font-weight: bold">{{ number_format($order->total) }} VND</td>
                     <td class="">
-                        <form action="{{ route('admin.order.cancel', $order->id) }}" method="post">
-                            @csrf
-                            @method('put')
-                            <button type="submit" onclick='return confirm("Bạn có muốn hủy không")'
-                                class="btn btn-warning">
-                                <i class="fas fa-trash-alt text-white"></i>
-                            </button>
-                        </form>
+                        @if ($order->status === 3)
+
+                        @else
+                            <form action="{{ route('admin.order.cancel', $order->id) }}" method="post">
+                                @csrf
+                                @method('put')
+                                <button type="submit" onclick='return confirm("Bạn có muốn hủy không")'
+                                    class="btn btn-warning">
+                                Hủy Đơn
+                                </button>
+                            </form>
+                        @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    {{-- {{ $transactions->links() }} --}}
+    {{ $orders->links() }}
 @endsection

@@ -236,7 +236,7 @@ class PaymentController extends Controller
                     'bank_code' => $request->vnp_BankCode,
                     'payment_code' => $request->vnp_CardType,
                     'status' => 2,
-                    'amount' => $request->vnp_Amount,
+                    'amount' => $request->vnp_Amount/100,
                     'order_code' => $request->vnp_TxnRef,
                 ];
 
@@ -271,7 +271,7 @@ class PaymentController extends Controller
                     'bank_code' => $request->vnp_BankCode,
                     'payment_code' => $request->vnp_CardType,
                     'status' => 3,
-                    'amount' => $request->vnp_Amount,
+                    'amount' => $request->vnp_Amount / 100,
                     'order_code' => $request->vnp_TxnRef,
                 ];
                 $transaction = $this->transaction->create($dataTrans);

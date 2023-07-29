@@ -30,7 +30,7 @@ class OrderController extends Controller
 
     public function index()
     {
-        $orders = Orders::all();
+        $orders = $this->orders->paginate(10);
         return view("Admin.orders.list", compact('orders'));
     }
 
