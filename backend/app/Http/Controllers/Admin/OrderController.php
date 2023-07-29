@@ -8,6 +8,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
 
@@ -28,9 +29,81 @@ class OrderController extends Controller
         $this->product = $product;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Orders::all();
+        //  dd($request->input('keyname'));
+        $keyname = $request -> input('keyname');
+        $keydate = $request -> input('keydate');
+        $keystatus = $request -> input('keystatus');
+        if($keyname && $keydate && $keystatus){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->where('users.name', 'LIKE' , "%$keyname%")
+            ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            ->where('orders.status', '=' , $keystatus)
+            ->select('orders.*')->latest()
+            ->paginate(20);
+            return view("Admin.orders.list", compact('orders','keyname','keydate','keystatus'));
+        }elseif($keyname && $keydate){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->where('users.name', 'LIKE' , "%$keyname%")
+            ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            ->select('orders.*')->latest()
+            ->paginate(20);
+            return view("Admin.orders.list", compact('orders','keyname','keydate'));
+        }elseif($keyname && $keystatus){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->where('users.name', 'LIKE' , "%$keyname%")
+            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            ->where('orders.status', '=' , $keystatus)
+            ->select('orders.*')->latest()
+            ->paginate(20);
+            return view("Admin.orders.list", compact('orders','keyname','keystatus'));
+
+        }elseif($keydate && $keystatus){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->where('users.name', 'LIKE' , "%$keyname%")
+            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            ->where('orders.status', '=' , $keystatus)
+            ->select('orders.*')->latest()
+            ->paginate(50);
+            return view("Admin.orders.list", compact('orders','keydate','keystatus'));
+        }
+        elseif($keyname){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            ->where('users.name', 'LIKE' , "%$keyname%")
+            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            // ->where('orders.status', '=' , $keystatus)
+            ->select('orders.*')->latest()
+            ->paginate(50);
+            return view("Admin.orders.list", compact('orders','keyname'));
+        }
+        elseif($keydate){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            // ->where('users.name', 'LIKE' , "%$keyname%")
+            ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            // ->where('orders.status', '=' , $keystatus)
+            ->select('orders.*')->latest()
+            ->paginate(50);
+            return view("Admin.orders.list", compact('orders','keydate'));
+        }
+        elseif($keystatus){
+            $orders = $this->orders
+            ->join('users', 'orders.user_id', '=', 'users.id')
+            // ->where('users.name', 'LIKE' , "%$keyname%")
+            // ->where('orders.created_at', 'LIKE' , "%$keydate%")
+            ->where('orders.status', '=' , $keystatus)
+            ->select('orders.*')->latest()
+            ->paginate(50);
+            return view("Admin.orders.list", compact('orders','keystatus'));
+        }
+        
+        $orders = $this->orders->latest()->paginate(10);
         return view("Admin.orders.list", compact('orders'));
     }
 

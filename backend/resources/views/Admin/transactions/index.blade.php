@@ -8,7 +8,10 @@
             <form action="" method="POST" class="d-flex">
                 @csrf
                 <div class="col-auto">
-                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Nhập từ khoá">
+                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Tìm kiếm theo ngày">
+                </div>
+                <div class="col-auto">
+                    <input type="text" name="keywords" id="inputEmail6" class="form-control" placeholder="Tìm kiếm theo ngày">
                 </div>
                 <button type="submit" class="btn btn-primary text-white ms-3">Tìm kiếm</button>
             </form>
@@ -20,11 +23,12 @@
                 <th class="">STT</th>
                 {{-- <th class="">Người giao dịch</th> --}}
                 <th class="">Mã giao dịch</th>
-                <th class="">Mã ngân hàng</th>
-                <th class="">Mã thanh toán</th>
+                <th class="">Mã hóa đơn</th>
+                <th class="">Ngân hàng</th>
+                <th class="">Hình thức TT</th>
                 <th class="">Trạng thái</th>
                 <th class="">Số tiền</th>
-                <th class="">Ngày thanh toán</th>
+                <th class="">Thời gian GD</th>
             </tr>
         </thead>
         <tbody>
@@ -32,15 +36,24 @@
                 <tr>
                     <td class="">{{ $key += 1 }}</td>
                     {{-- <td class="">{{ $transaction->users->name }}</td> --}}
-                    <td class="">{{ $transaction->transactions_code }}</td>
+                    
+                    <td class="" style="font-weight: bold">{{ $transaction->transactions_code }}</td>
+                    <td class="">{{ $transaction->order_code }}</td>
                     <td class="">{{ $transaction->bank_code }}</td>
                     <td class="">{{ $transaction->payment_code }}</td>
-                    <td class="">{{ $transaction->status === 2 ? 'Đã thanh toán' : 'Đã hủy' }}</td>
-                    <td class="">{{ $transaction->amount }}</td>
+                    <td class="">
+                       
+                    @if ($transaction->status === 2)
+                       <button type="button" class="btn btn-success" style="width:140px ; font-size: 14px ; font-weight:bold"> Đã thanh toán</button>
+                    @else
+                        <button type="button" class="btn btn-danger" style="width:140px ; font-size: 14px ;font-weight:bold">Đã hủy</button>
+                    @endif
+                    <td class="" style="font-weight: bold">{{ number_format($transaction->amount ) }} VND</td>
+                   
                     <td class="">{{ $transaction->created_at }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
-    {{-- {{ $transactions->links() }} --}}
+    {{ $transactions->links() }}
 @endsection

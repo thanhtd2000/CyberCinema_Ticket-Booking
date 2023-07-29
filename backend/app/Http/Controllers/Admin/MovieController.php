@@ -50,7 +50,7 @@ class MovieController extends Controller
             $movies = $this->movies->search($keywords)->paginate(5);
             return view('Admin.movie.list', compact('movies', 'keywords'))->with($this->data);
         } else {
-            $movies = $this->movies->latest()->paginate(5);;
+            $movies = $this->movies->latest()->paginate(5);
             return view('Admin.movie.list', compact('movies'))->with($this->data);
         }
     }

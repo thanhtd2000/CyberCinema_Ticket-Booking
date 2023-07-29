@@ -189,6 +189,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::prefix('/order')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('admin.order')->middleware('can:list-order');
         Route::put('/cancel/{id}', [OrderController::class, 'cancel'])->name('admin.order.cancel');
+        Route::post("/", [OrderController::class, 'index'])->name('admin.order.search');
     });
     Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
 
