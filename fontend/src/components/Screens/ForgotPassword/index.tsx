@@ -13,10 +13,9 @@ function ForgotPasswordScreen() {
       const router = useRouter();
       const {mutate: getNewPass} = useQueryGetNewEmail()
       const onFinish = (values: any) => {
-            console.log(values);
-            getNewPass(values, {
+            getNewPass({data: {...values} }, {
                   onSuccess: () => {
-                        router.push({ pathname: '/' });
+                        router.push({ pathname: '/confirm-password' });
                   },
                   onError: () =>{
                         setError(true)
