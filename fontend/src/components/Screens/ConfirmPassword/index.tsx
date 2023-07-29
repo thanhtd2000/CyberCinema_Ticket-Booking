@@ -3,19 +3,18 @@ import React, { useState } from 'react'
 import style from './style.module.less';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useQueryGetNewEmail } from '@/queries/hooks/user';
+import { useQueryCheckCode } from '@/queries/hooks/user';
 const { Title } = Typography;
 
 
 function ConfirmPassword() {
       const [error,setError] = useState(false)
       const router = useRouter();
-      const {mutate: getNewPass} = useQueryGetNewEmail()
+      const {mutate: mutationCheckPass} = useQueryCheckCode()
       const onFinish = (values: any) => {
-            console.log(values);
-            getNewPass(values, {
+            mutationCheckPass({data: {...values}}, {
                   onSuccess: () => {
-                        router.push({ pathname: '/' });
+                        // router.push({ pathname: '/login' });
                   },
                   onError: () =>{
                         setError(true)
@@ -42,6 +41,15 @@ function ConfirmPassword() {
                                     autoComplete='off'
                               >
                                     <Form.Item
+                                          name='email'
+                                          rules={[{ required: true, message: 'Vui lòng nhập email hợp lệ.' }]}
+                                    >
+                                          <Input className={style.input} placeholder='Email' />
+                                    </Form.Item>
+                                    <span>
+                                          {error? (<div style={{color: 'red'}}>Email không chính xác</div>) : null}
+                                    </span>
+                                    <Form.Item
                                           name='code'
                                           rules={[{ required: true, message: 'Vui lòng nhập code hợp lệ.' }]}
                                     >
@@ -51,7 +59,7 @@ function ConfirmPassword() {
                                           {error? (<div style={{color: 'red'}}>Code không chính xác</div>) : null}
                                     </span>
                                     <Form.Item
-                                          name='pass'
+                                          name='password'
                                           rules={[{ required: true, message: 'Vui lòng nhập mật khẩu hợp lệ.' }]}
                                     >
                                           <Input className={style.input} placeholder='Mật khẩu' />
