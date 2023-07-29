@@ -2,8 +2,11 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-    <div>
-        <canvas id="chartMonth"></canvas>
+    <div class="row">
+        <div class="col-md-6">
+
+            <canvas id="chartMonth" ></canvas>
+        </div>
     </div>
     <div class="month" style="display: flex">
 
