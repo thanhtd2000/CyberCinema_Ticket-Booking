@@ -218,7 +218,7 @@ class AuthApiController extends Controller
             $user = $request->user();
             if (Hash::check($request->current_password, $user->password)) {
                   $user->update([
-                        'password' => Hash::make($request->new_password)
+                        'password' => bcrypt($request->password)
                   ]);
                   return response()->json('Đổi mật khẩu thành công', 200);
             }
