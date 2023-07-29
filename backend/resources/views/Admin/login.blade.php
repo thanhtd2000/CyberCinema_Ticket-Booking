@@ -68,11 +68,11 @@
                     </div>
                     <div class="card col-md-5 text-white bg-primary py-5">
                         <div class="card-body text-center">
-                            <div>
+                            {{-- <div>
                                 <q class="fs-6">Có làm thì mới có ăn . Cần cù bù thông minh</q>
                                 <br>
                                 <cite>- Nhà Thơ nào đó</cite>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

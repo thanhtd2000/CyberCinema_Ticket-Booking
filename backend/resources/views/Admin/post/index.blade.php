@@ -64,7 +64,7 @@
                         <td class="whitespace-nowrap">
                             @if ($post->user->role != 0 || Auth::user()->id == $post->user->id)
                                 <a class="btn btn-success" href="edit/{{ $post->id }}"><i
-                                        class="fas fa-trash-alt"></i></a> <a class="btn btn-danger"
+                                        class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger"
                                     onclick=" return confirm('Bạn có chắc chắn xoá?')" href="delete/{{ $post->id }}"><i
                                         class="fas fa-trash-alt"></i></a>
                             @endif
