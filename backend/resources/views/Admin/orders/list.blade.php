@@ -73,11 +73,55 @@
                                 </button>
                             </form>
                         @endif
-                        <a href="" class="btn btn-primary" style="">Chi tiết</a>
+                        <a href="" class="btn btn-primary ticket-detail" data-toggle="modal" data-target="#exampleModalScrollable" data-ticket= {{$order->id}}>Chi tiết</a>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
     {{ $orders->links() }}
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalScrollableTitle">Chi tiết vé</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <script>
+        $(document).on('click', '.ticket-detail', function(e) {
+            var orderId = $(this).data('ticket');
+            $.ajax({
+                url: '/admin/order/show/' + orderId ,
+                type: 'GET',
+                // data: {
+                //     id: month
+                // },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    // const tableBody = $('.data-container');
+                    // tableBody.empty(); // Xóa dữ liệu cũ trước khi đổ mới
+                    // data.month.forEach (function(item) {
+                    //     tableBody.append('<tr><td>' + item.order_date + '</td><td>' + new Intl.NumberFormat().format(item.total_sum)  + ' VND </td></tr>');
+                    // })
+                },
+                error: function(error) {
+                    console.error('Error while fetching data:', error);
+                }
+            });
+        });
+       
+    </script>
 @endsection
