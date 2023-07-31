@@ -74,6 +74,7 @@ class UserController extends Controller
             $image = $request->file('image');
             $newUser['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $newUser['password'] = bcrypt($request->password);
+            $newUser['points'] = 0;
             User::create($newUser);
             return redirect()->route('users.show')->with('message', 'Đã thêm mới thành công');
         } else {
