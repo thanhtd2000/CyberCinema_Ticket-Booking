@@ -228,6 +228,7 @@ class PaymentController extends Controller
     }
     public function insertPayment(Request $request)
     {
+        // dd($request->all());
         if (isset($request->vnp_TransactionStatus)) {
 
             if ($request->vnp_TransactionStatus == 00) {
@@ -244,7 +245,8 @@ class PaymentController extends Controller
 
                 $this->order->where('order_code', $transaction->order_code)->update([
                     'transaction_id' => $transaction->id,
-                    'status' => 2
+                    'status' => 2,//trạng thái thanh toán thành công
+                    'status_ticket' => 1, // trạng thái vé là chưa dùng
                 ]);
 
                 $order = $this->order->where('order_code', $transaction->order_code)->first();
@@ -302,7 +304,8 @@ class PaymentController extends Controller
 
                 $this->order->where('order_code', $transaction->order_code)->update([
                     'transaction_id' => $transaction->id,
-                    'status' => 2
+                    'status' => 2,  //trạng thái thanh toán thành công
+                    'status_ticket' => 1, // trạng thái vé là chưa dùng
                 ]);
 
                 $order = $this->order->where('order_code', $transaction->order_code)->first();
@@ -328,7 +331,7 @@ class PaymentController extends Controller
                     'transactions_code' => $request->transId,
 
                     'payment_code' => 'Momo',
-                    'status' => 2,
+                    'status' => 3,
                     'amount' => $request->amount,
                     'order_code' => $request->orderId,
                 ];
