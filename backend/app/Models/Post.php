@@ -12,14 +12,7 @@ class Post extends Model
     use HasFactory;
     protected $table = 'posts';
     protected $primaryKey = 'id';
-    protected $fillable = [
-        'title',
-        'content',
-        'image',
-        'created_at',
-        'updated_at',
-        'user_id'
-    ];
+    protected $guarded = [];
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');

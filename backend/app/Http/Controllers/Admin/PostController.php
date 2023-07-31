@@ -38,12 +38,11 @@ class PostController extends Controller
     }
     public function create()
     {
-        if(Gate::allows('create-post')){
+        if (Gate::allows('create-post')) {
             return view('admin.post.create');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-       
     }
     public function store(Request $request)
     {
@@ -52,6 +51,7 @@ class PostController extends Controller
             'content' => 'required',
             'user_id' => 'required',
             'image' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+            'category' => 'required'
         ];
         $message = [
             'required' => 'Trường bắt buộc phải nhập'
@@ -66,13 +66,14 @@ class PostController extends Controller
             $pt->content = $post['content'];
             $pt->slug = $this->globalHelper->generateUniqueSlug($this->posts, $request->title);
             $pt->user_id = $post['user_id'];
+            $pt->category = $post['category'];
         }
         $pt->save();
         return redirect()->route('posts.show')->with('message', 'Thêm thành công');
     }
     public function delete(Request $request)
     {
-        if(Gate::allows('delete-post')){
+        if (Gate::allows('delete-post')) {
             $Post =  $this->posts->find($request->id);
             if ($Post && $Post->delete()) {
                 return redirect('admin/posts/index')->with('message', 'Xoá thành công');
@@ -80,18 +81,16 @@ class PostController extends Controller
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-       
     }
     public function edit(Request $request)
     {
-        if(Gate::allows('create-post')){
+        if (Gate::allows('create-post')) {
             $post =  $this->posts->find($request->id);
 
             return view('admin.post.edit', compact('post'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
-       
     }
     public function update(Request $request)
     {
@@ -100,6 +99,7 @@ class PostController extends Controller
             'content' => 'required',
             'user_id' => 'required',
             'id' => 'required',
+            'category' => 'required'
         ];
         $message = [
             'required' => 'Trường bắt buộc phải nhập'
@@ -117,6 +117,7 @@ class PostController extends Controller
         $pt->content = $post['content'];
         $pt->slug = $this->globalHelper->generateUniqueSlug($this->posts, $request->title);
         $pt->user_id = $post['user_id'];
+        $pt->category = $post['category'];
         $pt->save();
         return redirect()->route('posts.show')->with('message', 'Sửa thành công');
     }

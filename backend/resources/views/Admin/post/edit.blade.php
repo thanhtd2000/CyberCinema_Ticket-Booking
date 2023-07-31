@@ -43,7 +43,19 @@
             @endif
         </div>
         <br>
-
+        <div class="mb-3">
+            <select name="category" id="">
+                <option value="1" {{ $post->category == 1 ? 'selected' : '' }}>Tin Tức</option>
+                <option value="2" {{ $post->category == 2 ? 'selected' : '' }}>Ưu Đãi</option>
+            </select>
+        </div>
+        <div class="error">
+            @if ($errors->has('category'))
+                <span class="text-danger fs-5">
+                    {{ $errors->first('category') }}
+                </span>
+            @endif
+        </div><br>
         <button type="submit" class="btn btn-primary">Sửa</button>
     </form>
     <script src={{ url('ckeditor/ckeditor.js') }}></script>
