@@ -14,8 +14,7 @@
             </form>
         </div>
     </div>
-    <br>
-    <form action="{{ route('delete.Mulposts') }}" method="POST">
+    <form action="{{ route('delete.Mulposts') }}" method="POST" class="mt-1">
         @csrf
         @method('DELETE')
         <table class="table">
@@ -24,10 +23,10 @@
                     <th>Check</th>
                     <th scope="col">STT</th>
                     <th scope="col">Tiêu đề</th>
-                    <th scope="col">Nội dung</th>
+                    {{-- <th scope="col">Nội dung</th> --}}
                     <th scope="col">Ảnh</th>
                     <th scope="col">Thời gian đăng</th>
-                    <th scope="col">Thời gian sửa</th>
+                    {{-- <th scope="col">Thời gian sửa</th> --}}
                     <th scope="col">Người đăng</th>
                     <th scope="col">Chức năng</th>
                 </tr>
@@ -46,20 +45,20 @@
                         <td>
                             <p
                                 style=" white-space: nowrap;
-                        width: 100px;
+                        width:300px;
                         overflow: hidden;">
                                 {{ $post->title }}</p>
                         </td>
-                        <td>
+                        {{-- <td>
                             <p
                                 style=" white-space: nowrap;
                         width: 200px;
                         overflow: hidden;">
                                 {{ $post->content }}</p>
-                        </td>
+                        </td> --}}
                         <td><img src="{{ $post->image }}" width="50px" alt=""></td>
                         <td>{{ $post->created_at }}</td>
-                        <td>{{ $post->updated_at }}</td>
+                        {{-- <td>{{ $post->updated_at }}</td> --}}
                         <td>{{ $post->user->name }}</td>
                         <td class="whitespace-nowrap">
                             @if ($post->user->role != 0 || Auth::user()->id == $post->user->id)
@@ -72,9 +71,9 @@
                     </tr>
                 @endforeach
             </tbody>
-        </table> <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xoá?')">Xoá
+        </table><button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xoá?')">Xoá
             mục đã
             chọn</button>
     </form>
-    {{ $posts->links() }}
+    <div class="mt-1">{{ $posts->links() }}</div>
 @endsection

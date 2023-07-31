@@ -40,6 +40,12 @@
             @endif
         </div>
         <br>
+        <div class="mb-3">
+            <select name="category" id="">
+                <option value="1">Tin Tức</option>
+                <option value="2">Ưu Đãi</option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary">Thêm</button>
     </form>
     <script src={{ url('ckeditor/ckeditor.js') }}></script>

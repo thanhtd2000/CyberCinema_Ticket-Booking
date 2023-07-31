@@ -20,10 +20,12 @@ class PostResource extends JsonResource
             'name' => $this->title,
             'image' => $this->image,
             'content' => $this->content,
+            'category' => $this->category,
             'slug' => $this->slug,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
-            'user' => $this->user()->get()
+            'user' => $this->user()->get(),
+            
         ];
     }
 }
