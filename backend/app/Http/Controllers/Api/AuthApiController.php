@@ -59,6 +59,7 @@ class AuthApiController extends Controller
                   $newUser['sex'] = $request->sex;
                   $newUser['phone'] = $request->phone;
                   $newUser['birthday'] =  $formattedDate;
+                  $newUser['points'] = 0;
                   User::create($newUser);
 
                   return response()->json([
