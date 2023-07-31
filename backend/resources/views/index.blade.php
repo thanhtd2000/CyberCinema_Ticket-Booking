@@ -47,12 +47,13 @@
             <div class="col-md-4">
                 <div class="pt-2">Voucher</div>
                 <div class="pt-2">Dùng Điểm</div>
-                <div class="pt-2">Thẻ</div>
+                <div class="pt-2">Phương thức</div>
             </div>
             <div class="col-md-4 " style="font-weight: bold">
                 <div class="pt-2">{{ $orderDiscounts->code }} ({{ $orderDiscounts->percent }}%)</div>
                 <div class="pt-2">{{ $order->points }}</div>
-                <div class="pt-2">{{ $orderTransaction->bank_code }}</div>
+                <div class="pt-2">
+                    {{ isset($orderTransaction->payment_code) ? $orderTransaction->payment_code : 'MoMo Pay' }}</div>
             </div>
             <div class="col-md-4  "
                 style="display: flex;align-items: center; justify-content: center; flex-direction: column;font-weight: bold; border-left: 1px solid;">

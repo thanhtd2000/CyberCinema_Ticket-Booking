@@ -55,7 +55,7 @@ Route::middleware('auth:sanctum')->get('/users/profile', [AuthApiController::cla
 Route::middleware('auth:sanctum')->patch('/update-status-seat', [SeatController::class, 'updateStatusSeat']);
 //discount
 Route::middleware('auth:sanctum')->get('/get/discount/detail ', [DiscountController::class, 'getDiscount']);
-Route::middleware('auth:sanctum')->get('/get/discount/  list', [DiscountController::class, 'getAllDiscount']);
+Route::middleware('auth:sanctum')->get('/get/discount/list', [DiscountController::class, 'getAllDiscount']);
 
 //Products
 Route::get('get/products', [ProductController::class, 'index']);
