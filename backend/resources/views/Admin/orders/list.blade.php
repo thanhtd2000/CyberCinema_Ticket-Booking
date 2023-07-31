@@ -90,7 +90,91 @@
               </button>
             </div>
             <div class="modal-body">
-              
+                <form>
+                    <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Tên phim</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control " id="movie-name" style="font-weight: bold">
+                        </div>
+                      </div>
+                    <div class="form-group row" style="font-weight: bold">
+                      <label for="inputPassword" class="col-sm-3 col-form-label">Thời lượng</label>
+                      <div class="col-sm-9">
+                        <input type="text" readonly class="form-control" id="movie-times" style="font-weight: bold">
+                      </div>
+                    </div>
+                    <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Ngày chiếu</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="time-date" style="font-weight: bold">
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Giờ chiếu</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="times" style="font-weight: bold" >
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold"> 
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Phòng chiếu</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="room" style="font-weight: bold">
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Ghế</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="seats" style="font-weight: bold">
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Tổng tiền</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="total" style="font-weight: bold">
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Combo</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="combo" style="font-weight: bold">
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Voucher</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="voucher" style="font-weight: bold">
+                        </div>
+                      </div>
+                      <div class="form-group row" style="font-weight: bold">
+                       <label for="inputPassword" class="col-sm-3 col-form-label">Điểm sử dụng</label>
+                        <div class="col-sm-9">
+                          <input type="text" readonly class="form-control" id="point" style="font-weight: bold">
+                        </div>
+                      </div> 
+                      <div class="form-group row" >
+                        <label for="inputPassword" class="col-sm-3 col-form-label" style="font-weight: bold">Phương thức thanh toán</label>
+                         <div class="col-sm-9">
+                           <input type="text" readonly class="form-control" id="payment" style="font-weight: bold">
+                         </div>
+                       </div>
+                       <div class="form-group row" >
+                        <label for="inputPassword" class="col-sm-3 col-form-label" style="font-weight: bold">Trạng thái thanh toán</label>
+                         <div class="col-sm-9">
+                           <input type="text" readonly class="form-control" id="status" style="font-weight: bold">
+                         </div>
+                       </div>
+                       <div class="form-group row" id="status-ticket-group">
+                        <label for="inputPassword" class="col-sm-3 col-form-label" style="font-weight: bold">Trạng thái sử dụng</label>
+                         <div class="col-sm-9">
+                            <select  class="form-control" id="status-ticket" >
+                              
+                                <option value="1" >Chưa sử dụng </option>
+                                <option value="2" >Đã sử dụng</option>
+                               
+                              </select>
+                         </div>
+                       </div> 
+                  </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -111,11 +195,34 @@
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
-                    // const tableBody = $('.data-container');
-                    // tableBody.empty(); // Xóa dữ liệu cũ trước khi đổ mới
-                    // data.month.forEach (function(item) {
-                    //     tableBody.append('<tr><td>' + item.order_date + '</td><td>' + new Intl.NumberFormat().format(item.total_sum)  + ' VND </td></tr>');
-                    // })
+                    $('#movie-name').val(data.movie_name);
+                    $('#movie-times').val(data.movie_time);
+                    $('#time-date').val(data.datePart);
+                    $('#times').val(data.timePart);
+                    $('#room').val(data.room_name);
+                    $('#seats').val(data.seatNames);
+                    $('#total').val(data.total);
+                    $('#combo').val(data.productNames);
+                    $('#voucher').val(data.discount);
+                    $('#point').val(data.point);
+                    $('#payment').val(data.payment);
+                    $('#status').val(data.status);
+                    if(data.status == 1){
+                        $('#status').val("Chờ thanh toán");
+                    }else if(data.status == 2){
+                        $('#status').val("Thanh toán thành công");
+                    }else if(data.status_ticket == 3){
+                        $('#status').val("Đã hủy");
+                    }
+                    if(data.status_ticket == 1){
+                        $('#status-ticket').val(1);
+                        $('#status-ticket-group').css('display', '');
+                    }else if(data.status_ticket == 2){
+                        $('#status-ticket').val(2);
+                        $('#status-ticket-group').css('display', '');
+                    }else if(data.status_ticket == null){
+                        $('#status-ticket-group').css('display', 'none');
+                    }
                 },
                 error: function(error) {
                     console.error('Error while fetching data:', error);
