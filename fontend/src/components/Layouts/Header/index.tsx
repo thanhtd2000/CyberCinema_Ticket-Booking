@@ -75,9 +75,7 @@ function Header() {
                   key: '3',
                   icon: <TbArrowsExchange2 />,
                   label: (
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.antgroup.com">
-                              Thay đổi mật khẩu
-                        </a>
+                        <Link href='/user'>Thay đổi mật khẩu</Link>
                   ),
             },
             {

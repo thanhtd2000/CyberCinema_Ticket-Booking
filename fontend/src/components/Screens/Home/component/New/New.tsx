@@ -7,7 +7,6 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Navigation } from 'swiper';
 import Link from 'next/link';
-import { useTranslation } from 'next-i18next';
 
 import ListNews from '@/components/Elements/ListNews/ListNews';
 import { TPost } from '@/modules/post';
@@ -27,7 +26,7 @@ function New({ HotNews, News }: IHotNews) {
       <div className={style.new}>
         <Row>
           <Col span={24}>
-            <Title level={3}>PHIM SẮP CHIẾU</Title>
+            <Title level={3}>Tin tức nổi bật</Title>
           </Col>
           <Col span={24}>
             <Row gutter={[{ xs: 0, sm: 0, md: 64 }, 24]}>

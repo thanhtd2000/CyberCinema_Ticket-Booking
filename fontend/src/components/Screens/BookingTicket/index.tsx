@@ -3,7 +3,7 @@ import style from './style.module.less';
 import { Breadcrumb, Button, Col, Row, Spin } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
-import { checkAuth, getLocalStored } from '@/libs/localStorage';
+import { checkAuth, clearLocalStored, getLocalStored } from '@/libs/localStorage';
 import { queryAllChair } from '@/queries/hooks/schedule';
 import { useQueryPatchChair } from '@/queries/hooks/chair';
 import LineChair from '@/components/Elements/LineChair/LineChair';;
@@ -27,7 +27,11 @@ function BookingTicketScreen() {
                   setToken(accessToken);
             });
       }, []);
-      
+      useEffect(()=>{
+            if(globalState){
+                  clearLocalStored('valueRoom')
+            }
+      },[globalState])
       
       const { mutate: updateChair, isLoading: loading, isError } = useQueryPatchChair()
       const handleBoxClick = (box: any | never) => {
@@ -47,7 +51,6 @@ function BookingTicketScreen() {
             { id: valueRoom?.id, schedule_id: valueRoom?.schedule_id },
             token,
             );
-            console.log(dataChair?.time === 0 ? true: false);
       const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price , 0) : null, [selectedBoxes])
       return (
             <div className={`${style.bookingTicket} booking Loading`} style={{ background: '#0D0E10' }}>
@@ -117,16 +120,16 @@ function BookingTicketScreen() {
                                           {!isLoading || !isFetching ? (
                                                 <div className={style.chairs}>
                                                       <div>
-                                                            <LineChair dataChair={dataChair?.data?.A} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.B} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.C} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.D} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.E} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.F} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.G} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.H} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.I} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
-                                                            <LineChair dataChair={dataChair?.data?.J} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.A} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.B} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.C} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.D} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.E} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.F} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.G} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.H} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.I} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
+                                                            <LineChair isLoading={loading} dataChair={dataChair?.data?.J} refetch={refetch} isError={isError} handleBoxClick={handleBoxClick} selectedBoxes={selectedBoxes} ></LineChair>
                                                       </div>
                                                 </div>
                                           ) : (<div style={{width: '100%', textAlign: 'center'}}><Spin></Spin></div>)}
