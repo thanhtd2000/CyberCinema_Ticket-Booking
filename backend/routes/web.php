@@ -191,6 +191,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put('/cancel/{id}', [OrderController::class, 'cancel'])->name('admin.order.cancel');
         Route::post("/", [OrderController::class, 'index'])->name('admin.order.search');
         Route::get('/show/{id}', [OrderController::class, 'showTicket'])->name('admin.order.show');
+        Route::put('/updateStatusTicket/{id}', [OrderController::class, 'updateStatusTicket']);
     });
     Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
 

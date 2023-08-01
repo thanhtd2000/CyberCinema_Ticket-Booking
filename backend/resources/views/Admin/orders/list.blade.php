@@ -34,7 +34,7 @@
                 <th class="">Khách hàng</th>
                
                
-                <th class="">Mã thanh toán</th>
+                <th class="">Mã hóa đơn</th>
                 <th class="">Trạng thái</th>
                 <th class="">Ngày thanh toán</th>
                 <th class="">Tổng tiền</th>
@@ -90,7 +90,7 @@
               </button>
             </div>
             <div class="modal-body">
-                <form>
+                    <input type="hidden" id="order-id" value="">
                     <div class="form-group row" style="font-weight: bold">
                         <label for="inputPassword" class="col-sm-3 col-form-label">Tên phim</label>
                         <div class="col-sm-9">
@@ -174,11 +174,11 @@
                               </select>
                          </div>
                        </div> 
-                  </form>
+                 
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+              <button type="button" class="btn btn-primary save-button" >Cập nhật</button>
             </div>
           </div>
         </div>
@@ -195,6 +195,7 @@
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
+                    $('#order-id').val(data.order_id);
                     $('#movie-name').val(data.movie_name);
                     $('#movie-times').val(data.movie_time);
                     $('#time-date').val(data.datePart);
@@ -209,10 +210,13 @@
                     $('#status').val(data.status);
                     if(data.status == 1){
                         $('#status').val("Chờ thanh toán");
+                        $('.save-button').css('display', 'none');
                     }else if(data.status == 2){
                         $('#status').val("Thanh toán thành công");
-                    }else if(data.status_ticket == 3){
+                        $('.save-button').css('display', '');
+                    }else if(data.status == 3){
                         $('#status').val("Đã hủy");
+                        $('.save-button').css('display', 'none');
                     }
                     if(data.status_ticket == 1){
                         $('#status-ticket').val(1);
@@ -229,6 +233,39 @@
                 }
             });
         });
-       
+        $(document).on('click', '.save-button', function(e) {
+            e.preventDefault();
+            var orderId = $('#order-id').val();
+            var data = {
+                'status_ticket' : $('#status-ticket').val()
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/admin/order/updateStatusTicket/' + orderId ,
+                type: 'PUT',
+                data: data,
+                // dataType: 'json',
+                success: function(data) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: 'Cập nhật dữ liệu thành công.',
+                        showConfirmButton: false,
+                        timer: 1000,
+                        timerProgressBar: true
+                    }).then(function() {
+                        // Sau khi popup đóng, load lại trang
+                        location.reload();
+                    });
+
+
+                }
+            });
+        })
     </script>
 @endsection

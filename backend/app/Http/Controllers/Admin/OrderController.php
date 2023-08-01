@@ -189,7 +189,8 @@ class OrderController extends Controller
                 'status_ticket' =>$order->status_ticket,
                 'status' =>$order->status,
                 'point' =>$order->points,
-                'payment' => $orderTransaction->payment_code
+                'payment' => $orderTransaction->payment_code,
+                'order_id'=>$order->order_code
     
              ];
             return response()->json($data);
@@ -207,11 +208,23 @@ class OrderController extends Controller
                 'status_ticket' =>$order->status_ticket,
                 'status' =>$order->status,
                 'point' =>$order->points,
-                'payment' => 'Đang chờ xử lý'
+                'payment' => 'Đang chờ xử lý',
+                'order_id'=>$order->order_code
     
              ];
             return response()->json($data);
         }
         
+    }
+    public function updateStatusTicket(Request $request)
+    {
+       $this->orders ->where('order_code', $request->id)->update([
+        'status_ticket' => $request->input('status_ticket')
+       ]);
+
+       return response()->json([
+        'status' => 200,
+        'message' =>'Cập nhật  thành công',
+    ]);
     }
 }
