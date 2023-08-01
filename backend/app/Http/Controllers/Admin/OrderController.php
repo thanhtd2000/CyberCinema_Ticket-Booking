@@ -175,21 +175,43 @@ class OrderController extends Controller
         $datePart = $timeStartParts[0]; // Ngày (YYYY-MM-DD)
         $timePart = $timeStartParts[1]; // Thời gian (HH:ii:ss)
         $productNames = implode(', ', $orderProducts->pluck('name')->toArray());
-         $data =[
-            'movie_name' => $orderSchedules[0]->movie_name,
-            'movie_time' =>$orderSchedules[0]->movie_time,
-           
-            'datePart' =>$datePart,
-            'timePart' =>$timePart,
-            'room_name' =>$orderSchedules[0]->room_name,
-            'seatNames' =>$seatNames,
-            'productNames' =>  $productNames,
-            'total' => $order->total,
-            'discount' =>  $orderDiscounts->code,
-            'status_ticket' =>$order->status_ticket,
-            'status' =>$order->status
-
-         ];
-        return response()->json($data);
+        if($order->transaction_id){
+            $data =[
+                'movie_name' => $orderSchedules[0]->movie_name,
+                'movie_time' =>$orderSchedules[0]->movie_time,
+                'datePart' =>$datePart,
+                'timePart' =>$timePart,
+                'room_name' =>$orderSchedules[0]->room_name,
+                'seatNames' =>$seatNames,
+                'productNames' =>  $productNames,
+                'total' => number_format($order->total) . 'VND',
+                'discount' =>  $orderDiscounts->percent . '%',
+                'status_ticket' =>$order->status_ticket,
+                'status' =>$order->status,
+                'point' =>$order->points,
+                'payment' => $orderTransaction->payment_code
+    
+             ];
+            return response()->json($data);
+        }else {
+            $data =[
+                'movie_name' => $orderSchedules[0]->movie_name,
+                'movie_time' =>$orderSchedules[0]->movie_time,
+                'datePart' =>$datePart,
+                'timePart' =>$timePart,
+                'room_name' =>$orderSchedules[0]->room_name,
+                'seatNames' =>$seatNames,
+                'productNames' =>  $productNames,
+                'total' => number_format($order->total) . 'VND',
+                'discount' =>  $orderDiscounts->percent . '%',
+                'status_ticket' =>$order->status_ticket,
+                'status' =>$order->status,
+                'point' =>$order->points,
+                'payment' => 'Đang chờ xử lý'
+    
+             ];
+            return response()->json($data);
+        }
+        
     }
 }
