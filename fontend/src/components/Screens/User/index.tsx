@@ -39,51 +39,53 @@ function UserScreen() {
                         </div>
                         <Row>
                               <Col xs={24} sm={24} md={24} lg={12} className={style.updateInfor}>
-                                    <Form
-                                          name="basic"
-                                          wrapperCol={{ span: 24 }}
-                                          labelCol={{ md: 6,lg: 5 }}
-                                          initialValues={{ remember: true }}
-                                          onFinish={onFinish}
-                                          autoComplete="off"
-                                    >
-
-                                          <Form.Item
-                                                label="Username"
-                                                name="name"
-                                                initialValue={user?.name}
+                                    {
+                                          user && (<Form
+                                                name="basic"
+                                                wrapperCol={{ span: 24 }}
+                                                labelCol={{ md: 6,lg: 5 }}
+                                                initialValues={{ remember: true }}
+                                                onFinish={onFinish}
+                                                autoComplete="off"
                                           >
-                                                <Input />
-                                          </Form.Item>
-
-                                          <Form.Item
-                                                label="Email"
-                                                name="email"
-                                                initialValue={user?.email}
-                                          >
-                                                <Input disabled style={{ backgroundColor: 'white' }} />
-                                          </Form.Item>
-
-                                          <Form.Item
-                                                label="Phone"
-                                                name="phone"
-                                                initialValue={user?.phone}
-
-                                          >
-                                                <Input />
-                                          </Form.Item>
-                                          <Form.Item label="Sex" name='sex' initialValue={user?.sex}>
-                                                <Input disabled style={{ backgroundColor: 'white' }} />
-                                          </Form.Item>
-                                          <Form.Item label="Số Points" name='points' initialValue={user?.points}>
-                                                <Input disabled style={{ backgroundColor: 'white' }} />
-                                          </Form.Item>
-                                          <Form.Item style={{textAlign: 'center'}}>
-                                                <Button type="primary" htmlType="submit">
-                                                      Update
-                                                </Button>
-                                          </Form.Item>
-                                    </Form>
+      
+                                                <Form.Item
+                                                      label="Username"
+                                                      name="name"
+                                                      initialValue={user?.name}
+                                                >
+                                                      <Input />
+                                                </Form.Item>
+      
+                                                <Form.Item
+                                                      label="Email"
+                                                      name="email"
+                                                      initialValue={user?.email}
+                                                >
+                                                      <Input disabled style={{ backgroundColor: 'white' }} />
+                                                </Form.Item>
+      
+                                                <Form.Item
+                                                      label="Phone"
+                                                      name="phone"
+                                                      initialValue={user?.phone}
+      
+                                                >
+                                                      <Input />
+                                                </Form.Item>
+                                                <Form.Item label="Sex" name='sex' initialValue={user?.sex}>
+                                                      <Input disabled style={{ backgroundColor: 'white' }} />
+                                                </Form.Item>
+                                                <Form.Item label="Số Points" name='points' initialValue={user?.points}>
+                                                      <Input disabled style={{ backgroundColor: 'white' }} />
+                                                </Form.Item>
+                                                <Form.Item style={{textAlign: 'center'}}>
+                                                      <Button type="primary" htmlType="submit">
+                                                            Update
+                                                      </Button>
+                                                </Form.Item>
+                                          </Form>)
+                                    }
                               </Col>
                               <Col xs={24} sm={24} md={24} lg={12} className={style.updatePassword}>
                                     <Form
