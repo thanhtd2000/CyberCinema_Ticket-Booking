@@ -29,10 +29,12 @@ export async function getServerSideProps({ locale }: GetServerSidePropsContext) 
 }
 function index(props: InferGetServerSidePropsType<typeof getServerSideProps> ) {
       const { HotNews} = props;
-      console.log(HotNews);
+      const news = HotNews.filter((item: any)=> item.category === 1)
+      const newsOffer = HotNews.filter((item: any)=> item.category === 2)
+      
   return (
       <Layout>
-            <NewScreen listNews={HotNews} />
+            <NewScreen listNews={news} />
       </Layout>
   )
 }
