@@ -99,7 +99,7 @@ class MovieController extends Controller
                     ]);
                 }
             }
-            return redirect()->route('admin.movie')->with('message', 'Thêm thành công');
+            return redirect()->route('Admin.movie')->with('message', 'Thêm thành công');
         } catch (PDOException $e) {
             if ($e->getCode() === '23000') {
                 return redirect()->back()->with('errors', 'Tên phim đã tồn tại');
@@ -151,7 +151,7 @@ class MovieController extends Controller
             $movie->slug = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
             $movie->save();
             $movie->actors()->sync($request->actors);
-            return redirect()->route('admin.movie')->with('message', 'Sửa thành công');
+            return redirect()->route('Admin.movie')->with('message', 'Sửa thành công');
         } catch (PDOException $e) {
             if ($e->getCode() === '23000') {
                 return redirect()->back()->with('errors', 'Tên phim đã tồn tại');
@@ -192,7 +192,7 @@ class MovieController extends Controller
     {
         $movie =  $this->movies->withTrashed()->find($request->id);
         $movie->restore();
-        return redirect()->route('admin.movie.trash');
+        return redirect()->route('Admin.movie.trash');
     }
     public function show($id)
     {

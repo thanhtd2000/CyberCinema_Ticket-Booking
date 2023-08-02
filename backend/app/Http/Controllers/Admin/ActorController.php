@@ -36,7 +36,7 @@ class ActorController extends Controller
         $keywords = $request->input('keywords');
         $actors = Actor::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.actors.index', compact('actors', 'keywords'));
+        return view('Admin.actors.index', compact('actors', 'keywords'));
     }
 
     /**
@@ -100,7 +100,7 @@ class ActorController extends Controller
     {
         if(Gate::allows('edit-actor')){
             $actor = Actor::find($id);
-        return view('admin.actors.edit', compact('actor'));
+        return view('Admin.actors.edit', compact('actor'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

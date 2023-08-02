@@ -36,7 +36,7 @@ class RoomController extends Controller
         $schedule = $this->schedule->get();
         $endDate = Carbon::create(2023, 6, 16, 23, 59, 59);
 
-        return view('Admin/Room/list', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
+        return view('admin/Room/list', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
     }
 
     public function create()
@@ -45,7 +45,7 @@ class RoomController extends Controller
 
             $seatTypes = $this->seatType->get();
 
-            return view('Admin/Room/create', compact('seatTypes'));
+            return view('admin/Room/create', compact('seatTypes'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -74,7 +74,7 @@ class RoomController extends Controller
                 $this->seat->create($dataSeat);
             }
         }
-        return redirect()->route('admin.room')->with('success', 'Thêm thành công!');
+        return redirect()->route('Admin.room')->with('success', 'Thêm thành công!');
     }
 
     public function edit($id)
@@ -91,7 +91,7 @@ class RoomController extends Controller
             if (!empty($schedule->toArray())) {
                 return back()->with('errors', 'Phòng đang chiếu phim không thể sửa!');
             } else {
-                return view('Admin/Room/edit', compact('room', 'seatType', 'seats', 'elements'));
+                return view('admin/Room/edit', compact('room', 'seatType', 'seats', 'elements'));
             }
         } else {
             return back()->with('errors', 'Bạn không có quyền');
@@ -114,7 +114,7 @@ class RoomController extends Controller
                     'name' => $request->roomname,
                 ];
             $this->room->find($id)->update($data);
-            return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
+            return redirect()->route('Admin.room')->with('message', 'Sửa thành công!');
         } catch (\PDOException $e) {
             if ($e->getCode() === '23000') {
                 return redirect()->back()->with('errors', 'Phòng đã tồn tại');
@@ -157,7 +157,7 @@ class RoomController extends Controller
     {
         $room =  $this->room->withTrashed()->find($request->id);
         $room->restore();
-        return redirect()->route('admin.room.trash');
+        return redirect()->route('Admin.room.trash');
     }
     // public function createPayment(Request $request)
     // {

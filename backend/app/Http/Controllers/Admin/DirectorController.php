@@ -34,7 +34,7 @@ class DirectorController extends Controller
         $keywords = $request->input('keywords');
         $directors = Director::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.directors.index', compact('directors', 'keywords'));
+        return view('Admin.directors.index', compact('directors', 'keywords'));
     }
 
     /**
@@ -96,7 +96,7 @@ class DirectorController extends Controller
     {
         if (Gate::allows('edit-director')) {
             $director = Director::find($id);
-            return view('admin.directors.edit', compact('director'));
+            return view('Admin.directors.edit', compact('director'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

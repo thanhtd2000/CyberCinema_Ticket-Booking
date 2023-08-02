@@ -26,7 +26,7 @@ class PostController extends Controller
     public function show()
     {
         $posts =  $this->posts->latest()->paginate(5);
-        return view('admin.post.index', compact('posts'));
+        return view('Admin.post.index', compact('posts'));
     }
     public function search(Request $request)
     {
@@ -34,12 +34,12 @@ class PostController extends Controller
         $posts =  $this->posts->where('title', 'like', '%' . $query . '%')
             ->orWhere('content', 'like', '%' . $query . '%')
             ->paginate(5);
-        return view('admin.post.index', compact('posts'));
+        return view('Admin.post.index', compact('posts'));
     }
     public function create()
     {
         if (Gate::allows('create-post')) {
-            return view('admin.post.create');
+            return view('Admin.post.create');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -87,7 +87,7 @@ class PostController extends Controller
         if (Gate::allows('create-post')) {
             $post =  $this->posts->find($request->id);
 
-            return view('admin.post.edit', compact('post'));
+            return view('Admin.post.edit', compact('post'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
