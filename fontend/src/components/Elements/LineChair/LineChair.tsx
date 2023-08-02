@@ -99,7 +99,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
                   {!isLoading ? (
                         <p className={style.nameChair}>{item?.name}</p>
                       ) : (
-                        <div className={style.nameChair}>
+                        <div style={{cursor: 'no-drop'}} className={style.nameChair}>
                               <Spin />
                         </div>
                       )}

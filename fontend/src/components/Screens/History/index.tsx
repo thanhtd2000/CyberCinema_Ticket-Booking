@@ -1,8 +1,9 @@
 import React from 'react';
 import style from './style.module.less';
-import { Breadcrumb, Button, Col, Empty, Row, Spin } from 'antd';
+import { Breadcrumb, Col, Empty, Row, Spin } from 'antd';
 import { checkAuth } from '@/libs/localStorage';
 import { queryHistory } from '@/queries/hooks/payment';
+import Link from 'antd/es/typography/Link';
 function HistoryScreen() {
   const token = checkAuth();
   const { data: history, isLoading } = queryHistory(token);
@@ -88,13 +89,9 @@ function HistoryScreen() {
                         }
                       </Col>
                       <Col span={2} className={style.th}>
-                        {item?.link ? (
-                          <Button href={item?.link} style={{ color: 'white', background: 'red', outline: 'none' }}>
-                            Vé Chi tiết
-                          </Button>
-                        ) : (
-                          <Button style={{ color: 'white', background: 'red', outline: 'none' }}>Vé Chi tiết</Button>
-                        )}
+                        {
+                              item?.link ? (<Link href={item?.link} style={{color: 'orange'}}>Chi tiết</Link>) : (<p style={{color: 'red'}}>Đã huỷ</p>)
+                        }
                       </Col>
                     </Row>
                   ))
