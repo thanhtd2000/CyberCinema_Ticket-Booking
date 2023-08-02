@@ -1,2 +1,0 @@
-php artisan migrate   //cập nhật DB
-php artisan serve   // bật serve

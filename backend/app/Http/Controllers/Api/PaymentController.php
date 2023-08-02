@@ -329,7 +329,6 @@ class PaymentController extends Controller
             } else {
                 $dataTrans = [
                     'transactions_code' => $request->transId,
-
                     'payment_code' => 'Momo',
                     'status' => 3,
                     'amount' => $request->amount,
