@@ -35,9 +35,9 @@ use App\Http\Controllers\Admin\StatisticalsController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return redirect()->route('admin.index');
+});
 
 
 // login routes
@@ -52,7 +52,7 @@ Route::prefix('admin')->group(function () {
 Route::get('/bill', [ShowsController::class, 'index'])->name('bill');
 Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::get("/index", [StatisticalsController::class, 'index'])->name('admin.index');
-   
+
     Route::prefix('users')->group(function () {
         Route::get("/index", [UserController::class, 'show'])->name('users.show')->middleware('can:list-user');
         Route::post("/index", [UserController::class, 'show'])->name('users.search')->middleware('can:list-user');
@@ -193,6 +193,4 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/show/{id}', [OrderController::class, 'showTicket'])->name('admin.order.show');
     });
     Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
-
-
 });

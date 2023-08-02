@@ -42,7 +42,7 @@ class TicketController extends Controller
                 $d->movie_name = $orderSchedules->movie_name ?? 'Không tồn tại';
                 $d->addPoints = ceil($d->total / 10000);
                 if ($d->status == 1) {
-                    $d->link = "http://127.0.0.1:8000/bill?details=" . Crypt::encrypt($d->order_code);
+                    $d->link = BASE_URL . "bill?details=" . Crypt::encrypt($d->order_code);
                 }
                 return $d;
             });

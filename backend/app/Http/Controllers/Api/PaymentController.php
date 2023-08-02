@@ -106,7 +106,7 @@ class PaymentController extends Controller
                     "vnp_Locale" => $vnp_Locale,
                     "vnp_OrderInfo" => $vnp_OrderInfo,
                     "vnp_OrderType" => $vnp_OrderType,
-                    "vnp_ReturnUrl" => 'http://127.0.0.1:8000/api/payment',
+                    "vnp_ReturnUrl" => BASE_URL . 'api/payment',
                     "vnp_TxnRef" => $vnp_TxnRef,
 
                 );
@@ -153,7 +153,7 @@ class PaymentController extends Controller
                 $orderInfo = "Thanh toán vé xem phim";
                 $amount = $request->total;
                 $orderId = 'CB' . '-' . $this->convert->randString(3) . time() . "";
-                $redirectUrl = 'http://127.0.0.1:8000/api/payment';
+                $redirectUrl = BASE_URL . 'api/payment';
                 $ipnUrl = "https://webhook.site/b3088a6a-2d17-4f8d-a383-71389a6c600b";
                 $extraData = "";
 
@@ -237,7 +237,7 @@ class PaymentController extends Controller
                     'bank_code' => $request->vnp_BankCode,
                     'payment_code' => $request->vnp_CardType,
                     'status' => 2,
-                    'amount' => $request->vnp_Amount/100,
+                    'amount' => $request->vnp_Amount / 100,
                     'order_code' => $request->vnp_TxnRef,
                 ];
 
@@ -245,7 +245,7 @@ class PaymentController extends Controller
 
                 $this->order->where('order_code', $transaction->order_code)->update([
                     'transaction_id' => $transaction->id,
-                    'status' => 2,//trạng thái thanh toán thành công
+                    'status' => 2, //trạng thái thanh toán thành công
                     'status_ticket' => 1, // trạng thái vé là chưa dùng
                 ]);
 
@@ -349,4 +349,4 @@ class PaymentController extends Controller
             }
         }
     }
-}   
+}
