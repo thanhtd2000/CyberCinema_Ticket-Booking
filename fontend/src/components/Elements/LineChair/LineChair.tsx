@@ -17,7 +17,11 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
     }
   }, [isError]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const handleSelectChair = (item:any) =>{
+      if(!isLoading){
+            handleBoxClick(item)
+      }
+  }
   const showModal = () => {
     setIsModalOpen(true);
   };
@@ -52,7 +56,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
               );
             } else {
               return (
-                <Col className={style.itemChair} onClick={() => handleBoxClick(item)}>
+                <Col className={style.itemChair} onClick={() => handleSelectChair(item)}>
                   {selectedBoxes.includes(item) || item?.status === 1 ? (
                     <Image src='/images/chair/seat-select-normal.png' width={50} height={50} alt='empty chair' />
                   ) : (
@@ -90,7 +94,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
               );
             } else {
               return (
-                <Col className={style.itemChair} onClick={() => handleBoxClick(item)}>
+                <Col className={style.itemChair} onClick={() => handleSelectChair(item)}>
                   {selectedBoxes.includes(item) || item?.status === 1 ? (
                     <Image src='/images/chair/seat-select-vip.png' width={50} height={50} alt='empty chair' />
                   ) : (
@@ -128,7 +132,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
               );
             } else {
               return (
-                <Col className={style.itemChair} onClick={() => handleBoxClick(item)}>
+                <Col className={style.itemChair} onClick={() => handleSelectChair(item)}>
                   {selectedBoxes.includes(item) ? (
                     <Image src='/images/chair/seat-select-double.png' width={50} height={50} alt='Booking chair' />
                   ) : (

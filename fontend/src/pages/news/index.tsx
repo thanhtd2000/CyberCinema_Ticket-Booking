@@ -34,7 +34,7 @@ function index(props: InferGetServerSidePropsType<typeof getServerSideProps> ) {
       
   return (
       <Layout>
-            <NewScreen listNews={news} />
+            <NewScreen listNews={news} listNewsOffer={newsOffer} />
       </Layout>
   )
 }

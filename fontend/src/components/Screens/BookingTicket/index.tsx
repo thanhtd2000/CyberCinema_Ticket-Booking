@@ -51,7 +51,7 @@ function BookingTicketScreen() {
             { id: valueRoom?.id, schedule_id: valueRoom?.schedule_id },
             token,
             );
-      const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: number) => amount + current.price , 0) : null, [selectedBoxes])
+      const totalPrice = useMemo(() => selectedBoxes.length > 0 ? selectedBoxes.reduce((amount: number, current: any) => amount + current.price , 0) : null, [selectedBoxes])
       return (
             <div className={`${style.bookingTicket} booking Loading`} style={{ background: '#0D0E10' }}>
                   <div className='container'>
@@ -86,32 +86,32 @@ function BookingTicketScreen() {
                                           }
                                           <div className={style.time}>
                                                 <p>Thời gian giữ ghế</p>
-                                                {dataChair?.time ? (<CountTime expiresAt={dataChair?.time} />) : (<Spin></Spin>)}
+                                                {dataChair?.time  && dataChair?.time ? (<CountTime expiresAt={dataChair?.time} />) : (<Spin></Spin>)}
                                           </div>
                                           <Row className={style.TypeChairSelect}>
                                                 <Col span={6}>
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/NomarlChair.png' width={40} height={40} alt='empty chair' />
                                                       </div>
-                                                      <p>Ghế Trống</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Trống</p>
                                                 </Col>
                                                 <Col span={6}>
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/chair/seat-select-normal.png' width={40} height={40} alt='Booking chair' />
                                                       </div>
-                                                      <p>Ghế Đang chọn</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Đang chọn</p>
                                                 </Col>
                                                 <Col span={6}>
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/chair/seat-process-normal.png' width={40} height={40} alt='Booking chair' />
                                                       </div>
-                                                      <p>Ghế Đang Giữ</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Đang Giữ</p>
                                                 </Col>
                                                 <Col span={6}>
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/chair/seat-buy-normal.png' width={40} height={40} alt='Booking chair' />
                                                       </div>
-                                                      <p>Ghế Đã Bán</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Đã Bán</p>
                                                 </Col>
                                           </Row>
                                           <div className={style.sreen}>
@@ -138,19 +138,19 @@ function BookingTicketScreen() {
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/NomarlChair.png' width={40} height={40} alt='empty chair' />
                                                       </div>
-                                                      <p>Ghế Đơn</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Đơn</p>
                                                 </Col>
                                                 <Col span={8}>
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/chair/ChairVip.png' width={50} height={50} alt='Booking chair' />
                                                       </div>
-                                                      <p>Ghế Vip</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Vip</p>
                                                 </Col>
                                                 <Col span={8}>
                                                       <div style={{ textAlign: 'center' }}>
                                                             <Image src='/images/chair/doubleChair.png' width={50} height={50} alt='Booking chair' />
                                                       </div>
-                                                      <p>Ghế Đôi</p>
+                                                      <p style={{paddingTop: '10px'}}>Ghế Đôi</p>
                                                 </Col>
                                           </Row>
                                     </Col>) : (<OrderTicket selectedBoxes={selectedBoxes}  totalPrice={totalPrice} expiresAt={dataChair?.time}></OrderTicket>)
