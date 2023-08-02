@@ -110,7 +110,7 @@ function Header() {
                                                             <Link href='/news'>
                                                                   <li>Tin tức</li>
                                                             </Link>
-                                                            <Link href='/'>
+                                                            <Link href='/contact'>
                                                                   <li>Liên hệ</li>
                                                             </Link>
                                                       </ul>
@@ -177,7 +177,7 @@ function Header() {
                                                                         <Link href='/'>
                                                                               Tin tức
                                                                         </Link>
-                                                                        <Link href='/'>
+                                                                        <Link href='/contact'>
                                                                               Liên hệ
                                                                         </Link>
                                                                   </Col>

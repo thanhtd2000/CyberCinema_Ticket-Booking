@@ -1,0 +1,209 @@
+.wrapper {
+  padding: 150px 9.86111111% 80px 9.86111111%;
+  @media (max-width: 991.92px) {
+    margin-top: var(--header-height-mobile);
+  }
+  .background {
+    position: relative;
+    width: 100%;
+    height: 446px;
+    .blur {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+      background-color: rgba(22, 21, 21, 0.75);
+    }
+    .breadcrumb {
+      margin-top: 32px;
+      margin-bottom: 56px;
+    }
+    .img {
+      object-fit: cover;
+      @media (max-width: 767.98px) {
+        display: none;
+      }
+    }
+    .imgTablet {
+      object-fit: cover;
+      display: none;
+      @media (max-width: 767.98px) {
+        display: block;
+      }
+    }
+    .bgWrap {
+      position: absolute;
+      padding-left: 50px;
+      z-index: 2;
+      @media (max-width: 992.98px) {
+            padding-left: 20px;
+          }
+    }
+    .title {
+      margin-bottom: 69px;
+      width: 100%;
+      h1 {
+        span {
+          font-size: 38px;
+          line-height: 46px;
+          letter-spacing: 0.006em;
+          color: white;
+          display: block;
+        }
+      }
+    }
+    .line {
+      width: calc(100% + 48px);
+      height: 2px;
+      background-color: #fff;
+      margin-bottom: 44px;
+      .lineIcon {
+        border-radius: 5px;
+        background-color: #fff;
+        text-align: center;
+        display: flex;
+        width: 30px;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        &:not(.last) {
+          right: 2px;
+        }
+        position: relative;
+        bottom: 100%;
+        transform: translateY(-50%);
+      }
+      &.last {
+        width: calc(100%);
+        .lineIcon {
+          right: 0;
+        }
+      }
+    }
+    .statistical {
+      .title {
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: 0.006em;
+        color: white;
+        margin-bottom: 8px;
+      }
+      .desc {
+        color: white;
+        letter-spacing: -0.012em;
+        @media (min-width: 1200px) {
+          max-width: 222px;
+        }
+      }
+    }
+  }
+  .content {
+    margin-top: 80px;
+    overflow: hidden;
+    .title {
+      font-size: 38px;
+      line-height: 46px;
+      letter-spacing: 0.006em;
+      color: white;
+      margin-bottom: 48px;
+    }
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .form {
+      width: 100%;
+      input{
+            height: 35px ;
+      }
+      label {
+        color: white;
+        font-family: 'ui-display', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+      .note {
+        margin-top: 8px;
+      }
+      .btn {
+        margin-left: auto;
+        height: 40px;
+        padding: 8px 15px;
+        float: right;
+      }
+    }
+    iframe {
+      width: 100%;
+      height: 566px;
+      border: 0;
+      @media (max-width: 991.92px) {
+        height: 500px;
+      }
+      @media (max-width: 767.92px) {
+        height: 400px;
+      }
+    }
+  }
+}
+
+@media (max-width: 767.98px) {
+  .wrapper {
+    .background {
+      height: 380px;
+      margin-bottom: 49px;
+      .breadcrumb {
+        margin-bottom: 40px;
+      }
+      .title {
+        h1 span {
+          font-size: 24px;
+          line-height: 32px;
+        }
+      }
+      .line {
+        margin-bottom: 31px;
+      }
+      .statistical {
+        .title {
+          font-size: 16px;
+          line-height: 24px;
+        }
+        .desc {
+          font-size: 12px;
+          line-height: 20px;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 575.98px) {
+  .wrapper {
+    .background {
+      height: 550px;
+      .breadcrumb {
+        margin-bottom: 30px;
+      }
+      .title {
+        margin-bottom: 36px;
+      }
+      .line {
+        width: 100%;
+        background-color: transparent;
+        margin-bottom: 45px;
+        .lineIcon {
+          position: relative;
+          transform: translateY(0);
+          margin-bottom: 12px;
+        }
+      }
+      .statistical {
+        .title {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}

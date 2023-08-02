@@ -21,10 +21,11 @@ function CountTime({ expiresAt }: ICount) {
   const duration = moment.duration(endDate.diff(startDate));
   const exp = +endDate - +startDate;
   const seconds = useMemo(() => (duration.seconds() < 10 ? `0${duration.seconds()}` : duration.seconds()), [duration]);
-  if(exp <= 0){
-      router.push('/')
-      return false;
-  }
+  useEffect(()=>{
+        if(exp <= 0){
+            router.push('/')
+        }
+  },[exp])
   const minutes = useMemo(() => (duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes()), [duration]);
   return (
     <Text>{exp <= 0 || !expiresAt ? 'Token Expried' : `${minutes}:${seconds}`}</Text>

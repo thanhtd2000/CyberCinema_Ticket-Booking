@@ -7,11 +7,14 @@ import { TPost } from '@/modules/post'
 const { Title } = Typography
 interface INewScreen {
       listNews: TPost[];
+      listNewsOffer: TPost[];
 
 }
-function NewScreen({ listNews }: INewScreen) {
+function NewScreen({ listNews, listNewsOffer }: INewScreen) {
       const listNewsRight = listNews.slice(1, 3)
       const listNewsBottom = listNews.slice(1, 5)
+      const listNewsOfferRight = listNewsOffer.slice(1, 3)
+      const listNewsOfferBottom = listNewsOffer.slice(1, 5)
       return (
             <div className='News' style={{ background: '#0D0E10' }}>
                   <div className='container'>
@@ -30,7 +33,7 @@ function NewScreen({ listNews }: INewScreen) {
                                     />
                               </Col>
                               <Col span={24}>
-                                    <Title level={2}>KHUYẾN MÃI MỚI</Title>
+                                    <Title level={2}>THÔNG TIN PHIM</Title>
                               </Col>
                               <Col span={24}>
                                     <Row gutter={[0, 24]}>
@@ -75,58 +78,60 @@ function NewScreen({ listNews }: INewScreen) {
                                           </Col>
                                     </Row>
                               </Col>
-                              <Col span={24} className={style.watchMore}><Button>Xem thêm </Button></Col>
+                              <Col span={24} className={style.watchMore}>{
+                                    listNews.length > 7 ? (<Button>Xem thêm </Button>) : ''
+                              }</Col>
                         </Row>
                         <Row className={style.Offer}>
                               <Col span={24}>
-                                    <Title level={2}>ƯU ĐÃI MỚI</Title>
+                                    <Title level={2}>THÔNG TIN ƯU ĐÃI</Title>
                               </Col>
                               <Col span={24}>
                                     <Row gutter={[0, 24]}>
                                           <Col span={24}>
-                                                <Row gutter={[24, 0]}>
-                                                      <Col span={12}>
-                                                            <Image src='/images/uudai.png' width={546} height={415} alt='news'></Image>
-                                                            <Title level={3}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
+                                                <Row gutter={[24, 24]}>
+                                                      <Col xs={24} sm={24} md={24} lg={12} className={style.mainNews}>
+                                                            <Link href={`news/${listNewsOffer[0]?.slug}`}>
+                                                                  <Image src={listNewsOffer[0]?.image} width={546} height={415} alt='news'></Image>
+                                                                  <Title level={3}>{listNewsOffer[0]?.name}</Title>
+                                                            </Link>
                                                       </Col>
-                                                      <Col span={12}>
-                                                            <Row gutter={[24, 0]} style={{ alignItems: 'center' }}>
-                                                                  <Col span={12}>
-                                                                        <Image src='/images/uudai.png' width={312} height={208} alt='news'></Image>
-                                                                        <Title level={4}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
-                                                                  </Col>
-                                                                  <Col span={12}>
-                                                                        <Image src='/images/uudai.png' width={312} height={208} alt='news'></Image>
-                                                                        <Title level={4}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
-                                                                  </Col>
+                                                      <Col xs={24} sm={24} md={24} lg={12}>
+                                                            <Row gutter={[24, 24]} style={{ alignItems: 'center' }}>
+                                                                  {
+                                                                        listNewsOfferRight && listNewsOfferRight.map((item) => (
+                                                                              <Col xs={24} sm={12} md={12} lg={12} xl={12}>
+                                                                                    <Link href={`news/${item?.slug}`}>
+                                                                                          <Image src={item?.image} width={312} height={208} alt='news'></Image>
+                                                                                          <Title level={4}>{item?.name}</Title>
+                                                                                    </Link>
+                                                                              </Col>
+                                                                        ))
+                                                                  }
                                                             </Row>
                                                       </Col>
 
                                                 </Row>
                                           </Col>
                                           <Col span={24}>
-                                                <Row gutter={[24, 24]}>
-                                                      <Col span={6}>
-                                                            <Image src='/images/uudai2.jpg' width={312} height={208} alt='news'></Image>
-                                                            <Title level={4}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
-                                                      </Col>
-                                                      <Col span={6}>
-                                                            <Image src='/images/uudai2.jpg' width={312} height={208} alt='news'></Image>
-                                                            <Title level={4}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
-                                                      </Col>
-                                                      <Col span={6}>
-                                                            <Image src='/images/uudai2.jpg' width={312} height={208} alt='news'></Image>
-                                                            <Title level={4}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
-                                                      </Col>
-                                                      <Col span={6}>
-                                                            <Image src='/images/uudai2.jpg' width={312} height={208} alt='news'></Image>
-                                                            <Title level={4}>Cyber Movies với nhiều ưu đãi đặc biệt</Title>
-                                                      </Col>
+                                                <Row gutter={[24, 0]}>
+                                                      {
+                                                            listNewsOfferBottom && listNewsOfferBottom.map((item) => (
+                                                                  <Col xs={24} sm={12} md={12} lg={6}>
+                                                                        <Link href={`news/${item?.slug}`}>
+                                                                              <Image src={item?.image} width={312} height={208} alt='news'></Image>
+                                                                              <Title level={4}>{item?.name}</Title>
+                                                                        </Link>
+                                                                  </Col>
+                                                            ))
+                                                      }
                                                 </Row>
                                           </Col>
                                     </Row>
                               </Col>
-                              <Col span={24} className={style.watchMore}><Button>Xem thêm </Button></Col>
+                              <Col span={24} className={style.watchMore}>{
+                                    listNewsOffer.length > 7 ? (<Button>Xem thêm </Button>) : ''
+                              }</Col>
                         </Row>
                   </div>
             </div>
