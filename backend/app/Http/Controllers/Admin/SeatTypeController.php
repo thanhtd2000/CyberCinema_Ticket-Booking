@@ -24,14 +24,14 @@ class SeatTypeController extends Controller
     {
         $seatTypes = $this->seatType->latest()->paginate(5);
 
-        return view('Admin/seats/seat_type/list', compact('seatTypes'));
+        return view('admin/seats/seat_type/list', compact('seatTypes'));
     }
 
     public function create()
     {
         // dd(Auth::user());
         if (Gate::allows('create-seatType')) {
-            return view('Admin/seats/seat_type/create');
+            return view('admin/seats/seat_type/create');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -56,7 +56,7 @@ class SeatTypeController extends Controller
         if (Gate::allows('edit-seatType')) {
             $seatType = $this->seatType->find($id);
 
-            return view('Admin/seats/seat_type/edit', compact('seatType'));
+            return view('admin/seats/seat_type/edit', compact('seatType'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

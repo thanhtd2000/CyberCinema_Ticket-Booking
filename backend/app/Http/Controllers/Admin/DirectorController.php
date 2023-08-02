@@ -69,9 +69,9 @@ class DirectorController extends Controller
                 $image = $request->file('image');
                 $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
                 Director::create($newDirecrtor);
-                return redirect('Admin/actor/index')->with('message', 'Thêm Thành công');
+                return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
             }
-            return redirect('Admin/director/index')->with('errors', 'Thiếu ảnh');
+            return redirect('admin/director/index')->with('errors', 'Thiếu ảnh');
         }
     }
 
@@ -119,7 +119,7 @@ class DirectorController extends Controller
             $image = $request->file('image');
             $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $director->update($newDirecrtor);
-            return redirect('Admin/director/index')->with('message', 'Cập nhật thành công');
+            return redirect('admin/director/index')->with('message', 'Cập nhật thành công');
         }
         $director->update($newDirector);
         return redirect()->back()->with('message', 'Sửa thành công!');
@@ -135,7 +135,7 @@ class DirectorController extends Controller
     {
         if (Gate::allows('delete-director')) {
             Director::find($id)->delete();
-            return redirect('Admin/director/index')->with('message', 'Xóa thành công!');
+            return redirect('admin/director/index')->with('message', 'Xóa thành công!');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

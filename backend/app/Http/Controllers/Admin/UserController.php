@@ -56,9 +56,9 @@ class UserController extends Controller
 
         $user = User::find($request->id);
         if ($user && $user->role != 0 && $user->delete()) {
-            return redirect('Admin/users/index')->with('message', 'Xoá thành công');
+            return redirect('admin/users/index')->with('message', 'Xoá thành công');
         } else {
-            return redirect('Admin/users/index')->with('message', 'Không thể xoá quản trị viên');
+            return redirect('admin/users/index')->with('message', 'Không thể xoá quản trị viên');
         }
     }
     public function create()

@@ -76,7 +76,7 @@ class PostController extends Controller
         if (Gate::allows('delete-post')) {
             $Post =  $this->posts->find($request->id);
             if ($Post && $Post->delete()) {
-                return redirect('Admin/posts/index')->with('message', 'Xoá thành công');
+                return redirect('admin/posts/index')->with('message', 'Xoá thành công');
             }
         } else {
             return back()->with('errors', 'Bạn không có quyền');

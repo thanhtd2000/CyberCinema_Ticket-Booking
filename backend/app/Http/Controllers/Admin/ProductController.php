@@ -60,7 +60,7 @@ class ProductController extends Controller
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $product->save();
-        return redirect('Admin/product')->with('success', 'Thêm sản phẩm thành công');
+        return redirect('admin/product')->with('success', 'Thêm sản phẩm thành công');
     }
 
     public function edit(Request $request)
@@ -95,7 +95,7 @@ class ProductController extends Controller
     {
         if (Gate::allows('delete-product')) {
             Product::where('id', $id)->delete();
-            return redirect('Admin/product')->with('message', 'Xóa sản phẩm thành công');
+            return redirect('admin/product')->with('message', 'Xóa sản phẩm thành công');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
