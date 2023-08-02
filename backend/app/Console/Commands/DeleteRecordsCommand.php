@@ -39,9 +39,9 @@ class DeleteRecordsCommand extends Command
      */
     public function handle()
     {
-        $threshold = Carbon::now()->subMinutes(5);
+        $timeAdd = Carbon::now()->subMinutes(1);
 
-        OrderSchedule::where('created_at', '<=', $threshold)->where('status', 1)->delete();
+        OrderSchedule::where('created_at', '<=', $timeAdd)->where('status', 1)->where('order_id', null)->forceDelete();
 
         $this->info('Records deleted successfully.');
     }
