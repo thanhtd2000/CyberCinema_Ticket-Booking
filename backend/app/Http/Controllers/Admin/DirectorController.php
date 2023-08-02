@@ -34,7 +34,7 @@ class DirectorController extends Controller
         $keywords = $request->input('keywords');
         $directors = Director::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.directors.index', compact('directors', 'keywords'));
+        return view('Admin.directors.index', compact('directors', 'keywords'));
     }
 
     /**
@@ -69,9 +69,9 @@ class DirectorController extends Controller
                 $image = $request->file('image');
                 $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
                 Director::create($newDirecrtor);
-                return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+                return redirect('Admin/actor/index')->with('message', 'Thêm Thành công');
             }
-            return redirect('admin/director/index')->with('errors', 'Thiếu ảnh');
+            return redirect('Admin/director/index')->with('errors', 'Thiếu ảnh');
         }
     }
 
@@ -96,7 +96,7 @@ class DirectorController extends Controller
     {
         if (Gate::allows('edit-director')) {
             $director = Director::find($id);
-            return view('admin.directors.edit', compact('director'));
+            return view('Admin.directors.edit', compact('director'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -119,7 +119,7 @@ class DirectorController extends Controller
             $image = $request->file('image');
             $newDirecrtor['image'] = $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $director->update($newDirecrtor);
-            return redirect('admin/director/index')->with('message', 'Cập nhật thành công');
+            return redirect('Admin/director/index')->with('message', 'Cập nhật thành công');
         }
         $director->update($newDirector);
         return redirect()->back()->with('message', 'Sửa thành công!');
@@ -135,7 +135,7 @@ class DirectorController extends Controller
     {
         if (Gate::allows('delete-director')) {
             Director::find($id)->delete();
-            return redirect('admin/director/index')->with('message', 'Xóa thành công!');
+            return redirect('Admin/director/index')->with('message', 'Xóa thành công!');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

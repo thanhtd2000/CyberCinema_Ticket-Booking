@@ -74,7 +74,7 @@ class RoomController extends Controller
                 $this->seat->create($dataSeat);
             }
         }
-        return redirect()->route('admin.room')->with('success', 'Thêm thành công!');
+        return redirect()->route('Admin.room')->with('success', 'Thêm thành công!');
     }
 
     public function edit($id)
@@ -114,7 +114,7 @@ class RoomController extends Controller
                     'name' => $request->roomname,
                 ];
             $this->room->find($id)->update($data);
-            return redirect()->route('admin.room')->with('message', 'Sửa thành công!');
+            return redirect()->route('Admin.room')->with('message', 'Sửa thành công!');
         } catch (\PDOException $e) {
             if ($e->getCode() === '23000') {
                 return redirect()->back()->with('errors', 'Phòng đã tồn tại');
@@ -157,7 +157,7 @@ class RoomController extends Controller
     {
         $room =  $this->room->withTrashed()->find($request->id);
         $room->restore();
-        return redirect()->route('admin.room.trash');
+        return redirect()->route('Admin.room.trash');
     }
     // public function createPayment(Request $request)
     // {

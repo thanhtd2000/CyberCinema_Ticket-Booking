@@ -1,6 +1,6 @@
-@extends('admin.layouts.footer')
-@extends('admin.layouts.master')
-@extends('admin.layouts.header')
+@extends('Admin.layouts.footer')
+@extends('Admin.layouts.master')
+@extends('Admin.layouts.header')
 @section('content')
     <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
                 class="text-white" href="create">Thêm mới</a></button>

@@ -26,7 +26,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = $this->products->latest()->paginate(5);
-        return view('admin.products.list', compact('products'));
+        return view('Admin.products.list', compact('products'));
     }
 
     public function search(Request $request)
@@ -35,7 +35,7 @@ class ProductController extends Controller
         $products =  $this->products->where('name', 'like', '%' . $query . '%')
             ->orWhere('content', 'like', '%' . $query . '%')
             ->paginate(5);
-        return view('admin.post.index', compact('products'));
+        return view('Admin.post.index', compact('products'));
     }
 
     public function create()
@@ -60,7 +60,7 @@ class ProductController extends Controller
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
         }
         $product->save();
-        return redirect('admin/product')->with('success', 'Thêm sản phẩm thành công');
+        return redirect('Admin/product')->with('success', 'Thêm sản phẩm thành công');
     }
 
     public function edit(Request $request)
@@ -88,14 +88,14 @@ class ProductController extends Controller
         $product->description = $request['description'];
         // dd($product);
         $product->save();
-        return redirect()->route('admin.product')->with('message', 'Sửa thành công');
+        return redirect()->route('Admin.product')->with('message', 'Sửa thành công');
     }
 
     public function delete($id)
     {
         if (Gate::allows('delete-product')) {
             Product::where('id', $id)->delete();
-            return redirect('admin/product')->with('message', 'Xóa sản phẩm thành công');
+            return redirect('Admin/product')->with('message', 'Xóa sản phẩm thành công');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

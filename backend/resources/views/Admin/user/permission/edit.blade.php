@@ -1,6 +1,6 @@
-@extends('admin.layouts.footer')
-@extends('admin.layouts.master')
-@extends('admin.layouts.header')
+@extends('Admin.layouts.footer')
+@extends('Admin.layouts.master')
+@extends('Admin.layouts.header')
 @section('content')
 
   

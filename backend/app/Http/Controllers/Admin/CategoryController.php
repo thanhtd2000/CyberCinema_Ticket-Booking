@@ -21,7 +21,7 @@ class CategoryController extends Controller
     {
 
         $categories = Category::paginate(10);
-        return view('admin.categories.index', compact('categories'));
+        return view('Admin.categories.index', compact('categories'));
     }
 
     public function search(Request $request)
@@ -29,7 +29,7 @@ class CategoryController extends Controller
         $keywords = $request->input('keywords');
         $categories = Category::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.categories.index', compact('categories', 'keywords'));
+        return view('Admin.categories.index', compact('categories', 'keywords'));
     }
 
 
@@ -41,7 +41,7 @@ class CategoryController extends Controller
     public function create()
     {
         if (Gate::allows('create-category')) {
-            return view('admin.categories.create');
+            return view('Admin.categories.create');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -57,7 +57,7 @@ class CategoryController extends Controller
     {
         $newCategory = $request->toArray();
         Category::create($newCategory);
-        return redirect('admin/category/index')->with('message', 'Thêm thành công');
+        return redirect('Admin/category/index')->with('message', 'Thêm thành công');
     }
 
     /**
@@ -81,7 +81,7 @@ class CategoryController extends Controller
     {
         if (Gate::allows('edit-category')) {
             $category = Category::find($id);
-            return view('admin.categories.edit', compact('category'));
+            return view('Admin.categories.edit', compact('category'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -99,7 +99,7 @@ class CategoryController extends Controller
         $request = $request->except(['_token', '_method']);
         // dd($request);
         Category::where('id', $id)->update($request);
-        return redirect('admin/category/index ')->with('message', 'Sửa thành công!');
+        return redirect('Admin/category/index ')->with('message', 'Sửa thành công!');
     }
 
     /**
@@ -112,7 +112,7 @@ class CategoryController extends Controller
     {
         if (Gate::allows('delete-category')) {
             Category::find($id)->delete();
-            return redirect('admin/category/index')->with('message', 'Xóa thành công!');
+            return redirect('Admin/category/index')->with('message', 'Xóa thành công!');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

@@ -16,6 +16,6 @@ class TransactionController extends Controller
     public function index()
     {
         $transactions = $this->transactions->paginate(10);
-        return view('admin.transactions.index', compact('transactions'));
+        return view('Admin.transactions.index', compact('transactions'));
     }
 }

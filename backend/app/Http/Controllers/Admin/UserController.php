@@ -28,7 +28,7 @@ class UserController extends Controller
     }
     public function index()
     {
-        return view('admin.index');
+        return view('Admin.index');
     }
 
     public function show(Request $request)
@@ -37,14 +37,14 @@ class UserController extends Controller
         if ($keywords) {
 
             $user = User::search($keywords)->paginate(5);
-            return view('admin.user.index', [
+            return view('Admin.user.index', [
                 'user' => $user,
                 'roles' => $this->roles,
                 'keywords' => $keywords
             ]);
         } else {
             $user = User::latest()->paginate(5);
-            return view('admin.user.index', [
+            return view('Admin.user.index', [
                 'user' => $user,
                 'roles' => $this->roles,
             ]);
@@ -56,14 +56,14 @@ class UserController extends Controller
 
         $user = User::find($request->id);
         if ($user && $user->role != 0 && $user->delete()) {
-            return redirect('admin/users/index')->with('message', 'Xoá thành công');
+            return redirect('Admin/users/index')->with('message', 'Xoá thành công');
         } else {
-            return redirect('admin/users/index')->with('message', 'Không thể xoá quản trị viên');
+            return redirect('Admin/users/index')->with('message', 'Không thể xoá quản trị viên');
         }
     }
     public function create()
     {
-        return view('admin.user.create');
+        return view('Admin.user.create');
     }
 
     public function store(UserRequest $request)
@@ -84,7 +84,7 @@ class UserController extends Controller
     public function edit(Request $request)
     {
         $user = User::find($request->id);
-        return view('admin.user.edit', compact('user'));
+        return view('Admin.user.edit', compact('user'));
     }
     public function update(ProfileRequests $request)
     {
@@ -120,12 +120,12 @@ class UserController extends Controller
 
         ];
         $user = User::paginate(5);
-        return view('admin.user.permise', [
+        return view('Admin.user.permise', [
             'user' => $user,
             'roles' => $roles,
         ]);
     }
-    public function permise_admin(Request $request)
+    public function permise_Admin(Request $request)
     {
 
         $user = User::find($request->id);
@@ -137,7 +137,7 @@ class UserController extends Controller
     }
     public function viewchange()
     {
-        return view('admin.user.change');
+        return view('Admin.user.change');
     }
     public function change(Request $request)
     {

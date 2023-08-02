@@ -36,7 +36,7 @@ class ActorController extends Controller
         $keywords = $request->input('keywords');
         $actors = Actor::where('name', 'like', '%' . $keywords . '%')
             ->paginate(5);
-        return view('admin.actors.index', compact('actors', 'keywords'));
+        return view('Admin.actors.index', compact('actors', 'keywords'));
     }
 
     /**
@@ -73,9 +73,9 @@ class ActorController extends Controller
                 $image = $request->file('image');
                 $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
                 Actor::create($newActor);
-                return redirect('admin/actor/index')->with('message', 'Thêm Thành công');
+                return redirect('Admin/actor/index')->with('message', 'Thêm Thành công');
             }
-            return redirect('admin/actor/index')->with('message', 'Thiếu ảnh');
+            return redirect('Admin/actor/index')->with('message', 'Thiếu ảnh');
         }
     }
 
@@ -100,7 +100,7 @@ class ActorController extends Controller
     {
         if(Gate::allows('edit-actor')){
             $actor = Actor::find($id);
-        return view('admin.actors.edit', compact('actor'));
+        return view('Admin.actors.edit', compact('actor'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -124,10 +124,10 @@ class ActorController extends Controller
             $image = $request->file('image');
             $newActor['image'] =  $this->firebaseHelper->uploadimageToFireBase($image, $path);
             $actor->update($newActor);
-            return redirect('admin/actor/index')->with('message', 'Cập nhật thành công');
+            return redirect('Admin/actor/index')->with('message', 'Cập nhật thành công');
         }
         $actor->update($newActor);
-        return redirect('admin/actor/index ')->with('message', 'Cập nhật thành công!');
+        return redirect('Admin/actor/index ')->with('message', 'Cập nhật thành công!');
     }
 
     /**
@@ -140,7 +140,7 @@ class ActorController extends Controller
     {
         if(Gate::allows('delete-actor')){
             Actor::find($id)->delete();
-            return redirect('admin/actor/index')->with('message', 'Xóa thành công!');
+            return redirect('Admin/actor/index')->with('message', 'Xóa thành công!');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

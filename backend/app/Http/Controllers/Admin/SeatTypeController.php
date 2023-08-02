@@ -48,7 +48,7 @@ class SeatTypeController extends Controller
             ];
         $this->seatType->create($data);
 
-        return redirect()->route('admin.seat_type')->with('message', 'Thêm thành công!');
+        return redirect()->route('Admin.seat_type')->with('message', 'Thêm thành công!');
     }
 
     public function edit($id)
@@ -70,14 +70,14 @@ class SeatTypeController extends Controller
                 'price' => $request->price
             ];
         $this->seatType->find($id)->update($data);
-        return redirect()->route('admin.seat_type')->with('message', 'Sửa thành công!');
+        return redirect()->route('Admin.seat_type')->with('message', 'Sửa thành công!');
     }
 
     public function destroy($id)
     {
         if (Gate::allows('delete-seatType')) {
             $this->seatType->find($id)->delete($id);
-            return redirect()->route('admin.seat_type')->with('message', 'Delete thành công!');
+            return redirect()->route('Admin.seat_type')->with('message', 'Delete thành công!');
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

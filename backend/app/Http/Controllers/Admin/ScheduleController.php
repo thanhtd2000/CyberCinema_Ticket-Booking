@@ -31,7 +31,7 @@ class ScheduleController extends Controller
         $rooms = $this->room->get();
         $movies = $this->movie->get();
         $schedules = $this->schedule->get();
-        return view('admin.schedule.list', compact('rooms', 'movies', 'schedules'));
+        return view('Admin.schedule.list', compact('rooms', 'movies', 'schedules'));
     }
 
     public function create()
@@ -39,7 +39,7 @@ class ScheduleController extends Controller
         if(Gate::allows('create-schedule')){
             $rooms = $this->room->get();
             $movies = $this->movie->get();
-            return view('admin.schedule.create', compact('rooms', 'movies'));
+            return view('Admin.schedule.create', compact('rooms', 'movies'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -79,7 +79,7 @@ class ScheduleController extends Controller
         }
         $error = implode("</br>", $errors);
         $message = implode("</br>", $messages);
-        return redirect()->route('admin.schedule')->with('errors', $error)->with('message', $message);
+        return redirect()->route('Admin.schedule')->with('errors', $error)->with('message', $message);
     }
 
     public function edit($id)
@@ -88,7 +88,7 @@ class ScheduleController extends Controller
             $rooms = $this->room->get();
             $movies = $this->movie->get();
             $schedule = Schedule::find($id);
-            return view('admin.schedule.edit', compact('schedule', 'rooms', 'movies'));
+            return view('Admin.schedule.edit', compact('schedule', 'rooms', 'movies'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }
@@ -120,7 +120,7 @@ class ScheduleController extends Controller
             return back()->with('errors', 'Phòng không trống trong khoảng thời gian này!');
         } else {
             Schedule::find($id)->update($insert);
-            return redirect()->route('admin.schedule')->with('message', 'Sửa thành công!');
+            return redirect()->route('Admin.schedule')->with('message', 'Sửa thành công!');
         }
     }
 
