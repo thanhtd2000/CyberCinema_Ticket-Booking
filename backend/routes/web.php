@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\CinemaController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SeatRowController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ContactController;
 use App\Http\Controllers\Admin\DirectorController;
 use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
@@ -192,6 +193,11 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::post("/", [OrderController::class, 'index'])->name('admin.order.search');
         Route::get('/show/{id}', [OrderController::class, 'showTicket'])->name('admin.order.show');
         Route::put('/updateStatusTicket/{id}', [OrderController::class, 'updateStatusTicket']);
+    });
+    Route::prefix('/contact')->group(function () {
+        Route::get('/', [ContactController::class, 'index'])->name('admin.contact');
+        Route::get('/update/{id}', [ContactController::class, 'update'])->name('admin.contact.update');
+        Route::post("/index", [ContactController::class, 'index'])->name('admin.contact.search');
     });
     Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
 });
