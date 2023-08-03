@@ -34,7 +34,7 @@
                             <a class="text-white" href="{{ route('admin.category.edit', $category->id) }}">Sửa</a>
                         </button>
                         <button class="btn btn-danger">
-                            <a class="text-white" onclick="return confirm('Really delete this category?')"
+                            <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn xoá?')"
                                 href="{{ route('admin.category.destroy', $category->id) }}"> Xóa</a>
                         </button>
                     </td>
