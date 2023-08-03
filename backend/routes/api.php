@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ShowsController;
 use App\Http\Controllers\Api\Postcontroller;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\SeatController;
