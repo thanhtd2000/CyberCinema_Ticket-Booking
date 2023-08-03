@@ -24,11 +24,11 @@ class StatisticalsController extends Controller
             ->groupBy(DB::raw('DATE_FORMAT(created_at, "%Y-%m")'))
             ->get();
         $orderDate = Orders::select(DB::raw('DATE(created_at) as order_month'), DB::raw('SUM(total) AS total_sum'))
-        ->where('created_at','LIKE',"%$currentDateTime%")
-        ->where('status', 2)
-        ->groupBy(DB::raw('DATE(created_at)'))
-        ->first();
-    //    dd($orderDate);
+            ->where('created_at', 'LIKE', "%$currentDateTime%")
+            ->where('status', 2)
+            ->groupBy(DB::raw('DATE(created_at)'))
+            ->first();
+        //    dd($orderDate);
         $data = [
             'labels' => $orderMonth->pluck('order_month'),
             'datasets' => [
@@ -38,32 +38,44 @@ class StatisticalsController extends Controller
             ]
         ];
         $revenues = Movie::join('schedules', 'movies.id', '=', 'schedules.movie_id')
-        ->join('order_schedule', 'schedules.id', '=', 'order_schedule.schedule_id')
-        ->join('orders', 'order_schedule.order_id', '=', 'orders.id')
-        ->where('orders.status', 2)
-        ->select('movies.name', DB::raw('SUM(orders.total) as total_revenue'))
-        ->groupBy('movies.name')
-        ->orderByDesc('total_revenue')
-        ->get();
-    //    dd($revenues);
-        return view('admin/statisticals/index', compact('orderMonth','orderDate'))->with('chartData', json_encode($data));
+            ->join('order_schedule', 'schedules.id', '=', 'order_schedule.schedule_id')
+            ->join('orders', 'order_schedule.order_id', '=', 'orders.id')
+            ->where('order_schedule.status', 2)
+            ->select('movies.name', DB::raw('SUM(orders.total) as total_revenue'))
+            ->groupBy('movies.name')
+            ->orderByDesc('total_revenue')
+            ->get();
+        //    dd($revenues);
+        return view('admin/statisticals/index', compact('orderMonth', 'orderDate'))->with('chartData', json_encode($data));
     }
 
     public function showMonth(Request $request)
     {
-        $dateString =$request->query('month');
-        $carbonDate = Carbon::parse($dateString);
+        $dateStart = $request->query('dateStart');
+        $dateEnd = $request->query('dateEnd');
 
-        $months = $carbonDate->month; // Kết quả: 7
-        $year = $carbonDate->year; // Năm 2023
-        $startDate = Carbon::createFromDate($year, $months, 1)->startOfDay();
-        $endDate = Carbon::createFromDate($year, $months, 1)->endOfMonth()->endOfDay();
+        if ($dateStart && $dateEnd) {
+            $orderDate = Orders::whereBetween('created_at', [$dateStart, $dateEnd])
+                 ->where('status', 2)
+                ->select(DB::raw('SUM(total) AS total'))
+                
+                ->first();
+            return response()->json(['orderDate' => $orderDate]);
+        } elseif ($dateEnd) {
+            $orderDate = Orders::select(DB::raw('SUM(total) AS total'))
+                ->where('created_at', 'LIKE', "%$dateEnd%")
+                ->where('status', 2)
+                ->groupBy(DB::raw('DATE(created_at)'))
+                ->first();
+            return response()->json(['orderDate' => $orderDate]);
+        } elseif ($dateStart) {
 
-        $orders = Orders::select(DB::raw('DATE(created_at) as order_date'), DB::raw('SUM(total) AS total_sum'))
-            ->where('status', 2)
-            ->whereBetween('created_at', [$startDate, $endDate])
-            ->groupBy('order_date')
-            ->get();
-         return response()->json(['month'=>$orders]);
+            $orderDate = Orders::select(DB::raw('SUM(total) AS total'))
+                ->where('created_at', 'LIKE', "%$dateStart%")
+                ->where('status', 2)
+                ->groupBy(DB::raw('DATE(created_at)'))
+                ->first();
+            return response()->json(['orderDate' => $orderDate]);
+        }
     }
 }

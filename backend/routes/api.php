@@ -5,13 +5,14 @@ use App\Http\Controllers\Api\Postcontroller;
 use App\Http\Controllers\Api\RoomController;
 use App\Http\Controllers\Api\SeatController;
 use App\Http\Controllers\Api\MovieController;
+use App\Http\Controllers\Api\PointController;
+use App\Http\Controllers\Api\TicketController;
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\ContactController;
 use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\DiscountController;
-use App\Http\Controllers\Api\PointController;
 use App\Http\Controllers\Api\ScheduleController;
-use App\Http\Controllers\Api\TicketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -72,3 +73,5 @@ Route::middleware('auth:sanctum')->get('get/points', [PointController::class, 'g
 //email
 Route::post('send/code', [AuthApiController::class, 'sendcode']);
 Route::post('check/code', [AuthApiController::class, 'checkcode']);
+//contact
+Route::post('test', [ContactController::class, 'store']);
