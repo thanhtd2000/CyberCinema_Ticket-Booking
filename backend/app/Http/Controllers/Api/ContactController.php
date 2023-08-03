@@ -10,8 +10,15 @@ class ContactController extends Controller
 {
     public function store(Request $request)
     {
-        $data = $request->validated();
+
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'content' => $request->content,
+            'status' => 0
+        ];
         Contacts::create($data);
-        return response()->json('success', 200);
+        return response()->json('Gửi thành công', 200);
     }
 }

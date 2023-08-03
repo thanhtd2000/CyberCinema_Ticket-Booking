@@ -74,4 +74,4 @@ Route::middleware('auth:sanctum')->get('get/points', [PointController::class, 'g
 Route::post('send/code', [AuthApiController::class, 'sendcode']);
 Route::post('check/code', [AuthApiController::class, 'checkcode']);
 //contact
-Route::post('test', [ContactController::class, 'store']);
+Route::post('contact', [ContactController::class, 'store']);
