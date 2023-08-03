@@ -9,14 +9,17 @@ import { regexEmail, regexPhoneNumber } from '@/utils/regex';
 import { formatNumberWithDot } from '@/components/Widgets/formatNumberPhone/formatNumberPhone';
 
 import styles from './style.module.less';
+import { useQueryContact } from '@/queries/hooks/user';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
 function ContactScreen() {
   const [form] = Form.useForm();
-
-  const onFinish = (values: any) => {};
+  const { mutate: useMutateContact } = useQueryContact();
+  const onFinish = (values: any) => {
+      useMutateContact( { data: { ...values } })
+  };
 
   return (
     <div style={{ background: '#0D0E10' }}>
@@ -225,7 +228,7 @@ function ContactScreen() {
                               },
                             ]}
                             label='Lời nhắn'
-                            name='message'
+                            name='content'
                           >
                             <TextArea rows={4} placeholder='Điền lời nhắn của bạn đến đội ngũ CyberMovies' />
                           </Form.Item>

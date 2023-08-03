@@ -33,9 +33,9 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                   amount: item.amount
             }
       })
-      const total = totalPrice + priceProduct - percent - points*1000
-      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.schedule_id, seat_id: arrayIdChair, product: productChoice, points: 0 })
       const movieDetail = getLocalStored('data');
+      const total = totalPrice + priceProduct - percent - points*1000 
+      const [bodyPayment, setBodyPayment] = useState({ typePayment: typePayment as string, total: total, discount_id: 0, schedule_id: valueRoom.schedule_id, seat_id: arrayIdChair, product: productChoice, points: 0 })
       const [token, setToken] = useState<string>('');
       const router = useRouter()
       const { data: point } = queryGetPoints(token)
