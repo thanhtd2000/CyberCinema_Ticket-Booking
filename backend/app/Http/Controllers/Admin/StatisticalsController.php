@@ -45,7 +45,7 @@ class StatisticalsController extends Controller
             ->groupBy('movies.name')
             ->orderByDesc('total_revenue')
             ->get();
-           dd($revenues);
+        //    dd($revenues);
         return view('Admin/statisticals/index', compact('orderMonth', 'orderDate','revenues'))->with('chartData', json_encode($data));
     }
 

@@ -63,71 +63,57 @@
             </div>
         </div>
     </div>
-    <div class="table-responsive">
-        <table class="table border mb-0">
-            <thead class="table-light fw-semibold">
-                <tr class="align-middle">
-                    <th class="text-center">
-                        <svg class="icon">
-                            <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-people"></use>
-                        </svg>
-                    </th>
-                    <th>Phim</th>
-                    <th class="text-center">Ngày bắt đầu chiếu</th>
+    <div class="row">
 
-                    <th class="text-center">Tổng doanh số</th>
-
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($revenues as $reven)
-                <tr class="align-middle">
-                    <td class="text-center">
-                        <div class="avatar avatar-md"><img class="avatar-img" src="{{}}"
-                                alt=""><span class="avatar-status bg-success"></span></div>
-                    </td>
-                    <td>
-                        <div>Yiorgos Avraamu</div>
-
-                    </td>
-
-                    <td>
-                        <div class="clearfix">
-                            <div class="float-start">
-                                <div class="fw-semibold">50%</div>
+        <div class="col-md-7">
+            <table class="table border mb-0">
+                <thead class="table-light fw-semibold">
+                    <tr class="align-middle">
+                        <th class="text-center">
+                            <svg class="icon">
+                                <use xlink:href="vendors/@coreui/icons/svg/free.svg#cil-people"></use>
+                            </svg>
+                        </th>
+                        <th>Phim</th>
+                       
+                        <th class="text-center">Tổng doanh số</th>
+    
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($revenues as $reven)
+                    <tr class="align-middle">
+                        <td class="text-center">
+                            <div class="avatar avatar-md"><img class="avatar-img" src="{{$reven->image}}"
+                                    alt=""></div>
+                        </td>
+                        <td>
+                            <div style="font-weight: bold">{{$reven->name}}</div>
+    
+                        </td>
+    
+                      
+                        <td class="text-center" style="font-weight: bold">{{number_format($reven->total_revenue)}} VND</td>
+    
+                        <td>
+                            <div class="dropdown">
+                                <button class="btn btn-transparent p-0" type="button" data-coreui-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <svg class="icon">
+                                        <use xlink:href="{{ asset('dist/vendors/@coreui/icons/svg/free.svg#cil-options') }}">
+                                        </use>
+                                    </svg>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Info</a>
+                                </div>
                             </div>
-                            <div class="float-end"><small class="text-medium-emphasis">Jun 11, 2020 - Jul 10, 2020</small>
-                            </div>
-                        </div>
-                        <div class="progress progress-thin">
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50"
-                                aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    </td>
-                    <td class="text-center">
-                        <svg class="icon icon-xl">
-                            <use xlink:href="vendors/@coreui/icons/svg/brand.svg#cib-cc-mastercard"></use>
-                        </svg>
-                    </td>
-
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-transparent p-0" type="button" data-coreui-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                                <svg class="icon">
-                                    <use xlink:href="{{ asset('dist/vendors/@coreui/icons/svg/free.svg#cil-options') }}">
-                                    </use>
-                                </svg>
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Info</a>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 
 
