@@ -46,7 +46,7 @@ class StatisticalsController extends Controller
             ->orderByDesc('total_revenue')
             ->get();
         //    dd($revenues);
-        return view('admin/statisticals/index', compact('orderMonth', 'orderDate'))->with('chartData', json_encode($data));
+        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate'))->with('chartData', json_encode($data));
     }
 
     public function showMonth(Request $request)
