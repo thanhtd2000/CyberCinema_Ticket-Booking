@@ -39,14 +39,14 @@ class StatisticalsController extends Controller
         ];
         $revenues = Movie::join('schedules', 'movies.id', '=', 'schedules.movie_id')
             ->join('order_schedule', 'schedules.id', '=', 'order_schedule.schedule_id')
-            ->join('orders', 'order_schedule.order_id', '=', 'orders.id')
+            
             ->where('order_schedule.status', 2)
-            ->select('movies.name', DB::raw('SUM(orders.total) as total_revenue'))
+            ->select('movies.*', DB::raw('SUM(order_schedule.total) as total_revenue'))
             ->groupBy('movies.name')
             ->orderByDesc('total_revenue')
             ->get();
-        //    dd($revenues);
-        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate'))->with('chartData', json_encode($data));
+           dd($revenues);
+        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate','revenues'))->with('chartData', json_encode($data));
     }
 
     public function showMonth(Request $request)

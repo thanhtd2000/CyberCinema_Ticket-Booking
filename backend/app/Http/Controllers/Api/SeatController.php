@@ -26,7 +26,9 @@ class SeatController extends Controller
                 'seat_id' => $request->id,
                 'schedule_id' => $request->schedule_id,
                 'user_id' => $user->id,
-                'status' => 1
+                'status' => 1,
+                'total' =>$request->total
+
             ]);
             $data1 = Seat::leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
                 ->leftJoin('order_schedule', 'order_schedule.seat_id', '=', 'seats.id')
