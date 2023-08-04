@@ -36,7 +36,7 @@ function BookingTicketScreen() {
       const { mutate: updateChair, isLoading: loading, isError } = useQueryPatchChair()
       const handleBoxClick = (box: any | never) => {
             if (!loading) {
-                  updateChair({ params: { id: box?.id, schedule_id: valueRoom.schedule_id }, token: token })
+                  updateChair({ params: { id: box?.id, schedule_id: valueRoom.schedule_id, total : movieDetail?.price + box?.price }, token: token })
             }
             const isSelected = selectedBoxes.includes(box);
             if (isSelected) {

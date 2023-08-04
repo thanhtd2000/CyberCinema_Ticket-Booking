@@ -30,8 +30,11 @@ function Header() {
             setOpen(true);
       };
       const { data: user, isLoading, isFetching } = queryGetProfile(token)
-      const { mutate: signOut } = useMutationSignOut();
-
+      const { mutate: signOut, isError } = useMutationSignOut();
+      // useEffect(()=>{
+      //       signOut()
+      // },[isError])
+      console.log(isError);
       const handleLogout = () => {
             signOut()
             setToken(undefined)

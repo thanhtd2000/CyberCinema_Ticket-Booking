@@ -42,6 +42,7 @@ export type TSchedule = {
 export type TUpdateStatusChair = {
       id: number;
       schedule_id: number;
+      total : number;
 }
 export type TChair = {
       status: number,
