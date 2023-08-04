@@ -153,7 +153,7 @@ function BookingTicketScreen() {
                                                       <p style={{paddingTop: '10px'}}>Ghế Đôi</p>
                                                 </Col>
                                           </Row>
-                                    </Col>) : (<OrderTicket selectedBoxes={selectedBoxes}  totalPrice={totalPrice} expiresAt={dataChair?.time}></OrderTicket>)
+                                    </Col>) : (<OrderTicket selectedBoxes={selectedBoxes}  totalPrice={totalPrice + movieDetail?.price } expiresAt={dataChair?.time}></OrderTicket>)
                               }
                               <Col xs={24} sm={24} md={24} lg={6} className={style.inforTicket}>
                                     <Row gutter={[{sm: 24,md: 24,lg: 0},0]}>
