@@ -88,7 +88,7 @@ class ProductController extends Controller
         $product->description = $request['description'];
         // dd($product);
         $product->save();
-        return redirect()->route('Admin.product')->with('message', 'Sửa thành công');
+        return redirect()->route('admin.product')->with('message', 'Sửa thành công');
     }
 
     public function delete($id)

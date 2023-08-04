@@ -171,6 +171,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::get('/edit/{id}', [ScheduleController::class, 'edit'])->name('admin.schedule.edit');
         Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
         Route::get('delete/{id}', [ScheduleController::class, 'delete'])->name('admin.schedule.delete');
+        Route::post('checktime', [ScheduleController::class, 'checktime'])->name('admin.schedule.checktime');
     });
 
     Route::prefix('/discount')->group(function () {
@@ -200,4 +201,5 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::post("/index", [ContactController::class, 'index'])->name('admin.contact.search');
     });
     Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
+    Route::get('/checktime', [ScheduleController::class, 'checktime'])->name('admin.schedule.checktime');
 });

@@ -20,11 +20,11 @@ class PermissionController extends Controller
     {
         $permissionsParent = $this->role->where('parent_id', 0)->get();
 
-        return view('admin/user/permission/list', compact('permissionsParent'));
+        return view('Admin/user/permission/list', compact('permissionsParent'));
     }
     function create()
     {
-        return view('admin/user/permission/create');
+        return view('Admin/user/permission/create');
     }
 
     function store(PermissionRequest $request)
@@ -48,7 +48,7 @@ class PermissionController extends Controller
     public function edit($id){
         $permission_parent = $this->role->where('parent_id',0)->find($id);
         $permission_child =$this->role->where('parent_id',$id)->get();
-        return view('admin/user/permission/edit',compact('permission_parent','permission_child'));
+        return view('Admin/user/permission/edit',compact('permission_parent','permission_child'));
     }
 
     public function update(Request $request)
