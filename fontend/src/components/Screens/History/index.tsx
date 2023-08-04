@@ -84,14 +84,22 @@ function HistoryScreen() {
                         {item?.product_name.length > 0 ? item?.product_name?.map((item: any) => <p>{item}</p>) : '--'}
                       </Col>
                       <Col span={2} className={style.th}>
-                        {
-                              item?.addPoints ? (<div>{item?.addPoints} point</div>) : '--'
-                        }
+                        {item?.addPoints ? <div>{item?.addPoints} point</div> : '--'}
                       </Col>
                       <Col span={2} className={style.th}>
-                        {
-                              item?.link ? (<Link href={item?.link} style={{color: 'orange'}}>Chi tiết</Link>) : (<p style={{color: 'red'}}>Đã huỷ</p>)
-                        }
+                        {(() => {
+                          if (item?.status === 1) {
+                            return <p style={{ color: 'green' }}>Đang thanh toán</p>;
+                          } else if (item?.status === 2) {
+                            return (
+                              <Link href={item?.link} style={{ color: 'orange' }}>
+                                Chi tiết
+                              </Link>
+                            );
+                          } else {
+                            return <p style={{ color: 'red' }}>Đã huỷ</p>;
+                          }
+                        })()}
                       </Col>
                     </Row>
                   ))
