@@ -192,7 +192,7 @@ class MovieController extends Controller
     {
         $movie =  $this->movies->withTrashed()->find($request->id);
         $movie->restore();
-        return redirect()->route('Admin.movie.trash');
+        return redirect()->route('admin.movie.trash');
     }
     public function show($id)
     {
