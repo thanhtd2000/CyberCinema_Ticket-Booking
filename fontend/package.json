@@ -7,7 +7,6 @@
     "build": "next build",
     "start": "next start -p 3200",
     "lint": "next lint",
-    "prepare": "husky install",
     "ts-check": "tsc --noemit",
     "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,less,md}\""
   },
@@ -74,7 +73,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "husky": "^8.0.3",
     "prettier": "^2.8.3",
     "typescript": "^4.9.4"
   },
