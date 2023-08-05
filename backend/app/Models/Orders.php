@@ -9,10 +9,11 @@ use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Orders extends Model
 {
-    use HasFactory;
+    use HasFactory,SoftDeletes;
 
     protected $table = 'orders';
     protected $guarded = [];
