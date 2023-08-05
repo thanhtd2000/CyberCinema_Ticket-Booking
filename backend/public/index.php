@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 define('LARAVEL_START', microtime(true));
 const BASE_URL = 'http://127.0.0.1:8000/';
-
+const BASE_URL2 = 'http://localhost:3200/';
 /*
 |--------------------------------------------------------------------------
 | Check If The Application Is Under Maintenance

@@ -286,7 +286,7 @@ class PaymentController extends Controller
                 $backpoints = $user->points + $orders->points;
                 $user->update(['points' =>  $backpoints]);
                 $this->orderSchedule->where('order_id', $orders->id)->delete();
-                return redirect()->to('http://localhost:3200/payment/failed');
+                return redirect()->to(BASE_URL2 . 'payment/failed');
             }
         }
         if (isset($request->resultCode)) {
@@ -344,7 +344,7 @@ class PaymentController extends Controller
                 $backpoints = $user->points + $orders->points;
                 $user->update(['points' =>  $backpoints]);
                 $this->orderSchedule->where('order_id', $orders->id)->delete();
-                return redirect()->to('http://localhost:3200/payment/failed');
+                return redirect()->to(BASE_URL2 . 'payment/failed');
             }
         }
     }
