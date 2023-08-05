@@ -3,17 +3,17 @@
 namespace App\Console\Commands;
 
 use Carbon\Carbon;
-use App\Models\OrderSchedule;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
-class DeleteRecordsCommand extends Command
+class DeleteCodeEmail extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'records:delete';
+    protected $signature = 'records:deletecode';
 
     /**
      * The console command description.
@@ -39,10 +39,8 @@ class DeleteRecordsCommand extends Command
      */
     public function handle()
     {
-        $timeAdd = Carbon::now()->subMinutes(1);
-
-        OrderSchedule::where('created_at', '<=', $timeAdd)->where('status', 1)->where('order_id', null)->forceDelete();
-
-        $this->info('Records deleted successfully.');
+        $now = Carbon::now();
+        DB::table('password_resets')->where('expires_at', '<', $now)->delete();
+        $this->info('Xoá bản ghi mã thành công');
     }
 }
