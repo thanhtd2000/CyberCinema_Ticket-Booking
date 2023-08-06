@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\Movie;
 use App\Models\Orders;
+use App\Models\Product;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -37,16 +39,21 @@ class StatisticalsController extends Controller
                 'borderWidth' => 1
             ]
         ];
-        $revenues = Movie::join('schedules', 'movies.id', '=', 'schedules.movie_id')
-            ->join('order_schedule', 'schedules.id', '=', 'order_schedule.schedule_id')
-            
-            ->where('order_schedule.status', 2)
-            ->select('movies.*', DB::raw('SUM(order_schedule.total) as total_revenue'))
-            ->groupBy('movies.name')
-            ->orderByDesc('total_revenue')
-            ->get();
-        //    dd($revenues);
-        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate','revenues'))->with('chartData', json_encode($data));
+        $revenues = Movie::leftJoin('schedules', 'movies.id', '=', 'schedules.movie_id')
+        ->leftJoin('order_schedule', function ($join) {
+            $join->on('schedules.id', '=', 'order_schedule.schedule_id')
+                 ->where('order_schedule.status', '=', 2);
+        })
+        ->groupBy('movies.id', 'movies.name') // Group by movie id and name
+        ->select('movies.*', DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))
+        ->orderByDesc('total_revenue')
+        ->get();
+        $products = Product::with(['orderProducts' => function ($query) {
+            $query->where('status', 2);
+        }])->get();
+        
+       
+        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate','revenues','products'))->with('chartData', json_encode($data));
     }
 
     public function showMonth(Request $request)

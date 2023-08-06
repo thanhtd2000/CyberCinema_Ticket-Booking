@@ -87,11 +87,13 @@ class PaymentController extends Controller
 
                 foreach ($request->product as $product) {
                     if ($product['amount'] != 0) {
+                        $product1 = $this->product->find($product['id']);
                         $this->orderProduct->create([
                             'quantity' => $product['amount'],
                             'product_id' => $product['id'],
                             'order_id' => $order->id,
-                            'status' => 0
+                            'status' => 0,
+                            'total' => $product['amount']*$product1->price
                         ]);
                     }
                 }
@@ -282,6 +284,7 @@ class PaymentController extends Controller
                     'status' => 3
                 ]);
                 $orders = $this->order->where('order_code', $transaction->order_code)->first();
+                $this->orderProduct->where('order_id', $orders->id)->update(['status' => 1]);
                 $user = User::find($orders->user_id);
                 $backpoints = $user->points + $orders->points;
                 $user->update(['points' =>  $backpoints]);
