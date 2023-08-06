@@ -201,5 +201,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::post("/index", [ContactController::class, 'index'])->name('admin.contact.search');
     });
     Route::get("/showMonth", [StatisticalsController::class, 'showMonth'])->name('admin.showMonth');
-    Route::get('/checktime', [ScheduleController::class, 'checktime'])->name('admin.schedule.checktime');
+    Route::get('/checktime', [ScheduleController::class, 'checktime'])->name('admin.schedule.checkschedule');
+    Route::middleware('checkAdmin')->get('/check-ticket', [TicketController::class, 'check_ticket']);
+
 });
