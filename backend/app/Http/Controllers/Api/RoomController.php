@@ -38,7 +38,9 @@ class RoomController extends Controller
             ->select('seats.id', 'seats.name', 'seats.type_id', 'order_schedule.status', 'seat_types.price')
             ->get();
         $seats = $seats->map(function ($seat) {
-            $seat->status = $seat->status ?? 0;
+            $seat->status = (int)$seat->status ?? 0;
+            $seat->type_id = (int)$seat->type_id;
+            $seat->price = (int)$seat->price;
             return $seat;
         });
         $groupedSeats = $seats->groupBy(function ($seat) {
