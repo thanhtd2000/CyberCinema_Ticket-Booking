@@ -40,20 +40,20 @@ class StatisticalsController extends Controller
             ]
         ];
         $revenues = Movie::leftJoin('schedules', 'movies.id', '=', 'schedules.movie_id')
-        ->leftJoin('order_schedule', function ($join) {
-            $join->on('schedules.id', '=', 'order_schedule.schedule_id')
-                 ->where('order_schedule.status', '=', 2);
-        })
-        ->groupBy('movies.id', 'movies.name') // Group by movie id and name
-        ->select('movies.*', DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))
-        ->orderByDesc('total_revenue')
-        ->get();
+            ->leftJoin('order_schedule', function ($join) {
+                $join->on('schedules.id', '=', 'order_schedule.schedule_id')
+                    ->where('order_schedule.status', '=', 2);
+            })
+            ->groupBy('movies.id', 'movies.name', 'movies.image') // Group by movie id and name
+            ->select('movies.id', 'movies.name', 'movies.image', DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))
+            ->orderByDesc('total_revenue')
+            ->get();
         $products = Product::with(['orderProducts' => function ($query) {
             $query->where('status', 2);
         }])->get();
-        
-       
-        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate','revenues','products'))->with('chartData', json_encode($data));
+
+
+        return view('Admin/statisticals/index', compact('orderMonth', 'orderDate', 'revenues', 'products'))->with('chartData', json_encode($data));
     }
 
     public function showMonth(Request $request)
@@ -63,9 +63,9 @@ class StatisticalsController extends Controller
 
         if ($dateStart && $dateEnd) {
             $orderDate = Orders::whereBetween('created_at', [$dateStart, $dateEnd])
-                 ->where('status', 2)
+                ->where('status', 2)
                 ->select(DB::raw('SUM(total) AS total'))
-                
+
                 ->first();
             return response()->json(['orderDate' => $orderDate]);
         } elseif ($dateEnd) {

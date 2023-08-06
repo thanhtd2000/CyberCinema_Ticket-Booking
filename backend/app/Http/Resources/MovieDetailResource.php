@@ -27,7 +27,7 @@ class MovieDetailResource extends JsonResource
             'time' => $this->time,
             'language' => $this->language,
             'image' => $this->image,
-            'price' => $this->price,
+            'price' => (int)$this->price,
             'slug' => $this->slug,
             'isHot' => $this->isHot,
             'created_at' => $this->created_at,
