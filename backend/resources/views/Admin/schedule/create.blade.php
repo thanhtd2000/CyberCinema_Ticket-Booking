@@ -118,7 +118,7 @@
                         timeList.html("<p>Không có lịch cho ngày và phòng đã chọn.</p>");
                     } else {
                         $.each(data, function(index, item) {
-                            timeList.append("<li>" + item.time_start + "</li>");
+                            timeList.append("<li>" + item.time_start + " đến " + item.time_end + "</li>");
                         });
                     }
                 },
