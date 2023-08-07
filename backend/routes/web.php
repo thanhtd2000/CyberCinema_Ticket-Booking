@@ -202,5 +202,5 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
     Route::middleware('checkAdmin')->get('/check-ticket', [TicketController::class, 'check_ticket']);
 
     Route::get("/detailRevenues", [StatisticalsController::class, 'revenuesMovies']);
-
+    Route::get("/revenueProduct", [StatisticalsController::class, 'revenueProduct']);
 });
