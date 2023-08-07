@@ -113,6 +113,7 @@ class StatisticalsController extends Controller
 
         $productRevenue = OrderProducts::where('product_id', $productId)
             ->where('status', 2)
+            ->whereDate('created_at', '>=', now()->subDays(30))
             ->selectRaw('DATE(created_at) as date, SUM(total) as total')
             ->groupBy('date')
             ->get();
