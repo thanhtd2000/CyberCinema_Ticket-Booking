@@ -112,5 +112,9 @@ class AuthServiceProvider extends ServiceProvider
 
         //Transaction
         Gate::define('list-transaction', 'App\Policies\TransactionPolicy@view');
+
+        //Contact
+        Gate::define('list-contact', 'App\Policies\ContactPolicy@view');
+        Gate::define('edit-contact', 'App\Policies\ContactPolicy@update');
     }
 }

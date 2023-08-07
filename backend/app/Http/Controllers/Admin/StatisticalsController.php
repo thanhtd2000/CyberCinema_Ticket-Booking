@@ -48,6 +48,7 @@ class StatisticalsController extends Controller
             ->select('movies.id', 'movies.name', 'movies.image', DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))
             ->orderByDesc('total_revenue')
             ->get();
+            // dd($revenues);
         $products = Product::with(['orderProducts' => function ($query) {
             $query->where('status', 2);
         }])->get();
@@ -84,5 +85,24 @@ class StatisticalsController extends Controller
                 ->first();
             return response()->json(['orderDate' => $orderDate]);
         }
+    }
+
+    public function revenuesMovies(Request $request)
+    {
+        $movieId = $request->query('movieId');
+        $revenues = Movie::leftJoin('schedules', 'movies.id', '=', 'schedules.movie_id')
+        ->leftJoin('order_schedule', function ($join) {
+            $join->on('schedules.id', '=', 'order_schedule.schedule_id')
+                 ->where('order_schedule.status', '=', 2);
+        })
+        ->where('movies.id', $movieId)
+        ->whereNotNull('order_schedule.id') // Loại bỏ các bản ghi null
+        ->groupBy('movies.id', 'movies.name', DB::raw('DATE(order_schedule.created_at)')) // Group by movie id, name, and created_at date
+        ->select('movies.id', 'movies.name', DB::raw('DATE(order_schedule.created_at) as date'), DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))
+        ->orderBy('date', 'desc')
+        ->orderByDesc('total_revenue')
+        ->get();
+
+        return response()->json($revenues);
     }
 }
