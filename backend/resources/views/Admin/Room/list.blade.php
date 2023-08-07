@@ -25,13 +25,13 @@
         @foreach ($rooms as $key => $room)
             <tr>
                 <th scope="row">{{$key+=1}}</th>
-                <td>{{$room->name}}</td>
-                <td>{{count($room->seats->where('status',0))}}</td>
-                <td>{{count($room->seats->where('type_id',1)->where('status',0))}}</td>
-                <td>{{count($room->seats->where('type_id',2)->where('status',0))}}</td>
-                <td>{{count($room->seats->where('type_id',3)->where('status',0))}}</td>
+                <td style="font-weight: bold">{{$room->name}}</td>
+                <td style="font-weight: bold">{{count($room->seats->where('status',0))}}</td>
+                <td style="font-weight: bold">{{count($room->seats->where('type_id',1)->where('status',0))}}</td>
+                <td style="font-weight: bold">{{count($room->seats->where('type_id',2)->where('status',0))}}</td>
+                <td style="font-weight: bold">{{count($room->seats->where('type_id',3)->where('status',0))}}</td>
 
-                <td>
+                <td >
                     {{-- {{dd($schedule->where('room_id',$room->id) )}} --}}
                    
                     <a class="btn btn-success" href="{{route('admin.room.edit', $room->id)}}"><i class="fas fa-pencil-alt"></i> </a>

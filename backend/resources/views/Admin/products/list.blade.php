@@ -29,12 +29,12 @@
         <tbody>
             @foreach ($products as $key => $product)
                 <tr>
-                    <td class="">{{ $key += 1 }}</td>
+                    <td class="" style="font-weight: bold">{{ $key += 1 }}</td>
                     <td><img src="{{ $product->image }}" width="50px" alt=""></td>
-                    <td class="">{{ $product->name }}</td>
+                    <td class="" style="font-weight: bold">{{ $product->name }}</td>
                     <td>{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
-                    <td class="">{{ $product->count }}</td>
-                    <td class="">{{ $product->description }}</td>
+                    <td class="" style="font-weight: bold">{{ $product->count }}</td>
+                    <td class="" style="font-weight: bold">{{ $product->description }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.product.edit', $product->id) }}"><i

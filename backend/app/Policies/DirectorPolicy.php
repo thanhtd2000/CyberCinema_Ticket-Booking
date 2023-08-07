@@ -31,8 +31,10 @@ class DirectorPolicy
      */
     public function view(User $user)
     {
+       
         $role =   Role::where('key', 'danh-sach-dao-dien')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
+
     }
 
     /**
@@ -44,7 +46,7 @@ class DirectorPolicy
     public function create(User $user)
     {
         $role =   Role::where('key', 'them-dao-dien')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
     }
 
     /**
@@ -57,7 +59,7 @@ class DirectorPolicy
     public function update(User $user)
     {
         $role =   Role::where('key', 'sua-dao-dien')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
     }
 
     /**
@@ -70,7 +72,7 @@ class DirectorPolicy
     public function delete(User $user)
     {
         $role =   Role::where('key', 'xoa-dao-dien')->where('check', 1)->first();
-        return $user->role == 0 || $role == null ? '' : 3;
+        return $user->role == 0 || $user->role == ($role == null ? '' : 3);
     }
 
     /**

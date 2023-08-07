@@ -34,15 +34,15 @@
             <tbody>
                 @foreach ($posts as $key => $post)
                     <tr>
-                        <th>
+                        <th style="font-weight: bold">
                             @if ($post->user->role != 0 || $post->user->id == Auth::id())
                                 <input type="checkbox" name="ids[]" value="{{ $post->id }}">
                             @else
                                 <h4 class="text-danger">ADMIN</h4>
                             @endif
                         </th>
-                        <th scope="row">{{ $key + 1 }}</th>
-                        <td>
+                        <th scope="row" style="font-weight: bold">{{ $key + 1 }}</th>
+                        <td style="font-weight: bold">
                             <p
                                 style=" white-space: nowrap;
                         width:300px;
@@ -57,10 +57,10 @@
                                 {{ $post->content }}</p>
                         </td> --}}
                         <td><img src="{{ $post->image }}" width="50px" alt=""></td>
-                        <td>{{ $post->created_at }}</td>
+                        <td style="font-weight: bold">{{ $post->created_at }}</td>
                         {{-- <td>{{ $post->updated_at }}</td> --}}
-                        <td>{{ $post->user->name }}</td>
-                        <td class="whitespace-nowrap">
+                        <td style="font-weight: bold">{{ $post->user->name }}</td>
+                        <td class="whitespace-nowrap" style="font-weight: bold">
                             @if ($post->user->role != 0 || Auth::user()->id == $post->user->id)
                                 <a class="btn btn-success" href="edit/{{ $post->id }}"><i
                                         class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger"

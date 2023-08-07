@@ -37,14 +37,14 @@
             @foreach ($discounts as $key => $discount)
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
-                    <td>{{ $discount->code }}</td>
-                    <td>{{ number_format($discount->min_price, 0, ',', '.') }} VNĐ</td>
-                    <td>{{ number_format($discount->max_price, 0, ',', '.') }} VNĐ</td>
-                    <td>{{ $discount->count }}</td>
-                    <td>{{ date('d/m/Y', strtotime($discount->start_time)) }}</td>
-                    <td>{{ date('d/m/Y', strtotime($discount->end_time)) }}</td>
-                    <td>{{ $discount->percent }}%</td>
-                    <td>{{ $discount->description }}</td>
+                    <td style="font-weight: bold">{{ $discount->code }}</td>
+                    <td style="font-weight: bold">{{ number_format($discount->min_price, 0, ',', '.') }} VNĐ</td>
+                    <td style="font-weight: bold">{{ number_format($discount->max_price, 0, ',', '.') }} VNĐ</td>
+                    <td style="font-weight: bold">{{ $discount->count }}</td>
+                    <td style="font-weight: bold">{{ date('d/m/Y', strtotime($discount->start_time)) }}</td>
+                    <td style="font-weight: bold">{{ date('d/m/Y', strtotime($discount->end_time)) }}</td>
+                    <td style="font-weight: bold">{{ $discount->percent }}%</td>
+                    <td style="font-weight: bold">{{ $discount->description }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.discount.edit', $discount->id) }}"><i
