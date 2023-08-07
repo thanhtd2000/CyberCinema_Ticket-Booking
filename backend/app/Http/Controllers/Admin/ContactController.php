@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Contacts;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Gate;
 
 class ContactController extends Controller
 {
@@ -21,7 +22,11 @@ class ContactController extends Controller
     }
     public function update(Request $request)
     {
-        Contacts::find($request->id)->update(['status' => 1]);
-        return back()->with('message', 'Cập nhật thành công');
+        if (Gate::allows('edit-contact')) {
+            Contacts::find($request->id)->update(['status' => 1]);
+            return back()->with('message', 'Cập nhật thành công');
+        } else {
+            return back()->with('errors', 'Bạn không có quyền');
+        }
     }
 }

@@ -110,7 +110,8 @@
                                         </use>
                                     </svg>
                                 </button>
-                                <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="#">Info</a>
+                                <div class="dropdown-menu dropdown-menu-end">
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModalScrollable" data-movie-id="{{$reven->id}}" id="detail-movie">Info</a>
                                 </div>
                             </div>
                         </td>
@@ -170,7 +171,52 @@
         </div>
     </div>
 
-
+    <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalScrollableTitle">Doanh số phim</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <table class="table border mb-0">
+                    <thead class="table-light fw-semibold">
+                        <tr class="align-middle">
+                            
+                            <th>Ngày</th>
+                           
+                            <th class="text-center">Doanh số</th>
+        
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="data-container">
+                       
+                        {{-- <tr class="align-middle">
+                           
+                            <td>
+                                <div style="font-weight: bold">06-08-2023</div>
+        
+                            </td>
+        
+                          
+                            <td class="text-center" style="font-weight: bold">330.000 VND</td>
+        
+                          
+                        </tr> --}}
+                       
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              
+            </div>
+          </div>
+        </div>
+      </div>
 
     <script>
         const chartData = JSON.parse('{!! $chartData !!}');
@@ -195,33 +241,7 @@
                 }
             }
         });
-        const labels = Utils.months({count: 7});
-        const data = {
-        labels: labels,
-        datasets: [{
-            label: 'My First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
-            backgroundColor: [
-            'rgba(255, 99, 132, 0.2)',
-            'rgba(255, 159, 64, 0.2)',
-            'rgba(255, 205, 86, 0.2)',
-            'rgba(75, 192, 192, 0.2)',
-            'rgba(54, 162, 235, 0.2)',
-            'rgba(153, 102, 255, 0.2)',
-            'rgba(201, 203, 207, 0.2)'
-            ],
-            borderColor: [
-            'rgb(255, 99, 132)',
-            'rgb(255, 159, 64)',
-            'rgb(255, 205, 86)',
-            'rgb(75, 192, 192)',
-            'rgb(54, 162, 235)',
-            'rgb(153, 102, 255)',
-            'rgb(201, 203, 207)'
-            ],
-            borderWidth: 1
-        }]
-        };
+       
     </script>
     <script>
         $(document).on('click', '.total-search', function(e) {
@@ -242,6 +262,34 @@
                     console.log(data.orderDate);
                     $('.total-sum').text(new Intl.NumberFormat().format(data.orderDate.total) + ' ' +
                         'VND');
+
+                },
+                error: function(error) {
+                    console.error('Error while fetching data:', error);
+                }
+            });
+        });
+        $(document).on('click', '#detail-movie', function(e) {
+            var movieId = $(this).data('movie-id');
+            
+            // console.log(movieId);
+
+            $.ajax({
+                url: '/admin/detailRevenues',
+                type: 'GET',
+                data: {
+                    movieId:movieId
+                    
+                },
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);
+                    const tableBody = $('.data-container');
+                    tableBody.empty(); // Xóa dữ liệu cũ trước khi đổ mới
+                    data.forEach(function(item) {
+                        tableBody.append('<tr class="align-middle"><td><div style="font-weight: bold">' + item.date + '</div></td><td class="text-center" style="font-weight: bold">' + new Intl
+                            .NumberFormat().format(item.total_revenue) + ' VND </td></tr>');
+                    })
 
                 },
                 error: function(error) {
