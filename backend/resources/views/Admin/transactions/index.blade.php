@@ -38,19 +38,19 @@
                     {{-- <td class="">{{ $transaction->users->name }}</td> --}}
                     
                     <td class="" style="font-weight: bold">{{ $transaction->transactions_code }}</td>
-                    <td class="">{{ $transaction->order_code }}</td>
-                    <td class="">{{ $transaction->bank_code }}</td>
-                    <td class="">{{ $transaction->payment_code }}</td>
+                    <td class="" style="font-weight: bold">{{ $transaction->order_code }}</td>
+                    <td class="" style="font-weight: bold">{{ $transaction->bank_code }}</td>
+                    <td class="" style="font-weight: bold">{{ $transaction->payment_code }}</td>
                     <td class="">
                        
                     @if ($transaction->status === 2)
-                       <button type="button" class="btn btn-success" style="width:140px ; font-size: 14px ; font-weight:bold"> Đã thanh toán</button>
+                       <button type="button" class="btn btn-success" style="width:140px ; font-size: 14px ; font-weight:bold"><i class="fas fa-check"></i> Đã thanh toán</button>
                     @else
-                        <button type="button" class="btn btn-danger" style="width:140px ; font-size: 14px ;font-weight:bold">Đã hủy</button>
+                        <button type="button" class="btn btn-danger" style="width:140px ; font-size: 14px ;font-weight:bold"><i class="fas fa-times"></i> Đã hủy</button>
                     @endif
                     <td class="" style="font-weight: bold">{{ number_format($transaction->amount ) }} VND</td>
                    
-                    <td class="">{{ $transaction->created_at }}</td>
+                    <td class="" style="font-weight: bold">{{ $transaction->created_at }}</td>
                 </tr>
             @endforeach
         </tbody>

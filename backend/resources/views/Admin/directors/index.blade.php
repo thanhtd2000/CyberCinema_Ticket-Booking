@@ -22,7 +22,7 @@
             <tr>
                 <th scope="col">ID</th>
                 <th scope="col">Ảnh</th>
-                <th scope="col">Tên diễn vên</th>
+                <th scope="col">Tên đạo diễn</th>
                 <th scope="col">Ngày sinh</th>
                 <th scope="col">Quốc tịch</th>
                 <th scope="col">Giới tính</th>
@@ -33,10 +33,10 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td><img src="{{ $director->image }}" alt="" width="50"></td>
-                    <td>{{ $director->name }}</td>
-                    <td>{{ date('d/m/Y', strtotime($director->birthday)) }}</td>
-                    <td>{{ $director->nationality }}</td>
-                    <td>{{ $director->gender == 1 ? 'Nam' : ($director->gender == 2 ? 'Nữ' : 'Khác') }}</td>
+                    <td style="font-weight: bold">{{ $director->name }}</td>
+                    <td style="font-weight: bold">{{ date('d/m/Y', strtotime($director->birthday)) }}</td>
+                    <td style="font-weight: bold">{{ $director->nationality }}</td>
+                    <td style="font-weight: bold">{{ $director->gender == 1 ? 'Nam' : ($director->gender == 2 ? 'Nữ' : 'Khác') }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.director.edit', $director->id) }}">Sửa</a>

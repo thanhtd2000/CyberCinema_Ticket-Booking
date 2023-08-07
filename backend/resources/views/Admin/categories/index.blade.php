@@ -28,7 +28,7 @@
             @foreach ($categories as $key => $category)
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
-                    <td>{{ $category->name }}</td>
+                    <td style="font-weight: bold">{{ $category->name }}</td>
                     <td>
                         <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.category.edit', $category->id) }}">Sửa</a>

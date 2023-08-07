@@ -35,10 +35,10 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td><img src="{{ $actor->image }}" alt="" width="50"></td>
-                    <td>{{ $actor->name }}</td>
-                    <td>{{ date('d/m/Y', strtotime($actor->birthday)) }}</td>
-                    <td>{{ $actor->nationality }}</td>
-                    <td>{{ $actor->gender == 1 ? 'Nam' : ($actor->gender == 2 ? 'Nữ' : 'Khác') }}</td>
+                    <td style="font-weight: bold">{{ $actor->name }}</td>
+                    <td style="font-weight: bold">{{ date('d/m/Y', strtotime($actor->birthday)) }}</td>
+                    <td style="font-weight: bold">{{ $actor->nationality }}</td>
+                    <td style="font-weight: bold">{{ $actor->gender == 1 ? 'Nam' : ($actor->gender == 2 ? 'Nữ' : 'Khác') }}</td>
                     <td>
                         @can('edit-actor')
                         <button class="btn btn-primary">
