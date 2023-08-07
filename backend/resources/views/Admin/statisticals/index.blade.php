@@ -115,7 +115,7 @@
                                     <div class="dropdown-menu dropdown-menu-end">
                                         <a class="dropdown-item" href="#" data-toggle="modal"
                                             data-target="#exampleModalScrollable" data-movie-id="{{ $reven->id }}"
-                                            id="detail-movie">Info</a>
+                                            id="detail-movie">Chi tiết</a>
                                     </div>
                                 </div>
                             </td>

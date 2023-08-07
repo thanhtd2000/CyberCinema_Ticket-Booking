@@ -19,6 +19,9 @@ class ContactController extends Controller
             'status' => 0
         ];
         Contacts::create($data);
-        return response()->json('Gửi thành công', 200);
+        return response()->json([
+            'message' => 'Gửi thông tin thành công',
+            'status_code' => 200
+        ], 200);
     }
 }
