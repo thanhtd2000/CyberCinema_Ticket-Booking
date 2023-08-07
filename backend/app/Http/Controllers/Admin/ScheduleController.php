@@ -137,7 +137,11 @@ class ScheduleController extends Controller
     {
         $room_id = $request->room_id;
         $date = $request->date;
-        $time =   $this->schedule->where('room_id', $room_id)->whereDate('time_start', $date)->select(DB::raw("DATE_FORMAT(time_start, '%H:%i') as time_start"))->get();
+        $time = $this->schedule
+            ->where('room_id', $room_id)
+            ->whereDate('time_start', $date)
+            ->select(DB::raw("DATE_FORMAT(time_start, '%H:%i') as time_start"), DB::raw("DATE_FORMAT(time_end, '%H:%i') as time_end"))
+            ->get();
         return response()->json($time, 200);
     }
 }

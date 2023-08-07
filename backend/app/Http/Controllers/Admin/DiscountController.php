@@ -58,7 +58,7 @@ class DiscountController extends Controller
 
         if ($discount->code !== $this->discounts->code) {
             $discount->save();
-            return redirect()->route('Admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
+            return redirect()->route('admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
         }
         // dd($discount);
         return back()->with('errors', 'Mã giảm giá đã tồn tại');
@@ -86,7 +86,7 @@ class DiscountController extends Controller
 
         $discount->update();
 
-        return redirect()->route('Admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
+        return redirect()->route('admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
     }
 
     public function delete($id)
