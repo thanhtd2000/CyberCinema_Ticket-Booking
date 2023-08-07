@@ -44,6 +44,7 @@ class TicketController extends Controller
                 if ($d->status == 2) {
                     $d->link = BASE_URL . "bill?details=" . Crypt::encrypt($d->order_code);
                 }
+                $d->status = (int) $d->status;
                 return $d;
             });
             return response()->json(ShowsResource::collection($detail), 200);
