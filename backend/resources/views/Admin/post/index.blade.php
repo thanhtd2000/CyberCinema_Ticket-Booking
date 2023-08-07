@@ -60,15 +60,13 @@
                         <td style="font-weight: bold">{{ $post->created_at }}</td>
                         {{-- <td>{{ $post->updated_at }}</td> --}}
                         <td style="font-weight: bold">{{ $post->user->name }}</td>
-                        <td class="whitespace-nowrap" style="font-weight: bold">
-                            @if ($post->user->role != 0 || Auth::user()->id == $post->user->id)
+                        <td class="whitespace-nowrap" style="font-weight: bold">            
                                 <a class="btn btn-success" href="edit/{{ $post->id }}"><i
                                         class="fas fa-pencil-alt"></i></a> <a class="btn btn-danger"
                                     onclick=" return confirm('Bạn có chắc chắn xoá?')" href="delete/{{ $post->id }}"><i
                                         class="fas fa-trash-alt"></i></a>
-                            @endif
                         </td>
-                    </tr>
+                    </tr>   
                 @endforeach
             </tbody>
         </table><button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xoá?')">Xoá
