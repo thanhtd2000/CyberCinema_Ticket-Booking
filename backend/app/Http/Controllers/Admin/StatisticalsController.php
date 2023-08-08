@@ -42,7 +42,7 @@ class StatisticalsController extends Controller
         $revenues = Movie::leftJoin('schedules', 'movies.id', '=', 'schedules.movie_id')
             ->leftJoin('order_schedule', function ($join) {
                 $join->on('schedules.id', '=', 'order_schedule.schedule_id')
-                    ->where('order_schedule.status', '=', 2);
+                    ->where('order_schedule.status', '=', 2)->whereNull('order_schedule.deleted_at');
             })
             ->groupBy('movies.id', 'movies.name', 'movies.image') // Group by movie id and name
             ->select('movies.id', 'movies.name', 'movies.image', DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))

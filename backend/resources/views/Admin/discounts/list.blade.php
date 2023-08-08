@@ -44,15 +44,7 @@
                     <td style="font-weight: bold">{{ $discount->percent }}%</td>
                     <td style="font-weight: bold; max-width: 290px;">{{ $discount->description }}</td>
                     <td>
-                        {{-- <button class="btn btn-primary">
-                            <a class="text-white" href="{{ route('admin.discount.edit', $discount->id) }}"><i
-                                    class="fas fa-pencil-alt"></i></a>
-                        </button>
-                        <button class="btn btn-danger">
-                            <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
-                                href="{{ route('admin.discount.delete', $discount->id) }}"><i
-                                    class="fas fa-trash-alt"></i></a>
-                        </button> --}}
+                       
                         <div class="dropdown">
                             <button class="btn btn-transparent p-0" type="button" data-coreui-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
