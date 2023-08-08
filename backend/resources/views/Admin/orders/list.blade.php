@@ -241,11 +241,14 @@
                     } else if (data.status == 3) {
                         $('#status').val("Đã hủy");
                         $('.save-button').css('display', 'none');
-                        $('#status-ticket-group').css('display', 'none');
+                       
                     }
                     if (data.status_ticket == 1) {
                         $('#status-ticket').val(1);
                         $('#status-ticket-group').css('display', '');
+                        if (data.status == 3) {
+                            $('#status-ticket-group').css('display', 'none');
+                        }
                     } else if (data.status_ticket == 2) {
                         $('#status-ticket').val(2);
                         $('#status-ticket-group').css('display', '');
