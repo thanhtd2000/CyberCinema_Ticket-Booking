@@ -55,7 +55,7 @@ class SeatTypeController extends Controller
         if (Gate::allows('edit-seatType')) {
             $seatType = $this->seatType->find($id);
 
-            return view('admin/seats/seat_type/edit', compact('seatType'));
+            return view('Admin/seats/seat_type/edit', compact('seatType'));
         } else {
             return back()->with('errors', 'Bạn không có quyền');
         }

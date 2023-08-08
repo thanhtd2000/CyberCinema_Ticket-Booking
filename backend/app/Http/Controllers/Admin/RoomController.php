@@ -36,7 +36,7 @@ class RoomController extends Controller
         $schedule = $this->schedule->get();
         $endDate = Carbon::create(2023, 6, 16, 23, 59, 59);
 
-        return view('Admin/Room/list', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
+        return view('Admin/room/', compact('rooms', 'schedule', 'currentDateTime', 'endDate'));
     }
 
     public function create()
@@ -74,7 +74,7 @@ class RoomController extends Controller
                 $this->seat->create($dataSeat);
             }
         }
-        return redirect()->route('Admin.room')->with('success', 'Thêm thành công!');
+        return redirect()->route('admin.room')->with('success', 'Thêm thành công!');
     }
 
     public function edit($id)

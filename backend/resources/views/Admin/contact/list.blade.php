@@ -34,11 +34,11 @@
                     <td>{{ $contact->email }}</td>
                     <td>{{ $contact->content }}</td>
                     <td>
-                        @if ($contact->status === 0)
+                        @if ($contact->status == 0)
                             <button type="button" class="btn btn-primary"
                                 style="width:140px ; font-size: 13px ; font-weight:bold"><i class="far fa-clock"></i> Đã
                                 tiếp nhận</button>
-                        @elseif ($contact->status === 1)
+                        @elseif ($contact->status == 1)
                             <button type="button" class="btn btn-success"
                                 style="width:140px ; font-size: 13px ; font-weight:bold"><i class="fas fa-check"></i> Đã xử
                                 lý</button>
