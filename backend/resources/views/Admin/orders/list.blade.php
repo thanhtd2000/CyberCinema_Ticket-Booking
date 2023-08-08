@@ -212,6 +212,7 @@
     <script>
         $(document).on('click', '.ticket-detail', function(e) {
             var orderId = $(this).data('ticket');
+            // console.log(orderId);
             $.ajax({
                 url: '/admin/order/show/' + orderId,
                 type: 'GET',
@@ -243,6 +244,7 @@
                     } else if (data.status == 3) {
                         $('#status').val("Đã hủy");
                         $('.save-button').css('display', 'none');
+                        $('#status-ticket-group').css('display', 'none');
                     }
                     if (data.status_ticket == 1) {
                         $('#status-ticket').val(1);
