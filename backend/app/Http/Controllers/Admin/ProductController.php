@@ -58,6 +58,7 @@ class ProductController extends Controller
             $product->count = $request['count'];
             $product->description = $request['description'];
             $product->image = $this->firebaseHelper->uploadimageToFireBase($image, $path);
+            $product->status = 0;
         }
         $product->save();
         return redirect('admin/product')->with('success', 'Thêm sản phẩm thành công');
@@ -86,7 +87,13 @@ class ProductController extends Controller
         $product->price = $request['price'];
         $product->count = $request['count'];
         $product->description = $request['description'];
-        // dd($product);
+        if($request['status'] == null){
+            $product->status = 1;
+        }else{
+            $product->status = 0;
+        }
+       
+        // dd($request['status']);
         $product->save();
         return redirect()->route('admin.product')->with('message', 'Sửa thành công');
     }
