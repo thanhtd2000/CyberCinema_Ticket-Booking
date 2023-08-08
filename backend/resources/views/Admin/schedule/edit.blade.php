@@ -6,7 +6,7 @@
         @csrf
         @method('put')
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Phim</label>
+            <label for="exampleFormControlSelect1" style="font-weight:bold">Phim</label>
             <select class="js-example-basic-multiple-limit form-control" name="movie_id" multiple="multiple">
                 @foreach ($movies as $item)
                     <option {{ $schedule->movie_id === $item->id ? 'selected' : '' }} value="{{ $item->id }}">
@@ -20,7 +20,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Phòng</label>
+            <label for="exampleFormControlSelect1" style="font-weight:bold">Phòng</label>
             <select class="js-example-basic-multiple-limit form-control type" name="room_id" id="type"
                 multiple="multiple">
                 <option value="0">Chọn phòng</option>
@@ -36,7 +36,7 @@
         </div>
 
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Thời gian chiếu</label>
+            <label for="exampleFormControlSelect1" style="font-weight:bold">Thời gian chiếu</label>
             <input type="datetime-local" name="time_start" class="form-control" value="{{ $schedule->time_start }}">
         </div>
         <div>

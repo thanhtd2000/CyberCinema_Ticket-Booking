@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('admin.director.store') }}" class="container" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label class="form-label">Tên đạo diễn</label>
+            <label class="form-label" style="font-weight:bold">Tên đạo diễn</label>
             <input type="text" name="name" class="form-control" value="{{ old('name') }}">
 
             @error('name')
@@ -14,7 +14,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Ngày sinh</label>
+            <label class="form-label" style="font-weight:bold">Ngày sinh</label>
             <input type="date" name="birthday" class="form-control" value="{{ old('birthday') }}">
 
             @error('birthday')
@@ -22,14 +22,14 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label class="form-label">Ảnh</label>
+            <label class="form-label" style="font-weight:bold">Ảnh</label>
             <input type="file" name="image" class="form-control">
 
             @error('image')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
         </div>
-        <label class="form-label">Giới tính</label>
+        <label class="form-label" style="font-weight:bold">Giới tính</label>
         <div class="form-floating">
             <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example">
                 <option value="1">Nam</option>
@@ -43,7 +43,7 @@
         </div>
 
         <div class="mb-3">
-        <label class="form-label">Quốc tịch</label>
+        <label class="form-label" style="font-weight:bold">Quốc tịch</label>
             <input type="text" name="nationality" class="form-control" value="{{ old('nationality') }}">
 
             @error('nationality')

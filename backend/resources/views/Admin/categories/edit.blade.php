@@ -6,7 +6,7 @@
         @csrf
         @method('put')
         <div class="mb-3">
-            <label class="form-label">Tên danh mục</label>
+            <label class="form-label" style="font-weight:bold">Tên danh mục</label>
             <input type="text" name="name" class="form-control" value="{{ $category->name }}">
 
             @error('name')

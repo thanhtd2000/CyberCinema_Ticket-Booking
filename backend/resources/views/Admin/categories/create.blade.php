@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('admin.category.store') }}" class="container">
         @csrf
         <div class="mb-3">
-            <label class="form-label">Tên danh mục</label>
+            <label class="form-label" style="font-weight:bold">Tên danh mục</label>
             <input type="text" name="name" class="form-control" value="{{ old('name') }}">
 
             @error('name')

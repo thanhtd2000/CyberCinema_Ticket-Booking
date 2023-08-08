@@ -10,7 +10,7 @@
             @method('put')
             <div class="col-md-6" style="padding: 0">
                 <div class="mb-3">
-                    <label class="form-label">Tên phòng</label>
+                    <label class="form-label" style="font-weight:bold">Tên phòng</label>
                     <input type="text" name="roomname" class="form-control" value="{{ $room->name }}">
 
                     @error('roomname')

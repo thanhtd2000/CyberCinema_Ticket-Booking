@@ -63,8 +63,10 @@ class StatisticalsController extends Controller
         $dateStart = $request->query('dateStart');
         $dateEnd = $request->query('dateEnd');
 
+        $endDate =Carbon::parse($dateEnd)->endOfDay();
+
         if ($dateStart && $dateEnd) {
-            $orderDate = Orders::whereBetween('created_at', [$dateStart, $dateEnd])
+            $orderDate = Orders::whereBetween('created_at', [$dateStart, $endDate])
                 ->where('status', 2)
                 ->select(DB::raw('SUM(total) AS total'))
 

@@ -3,7 +3,7 @@
 @extends('Admin.layouts.header')
 @section('content')
 
-<button class="btn btn-primary">
+<button class="btn btn-primary mb-3">
     <a class="text-white" href="{{route('admin.seat_type.create')}}">Thêm</a>
 </button>
 <table class="table">
