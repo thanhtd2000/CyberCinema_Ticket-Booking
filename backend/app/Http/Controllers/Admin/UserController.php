@@ -43,7 +43,7 @@ class UserController extends Controller
                 'keywords' => $keywords
             ]);
         } else {
-            $user = User::latest()->paginate(5);
+            $user = User::where('role','!=',0)->latest()->paginate(5);
             return view('Admin.user.index', [
                 'user' => $user,
                 'roles' => $this->roles,
@@ -119,7 +119,7 @@ class UserController extends Controller
             3 => 'Kiểm duyệt viên',
 
         ];
-        $user = User::paginate(5);
+        $user = User::where('role','!=',0)->paginate(5);
         return view('Admin.user.permise', [
             'user' => $user,
             'roles' => $roles,

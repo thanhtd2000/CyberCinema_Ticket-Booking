@@ -19,22 +19,29 @@ class SeatController extends Controller
     public function updateStatusSeat(Request $request)
     {
         $user = $request->user();
+        $count = OrderSchedule::where('user_id', $user->id)->where('schedule_id', $request->schedule_id)->count();
         $seat = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
         if ($seat == null) {
-            $data = OrderSchedule::create([
-                'seat_id' => $request->id,
-                'schedule_id' => $request->schedule_id,
-                'user_id' => $user->id,
-                'status' => 1,
-                'total' => $request->total
+            if ($count <= 4) {
+                $data = OrderSchedule::create([
+                    'seat_id' => $request->id,
+                    'schedule_id' => $request->schedule_id,
+                    'user_id' => $user->id,
+                    'status' => 1,
+                    'total' => $request->total
 
-            ]);
-            $data1 = Seat::leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
-                ->leftJoin('order_schedule', 'order_schedule.seat_id', '=', 'seats.id')
-                ->where('seats.id', $data->seat_id)
-                ->select('seats.id', 'seats.name', 'seat_types.price', 'order_schedule.status')
-                ->first();
-            return response()->json(new SeatResource($data1), 200);
+                ]);
+                $data1 = Seat::leftJoin('seat_types', 'seat_types.id', '=', 'seats.type_id')
+                    ->leftJoin('order_schedule', 'order_schedule.seat_id', '=', 'seats.id')
+                    ->where('seats.id', $data->seat_id)
+                    ->select('seats.id', 'seats.name', 'seat_types.price', 'order_schedule.status')
+                    ->first();
+                return response()->json(new SeatResource($data1), 200);
+            }
+            return response()->json([
+                'message' => 'Bạn chỉ được phép đặt tối đa 5 ghế trong một lịch',
+                'status_code' => 401
+            ], 401);
         } else {
             $data1 =  OrderSchedule::where('seat_id', $request->id)
                 ->where('schedule_id', $request->schedule_id)

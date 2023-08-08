@@ -42,7 +42,7 @@
             <label class="form-label" style="font-weight:bold">Tác Giả</label>
             <select class="js-example-basic-multiple-limit form-control" name="director_id" multiple="multiple">
                 @foreach ($directors as $item)
-                    <option {{ $movie->director_id === $item->id ? 'selected' : '' }} value="{{ $item->id }}">
+                    <option {{ $movie->director_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">
                         {{ $item->name }}</option>
                 @endforeach
             </select>
@@ -112,7 +112,7 @@
         <div class="mb-3">
 
             <label for="" style="font-weight:bold">Diễn Viên</label>
-            <select class="js-example-basic-hide-search-multi form-control form-select"  name="actors[]"
+            <select class="js-example-basic-hide-search-multi form-control form-select" name="actors[]"
                 id="js-example-basic-hide-search-multi" multiple="multiple">
                 @foreach ($actors as $item)
                     <option {{ $movie->actors->contains('id', $item->id) ? 'selected' : '' }} value="{{ $item->id }}">
@@ -121,7 +121,7 @@
             </select>
         </div>
         <br>
-        <label for="" style="font-weight:bold" >Thể Loại</label>
+        <label for="" style="font-weight:bold">Thể Loại</label>
         <select class=" form-control form-select" name="category_id">
             @foreach ($categories as $item)
                 <option {{ $movie->category_id === $item->id ? 'selected' : '' }} value="{{ $item->id }}">
@@ -131,11 +131,13 @@
         <br>
         <div class="mb-3">
             <div class="custom-control custom-switch">
-               
-                <input type="checkbox" class="custom-control-input" id="customSwitch1" {{ $movie->isHot == 0 ? 'checked' : '' }} name="isHot" value="1">
-                <label class="custom-control-label text-danger" style="font-weight:bold" for="customSwitch1">Nổi bật</label>
-              </div>
-            
+
+                <input type="checkbox" class="custom-control-input" id="customSwitch1"
+                    {{ $movie->isHot == 0 ? 'checked' : '' }} name="isHot" value="1">
+                <label class="custom-control-label text-danger" style="font-weight:bold" for="customSwitch1">Nổi
+                    bật</label>
+            </div>
+
         </div><br>
         <div class="mb-3">
             <label class="form-label" style="font-weight:bold">Giới hạn từ bao nhiêu tuổi trở lên</label>
@@ -162,6 +164,6 @@
         <br>
         <button type="submit" class="btn btn-outline-primary">Xác nhận</button>
     </form>
-
+    <br>
     @include('Admin.layouts.select2')
 @endsection

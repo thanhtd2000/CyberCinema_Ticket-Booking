@@ -117,11 +117,14 @@ class OrderController extends Controller
             $backpoints = $user->points + $orders->points;
             $user->update(['points' =>  $backpoints]);
             $orderProduct = $this->orderProduct->where('order_id', $orders->id)->first();
-            $discount = Discount::find($orders->discount_id);
-            $discount->count = $discount->count + 1;
-            $discount->save();
+            if ($orders->discount_id != 0) {
+                $discount = Discount::find($orders->discount_id);
+                $discount->count = $discount->count + 1;
+                $discount->save();
+            }
+
             if ($orderProduct) {
-                $orderProduct1 = $this->orderProduct->where('order_id', $orders->id)->update(['status' => 3]);
+                $this->orderProduct->where('order_id', $orders->id)->update(['status' => 3]);
                 $products = $this->product->find($orderProduct->product_id);
                 $count = $products->count + $orderProduct->quantity;
                 $products->update([

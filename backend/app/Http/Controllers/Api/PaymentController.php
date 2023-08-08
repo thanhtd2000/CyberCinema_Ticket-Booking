@@ -258,9 +258,11 @@ class PaymentController extends Controller
                 $addpoints = $user->points + $points;
                 $user->update(['points' =>  $addpoints]);
                 $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
-                $discount = $this->discount->find($order->discount_id);
-                $discount->count = $discount->count - 1;
-                $discount->save();
+                if ($order->discount_id != 0) {
+                    $discount = $this->discount->find($order->discount_id);
+                    $discount->count = $discount->count - 1;
+                    $discount->save();
+                }
                 if ($orderProduct) {
                     $products = $this->product->find($orderProduct->product_id);
                     $count = $products->count - $orderProduct->quantity;
@@ -322,9 +324,11 @@ class PaymentController extends Controller
                 $addpoints = $user->points + $points;
                 $user->update(['points' =>  $addpoints]);
                 $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
-                $discount = $this->discount->find($order->discount_id);
-                $discount->count = $discount->count - 1;
-                $discount->save();
+                if ($order->discount_id != 0) {
+                    $discount = $this->discount->find($order->discount_id);
+                    $discount->count = $discount->count - 1;
+                    $discount->save();
+                }
                 if ($orderProduct) {
                     $products = $this->product->find($orderProduct->product_id);
                     $count = $products->count - $orderProduct->quantity;;

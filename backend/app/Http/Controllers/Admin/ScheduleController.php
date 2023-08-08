@@ -67,10 +67,10 @@ class ScheduleController extends Controller
                 'time_start' => $start_time,
                 'time_end' => $time_end
             ];
-            $schedule = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '>=', $start_time->format('Y/m/d H:i:s'))->get();
-            $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $time_end)->where('time_end', '>=', $time_end)->get();
-            $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '<=', $time_end)->get();
-            if (!empty($schedule->toArray()) || !empty($schedule2->toArray()) || !empty($schedule3->toArray())) {
+            $schedule = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '>=', $start_time->format('Y/m/d H:i:s'))->first();
+            $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $time_end)->where('time_end', '>=', $time_end)->first();
+            $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '<=', $time_end)->first();
+            if (!empty($schedule) || !empty($schedule2) || !empty($schedule3)) {
                 array_push($errors, "Phòng không trống trong khoảng thời gian  $start_time !");
             } else {
                 Schedule::create($insert);
