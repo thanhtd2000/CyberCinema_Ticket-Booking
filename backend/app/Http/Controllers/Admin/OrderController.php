@@ -11,6 +11,7 @@ use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Discount;
 use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
@@ -32,7 +33,6 @@ class OrderController extends Controller
 
     public function index(Request $request)
     {
-        //  dd($request->input('keyname'));
         $keyname = $request->input('keyname');
         $keydate = $request->input('keydate');
         $keystatus = $request->input('keystatus');
@@ -117,9 +117,11 @@ class OrderController extends Controller
             $backpoints = $user->points + $orders->points;
             $user->update(['points' =>  $backpoints]);
             $orderProduct = $this->orderProduct->where('order_id', $orders->id)->first();
+            $discount = Discount::find($orders->discount_id);
+            $discount->count = $discount->count + 1;
+            $discount->save();
             if ($orderProduct) {
                 $orderProduct1 = $this->orderProduct->where('order_id', $orders->id)->update(['status' => 3]);
-
                 $products = $this->product->find($orderProduct->product_id);
                 $count = $products->count + $orderProduct->quantity;
                 $products->update([
@@ -138,16 +140,16 @@ class OrderController extends Controller
 
     public function showTicket($id)
     {
-        
+
         $order = DB::table('orders')->find($id);
-       
+
         $orderProducts = DB::table('order_products')
             ->join('products', 'order_products.product_id', '=', 'products.id')
             ->select('order_products.*', 'products.name')
             ->where('order_products.order_id', $order->id)
             ->where('order_products.status', '=', 2)
             ->get();
-          
+
         $orderSchedules = DB::table('order_schedule')
             ->join('schedules', 'order_schedule.schedule_id', '=', 'schedules.id')
 
@@ -157,7 +159,7 @@ class OrderController extends Controller
             ->select('order_schedule.*', 'movies.name as movie_name', 'movies.time as movie_time', 'schedules.time_start', 'rooms.name as room_name', 'seats.name as seat_name')
             ->where('order_schedule.order_id', $order->id)
             ->get();
-            
+
         $orderDiscounts = DB::table('orders')
             ->leftJoin('discounts', 'orders.discount_id', '=', 'discounts.id')
             ->select('orders.*', 'discounts.*')
@@ -175,56 +177,55 @@ class OrderController extends Controller
         $datePart = $timeStartParts[0]; // Ngày (YYYY-MM-DD)
         $timePart = $timeStartParts[1]; // Thời gian (HH:ii:ss)
         $productNames = implode(', ', $orderProducts->pluck('name')->toArray());
-        if($order->transaction_id){
-            $data =[
+        if ($order->transaction_id) {
+            $data = [
                 'movie_name' => $orderSchedules[0]->movie_name,
-                'movie_time' =>$orderSchedules[0]->movie_time,
-                'datePart' =>$datePart,
-                'timePart' =>$timePart,
-                'room_name' =>$orderSchedules[0]->room_name,
-                'seatNames' =>$seatNames,
+                'movie_time' => $orderSchedules[0]->movie_time,
+                'datePart' => $datePart,
+                'timePart' => $timePart,
+                'room_name' => $orderSchedules[0]->room_name,
+                'seatNames' => $seatNames,
                 'productNames' =>  $productNames,
                 'total' => number_format($order->total) . 'VND',
                 'discount' =>  $orderDiscounts->percent . '%',
-                'status_ticket' =>$order->status_ticket,
-                'status' =>$order->status,
-                'point' =>$order->points,
+                'status_ticket' => $order->status_ticket,
+                'status' => $order->status,
+                'point' => $order->points,
                 'payment' => $orderTransaction->payment_code,
-                'order_id'=>$order->order_code
-    
-             ];
+                'order_id' => $order->order_code
+
+            ];
             return response()->json($data);
-        }else {
-            $data =[
+        } else {
+            $data = [
                 'movie_name' => $orderSchedules[0]->movie_name,
-                'movie_time' =>$orderSchedules[0]->movie_time,
-                'datePart' =>$datePart,
-                'timePart' =>$timePart,
-                'room_name' =>$orderSchedules[0]->room_name,
-                'seatNames' =>$seatNames,
+                'movie_time' => $orderSchedules[0]->movie_time,
+                'datePart' => $datePart,
+                'timePart' => $timePart,
+                'room_name' => $orderSchedules[0]->room_name,
+                'seatNames' => $seatNames,
                 'productNames' =>  $productNames,
                 'total' => number_format($order->total) . 'VND',
                 'discount' =>  $orderDiscounts->percent . '%',
-                'status_ticket' =>$order->status_ticket,
-                'status' =>$order->status,
-                'point' =>$order->points,
+                'status_ticket' => $order->status_ticket,
+                'status' => $order->status,
+                'point' => $order->points,
                 'payment' => 'Đang chờ xử lý',
-                'order_id'=>$order->order_code
-    
-             ];
+                'order_id' => $order->order_code
+
+            ];
             return response()->json($data);
         }
-        
     }
     public function updateStatusTicket(Request $request)
     {
-       $this->orders ->where('order_code', $request->id)->update([
-        'status_ticket' => $request->input('status_ticket')
-       ]);
+        $this->orders->where('order_code', $request->id)->update([
+            'status_ticket' => $request->input('status_ticket')
+        ]);
 
-       return response()->json([
-        'status' => 200,
-        'message' =>'Cập nhật  thành công',
-    ]);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Cập nhật  thành công',
+        ]);
     }
 }

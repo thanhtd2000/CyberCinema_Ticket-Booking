@@ -29,7 +29,6 @@ class SeatTypeController extends Controller
 
     public function create()
     {
-        // dd(Auth::user());
         if (Gate::allows('create-seatType')) {
             return view('Admin/seats/seat_type/create');
         } else {

@@ -93,7 +93,6 @@ class ProductController extends Controller
             $product->status = 0;
         }
        
-        // dd($request['status']);
         $product->save();
         return redirect()->route('admin.product')->with('message', 'Sửa thành công');
     }

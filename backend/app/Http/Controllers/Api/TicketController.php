@@ -13,7 +13,6 @@ class TicketController extends Controller
 {
     public function listTickets(Request $request)
     {
-        // dd($request->user());
         $user = $request->user();
         $data = Orders::where('user_id', $user->id)->get();
         if (!empty($data->toArray())) {

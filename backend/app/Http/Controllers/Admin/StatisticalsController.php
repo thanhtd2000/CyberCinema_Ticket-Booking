@@ -31,7 +31,6 @@ class StatisticalsController extends Controller
             ->where('status', 2)
             ->groupBy(DB::raw('DATE(created_at)'))
             ->first();
-        //    dd($orderDate);
         $data = [
             'labels' => $orderMonth->pluck('order_month'),
             'datasets' => [
@@ -49,7 +48,6 @@ class StatisticalsController extends Controller
             ->select('movies.id', 'movies.name', 'movies.image', DB::raw('SUM(IFNULL(order_schedule.total, 0)) as total_revenue'))
             ->orderByDesc('total_revenue')
             ->get();
-        // dd($revenues);
         $products = Product::with(['orderProducts' => function ($query) {
             $query->where('status', 2);
         }])->get();

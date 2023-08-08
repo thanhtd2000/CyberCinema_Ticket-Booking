@@ -87,7 +87,6 @@ class MovieController extends Controller
                 if ($request->isHot == 1) {
                     $movieData['isHot'] = 0;
                 };
-                // dd( $movieData);
                 $movie = $this->movies->create($movieData);
             }
             if ($movie) {

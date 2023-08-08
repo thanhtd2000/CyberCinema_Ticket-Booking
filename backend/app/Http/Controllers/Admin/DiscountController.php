@@ -60,7 +60,6 @@ class DiscountController extends Controller
             $discount->save();
             return redirect()->route('admin.discount')->with('message', 'Thêm mới mã giảm giá thành công');
         }
-        // dd($discount);
         return back()->with('errors', 'Mã giảm giá đã tồn tại');
     }
 

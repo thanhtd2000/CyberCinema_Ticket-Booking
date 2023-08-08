@@ -97,7 +97,7 @@ class CategoryController extends Controller
     public function update(CategoryRequest $request, $id)
     {
         $request = $request->except(['_token', '_method']);
-        // dd($request);
+
         Category::where('id', $id)->update($request);
         return redirect('admin/category/index ')->with('message', 'Sửa thành công!');
     }

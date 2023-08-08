@@ -34,12 +34,8 @@
             <tbody>
                 @foreach ($posts as $key => $post)
                     <tr>
-                        <th style="font-weight: bold">
-                            @if ($post->user->role != 0 || $post->user->id == Auth::id())
+                        <th style="font-weight: bold">                       
                                 <input type="checkbox" name="ids[]" value="{{ $post->id }}">
-                            @else
-                                <h4 class="text-danger">ADMIN</h4>
-                            @endif
                         </th>
                         <th scope="row" style="font-weight: bold">{{ $key + 1 }}</th>
                         <td style="font-weight: bold">
