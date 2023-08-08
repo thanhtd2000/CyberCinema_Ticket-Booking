@@ -173,7 +173,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('/discount')->group(function () {
         Route::get('/', [DiscountController::class, 'index'])->name('admin.discount')->middleware('can:list-discount');
-        Route::get('/search', [DiscountController::class, 'search'])->name('admin.discount.search');
+        Route::post('/search', [DiscountController::class, 'search'])->name('admin.discount.search');
         Route::get('/create', [DiscountController::class, 'create'])->name('admin.discount.create');
         Route::post('/store', [DiscountController::class, 'store'])->name('admin.discount.store');
         Route::get('/edit/{id}', [DiscountController::class, 'edit'])->name('admin.discount.edit');
@@ -183,6 +183,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
 
     Route::prefix('/transaction')->group(function () {
         Route::get('/', [TransactionController::class, 'index'])->name('admin.transaction')->middleware('can:list-transaction');
+        Route::post('/search', [TransactionController::class, 'index'])->name('admin.transaction.search');
     });
 
     Route::prefix('/order')->group(function () {

@@ -30,8 +30,8 @@ class DiscountController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('keywords');
-        $discounts =  $this->discounts->where('name', 'like', '%' . $query . '%')
-            ->orWhere('content', 'like', '%' . $query . '%')
+        $discounts =  $this->discounts->where('code', 'like', '%' . $query . '%')
+            ->orWhere('description', 'like', '%' . $query . '%')
             ->paginate(5);
         return view('Admin.discounts.list', compact('discounts'));
     }

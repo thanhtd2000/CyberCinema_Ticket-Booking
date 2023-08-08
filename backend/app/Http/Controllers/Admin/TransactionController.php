@@ -13,9 +13,37 @@ class TransactionController extends Controller
     {
         $this->transactions = $transactions;
     }
-    public function index()
+    // public function index()
+    // {
+    //     $transactions = $this->transactions->paginate(10);
+    //     return view('Admin.transactions.index', compact('transactions'));
+    // }
+
+    public function index(Request $request)
     {
-        $transactions = $this->transactions->paginate(10);
-        return view('Admin.transactions.index', compact('transactions'));
+        $keydate = $request->input('keydate');
+        $keystatus = $request->input('keystatus');
+        if ($keydate && $keystatus) {
+            $transactions = $this->transactions
+                ->where('transactions.created_at', 'LIKE', "%$keydate%")
+                ->where('transactions.status', '=', $keystatus)
+                ->select('transactions.*')->latest()
+                ->paginate(20);
+            return view("Admin.transactions.index", compact('transactions', 'keydate', 'keystatus'));
+        } elseif ($keydate) {
+            $transactions = $this->transactions
+                ->where('transactions.created_at', 'LIKE', "%$keydate%")
+                ->select('transactions.*')->latest()
+                ->paginate(20);
+            return view("Admin.transactions.index", compact('transactions', 'keydate'));
+        } elseif ($keystatus) {
+            $transactions = $this->transactions
+                ->where('transactions.status', '=', $keystatus)
+                ->select('transactions.*')->latest()
+                ->paginate(20);
+            return view("Admin.transactions.index", compact('transactions', 'keystatus'));
+        }
+        $transactions = $this->transactions->latest()->paginate(10);
+        return view("Admin.transactions.index", compact('transactions'));
     }
 }

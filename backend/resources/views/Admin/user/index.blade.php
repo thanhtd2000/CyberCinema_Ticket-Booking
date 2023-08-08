@@ -30,7 +30,6 @@
         </thead>
         <tbody>
             @foreach ($user as $key => $us)
-                @if ($us->role != 0)
                     <tr>
                         <th scope="row">{{ $key + 1 }}</th>
                         <td>{{ $us->name }}</td>
@@ -48,7 +47,6 @@
 
                         </td>
                     </tr>
-                @endif
             @endforeach
         </tbody>
     </table>
