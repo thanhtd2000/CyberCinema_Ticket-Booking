@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Models\User;
 use App\Models\Orders;
 use App\Models\Product;
-use Milon\Barcode\DNS1D;
-use Milon\Barcode\DNS2D;
+use App\Models\Discount;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Helpers\GlobalHelper;
 use App\Models\OrderProducts;
 use App\Models\OrderSchedule;
-use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 
@@ -24,7 +22,8 @@ class PaymentController extends Controller
     public $orderSchedule;
     public $orderProduct;
     public $product;
-    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule, OrderProducts $orderProduct, Product $product)
+    public $discount;
+    public function __construct(Transaction $transaction, Orders $order, OrderSchedule $orderSchedule, OrderProducts $orderProduct, Product $product, Discount $discount)
     {
         $this->transaction = $transaction;
         $this->order = $order;
@@ -32,6 +31,7 @@ class PaymentController extends Controller
         $this->orderProduct = $orderProduct;
         $this->product = $product;
         $this->convert = new GlobalHelper();
+        $this->discount = $discount;
     }
 
     public function createPayment(Request $request)
@@ -52,7 +52,7 @@ class PaymentController extends Controller
 
         switch ($typePayment) {
             case "VNPay":
-                $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(3) . time() . ""; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này 
+                $vnp_TxnRef = 'CB' . '-' . $this->convert->randString(3) . time() . "";
                 $vnp_OrderInfo = 'thanh toan test';
                 $vnp_OrderType = 'billpayment';
                 $vnp_Amount = $request->total * 100;
@@ -93,7 +93,7 @@ class PaymentController extends Controller
                             'product_id' => $product['id'],
                             'order_id' => $order->id,
                             'status' => 0,
-                            'total' => $product['amount']*$product1->price
+                            'total' => $product['amount'] * $product1->price
                         ]);
                     }
                 }
@@ -230,7 +230,6 @@ class PaymentController extends Controller
     }
     public function insertPayment(Request $request)
     {
-        // dd($request->all());
         if (isset($request->vnp_TransactionStatus)) {
 
             if ($request->vnp_TransactionStatus == 00) {
@@ -259,9 +258,12 @@ class PaymentController extends Controller
                 $addpoints = $user->points + $points;
                 $user->update(['points' =>  $addpoints]);
                 $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
+                $discount = $this->discount->find($order->discount_id);
+                $discount->count = $discount->count - 1;
+                $discount->save();
                 if ($orderProduct) {
                     $products = $this->product->find($orderProduct->product_id);
-                    $count = $products->count - $orderProduct->quantity;;
+                    $count = $products->count - $orderProduct->quantity;
 
                     $products->update([
                         'count' => $count
@@ -285,6 +287,7 @@ class PaymentController extends Controller
                 ]);
                 $orders = $this->order->where('order_code', $transaction->order_code)->first();
                 $this->orderProduct->where('order_id', $orders->id)->update(['status' => 1]);
+
                 $user = User::find($orders->user_id);
                 $backpoints = $user->points + $orders->points;
                 $user->update(['points' =>  $backpoints]);
@@ -319,6 +322,9 @@ class PaymentController extends Controller
                 $addpoints = $user->points + $points;
                 $user->update(['points' =>  $addpoints]);
                 $orderProduct = $this->orderProduct->where('order_id', $order->id)->first();
+                $discount = $this->discount->find($order->discount_id);
+                $discount->count = $discount->count - 1;
+                $discount->save();
                 if ($orderProduct) {
                     $products = $this->product->find($orderProduct->product_id);
                     $count = $products->count - $orderProduct->quantity;;

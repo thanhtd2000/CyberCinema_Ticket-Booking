@@ -53,9 +53,6 @@ class ShowsController extends Controller
         $datePart = $timeStartParts[0]; // Ngày (YYYY-MM-DD)
         $timePart = $timeStartParts[1]; // Thời gian (HH:ii:ss)
         $productNames = implode(', ', $orderProducts->pluck('name')->toArray());
-
-
-        // dd($orderSchedules);
         return view('index', compact('order', 'orderProducts', 'orderSchedules', 'orderDiscounts',  'seatNames', 'datePart', 'timePart', 'productNames',  'orderTransaction', 'enOrderCode'));
     }
 
