@@ -9,7 +9,7 @@
         @csrf
         <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label">Tên phòng</label>
+                <label class="form-label" style="font-weight:bold">Tên phòng</label>
                 <input type="text" name="name" class="form-control" value="{{old('name')}}">
         
                 @error('name')
@@ -19,7 +19,7 @@
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label">Số hàng</label>
+                <label class="form-label" style="font-weight:bold">Số hàng</label>
                 <input type="number" name="row" class="form-control" value="{{old('row')}}" min="1" max="10">
         
                 @error('row')
@@ -29,7 +29,7 @@
         </div>
         <div class="col-md-6">
             <div class="mb-3">
-                <label class="form-label">Số cột</label>
+                <label class="form-label" style="font-weight:bold">Số cột</label>
                 <input type="number" name="column" class="form-control" value="{{old('column')}}" min="1" max="10">
         
                 @error('column')

@@ -6,7 +6,7 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-            <label class="form-label">Tên Phim</label>
+            <label class="form-label" style="font-weight:bold">Tên Phim</label>
             <input type="text" name="name" class="form-control" value="{{ $movie->name }}">
         </div>
         <div class="error">
@@ -17,7 +17,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Mô Tả</label>
+            <label class="form-label" style="font-weight:bold">Mô Tả</label>
             <input type="text" name="description" class="form-control" value="{{ $movie->description }}">
         </div>
         <div class="error">
@@ -28,7 +28,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Ngày ra mắt</label>
+            <label class="form-label" style="font-weight:bold">Ngày ra mắt</label>
             <input type="date" name="date" class="form-control" value="{{ $movie->date }}">
         </div>
         <div class="error">
@@ -39,7 +39,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Tác Giả</label>
+            <label class="form-label" style="font-weight:bold">Tác Giả</label>
             <select class="js-example-basic-multiple-limit form-control" name="director_id" multiple="multiple">
                 @foreach ($directors as $item)
                     <option {{ $movie->director_id === $item->id ? 'selected' : '' }} value="{{ $item->id }}">
@@ -55,7 +55,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Link Trailer</label>
+            <label class="form-label" style="font-weight:bold">Link Trailer</label>
             <input type="text" name="trailer" class="form-control" value="{{ $movie->trailer }}">
         </div>
         <div class="error">
@@ -66,7 +66,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Thời Lượng Phim</label>
+            <label class="form-label" style="font-weight:bold">Thời Lượng Phim</label>
             <input type="text" name="time" class="form-control" value="{{ $movie->time }}">
         </div>
         <div class="error">
@@ -77,7 +77,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Ngôn Ngữ</label>
+            <label class="form-label" style="font-weight:bold">Ngôn Ngữ</label>
             <input type="text" name="language" class="form-control" value="{{ $movie->language }}">
         </div>
         <div class="error">
@@ -88,7 +88,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Ảnh</label>
+            <label class="form-label" style="font-weight:bold">Ảnh</label>
             <input type="file" name="image" class="form-control" value="{{ old('image') }}">
         </div>
         <div class="error">
@@ -99,7 +99,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Giá Phim</label>
+            <label class="form-label" style="font-weight:bold">Giá Phim</label>
             <input type="number" name="price" class="form-control" value="{{ $movie->price }}">
         </div>
         <div class="error">
@@ -109,16 +109,19 @@
                 </span>
             @endif
         </div>
-        <label for="">Diễn Viên</label>
-        <select class="js-example-basic-hide-search-multi form-control form-select" name="actors[]"
-            id="js-example-basic-hide-search-multi" multiple="multiple">
-            @foreach ($actors as $item)
-                <option {{ $movie->actors->contains('id', $item->id) ? 'selected' : '' }} value="{{ $item->id }}">
-                    {{ $item->name }}</option>
-            @endforeach
-        </select>
+        <div class="mb-3">
+
+            <label for="" style="font-weight:bold">Diễn Viên</label>
+            <select class="js-example-basic-hide-search-multi form-control form-select"  name="actors[]"
+                id="js-example-basic-hide-search-multi" multiple="multiple">
+                @foreach ($actors as $item)
+                    <option {{ $movie->actors->contains('id', $item->id) ? 'selected' : '' }} value="{{ $item->id }}">
+                        {{ $item->name }}</option>
+                @endforeach
+            </select>
+        </div>
         <br>
-        <label for="">Thể Loại</label>
+        <label for="" style="font-weight:bold" >Thể Loại</label>
         <select class=" form-control form-select" name="category_id">
             @foreach ($categories as $item)
                 <option {{ $movie->category_id === $item->id ? 'selected' : '' }} value="{{ $item->id }}">
@@ -127,11 +130,15 @@
         </select>
         <br>
         <div class="mb-3">
-            <label class="form-label text-danger">Thuộc tính HOT</label>
-            <input type="checkbox" class="form-check-input" name="isHot" {{ $movie->isHot == 0 ? 'checked' : '' }}>
+            <div class="custom-control custom-switch">
+               
+                <input type="checkbox" class="custom-control-input" id="customSwitch1" {{ $movie->isHot == 0 ? 'checked' : '' }} name="isHot" value="1">
+                <label class="custom-control-label text-danger" style="font-weight:bold" for="customSwitch1">Nổi bật</label>
+              </div>
+            
         </div><br>
         <div class="mb-3">
-            <label class="form-label">Giới hạn từ bao nhiêu tuổi trở lên</label>
+            <label class="form-label" style="font-weight:bold">Giới hạn từ bao nhiêu tuổi trở lên</label>
             <input type="number" name="year_old" class="form-control" value="{{ $movie->year_old }}">
         </div>
         <div class="error">
@@ -142,7 +149,7 @@
             @endif
         </div><br>
         <div class="mb-3">
-            <label class="form-label">Loại Phim (2D hay 3D ...)</label>
+            <label class="form-label" style="font-weight:bold">Loại Phim (2D hay 3D ...)</label>
             <input type="text" name="type" class="form-control" value="{{ $movie->type }}">
         </div>
         <div class="error">

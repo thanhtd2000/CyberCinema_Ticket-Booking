@@ -6,7 +6,7 @@
         @csrf
         @method('put')
         <div class="mb-3">
-            <label class="form-label">Tên diễn viên</label>
+            <label class="form-label" style="font-weight:bold">Tên diễn viên</label>
             <input type="text" name="name" class="form-control" value="{{ $actor->name }}">
 
             @error('name')
@@ -15,7 +15,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Ngày sinh</label>
+            <label class="form-label" style="font-weight:bold">Ngày sinh</label>
             <input type="date" name="birthday" class="form-control" value="{{ $actor->birthday }}">
 
             @error('birthday')
@@ -24,7 +24,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Ảnh</label>
+            <label class="form-label" style="font-weight:bold">Ảnh</label>
             <input type="file" name="image" class="form-control">
 
             @error('image')
@@ -33,7 +33,7 @@
         </div>
         <img src="{{ $actor->image }}" alt="" width="50">
 
-        <label class="form-label">Giới tính</label>
+        <label class="form-label" style="font-weight:bold">Giới tính</label>
         <div class="form-floating">
             <select class="form-select" name="gender" id="floatingSelect" aria-label="Floating label select example">
                 <option value="1" {{ $actor->gender == 1 ? 'selected' : '' }}>Nam</option>
@@ -47,7 +47,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Quốc tịch</label>
+            <label class="form-label" style="font-weight:bold">Quốc tịch</label>
             <input type="text" name="nationality" class="form-control" value="{{ $actor->nationality }}">
 
             @error('nationality')

@@ -7,7 +7,7 @@
         <form method="POST" action="{{route('admin.seat_type.store')}}" class="container">
             @csrf
             <div class="mb-3">
-                <label class="form-label">Seat Type</label>
+                <label class="form-label" style="font-weight:bold">Loại ghế</label>
                 <input type="text" name="name" class="form-control" value="{{old('name')}}">
         
                 @error('name')
@@ -18,7 +18,7 @@
          
             
             <div class="mb-3">
-                <label class="form-label">Price</label>
+                <label class="form-label" style="font-weight:bold">Giá</label>
                 <input type="number" name="price" class="form-control" value="{{old('price')}}">
         
                 @error('price')

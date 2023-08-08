@@ -8,7 +8,7 @@
             <form method="POST" action="{{ route('admin.schedule.store') }}" class="container">
                 @csrf
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Phim</label>
+                    <label for="exampleFormControlSelect1" style="font-weight:bold">Phim</label>
                     <select class="js-example-basic-multiple-limit form-control" name="movie_id" multiple="multiple">
                         {{-- <option value="">Chọn phim</option> --}}
                         @foreach ($movies as $item)
@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleFormControlSelect1">Phòng</label>
+                    <label for="exampleFormControlSelect1" style="font-weight:bold">Phòng</label>
                     <select class="js-example-basic-multiple-limit form-control type" name="room_id" id="type"
                         multiple="multiple">
                         {{-- <option value="">Chọn phòng</option> --}}
@@ -39,7 +39,7 @@
 
                 <div id="additionalDates">
                     <div class="form-group">
-                        <label for="exampleFormControlSelect1">Ngày chiếu</label>
+                        <label for="exampleFormControlSelect1" style="font-weight:bold">Ngày chiếu</label>
                         <button type="button" class="btn btn-outline-success" style="font-size: 15px; margin: 10px;"
                             id="addDateBtn"><i class="fas fa-plus"></i></button>
                         <input type="datetime-local" name="time_start[]" class="form-control"
@@ -54,11 +54,11 @@
         <div class="mt-2 col-md-6">
             <h3>Kiểm tra lịch tồn tại</h3>
             <form action="" class="" style="align-items: baseline">
-                <label for="">Ngày muốn kiểm tra</label>
+                <label for="" style="font-weight:bold">Ngày muốn kiểm tra</label>
                 <input type="date" name="keydate" id="date" class="form-control" value="">
                 <br>
 
-                <label for="exampleFormControlSelect1">Phòng</label>
+                <label for="exampleFormControlSelect1" style="font-weight:bold">Phòng</label>
                 <select class="js-example-basic-multiple-limit form-control type" name="room_id" id="room_id"
                     multiple="multiple">
                     {{-- <option value="">Chọn phòng</option> --}}

@@ -84,9 +84,10 @@ class MovieController extends Controller
                 $movieData['type'] = $request->type;
                 $movieData['year_old'] = $request->year_old;
                 $movieData['slug'] = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
-                if ($request->isHot == 'on') {
+                if ($request->isHot == 1) {
                     $movieData['isHot'] = 0;
                 };
+                // dd( $movieData);
                 $movie = $this->movies->create($movieData);
             }
             if ($movie) {
@@ -143,7 +144,7 @@ class MovieController extends Controller
             $movie->price = $request->price;
             $movie->type = $request->type;
             $movie->year_old = $request->year_old;
-            if ($request->isHot == 'on') {
+            if ($request->isHot == 1) {
                 $movie->isHot = 0;
             } else {
                 $movie->isHot = 1;

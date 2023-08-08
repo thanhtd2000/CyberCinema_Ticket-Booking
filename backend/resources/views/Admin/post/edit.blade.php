@@ -8,7 +8,7 @@
         <input type="hidden" name="id" value="{{ $post->id }}">
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Tiêu đề</label>
+            <label for="exampleInputEmail1" class="form-label" style="font-weight:bold">Tiêu đề</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="title" aria-describedby="emailHelp"
                 value="{{ $post->title }}">
         </div>
@@ -20,7 +20,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nội dung</label>
+            <label for="exampleInputEmail1" class="form-label" style="font-weight:bold">Nội dung</label>
             <textarea name="content" id="editor">{{ $post->content }}</textarea>
         </div>
         <div class="error">
@@ -31,7 +31,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Ảnh</label>
+            <label for="exampleInputEmail1" class="form-label" style="font-weight:bold">Ảnh</label>
             <input type="file" class="form-control" id="exampleInputEmail1" name="image" aria-describedby="emailHelp">
             <div id="emailHelp" class="form-text">Thêm ảnh hiển thị đại diện</div>
         </div>

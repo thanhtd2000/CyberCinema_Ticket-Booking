@@ -5,7 +5,7 @@
     <form action="{{ route('admin.discount.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Mã giảm giá</label>
+            <label for="exampleInputEmail1" class="form-label" style="font-weight:bold">Mã giảm giá</label>
             <input type="text" class="form-control" id="exampleInputEmail1" name="code" value="{{ old('code') }}">
         </div>
         <div class="error">
@@ -17,7 +17,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Số lượng</label>
+            <label for="exampleInputEmail1" class="form-label" style="font-weight:bold">Số lượng</label>
             <input type="number" class="form-control" id="exampleInputEmail1" name="count" value="{{ old('count') }}">
         </div>
         <div class="error">
@@ -29,7 +29,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Ngày áp dụng</label>
+            <label class="form-label" style="font-weight:bold">Ngày áp dụng</label>
             <input type="date" name="start_time" class="form-control" value="{{ old('start_time') }}">
         </div>
         <div class="error">
@@ -41,7 +41,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Ngày kết thúc</label>
+            <label class="form-label" style="font-weight:bold">Ngày kết thúc</label>
             <input type="date" name="end_time" class="form-control" value="{{ old('end_time') }}">
         </div>
         <div class="error">
@@ -53,7 +53,7 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Phần trăm triết khấu</label>
+            <label class="form-label" style="font-weight:bold">Phần trăm triết khấu</label>
             <input type="number" name="percent" class="form-control" value="{{ old('percent') }}">
         </div>
         <div class="error">
@@ -64,7 +64,7 @@
             @endif
         </div>
         <div class="mb-3">
-            <label class="form-label">Mô tả</label>
+            <label class="form-label" style="font-weight:bold">Mô tả</label>
             <input class="form-control" type="text" name="description">
         </div>
         <div class="error">

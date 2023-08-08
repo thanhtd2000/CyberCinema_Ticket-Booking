@@ -23,14 +23,13 @@
             <tr>
                 <th scope="col">STT</th>
                 <th scope="col">Mã giảm giá</th>
-                <th scope="col">Tiền tối thiểu áp dụng</th>
-                <th scope="col">Tiền tối đa triết khấu</th>
+               
                 <th scope="col">Số lượng</th>
                 <th scope="col">Thời gian áp dụng</th>
                 <th scope="col">Thời gian kết thúc</th>
                 <th scope="col">Phần trăm triết khấu</th>
-                <th scope="col">Mô tả</th>
-                <th scope="col">Chức năng</th>
+                <th scope="">Mô tả</th>
+                <th scope="col"></th>
             </tr>
         </thead>
         <tbody>
@@ -38,15 +37,14 @@
                 <tr>
                     <th scope="row">{{ $key += 1 }}</th>
                     <td style="font-weight: bold">{{ $discount->code }}</td>
-                    <td style="font-weight: bold">{{ number_format($discount->min_price, 0, ',', '.') }} VNĐ</td>
-                    <td style="font-weight: bold">{{ number_format($discount->max_price, 0, ',', '.') }} VNĐ</td>
+                    
                     <td style="font-weight: bold">{{ $discount->count }}</td>
                     <td style="font-weight: bold">{{ date('d/m/Y', strtotime($discount->start_time)) }}</td>
                     <td style="font-weight: bold">{{ date('d/m/Y', strtotime($discount->end_time)) }}</td>
                     <td style="font-weight: bold">{{ $discount->percent }}%</td>
-                    <td style="font-weight: bold">{{ $discount->description }}</td>
+                    <td style="font-weight: bold; max-width: 290px;">{{ $discount->description }}</td>
                     <td>
-                        <button class="btn btn-primary">
+                        {{-- <button class="btn btn-primary">
                             <a class="text-white" href="{{ route('admin.discount.edit', $discount->id) }}"><i
                                     class="fas fa-pencil-alt"></i></a>
                         </button>
@@ -54,7 +52,24 @@
                             <a class="text-white" onclick="return confirm('Bạn có chắc chắn muốn xóa không?')"
                                 href="{{ route('admin.discount.delete', $discount->id) }}"><i
                                     class="fas fa-trash-alt"></i></a>
-                        </button>
+                        </button> --}}
+                        <div class="dropdown">
+                            <button class="btn btn-transparent p-0" type="button" data-coreui-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <svg class="icon">
+                                    <use
+                                        xlink:href="{{ asset('dist/vendors/@coreui/icons/svg/free.svg#cil-options') }}">
+                                    </use>
+                                </svg>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end" style=" min-width: auto;">
+                                <a class="dropdown-item btn btn-outline-success" href="{{ route('admin.discount.edit', $discount->id) }}" style=" text-align: center"><i
+                                    class="fas fa-pencil-alt"></i></a>
+                                <a class="dropdown-item btn btn-outline-danger"   onclick=" return confirm('Bạn có chắc chắn xoá?')"
+                                href="{{ route('admin.discount.delete', $discount->id) }}" style=" text-align: center"><i
+                                    class="fas fa-trash-alt"></i></a>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             @endforeach
