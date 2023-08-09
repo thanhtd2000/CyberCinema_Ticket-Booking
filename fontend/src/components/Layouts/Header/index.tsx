@@ -14,8 +14,10 @@ import { useMutationSignOut } from '@/queries/hooks';
 import { checkAuth } from '@/libs/localStorage';
 import { UserOutlined } from '@ant-design/icons';
 import { queryGetProfile } from '@/queries/hooks/user';
+import { useTranslation } from 'react-i18next';
 
 function Header() {
+      const { t } = useTranslation();
       const router = useRouter();
       const [open, setOpen] = useState(false);
       const [navbar, setNavbar] = useState(false);
@@ -30,11 +32,7 @@ function Header() {
             setOpen(true);
       };
       const { data: user, isLoading, isFetching } = queryGetProfile(token)
-      const { mutate: signOut, isError } = useMutationSignOut();
-      // useEffect(()=>{
-      //       signOut()
-      // },[isError])
-      console.log(isError);
+      const { mutate: signOut } = useMutationSignOut();
       const handleLogout = () => {
             signOut()
             setToken(undefined)
@@ -64,28 +62,28 @@ function Header() {
                   key: '1',
                   icon: <UserOutlined />,
                   label: (
-                        <Link href='/user'>Thông tin tài khoản</Link>
+                        <Link href='/user'>{t('home:Information')}</Link>
                   ),
             },
             {
                   key: '2',
                   icon: <IoDiamondOutline />,
                   label: (
-                        <Link href='/user/history'>Lịch sử đặt vé</Link>
+                        <Link href='/user/history'>{t('home:History')}</Link>
                   ),
             },
             {
                   key: '3',
                   icon: <TbArrowsExchange2 />,
                   label: (
-                        <Link href='/user'>Thay đổi mật khẩu</Link>
+                        <Link href='/user'>{t('home:ChangePass')}</Link>
                   ),
             },
             {
                   key: '3',
                   icon: <IoLogOutOutline />,
                   label: (
-                        <Link onClick={() => handleLogout()} href='/'>Đăng xuất</Link>
+                        <Link onClick={() => handleLogout()} href='/'>{t('home:LogOut')}</Link>
                   ),
             },
       ];
@@ -109,12 +107,12 @@ function Header() {
                                                 </Col>
                                                 <Col className={style.navText}>
                                                       <ul className={style.nav}>
-                                                            <Link href='/movies'><li>Phim</li></Link>
+                                                            <Link href='/movies'><li>{t('home:Movies')}</li></Link>
                                                             <Link href='/news'>
-                                                                  <li>Tin tức</li>
+                                                                  <li>{t('home:News')}</li>
                                                             </Link>
                                                             <Link href='/contact'>
-                                                                  <li>Liên hệ</li>
+                                                                  <li>{t('home:Contact')}</li>
                                                             </Link>
                                                       </ul>
                                                 </Col>
@@ -136,7 +134,7 @@ function Header() {
                                                                                                       </Space>)
                                                                                                 }
                                                                                           </a>
-                                                                                    </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>Đăng nhập / Đăng ký</Link></Button>)
+                                                                                    </Dropdown>) : (<Button className={style.sigin}><Link href='/login'>{t('home:LogIn')}</Link></Button>)
 
 
 
@@ -176,12 +174,12 @@ function Header() {
                                                       <Drawer title={<Tag />} placement='left' onClose={onClose} open={open}>
                                                             <Row>
                                                                   <Col span={24} className={style.drawerText}>
-                                                                        <Link href='/movies'>Phim</Link>
+                                                                        <Link href='/movies'>{t('home:Movies')}</Link>
                                                                         <Link href='/'>
-                                                                              Tin tức
+                                                                        {t('home:News')}
                                                                         </Link>
                                                                         <Link href='/contact'>
-                                                                              Liên hệ
+                                                                        {t('home:Contact')}
                                                                         </Link>
                                                                   </Col>
                                                                   {router?.locale === ELanguage.VI ? (

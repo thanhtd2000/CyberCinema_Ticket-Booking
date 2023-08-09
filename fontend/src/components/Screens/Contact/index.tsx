@@ -10,6 +10,7 @@ import { formatNumberWithDot } from '@/components/Widgets/formatNumberPhone/form
 
 import styles from './style.module.less';
 import { useQueryContact } from '@/queries/hooks/user';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Text } = Typography;
 const { TextArea } = Input;
@@ -20,7 +21,7 @@ function ContactScreen() {
   const onFinish = (values: any) => {
       useMutateContact( { data: { ...values } })
   };
-
+  const { t } = useTranslation();
   return (
     <div style={{ background: '#0D0E10' }}>
       <div className='container' style={{ background: '#0D0E10' }}>
@@ -37,8 +38,8 @@ function ContactScreen() {
                     <Row>
                       <Col span={24} className={styles.title}>
                         <Title level={1}>
-                          <Text>Chúng tôi có thể</Text>
-                          <Text>Trợ giúp bạn nhanh chóng</Text>
+                          <Text>{t('contact:we_can')}</Text>
+                          <Text>{t('contact:help_you_quickly')}</Text>
                         </Title>
                       </Col>
                       <Col span={24}>
@@ -68,7 +69,7 @@ function ContactScreen() {
                               </span>
                             </div>
                             <Title className={`${styles.title} ellipsis oneline`} level={3}>
-                              Địa chỉ
+                            {t('contact:address')}
                             </Title>
                             <Text className={`${styles.desc} ellipsis threeline`}>
                               T21A - Tòa nhà Sông Đà - Mỹ Đình 1 - Nam Từ Liêm - Hà Nội
@@ -99,13 +100,13 @@ function ContactScreen() {
                               </span>
                             </div>
                             <Title className={`${styles.title} ellipsis oneline`} level={3}>
-                              Số điện thoại
+                            {t('contact:phone_number')}
                             </Title>
                             <Text className={`${styles.desc} ellipsis threeline`}>
                               <Space wrap className={styles.space} size={8}>
                                 <Text style={{color: 'white'}}>{formatNumberWithDot('+84369966353')}</Text>
                                 <a target='_blank' rel='noreferrer' href={'tel:0369966353'}>
-                                  <strong>Gọi ngay</strong>
+                                  <strong>{t('contact:call')}</strong>
                                 </a>
                               </Space>
                             </Text>
@@ -140,13 +141,13 @@ function ContactScreen() {
                               </span>
                             </div>
                             <Title className={`${styles.title} ellipsis oneline`} level={3}>
-                              Email
+                            {t('contact:email')}
                             </Title>
                             <Text className={`${styles.desc} ellipsis threeline`}>
                               <Space wrap className={styles.space} size={8}>
-                                <Text style={{color: 'white'}}>support@cybermovies.vn</Text>
+                                <Text style={{color: 'white'}}>cybercinema@cybercinema.site</Text>
                                 <a target='_blank' rel='noreferrer' href={'mailto:support@cybermovies.vn'}>
-                                  <strong>Gửi email</strong>
+                                  <strong>{t('contact:send_mail')}</strong>
                                 </a>
                               </Space>
                             </Text>
@@ -165,17 +166,17 @@ function ContactScreen() {
                 <Col span={24} lg={{ span: 12 }} className={styles.formGroup}>
                   <Col span={24} xl={{ span: 20 }} lg={{ span: 22 }}>
                     <Title className={styles.title} level={2}>
-                        Kết nối với chúng tôi
+                    {t('contact:send_mail')}
                     </Title>
                     <Form form={form} onFinish={onFinish} className={styles.form} layout='vertical'>
                       <Row gutter={[24, 0]}>
                         <Col span={12}>
                           <Form.Item
-                            rules={[{ required: true, message: 'Vui lòng nhập họ tên' }]}
-                            label='Họ tên'
+                            rules={[{ required: true, message: t('contact:please_enter_your_name') || 'Vui lòng nhập họ tên' }]}
+                            label={t('contact:full_name') || 'Họ tên' }
                             name='name'
                           >
-                            <Input placeholder='Điền họ và tên' />
+                            <Input placeholder={t('contact:enter_your_full_name') || 'Điền họ và tên'} />
                           </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -183,14 +184,14 @@ function ContactScreen() {
                             rules={[
                               {
                                 required: true,
-                                message: 'Vui lòng nhập số điện thoại',
+                                message: t('contact:please_enter_your_phone_number') || 'Vui lòng nhập số điện thoại' ,
                               },
                               {
                                 pattern: regexPhoneNumber,
-                                message: 'Số điện thoại không hợp lệ',
+                                message: t('contact:invalid_phone') || 'Số điện thoại không hợp lệ' ,
                               },
                             ]}
-                            label='Số điện thoại'
+                            label={t('contact:phone_number')}
                             name='phone'
                           >
                             <PhoneInput
@@ -200,7 +201,7 @@ function ContactScreen() {
                               enableSearch
                               containerStyle={{ width: '100%' }}
                               inputStyle={{ width: '100%' }}
-                              placeholder='Nhập số điện thoại'
+                              placeholder={t('contact:enter_your_phone') || 'Điền số điện thoại'}
                             />
                           </Form.Item>
                         </Col>
@@ -209,14 +210,14 @@ function ContactScreen() {
                             rules={[
                               {
                                 required: true,
-                                message: 'Vui lòng nhập email',
+                                message: t('contact:please_enter_your_email') || 'Vui lòng nhập email',
                               },
-                              { pattern: regexEmail, message: 'Email không hợp lệ' },
+                              { pattern: regexEmail, message: t('contact:invalid_email') || 'Email không hợp lệ' },
                             ]}
-                            label='Email'
+                            label={t('contact:email')}
                             name='email'
                           >
-                            <Input placeholder='Điền Email' />
+                            <Input placeholder={t('contact:enter_your_email' || 'Điền Email')} />
                           </Form.Item>
                         </Col>
                         <Col className={styles.note} span={24}>
@@ -224,19 +225,19 @@ function ContactScreen() {
                             rules={[
                               {
                                 required: true,
-                                message: 'Vui lòng nhập lời nhắn',
+                                message: t('contact:please_enter_message') || 'Vui lòng nhập lời nhắn',
                               },
                             ]}
-                            label='Lời nhắn'
+                            label={t('contact:message' || 'Lời nhắn')}
                             name='content'
                           >
-                            <TextArea rows={4} placeholder='Điền lời nhắn của bạn đến đội ngũ CyberMovies' />
+                            <TextArea rows={4} placeholder={t('contact:message_textarea') || 'Điền lời nhắn của bạn đến đội ngũ iCongty'} />
                           </Form.Item>
                         </Col>
                         <Col span={24} style={{paddingBottom: '35px'}}>
                           <Form.Item>
                             <Button htmlType='submit' className={styles.btn} type='primary'>
-                              Gửi thông tin
+                            {t('contact:send_message')}
                             </Button>
                           </Form.Item>
                         </Col>

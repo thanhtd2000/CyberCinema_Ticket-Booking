@@ -26,10 +26,11 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
     setIsModalOpen(true);
   };
 
-  const handleOk = () => {
-    setIsModalOpen(false);
+  const handleCancel = () => {
+      setIsModalOpen(false);
     refetch();
-  };
+    };
+  console.log(dataChair);
   return (
     <Row gutter={[33, 0]} style={{ flexWrap: 'nowrap', paddingBottom: '10px' }}>
       {dataChair &&
@@ -42,7 +43,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
                     <Image src='/images/chair/seat-process-normal.png' width={50} height={50} alt='empty chair' />
                     <p className={style.nameChair}>{item?.name}</p>
                   </div>
-                  <Modal title='Đăt lại ghế' open={isModalOpen} onOk={handleOk}>
+                  <Modal title='Đăt lại ghế' open={isModalOpen} footer={false} onCancel={handleCancel}>
                     <p>Ghế đã có người đặt vui lòng đặt lại</p>
                   </Modal>
                 </Col>
@@ -80,7 +81,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
                     <Image src='/images/chair/seat-process-vip.png' width={50} height={50} alt='empty chair' />
                     <p className={style.nameChair}>{item?.name}</p>
                   </div>
-                  <Modal title='Đăt lại ghế' open={isModalOpen} onOk={handleOk}>
+                  <Modal title='Đăt lại ghế' open={isModalOpen} footer={false} onCancel={handleCancel}>
                     <p>Ghế đã có người đặt vui lòng đặt lại</p>
                   </Modal>
                 </Col>
@@ -118,7 +119,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
                     <Image src='/images/chair/seat-process-double.png' width={50} height={50} alt='empty chair' />
                     <p className={style.nameChair}>{item?.name}</p>
                   </div>
-                  <Modal title='Đăt lại ghế' open={isModalOpen} onOk={handleOk}>
+                  <Modal title='Đăt lại ghế' open={isModalOpen} footer={false} onCancel={handleCancel}>
                     <p>Ghế đã có người đặt vui lòng đặt lại</p>
                   </Modal>
                 </Col>
