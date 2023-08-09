@@ -15,6 +15,7 @@ function NewScreen({ listNews, listNewsOffer }: INewScreen) {
       const listNewsBottom = listNews.slice(1, 5)
       const listNewsOfferRight = listNewsOffer.slice(1, 3)
       const listNewsOfferBottom = listNewsOffer.slice(1, 5)
+      console.log(listNewsRight);
       return (
             <div className='News' style={{ background: '#0D0E10' }}>
                   <div className='container'>

@@ -6,12 +6,14 @@ import Link from 'next/link';
 import { TPost } from '@/modules/post';
 
 import style from './style.module.less';
+import { useTranslation } from 'react-i18next';
 
 const { Title, Paragraph } = Typography;
 export interface INews {
   News: TPost;
 }
 function ListNews({ News }: INews) {
+      const { t } = useTranslation();
   return (
     <Col span={24}>
       {News && News ? (
@@ -28,7 +30,7 @@ function ListNews({ News }: INews) {
                   <Title level={5}>{News.name}</Title>
                 </Col>
                 <Col span={24} className={style.editor}>
-                  <p>Edit by: <span>{News?.user[0]?.name}</span></p>
+                  <p>{t('home:EditBy')} : <span>{News?.user[0]?.name}</span></p>
                 </Col>
               </Row>
             </Space>

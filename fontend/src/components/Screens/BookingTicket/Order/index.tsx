@@ -11,12 +11,14 @@ import { TDiscount, TProduct } from '@/modules/product';
 import { queryGetPoints, queryPayment } from '@/queries/hooks/payment';
 import { useGlobalState } from '@/libs/GlobalStateContext';
 import CountTime from '@/components/Elements/Timer/Timer';
+import { useTranslation } from 'react-i18next';
 interface IOrderTicket {
       expiresAt: any;
       totalPrice: number;
       selectedBoxes: any;
 }
 function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
+      const { t } = useTranslation();
       const { data: product, isLoading } = queryAllProduct()
       const [sweetCombo, setSweetCombo] = useState(product)
       const [typePayment, setTypePayment] = useState<string>()
@@ -85,31 +87,31 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
       return (
             <Col xs={24} sm={24} md={24} lg={18} className={style.order}>
                   <div className={style.warning}>
-                        <p>Theo quy định của cục điện ảnh, phim này không dành cho khán giả dưới {movieDetail?.year_old} tuổi.</p>
+                        <p>{t('movies:regulations')} {movieDetail?.year_old} {t('movies:old')}.</p>
                   </div>
                   <div className={style.time}>
-                        <p>Thời gian giữ ghế</p>
+                        <p>{t('movies:TimeKeep')}</p>
                         {expiresAt? (<CountTime expiresAt={expiresAt} />) : (<Spin></Spin>)}
                   </div>
                   <Row className={style.InforUser}>
                         <Col span={24} className={style.title}>
                               <Row>
                                     <span><FaRegUserCircle /></span>
-                                    <p>THÔNG TIN THANH TOÁN</p>
+                                    <p>{t('movies:InforPay')}</p>
                               </Row>
                         </Col>
                         <Col span={24}>
                               <Row className={style.inforUser}>
                                     <Col xs={24} sm={8} className={style.inforDetail}>
-                                          <h5>Họ Tên :</h5>
+                                          <h5>{t('movies:fullname')} :</h5>
                                           <p>{user?.name}</p>
                                     </Col>
                                     <Col xs={24} sm={8} className={style.inforDetail}>
-                                          <h5>Số điện thoại :</h5>
+                                          <h5>{t('movies:phone')} :</h5>
                                           <p>{user?.phone}</p>
                                     </Col>
                                     <Col xs={24} sm={8} className={style.inforDetail}>
-                                          <h5>Email :</h5>
+                                          <h5>{t('movies:email')} :</h5>
                                           <p>{user?.email}</p>
                                     </Col>
                               </Row>
@@ -117,20 +119,20 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                         <Col span={24}>
                               <Row className={style.combo}>
                                     <Image src='/images/ic-combo.png' width={50} height={50} alt='combo' />
-                                    <p>COMBO ƯU ĐÃI</p>
+                                    <p>{t('movies:Combo')}</p>
                               </Row>
                         </Col>
                         <Col span={24} className={style.tableCombo}>
                               <Row>
                                     <Col xs={2} sm={4} md={4}></Col>
                                     <Col xs={0} sm={0} md={8} className={style.nameCombo}>
-                                          <p>Tên Combo</p>
+                                          <p>{t('movies:nameCombo')}</p>
                                     </Col>
                                     <Col xs={16} sm={16} md={8} className={style.desc}>
-                                          <p>Mô tả</p>
+                                          <p>{t('movies:Descriptions')}</p>
                                     </Col>
                                     <Col xs={6} sm={4} md={4} className={style.mount}>
-                                          <p>Số lượng</p>
+                                          <p>{t('movies:amount')}</p>
                                     </Col>
                               </Row>
                         </Col>
@@ -162,7 +164,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                               <Row>
                                     <Col span={12} className={style.combo}>
                                           <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' />
-                                          <p>GIẢM GIÁ</p>
+                                          <p>{t('movies:Voucher')}</p>
                                     </Col>
                               </Row>
                         </Col>
@@ -171,13 +173,13 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                     <Col span={24} className={style.headerDiscount}>
                                           <Row style={{ textAlign: 'center' }}>
                                                 <Col xs={9} sm={6}>
-                                                      <p>Mã voucher</p>
+                                                      <p>{t('movies:Code')}</p>
                                                 </Col>
                                                 <Col xs={15} sm={8}>
-                                                      <p>Nội dung voucher</p>
+                                                      <p>{t('movies:ContentVoucher')}</p>
                                                 </Col>
                                                 <Col xs={0} sm={6} className={style.expiredTime}>
-                                                      <p>Ngày hết hạn</p>
+                                                      <p>{t('movies:limitTime')}</p>
                                                 </Col>
                                                 <Col xs={0} sm={4}></Col>
                                           </Row>
@@ -190,7 +192,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                                                   <p>{item?.code}</p>
                                                             </Col>
                                                             <Col xs={13} sm={8}>
-                                                                  <p>Giảm ${item?.percent} % trên tổng hoá đơn</p>
+                                                                  <p>{t('movies:reduce')} ${item?.percent} % {t('movies:bill')}</p>
                                                             </Col>
                                                             <Col xs={0} sm={6} className={style.expiredTimeContent}>
                                                                   <p>{item?.end_time}</p>
@@ -206,7 +208,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                                     <Col span={24}>
                                           <Row className={style.changePoint}>
                                                 <Col>
-                                                      <p style={{ paddingBottom: '16px' }}>Tổng số điểm bạn đang có là: {point as any}</p>
+                                                      <p style={{ paddingBottom: '16px' }}>{t('movies:TotalPoint')}: {point as any}</p>
                                                       <InputNumber min={1} max={10} onChange={onChange} />
                                                       {(points*1000) > (totalPrice + priceProduct) ? (<p style={{ paddingTop: '16px', color: 'red' }}>Điểm không hợp lệ</p>) : ''}
                                                 </Col>
@@ -223,15 +225,15 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                         <Col span={24}>
                               <Row className={style.totalMoney}>
                                     <Col span={24} className={style.money}>
-                                          <p>Tổng tiền:</p>
+                                          <p>{t('movies:TotalMoney')}:</p>
                                           <span>{numberWithComas(totalPrice + priceProduct)} vnđ</span>
                                     </Col>
                                     <Col span={24} className={style.money}>
-                                          <p>Số tiền được giảm:</p>
+                                          <p>{t('movies:MoneyDiscount')}:</p>
                                           <span>{numberWithComas(percent + points*1000)} vnđ</span>
                                     </Col>
                                     <Col span={24} className={style.money}>
-                                          <p>Số tiền cần thanh toán:</p>
+                                          <p>{t('movies:paid')}:</p>
                                           <span>{numberWithComas(total)} vnđ</span>
                                     </Col>
                               </Row>
@@ -239,13 +241,13 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                         <Col span={24}>
                               <Row className={style.combo}>
                                     <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' />
-                                    <p>PHƯƠNG THỨC THANH TOÁN</p>
+                                    <p>{t('movies:method')}</p>
                               </Row>
                         </Col>
                         <Col span={24}>
                               <Row className={style.payMent}>
                                     <Col span={24}>
-                                          <p>Chọn thẻ thanh toán</p>
+                                          <p>{t('movies:paidCard')}</p>
                                     </Col>
                                     <Col span={24}>
                                           <Form

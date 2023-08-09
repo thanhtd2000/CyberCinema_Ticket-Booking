@@ -9,10 +9,12 @@ import { TMovies } from '@/modules/movies';
 import { TCategory } from '@/modules/category';
 import Link from 'next/link';
 import dayjs from 'dayjs';
+import { useTranslation } from 'react-i18next';
 interface ItemMovies {
       movies: TMovies;
 }
 function MovieItem({ movies }: ItemMovies) {
+      const { t } = useTranslation();
       const [isModalOpen, setIsModalOpen] = useState(false);
       const [isPlay, setIsPlay] = useState(true);
       const videoLink = movies?.trailer
@@ -54,19 +56,19 @@ function MovieItem({ movies }: ItemMovies) {
                                           </Link>
                                     </Col>
                                     <Col span={24} className={style.movieType}>
-                                          <span style={{ color: '#fff' }}>Thể loại: </span>
+                                          <span style={{ color: '#fff' }}>{t('home:Category')} : </span>
                                           {
                                                 movies?.category.map((i: TCategory) => (<Tag className={style.tag}>{i.name}</Tag>))
                                           }
                                     </Col>
                                     <Col span={24} className={style.movieType}>
-                                          <span style={{ color: '#fff' }}>Thời lượng: </span>
+                                          <span style={{ color: '#fff' }}>{t('home:time')} : </span>
                                           <Tag className={style.tag}>{movies?.time}</Tag>
                                     </Col>
                                     <Col span={24}>
                                           {
                                                 dayjs(movies?.date).isAfter(dayjs()) === true ? (<Button disabled>Release Soon ...</Button>) : (<Link href={`movies/${movies?.slug}`}>
-                                                      <Button>Mua vé</Button>
+                                                      <Button>{t('home:BuyTicket')}</Button>
                                                 </Link>)
                                           }
                                     </Col>

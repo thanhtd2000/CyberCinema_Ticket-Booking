@@ -13,6 +13,7 @@ import { TPost } from '@/modules/post';
 
 import style from './style.module.less';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 const { Title } = Typography;
 export interface IHotNews {
@@ -21,12 +22,13 @@ export interface IHotNews {
 }
 function New({ HotNews, News }: IHotNews) {
   const [swipe, setSwipe] = useState<any>();
+  const { t } = useTranslation();
   return (
     <div className='container'>
       <div className={style.new}>
         <Row>
           <Col span={24}>
-            <Title level={3}>Tin tức nổi bật</Title>
+            <Title level={3}>{t('home:HotNew')}</Title>
           </Col>
           <Col span={24}>
             <Row gutter={[{ xs: 0, sm: 0, md: 64 }, 24]}>
@@ -74,8 +76,8 @@ function New({ HotNews, News }: IHotNews) {
               <Col xs={24} sm={24} md={24} lg={9} xl={9}>
                 <Row>
                   <Col span={24} className={style.button}>
-                    <Title level={3}>Tin tức</Title>
-                    <Button href='/news'>Xem thêm</Button>
+                    <Title level={3}>{t('home:News')}</Title>
+                    <Button href='/news'>{t('home:Seemore')}</Button>
                   </Col>
                   <Col span={24}>
                     <Row gutter={[0, 16]}>
