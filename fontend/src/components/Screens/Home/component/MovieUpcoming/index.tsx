@@ -4,15 +4,17 @@ const { Title } = Typography
 import MovieItem from '@/components/Elements/MovieItem'
 import style from './style.module.less'
 import { TMovies } from '@/modules/movies'
+import { useTranslation } from 'react-i18next'
 interface movies {
       fetchAllMovies: TMovies[];
 }
 function MovieUpcoming({ fetchAllMovies }: movies) {
+      const { t } = useTranslation();
       return (
             <div className='container'>
                   <Row className={style.movieUpcoming}>
                         <Col span={24}>
-                              <Title level={3}>PHIM SẮP CHIẾU</Title>
+                              <Title level={3}>{t('home:coming')}</Title>
                         </Col>
                         <Col span={24}>
                               {

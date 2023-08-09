@@ -31,10 +31,9 @@ function index(props: InferGetServerSidePropsType<typeof getServerSideProps> ) {
       const { HotNews} = props;
       const news = HotNews.filter((item: any)=> item.category === 1)
       const newsOffer = HotNews.filter((item: any)=> item.category === 2)
-      
   return (
       <Layout>
-            <NewScreen listNews={news} listNewsOffer={newsOffer} />
+            { newsOffer && news && <NewScreen listNews={news} listNewsOffer={newsOffer} />}
       </Layout>
   )
 }

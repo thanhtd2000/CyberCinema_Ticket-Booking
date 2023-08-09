@@ -8,8 +8,8 @@ import { getListMovieFromDatabase } from '@/queries/apis/movies';
 import { Spin } from 'antd';
 import { getListPostFromDatabase } from '@/queries/apis/post';
 import Loading from '@/components/Elements/Loading';
-const HomeScreen = dynamic(() => import('@components/Screens/Home'), { loading: () => <Loading /> });
-const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Loading /> });
+const HomeScreen = dynamic(() => import('@components/Screens/Home'), { loading: () => <Loading />, ssr: false });
+const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <Loading />, ssr: false });
 export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 //   Movies

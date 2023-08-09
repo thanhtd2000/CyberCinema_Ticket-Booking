@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import style from './style.module.less';
 import { Breadcrumb, Col, Form, Radio, Row, Spin, Tag } from 'antd';
 import Image from 'next/image';
+import 'dayjs/locale/vi'
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -15,6 +16,7 @@ import { getLocalStored, setLocalStored } from '@/libs/localStorage';
 import { USER_PROFILE } from '@/queries/keys';
 import { useRouter } from 'next/router'
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 interface moviesDetaiil {
   moviesDetail: TMovies[];
 }
@@ -53,6 +55,7 @@ function checkAllKeysHaveData(obj: any) {
   return false;
 }
 function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
+  const { t } = useTranslation();
   const [activeItemDate, setActiveItemDate] = useState(null);
   const [activeItemTime, setActiveItemTime] = useState(null);
   const [activeItemRoom, setActiveItemRoom] = useState(null);
@@ -141,21 +144,21 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                   </Row>
                 </Col>
                 <Col className={style.overview}>
-                  <h3>OVERVIEW</h3>
+                  <h3>{t('movies:Overview')}</h3>
                   <ul className={style.overDetail}>
                     <li>
                       <p>{moviesDetail[0].description}</p>
                     </li>
                     <li>
-                      <span>Time Premiere : </span>
+                      <span>{t('movies:TimePremiere')} : </span>
                       <p>{dayjs(moviesDetail[0].date).format('DD/MM/YYYY')}</p>
                     </li>
                     <li>
-                      <span>Directors : </span>
+                      <span>{t('movies:Director')} : </span>
                       <p>{moviesDetail[0]?.director[0]?.name}</p>
                     </li>
                     <li>
-                      <span>Categories : </span>
+                      <span>{t('home:Category')} : </span>
                       <p>
                         {moviesDetail[0]?.category.map((item) => (
                           <Tag className={style.tag}>{item.name}</Tag>
@@ -167,7 +170,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                 <Col span={24}>
                   <Row style={{ justifyContent: 'space-between', alignItems: 'center' }}>
                     <h3 style={{ color: 'rgb(236, 229, 229)', fontSize: '25px', padding: '10px 0', fontWeight: '500' }}>
-                      Actors
+                    {t('movies:Actors')}
                     </h3>
                   </Row>
                 </Col>
@@ -194,12 +197,12 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
             <div>
               <Row className={style.date}>
                 <Col span={24}>
-                  <h3>Chọn Ngày</h3>
+                  <h3>{t('movies:ChoseDay')}</h3>
                 </Col>
                 <Col xs={24} sm={18} md={16} lg={14} style={{ overflow: 'hidden' }}>
                   <Row className={style.listDate}>
                     <Col>
-                      <Form.Item name='date' rules={[{ required: true, message: 'Vui lòng chọn ngày' }]}>
+                      <Form.Item name='date' rules={[{ required: true, message: t('movies:requireDate') as string }]}>
                         <Radio.Group style={{display: 'flex'}}>
                           {data?.schedules ? (
                             data?.schedules.map((item: any, index) => (
@@ -212,9 +215,9 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                                 className={activeItemDate === index ? style.active : style.dateItem}
                               >
                                 <div>
-                                  <p className={style.selectMonth}>{dayjs(item).format('dddd')}</p>
+                                  <p className={style.selectMonth}>{dayjs(item).locale(router?.locale as string).format('dddd')}</p>
                                   <p className={style.selectDate}>{dayjs(item).format('DD')}</p>
-                                  <p className={style.selectMonth}>{dayjs(item).format('MMMM')}</p>
+                                  <p className={style.selectMonth}>{dayjs(item).locale(router?.locale as string).format('MMMM')}</p>
                                 </div>
                               </Radio>
                             ))
@@ -231,7 +234,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
             <div>
               <Row className={style.calendar}>
                 <Col span={24}>
-                  <h3>Chọn Lịch Chiếu</h3>
+                  <h3>{t('movies:selectShowtime')}</h3>
                 </Col>
                 <Col span={24}>
                   <Row>
@@ -259,7 +262,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                                       style={{ width: '100px', height: '100px', color: 'white' }}
                                     />
                                     <p style={{ color: 'white', paddingTop: '20px', fontSize: '14px' }}>
-                                      Vui lòng chọn ngày
+                                    {t('movies:requireDate')}
                                     </p>
                                   </div>
                                 </Row>
@@ -276,7 +279,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
             <div>
               <Row className={style.calendar}>
                 <Col span={24}>
-                  <h3>Chọn Phòng</h3>
+                  <h3>{t('movies:ChooseRoom')}</h3>
                 </Col>
                 <Col span={24}>
                   <Row>
@@ -298,7 +301,7 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
                                   <div style={{ textAlign: 'center' }}>
                                     <FcOvertime style={{ width: '100px', height: '100px', color: 'white' }} />
                                     <p style={{ color: 'white', paddingTop: '20px', fontSize: '14px' }}>
-                                      Vui lòng chọn giờ chiếu
+                                    {t('movies:requireHours')}
                                     </p>
                                   </div>
                                 </Row>
@@ -313,14 +316,14 @@ function MovieDetailScreen({ moviesDetail }: moviesDetaiil) {
               </Row>
             </div>
             <Form.Item>
-              <button className={style.chooseChair}>Chọn ghế</button>
+              <button className={style.chooseChair}>{t('movies:ChooseChair')}</button>
             </Form.Item>
           </Form>
         )}
         <div>
           <Row className={style.trailerMovies}>
             <Col>
-              <h3>Trailer Movies</h3>
+              <h3>{t('movies:TrailerMovies')}</h3>
             </Col>
             <Col span={24} style={{ color: '#fff' }}>
               {hasWindow  && videoLink ? (

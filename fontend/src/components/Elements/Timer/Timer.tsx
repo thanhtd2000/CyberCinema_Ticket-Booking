@@ -25,7 +25,8 @@ function CountTime({ expiresAt }: ICount) {
         if(exp <= 0){
             router.push('/')
         }
-  },[exp])
+  },[])
+  console.log(exp);
   const minutes = useMemo(() => (duration.minutes() < 10 ? `0${duration.minutes()}` : duration.minutes()), [duration]);
   return (
     <Text>{exp <= 0 || !expiresAt ? 'Token Expried' : `${minutes}:${seconds}`}</Text>

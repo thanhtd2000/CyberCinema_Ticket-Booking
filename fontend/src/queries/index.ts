@@ -11,9 +11,11 @@ function queryErrorHandler(error: any): void {
   toast.error(error?.message);
   // error is type unknown because in js, anything can be an error (e.g. throw(5))
   const accessToken = checkAuth();
+  console.log(error)
   const id = 'react-query-error';
   const title = error instanceof Error ? error.toString().replace(/^Error:\s*/, '') : 'error connecting to server';
-  if (error?.statusCode === 401 && accessToken) {
+  if (error?.status === 401 && accessToken) {
+      console.log('first')
     refreshTokenFn();
   } else {
     // Todo
