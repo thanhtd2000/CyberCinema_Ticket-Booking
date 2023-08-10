@@ -37,4 +37,5 @@
             @endforeach
         </tbody>
     </table>
+    {{ $schedules->links() }}
 @endsection

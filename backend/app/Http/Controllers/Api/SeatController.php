@@ -19,7 +19,7 @@ class SeatController extends Controller
     public function updateStatusSeat(Request $request)
     {
         $user = $request->user();
-        $count = OrderSchedule::where('user_id', $user->id)->where('schedule_id', $request->schedule_id)->count();
+        $count = OrderSchedule::where('user_id', $user->id)->where('schedule_id', $request->schedule_id)->where('status', 1)->count();
         $seat = OrderSchedule::where('seat_id', $request->id)->where('schedule_id', $request->schedule_id)->first();
         if ($seat == null) {
             if ($count <= 4) {

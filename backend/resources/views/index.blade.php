@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <a href="http://localhost:3200/" class="btn btn-success" style="width: 100%;">Trang chủ</a>
+        <a href="{{BASE_URL2}}" class="btn btn-success" style="width: 100%;">Trang chủ</a>
 
     </div>
 
