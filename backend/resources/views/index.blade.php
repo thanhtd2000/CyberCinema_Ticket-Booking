@@ -17,8 +17,12 @@
 </head>
 
 <body>
-    <a href="http://localhost:3200"></a>
-
+    <a href="{{ BASE_URL2 }}"></a>
+    @if (\Session::has('message'))
+        <div>
+            <h3 style="color: red">{!! \Session::get('message') !!}</h3>
+        </div>
+    @endif
     <div class="" style="width: 8cm; margin:auto">
         <div class="name-movie" style="text-align: center; background-color: white;">
             <h3 style="text-transform: uppercase; font-weight: bold;">{{ $orderSchedules[0]->movie_name }}</h3>
@@ -77,7 +81,7 @@
             </div>
         </div>
 
-        <a href="{{BASE_URL2}}" class="btn btn-success" style="width: 100%;">Trang chủ</a>
+        <a href="{{ BASE_URL2 }}" class="btn btn-success" style="width: 100%;">Trang chủ</a>
 
     </div>
 

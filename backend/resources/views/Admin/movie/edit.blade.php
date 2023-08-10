@@ -133,7 +133,7 @@
             <div class="custom-control custom-switch">
 
                 <input type="checkbox" class="custom-control-input" id="customSwitch1"
-                    {{ $movie->isHot == 0 ? 'checked' : '' }} name="isHot" value="1">
+                    {{ $movie->isHot == 1 ? 'checked' : '' }} name="isHot" value="1">
                 <label class="custom-control-label text-danger" style="font-weight:bold" for="customSwitch1">Nổi
                     bật</label>
             </div>
