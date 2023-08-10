@@ -31,7 +31,7 @@ class ScheduleController extends Controller
     {
         $rooms = $this->room->get();
         $movies = $this->movie->get();
-        $schedules = $this->schedule->get();
+        $schedules = $this->schedule->paginate(10);
         return view('Admin.schedule.list', compact('rooms', 'movies', 'schedules'));
     }
 
