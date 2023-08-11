@@ -144,9 +144,9 @@ class MovieController extends Controller
             $movie->type = $request->type;
             $movie->year_old = $request->year_old;
             if ($request->isHot == 1) {
-                $movie->isHot = 0;
-            } else {
                 $movie->isHot = 1;
+            } else {
+                $movie->isHot = 0;
             };
             $movie->slug = $this->globalHelper->generateUniqueSlug($this->movies, $request->name);
             $movie->save();
