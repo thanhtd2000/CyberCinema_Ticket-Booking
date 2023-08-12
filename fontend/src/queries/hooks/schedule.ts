@@ -24,4 +24,6 @@ export const queryAllChair = (body: TSchedule, token: string) =>
     queryKey: [LIST_CHAIR],
     queryFn: () => getListChair(body, token),
     refetchOnMount: false,
+    keepPreviousData: true,
+    enabled: !!token && !!body,
   });

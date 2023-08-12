@@ -30,9 +30,8 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
       setIsModalOpen(false);
     refetch();
     };
-  console.log(dataChair);
   return (
-    <Row gutter={[33, 0]} style={{ flexWrap: 'nowrap', paddingBottom: '10px' }}>
+    <Row gutter={[33, 0]} style={{ flexWrap: 'nowrap', paddingBottom: '10px', justifyContent: 'center' }}>
       {dataChair &&
         dataChair.map((item: any) => {
           if (item?.type_id === 1) {

@@ -1,2 +1,0 @@
-export const LIST_CITY = 'LIST_CITY';
-export const LIST_COUNTRY = 'DETAIL_LIST_COUNTRYPOST';

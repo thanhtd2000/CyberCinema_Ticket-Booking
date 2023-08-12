@@ -16,7 +16,7 @@ function Head({
   title = 'Cyber Movies',
   description = 'Cyber Movies website',
   keywords = 'Cyber Movies most of the website booking ticket movies',
-  url = typeof window !== 'undefined' ? window.location.href : process.env.BASE_URL || 'https://twinger.vn',
+  url = typeof window !== 'undefined' ? window.location.href : process.env.BASE_URL || 'http://home.cybercinema.site',
   ogImage = `${process.env.BASE_URL ? `${process.env.BASE_URL}screenshot.jpg?v=04102022` : ogImageDefault}`,
   favicon = '/images/logoCyberMobie.png',
   metaTags,

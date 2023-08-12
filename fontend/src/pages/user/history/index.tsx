@@ -12,7 +12,10 @@ const HistoryScreen = dynamic(() => import('@/components/Screens/History'), {
   loading: () => <Loading />,
   ssr: false,
 });
-const Layout = dynamic(() => import('@/components/Layouts'));
+const Layout = dynamic(() => import('@/components/Layouts'), {
+      loading: () => <Loading />,
+      ssr: false,
+    } );
 export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
       return {
         props: {
