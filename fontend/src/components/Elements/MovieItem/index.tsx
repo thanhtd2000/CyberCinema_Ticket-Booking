@@ -38,7 +38,7 @@ function MovieItem({ movies }: ItemMovies) {
             <Col xs={24} sm={12} md={8} lg={8} xl={6} className={style.movieItem}>
                   <Row gutter={[{ xs: 24 }, 10]}>
                         <Col xs={12} sm={24} md={24} lg={24} xl={24} className={style.movieImage}>
-                              <Image src={movies?.image} width={227} height={360} alt='' />
+                              <Image loading="lazy" src={movies?.image} width={227} height={360} alt='' />
                               <span onClick={showModal} className={style.playTrailer}><AiFillPlayCircle></AiFillPlayCircle></span>
                               <Modal title={movies?.name} footer={false} width={1000} open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
                                     <VideoIframe isPlay={isPlay} videoLink={videoLink} title={videoTitle} />

@@ -2,7 +2,6 @@ import { TFile } from './media';
 import { TRole } from './role';
 
 export type TUser = {
-  [x: string]: ReactI18NextChildren;
   _id: string;
   username: string;
   email: string;
