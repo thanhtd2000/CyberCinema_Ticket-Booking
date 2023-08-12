@@ -14,6 +14,11 @@ class SeatResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => (int)$this->id,
+            'name' => $this->name,
+            'price' => (int)$this->price,
+            'status' => (int)$this->status,
+        ];
     }
 }
