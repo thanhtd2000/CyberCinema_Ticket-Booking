@@ -184,11 +184,13 @@ class PaymentController extends Controller
                 }
                 foreach ($request->product as $product) {
                     if ($product['amount'] != 0) {
+                        $product1 = $this->product->find($product['id']);
                         $this->orderProduct->create([
                             'quantity' => $product['amount'],
                             'product_id' => $product['id'],
                             'order_id' => $order->id,
-                            'status' => 0
+                            'status' => 0,
+                            'total' => $product['amount'] * $product1->price
                         ]);
                     }
                 }
