@@ -14,7 +14,6 @@ interface IHomeScreen{
 function HomeScreen({fetchAllMovies, HotNews}:IHomeScreen) {
       const listMoviesUpComing = fetchAllMovies.filter(item=> dayjs(item?.date).isAfter(dayjs()) === true)
       const listMoviesPlaying  = fetchAllMovies.filter(item=> dayjs(item?.date).isAfter(dayjs()) === false)
-      console.log(HotNews);
       const listHotNews = HotNews.slice(0,2)
       const listItem = HotNews.slice(2,5)
   return (

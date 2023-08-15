@@ -4,7 +4,7 @@ import { QueryClient, dehydrate } from 'react-query';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 
 import { LANGUAGE_DEFAULT, baseParams } from '@/configs/const.config';
-import { getListMovieFromDatabase } from '@/queries/apis/movies';
+import { getListMovieBySearch, getListMovieFromDatabase } from '@/queries/apis/movies';
 import { Spin } from 'antd';
 import { getListPostFromDatabase } from '@/queries/apis/post';
 import Loading from '@/components/Elements/Loading';
@@ -13,7 +13,11 @@ const Layout = dynamic(() => import('@/components/Layouts'), { loading: () => <L
 export async function getServerSideProps({ locale }: GetServerSidePropsContext) {
   const queryClient = new QueryClient();
 //   Movies
-  const fetchAllMovies = await getListMovieFromDatabase()
+  const fetchAllMovies = await getListMovieBySearch({
+      ...baseParams,
+      limit: 8,
+      isHot: 1,
+    },)
   // News
   const fetchAllHotNews = await getListPostFromDatabase(
     {
@@ -34,10 +38,10 @@ export async function getServerSideProps({ locale }: GetServerSidePropsContext) 
 }
 function Home(props: InferGetServerSidePropsType<typeof getServerSideProps> ) {
   const { fetchAllMovies , HotNews} = props;
-  const dataMovies = fetchAllMovies.data.slice(0,8)
+
   return (
     <Layout>
-      {dataMovies && dataMovies ? (<HomeScreen HotNews={HotNews} fetchAllMovies={dataMovies}/>) : <Spin></Spin>}
+      {fetchAllMovies && fetchAllMovies ? (<HomeScreen HotNews={HotNews} fetchAllMovies={fetchAllMovies.data}/>) : <Spin></Spin>}
     </Layout>
   );
 }
