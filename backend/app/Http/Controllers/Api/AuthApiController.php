@@ -64,7 +64,7 @@ class AuthApiController extends Controller
 
                   return response()->json([
                         'status_code' => 201,
-                        'message' => 'Register Success',
+                        'message' => 'Đăng ký thành công xin mời đăng nhập',
                   ], 201);
             }
             // Lưu ảnh đại diện nếu có
@@ -93,7 +93,7 @@ class AuthApiController extends Controller
 
             return response()->json([
                   'status_code' => 200,
-                  'message' => 'Successfully',
+                  'message' => 'Thay đổi thông tin thành công',
                   'data' => $user->toArray()
             ], 200);
       }
@@ -121,7 +121,7 @@ class AuthApiController extends Controller
                   if (!Auth::attempt($credentials, $remember)) {
                         return response()->json([
                               'status_code' => 401,
-                              'message' => 'Unauthorized'
+                              'message' => 'Tài khoản hoặc mật khẩu không chính xác'
                         ], 401);
                   }
 
@@ -137,7 +137,7 @@ class AuthApiController extends Controller
                   $refresh_token = $user->createToken('refresh_token')->plainTextToken;
                   return response()->json([
                         'status_code' => 200,
-                        'message' => 'Login Success',
+                        'message' => 'Đăng nhập thành công',
                         'auth' => [
                               'access_token' => $tokenResult,
                               'token_type' => 'Bearer',
@@ -159,19 +159,19 @@ class AuthApiController extends Controller
             } catch (ValidationException $error) {
                   return response()->json([
                         'status_code' => 422,
-                        'message' => 'Invalid input',
+                        'message' => 'Thông tin rỗng',
                         'errors' => $error->errors(),
                   ], 422);
             } catch (AuthenticationException $error) {
                   return response()->json([
                         'status_code' => 401,
-                        'message' => 'Unauthorized',
+                        'message' => 'Xin mời đăng nhập lại',
                         'errors' => $error->getMessage(),
                   ], 401);
             } catch (\Exception $error) {
                   return response()->json([
                         'status_code' => 500,
-                        'message' => 'Error in Login',
+                        'message' => 'Lỗi trong đăng nhập',
                         'errors' => $error->getMessage(),
                   ], 500);
             }
@@ -189,12 +189,12 @@ class AuthApiController extends Controller
                   $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
                   return response()->json([
                         'status_code' => 200,
-                        'message' => 'Logout Success',
+                        'message' => 'Đăng xuất thành công',
                   ], 200);
             } else {
                   return response()->json([
                         'status_code' => 409,
-                        'message' => 'Logout Fail Or Account not Exist!!',
+                        'message' => 'Đăng xuất thất bại hoặc tài khoản chưa đăng nhập !!',
                   ], 409);
             }
       }
@@ -219,9 +219,15 @@ class AuthApiController extends Controller
             $user = $request->user();
             if (Hash::check($request->current_password, $user->password)) {
                   $user->update(['password' => bcrypt($request->new_password)]);
-                  return response()->json('Đổi mật khẩu thành công', 200);
+                  return response()->json([
+                        'message' => 'Đổi mật khẩu thành công',
+                        'status_code' => 200
+                  ], 200);
             }
-            return response()->json('Mật khẩu hiện tại không đúng', 401);
+            return response()->json([
+                  'message' => 'Mật khẩu hiện tại không đúng',
+                  'status_code' => 401
+            ], 401);
       }
       public function sendcode(Request $request)
       {

@@ -24,7 +24,7 @@ class MovieController extends Controller
         if (!$slug) {
             $isHot = $request->input('isHot');
             $orderBy = $request->input('orderBy', 'name');
-            $limit = $request->input('limit', 15);
+            $limit = $request->input('limit', 8);
             $order = $request->input('order', 'DESC');
             $s = $request->input('s');
 
@@ -38,7 +38,7 @@ class MovieController extends Controller
             if ($isHot !== null) {
                 $query->where('isHot', $isHot);
             }
-            $movie = $query->paginate();
+            $movie = $query->paginate($limit);
             $data = new MovieCollection($movie);
             return response()->json($data, 200);
         } else {
@@ -49,7 +49,7 @@ class MovieController extends Controller
             } else {
                 return response()->json([
                     'status_code' => 404,
-                    'message' => 'Item Not Found'
+                    'message' => 'Không tìm thấy thông tin'
                 ], 404);
             }
         }
@@ -63,7 +63,7 @@ class MovieController extends Controller
         } else {
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Item Not Found'
+                'message' => 'Không tìm thấy thông tin'
             ], 404);
         }
     }

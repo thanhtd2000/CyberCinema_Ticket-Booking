@@ -30,7 +30,7 @@ class Postcontroller extends Controller
         } else {
             return response()->json([
                 'status_code' => 404,
-                'message' => 'Item Not Found'
+                'message' => 'Không tìm thấy thông tin'
             ], 404);
         }
     }
