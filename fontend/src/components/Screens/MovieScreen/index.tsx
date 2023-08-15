@@ -24,6 +24,7 @@ function MovieScreen() {
       const { data: movies, isLoading: loading, isFetching } = queryAllMoviesBySearch({
             ...baseParams,
             ...params,
+            limit: 0
       });
       const onSearch = (value: string) => {
             // router.push({ pathname: '/search', query: { s: value } });
