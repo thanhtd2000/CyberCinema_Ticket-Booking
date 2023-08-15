@@ -35,7 +35,7 @@
                     <td class="" style="font-weight: bold">{{ $product->name }}</td>
                     <td style="font-weight: bold">{{ number_format($product->price, 0, ',', '.') }} VNĐ</td>
                     <td class="" style="font-weight: bold">{{ $product->count }}</td>
-                    <td class="" style="font-weight: bold">{{ $product->description }}</td>
+                    <td class="" style="font-weight: bold ; width: 300px">{!! $product->description !!}</td>
                     <td class="text-center" >
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="customSwitch1" name="status"  {{  $product->status == 0 ? 'checked' : '' }} disabled value="{{$product->status}}">
