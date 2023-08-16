@@ -2,8 +2,7 @@
 @extends('Admin.layouts.master')
 @extends('Admin.layouts.header')
 @section('content')
-    <div class="d-flex align-items-center justify-content-between"> <button type="button" class="btn btn-primary"><a
-                class="text-white" href="">Thêm mới</a></button>
+    <div class="d-flex align-items-center justify-content-between"> 
         <div class="row align-items-center">
             <form action="{{ route('admin.transaction.search') }}" method="POST" class="d-flex">
                 @csrf

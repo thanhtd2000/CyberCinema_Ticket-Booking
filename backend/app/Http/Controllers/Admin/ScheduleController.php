@@ -60,16 +60,18 @@ class ScheduleController extends Controller
         $errors = [];
         foreach ($time_starts as $time) {
             $start_time = Carbon::createFromFormat('Y-m-d\TH:i', $time);
-            $time_end = $this->convert->convertStringToHoursMinutes($movie->time, $start_time->format('Y/m/d H:i:s'));
+            $time_end = $this->convert->convertStringToHoursMinutes($movie->time,  $start_time->format('Y/m/d H:i:s'));
             $insert = [
                 'room_id' => $request->room_id,
                 'movie_id' => $request->movie_id,
                 'time_start' => $start_time,
                 'time_end' => $time_end
             ];
-            $schedule = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '>=', $start_time->format('Y/m/d H:i:s'))->first();
-            $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $time_end)->where('time_end', '>=', $time_end)->first();
-            $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '<=', $time_end)->first();
+            $formatEndtime =   $time_end->format('Y/m/d H:i:s');
+            $formatStarttime = $start_time->format('Y/m/d H:i:s');
+            $schedule = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=',  $formatStarttime)->where('time_end', '>=',  $formatStarttime)->first();
+            $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=',  $formatEndtime)->where('time_end', '>=',  $formatEndtime)->first();
+            $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=',  $formatStarttime)->where('time_end', '<=',  $formatEndtime)->first();
             if (!empty($schedule) || !empty($schedule2) || !empty($schedule3)) {
                 array_push($errors, "Phòng không trống trong khoảng thời gian  $start_time !");
             } else {
@@ -106,15 +108,18 @@ class ScheduleController extends Controller
 
         $movie = $this->movie->find($request->movie_id);
         $time_end = $this->convert->convertStringToHoursMinutes($movie->time, $start_time->format('Y/m/d H:i:s'));
+        $formatEndtime =   $time_end->format('Y/m/d H:i:s');
+        $formatStarttime =  $start_time->format('Y/m/d H:i:s');
         $insert = [
             'room_id' => $request->room_id,
             'movie_id' => $request->movie_id,
             'time_start' => $start_time,
             'time_end' => $time_end
         ];
-        $schedule = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '>=', $start_time->format('Y/m/d H:i:s'))->get();
-        $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=', $time_end)->where('time_end', '>=', $time_end)->get();
-        $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=', $start_time->format('Y/m/d H:i:s'))->where('time_end', '<=', $time_end)->get();
+
+        $schedule = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=',  $formatStarttime)->where('time_end', '>=',  $formatStarttime)->get();
+        $schedule2 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '<=',  $formatEndtime)->where('time_end', '>=',  $formatEndtime)->get();
+        $schedule3 = $this->schedule->where('room_id', $request->room_id)->where('time_start', '>=',  $formatStarttime)->where('time_end', '<=',  $formatEndtime)->get();
         if (!empty($schedule->toArray()) || !empty($schedule2->toArray()) || !empty($schedule3->toArray())) {
             return back()->with('errors', 'Phòng không trống trong khoảng thời gian này!');
         } else {
