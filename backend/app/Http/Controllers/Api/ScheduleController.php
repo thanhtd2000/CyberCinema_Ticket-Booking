@@ -32,7 +32,7 @@ class ScheduleController extends Controller
         $currentTime = Carbon::now();
         $movie = $this->movie->where('slug', $request->slug)->first();
         $schedules = $this->schedule
-            ->selectRaw('TIME_FORMAT(time_start, "%H:%i") as time')
+            ->selectRaw('DISTINCT TIME_FORMAT(time_start, "%H:%i") as time')
             ->where('movie_id', $movie->id)
             ->whereRaw('DATE(time_start) = ?', [$request->date])
             ->where('time_start', '>', $currentTime)
@@ -80,5 +80,4 @@ class ScheduleController extends Controller
             ], 404);
         }
     }
-
 }
