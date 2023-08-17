@@ -36,6 +36,7 @@ class ScheduleController extends Controller
             ->where('movie_id', $movie->id)
             ->whereRaw('DATE(time_start) = ?', [$request->date])
             ->where('time_start', '>', $currentTime)
+            ->orderBy('time_start')
             ->get();
         if (!empty($schedules->toArray())) {
             $data = ScheduleResource::collection($schedules);
