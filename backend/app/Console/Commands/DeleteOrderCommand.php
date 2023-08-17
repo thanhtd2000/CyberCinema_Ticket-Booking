@@ -42,13 +42,13 @@ class DeleteOrderCommand extends Command
     public function handle()
     {
         $timeAdd = Carbon::now()->subMinutes(5);
-        
+
         $order =  Orders::where('created_at', '<=', $timeAdd)->where('status', 1)->first();
         if (isset($order)) {
             $order->update(['status' => 3]);
             OrderSchedule::where('order_id', $order->id)->delete();
         }
-        OrderSchedule::where('created_at', '<=', $timeAdd)->where('status', 1)->forceDelete();
+        OrderSchedule::where('created_at', '<=', $timeAdd)->where('status', 1)->whereNull('order_id')->forceDelete();
         $this->info('Xoá bản ghi thành công');
     }
 }

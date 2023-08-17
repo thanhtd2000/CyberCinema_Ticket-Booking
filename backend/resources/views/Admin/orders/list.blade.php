@@ -72,7 +72,7 @@
                     <td class="text-center" style="font-weight: bold">{{ $order->created_at }}</td>
                     <td class="text-center" style="font-weight: bold">{{ number_format($order->total) }} VND</td>
                     <td class="text-center" style="width:200px ; display: flex;    justify-content: space-around">
-                        @if ($order->status == 3)
+                        @if ($order->status == 3 || ($order->status_ticket == 2))
                         @else
                             <form action="{{ route('admin.order.cancel', $order->id) }}" method="post">
                                 @csrf
