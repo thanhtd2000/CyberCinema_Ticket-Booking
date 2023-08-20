@@ -169,6 +169,7 @@ Route::middleware('checkAdmin')->prefix('admin')->group(function () {
         Route::put('/update/{id}', [ScheduleController::class, 'update'])->name('admin.schedule.update');
         Route::get('delete/{id}', [ScheduleController::class, 'delete'])->name('admin.schedule.delete');
         Route::post('checktime', [ScheduleController::class, 'checktime'])->name('admin.schedule.checktime');
+        Route::get('/search', [ScheduleController::class, 'index'])->name('admin.schedule.search');
     });
 
     Route::prefix('/discount')->group(function () {
