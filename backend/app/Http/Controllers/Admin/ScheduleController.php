@@ -27,11 +27,18 @@ class ScheduleController extends Controller
         $this->convert = new GlobalHelper();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $rooms = $this->room->get();
-        $movies = $this->movie->get();
-        $schedules = $this->schedule->paginate(10);
+        $date_start =  $request->input('date_start');
+        if ($date_start) {
+            $rooms = $this->room->get();
+            $movies = $this->movie->get();
+            $schedules = Schedule::whereDate('time_start', '=', $date_start)->paginate(10);
+        } else {
+            $rooms = $this->room->get();
+            $movies = $this->movie->get();
+            $schedules = $this->schedule->paginate(10);
+        }
         return view('Admin.schedule.list', compact('rooms', 'movies', 'schedules'));
     }
 
