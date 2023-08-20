@@ -11,6 +11,7 @@ import OrderTicket from './Order';
 import { useGlobalState } from '@/libs/GlobalStateContext';
 import CountTime from '@/components/Elements/Timer/Timer';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 function BookingTicketScreen() {
   const { t } = useTranslation();
   const [selectedBoxes, setSelectedBoxes] = useState<any>([]);
@@ -36,7 +37,7 @@ function BookingTicketScreen() {
 
   const { mutate: updateChair, isLoading: loading, isError } = useQueryPatchChair();
   const handleBoxClick = (box: any | never) => {
-    if (!loading) {
+    if (!loading && selectedBoxes.length < 5) {
       updateChair({
         params: { id: box?.id, schedule_id: valueRoom.schedule_id, total: movieDetail?.price + box?.price },
         token: token,
@@ -45,13 +46,17 @@ function BookingTicketScreen() {
     const isSelected = selectedBoxes.includes(box);
     if (isSelected) {
       const updatedBoxes = selectedBoxes.filter((selectedBox: any) => selectedBox !== box);
-      if (selectedBoxes.length < 5) {
+      if (selectedBoxes.length <= 5) {
         setSelectedBoxes(updatedBoxes);
       }
     } else {
       const updatedBoxes = [...selectedBoxes, box];
       if (selectedBoxes.length < 5) {
         setSelectedBoxes(updatedBoxes);
+      }else{
+            toast.error('Vui lòng chỉ chọn 5 ghế', {
+                  position: toast.POSITION.BOTTOM_RIGHT,
+                });
       }
     }
   };

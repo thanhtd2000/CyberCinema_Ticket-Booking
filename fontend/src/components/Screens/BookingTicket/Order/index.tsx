@@ -12,6 +12,7 @@ import { queryGetPoints, queryPayment } from '@/queries/hooks/payment';
 import { useGlobalState } from '@/libs/GlobalStateContext';
 import CountTime from '@/components/Elements/Timer/Timer';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 interface IOrderTicket {
   expiresAt: any;
   totalPrice: number;
@@ -99,6 +100,9 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
   const numberWithComas = (num: number) => num?.toString()?.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
   const handleUsingDiscount = (item: TDiscount) => {
     const moneyDiscount = (item?.percent / 100) * totalPrice;
+    toast.success('Áp dụng mã giảm giá thành công', {
+      position: toast.POSITION.BOTTOM_RIGHT,
+    });
     setPercent(moneyDiscount);
     setIdDiscount(item?.id);
   };
@@ -178,7 +182,7 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                   <p>{item?.name}</p>
                 </Col>
                 <Col xs={13} sm={16} md={10}>
-                  <p>TIẾT KIỆM 46K!!! Gồm: 1 Bắp (69oz) + 2 Nước có gaz (22oz)</p>
+                  <p>{item?.description}</p>
                 </Col>
                 <Col xs={5} sm={3} md={3} className={style.countComboSweet}>
                   <span>{item.amount}</span>
@@ -321,7 +325,6 @@ function OrderTicket({ expiresAt, totalPrice, selectedBoxes }: IOrderTicket) {
                     <Row gutter={[24, 24]}>
                       <Col xs={24} sm={12}>
                         <Radio onChange={(e) => handleTransfer(e.target.value)} className={style.method} value='VNPay'>
-                          {' '}
                           <Image src='/images/ic-payment.png' width={56} height={35} alt='combo' /> <span>Banking</span>
                         </Radio>
                       </Col>
