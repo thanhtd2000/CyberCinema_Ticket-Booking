@@ -73,7 +73,6 @@ function MovieScreen() {
                                                             { value: '-date', label: 'Cũ nhất' },
                                                             { value: '-name', label: 'A-Z' },
                                                             { value: 'name', label: 'Z-A' },
-                                                            { value: 'viewer', label: 'Nhiều view nhất' },
                                                       ]}
                                                 />
                                           </Col>

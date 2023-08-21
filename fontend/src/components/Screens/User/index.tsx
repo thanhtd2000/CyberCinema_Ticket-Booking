@@ -73,7 +73,7 @@ function UserScreen() {
                                                 >
                                                       <Input />
                                                 </Form.Item>
-                                                <Form.Item label="Sex" name='sex' initialValue={user?.sex}>
+                                                <Form.Item label="Sex" name='sex' initialValue={user?.sex === '1' ? 'Nam' : 'Nữ'}>
                                                       <Input disabled style={{ backgroundColor: 'white' }} />
                                                 </Form.Item>
                                                 <Form.Item label="Số Points" name='points' initialValue={user?.points}>

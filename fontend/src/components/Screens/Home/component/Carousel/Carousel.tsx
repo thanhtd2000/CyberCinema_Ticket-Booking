@@ -5,6 +5,7 @@ import { BsTicketDetailed } from 'react-icons/bs';
 import 'swiper/css/navigation';
 
 import style from './style.module.less';
+import Link from 'next/link';
 const { Title, Paragraph } = Typography
 function Carousel () {
   return (
@@ -39,9 +40,11 @@ function Carousel () {
               <Paragraph className={style.name}>2D Digital</Paragraph>
             </Col>
             <Col span={24}>
+            <Link href={`movies/quy-quyet-cua-do-vo-dinh`}>
               <Button className={style.trailer} icon={<BsTicketDetailed />}>
                 Đặt vé ngay
               </Button>
+            </Link>
             </Col>
           </Row>
         </Col>

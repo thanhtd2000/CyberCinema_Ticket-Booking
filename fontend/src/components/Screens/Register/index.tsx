@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import style from './style.module.less';
 import { Radio } from 'antd';
 import { Row, Col, Typography, Button, Checkbox, Form, Input, DatePicker } from 'antd';
@@ -11,13 +11,16 @@ const { Title } = Typography;
 function RegisterScreen() {
   const router = useRouter();
   const dateFormat = 'YYYY/MM/DD';
+  const [error, setError] = useState(false);
   const { mutate: register } = useRegister();
   const onFinish = (values: TRegister) => {
     register(values, {
       onSuccess: () => {
-        // setStep(2);
         router.push('/');
       },
+      onError: () => {
+            setError(true);
+          },
     });
   };
   const range = (start: number, end: number) => {
@@ -33,9 +36,6 @@ function RegisterScreen() {
     disabledSeconds: () => [55, 56],
   });
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log('Failed:', errorInfo);
-  };
   return (
     <div className='RegisterStyle'>
       <div style={{ position: 'relative' }}>
@@ -56,7 +56,6 @@ function RegisterScreen() {
                   wrapperCol={{ span: 24 }}
                   initialValues={{ remember: true }}
                   onFinish={onFinish}
-                  onFinishFailed={onFinishFailed}
                   autoComplete='off'
                 >
                   <Form.Item name='name' rules={[{ required: true, message: 'Vui lòng nhập tên hợp lệ.' }]}>
@@ -87,11 +86,11 @@ function RegisterScreen() {
                       rules={[{ required: true, message: 'Vui lòng chọn giới tính.' }]}
                     >
                       <Radio.Group>
-                        <Radio style={{ color: 'white' }} value='man'>
+                        <Radio style={{ color: 'white' }} value='1'>
                           {' '}
                           Nam{' '}
                         </Radio>
-                        <Radio style={{ color: 'white' }} value='woman'>
+                        <Radio style={{ color: 'white' }} value='2'>
                           {' '}
                           Nữ{' '}
                         </Radio>
@@ -102,7 +101,7 @@ function RegisterScreen() {
                     name='password'
                     rules={[{ required: true, message: 'Mật khẩu của bạn phải chứa từ 4 đến 60 ký tự.' }]}
                   >
-                    <Input className={style.input} placeholder='Password' />
+                    <Input.Password  className={style.input} placeholder='Password' />
                   </Form.Item>
 
                   <Form.Item style={{ margin: '0px' }} name='remember' valuePropName='checked'>
@@ -110,6 +109,7 @@ function RegisterScreen() {
                       Tôi đồng ý với <Link href='/'>Điều khoản của Cyber Movies</Link>
                     </Checkbox>
                   </Form.Item>
+                  <span>{error ? <div style={{ color: 'red' }}>Email hoặc số điện thoại đã được sử dụng</div> : null}</span>
                   <Form.Item name='remember'>
                     <span style={{ color: '#b3b3b3', fontSize: '12px' }}>
                       Đã có tài khoản{' '}
