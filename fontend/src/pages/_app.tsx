@@ -1,5 +1,4 @@
 import '@/styles/globals.less';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import type { AppProps } from 'next/app';
 import { QueryClientProvider } from 'react-query';
 import { useEffect } from 'react';
@@ -12,6 +11,7 @@ import logger from '@libs/logger';
 import { GlobalStateProvider } from '@/libs/GlobalStateContext';
 
 function App({ Component, pageProps }: AppProps) {
+  
   const router = useRouter();
   useEffect(() => {
     nProgress.configure({ showSpinner: false });
@@ -39,7 +39,6 @@ function App({ Component, pageProps }: AppProps) {
       <GlobalStateProvider>
       <Component {...pageProps} />
       </GlobalStateProvider>
-      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </QueryClientProvider>
   );
 }

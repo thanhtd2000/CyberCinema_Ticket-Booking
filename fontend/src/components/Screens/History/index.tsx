@@ -7,7 +7,6 @@ import Link from 'antd/es/typography/Link';
 function HistoryScreen() {
   const token = checkAuth();
   const { data: history, isLoading } = queryHistory(token);
-  console.log(history);
   return (
     <div className={`${style.infor} inforUser`} style={{ background: '#0D0E10' }}>
       <div className='container'>
