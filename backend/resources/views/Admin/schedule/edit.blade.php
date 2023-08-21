@@ -9,7 +9,7 @@
             <label for="exampleFormControlSelect1" style="font-weight:bold">Phim</label>
             <select class="js-example-basic-multiple-limit form-control" name="movie_id" multiple="multiple">
                 @foreach ($movies as $item)
-                    <option {{ $schedule->movie_id === $item->id ? 'selected' : '' }} value="{{ $item->id }}">
+                    <option {{ $schedule->movie_id == $item->id ? 'selected' : '' }} value="{{ $item->id }}">
                         {{ $item->name }}</option>
                 @endforeach
             </select>
@@ -25,7 +25,7 @@
                 multiple="multiple">
                 <option value="0">Chọn phòng</option>
                 @foreach ($rooms as $room)
-                    <option {{ $schedule->room_id === $room->id ? 'selected' : '' }} value="{{ $room->id }}">
+                    <option {{ $schedule->room_id == $room->id ? 'selected' : '' }} value="{{ $room->id }}">
                         {{ $room->name }}</option>
                 @endforeach
             </select>
