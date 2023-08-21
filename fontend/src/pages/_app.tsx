@@ -1,5 +1,4 @@
 import '@/styles/globals.less';
-import { ReactQueryDevtools } from 'react-query/devtools';
 import type { AppProps } from 'next/app';
 import { QueryClientProvider } from 'react-query';
 import { useEffect } from 'react';
@@ -39,7 +38,6 @@ function App({ Component, pageProps }: AppProps) {
       <GlobalStateProvider>
       <Component {...pageProps} />
       </GlobalStateProvider>
-      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </QueryClientProvider>
   );
 }
