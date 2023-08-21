@@ -92,11 +92,9 @@ export const useQueryRoleCurrent = (token: string) =>
  */
 export const refreshTokenFn: () => void = async () => {
       const signature: TSignature | null = getStoredAuth();
-      console.log(signature)
       if (signature) {
         const result: TResApi = await refreshToken(signature.access_token, signature?.refresh_token || '');
         if (result.statusCode === 200) {
-            console.log(result);
           setStoredAuth({
             ...signature,
             access_token: result.access_token,

@@ -11,6 +11,7 @@ import logger from '@libs/logger';
 import { GlobalStateProvider } from '@/libs/GlobalStateContext';
 
 function App({ Component, pageProps }: AppProps) {
+  
   const router = useRouter();
   useEffect(() => {
     nProgress.configure({ showSpinner: false });

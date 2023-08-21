@@ -13,11 +13,9 @@ function UserScreen() {
             }
       }, [checkAuth()])
       const onFinish = (values: any) => {
-            console.log('Success:', values);
             updateUser({ token, data: { ...values, image: values.image?.file } })
       };
       const onFinishForm = (value: any) =>{
-            console.log(value);
             updatePassword({token, data: {...value} })
       }
       const { data: user } = queryGetProfile(token);

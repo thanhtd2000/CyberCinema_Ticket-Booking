@@ -7,7 +7,6 @@ interface INewDetailScreen {
   fetchNewDetail: any;
 }
 function NewDetailScreen({ fetchNewDetail }: INewDetailScreen) {
-      console.log(fetchNewDetail);
   return (
     <Row className={style.NewDetail}>
       <Col span={24}>
