@@ -40,7 +40,7 @@ function Carousel () {
               <Paragraph className={style.name}>2D Digital</Paragraph>
             </Col>
             <Col span={24}>
-            <Link href={`movies/quy-quyet-cua-do-vo-dinh`}>
+            <Link href={`movies/quy-quyet-cua-do-vo-dinh-2`}>
               <Button className={style.trailer} icon={<BsTicketDetailed />}>
                 Đặt vé ngay
               </Button>
