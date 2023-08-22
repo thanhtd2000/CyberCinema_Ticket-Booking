@@ -37,21 +37,21 @@ function BookingTicketScreen() {
 
   const { mutate: updateChair, isLoading: loading, isError } = useQueryPatchChair();
   const handleBoxClick = (box: any | never) => {
-    if (!loading && selectedBoxes.length < 5) {
+    if (!loading && selectedBoxes?.length < 5) {
       updateChair({
-        params: { id: box?.id, schedule_id: valueRoom.schedule_id, total: movieDetail?.price + box?.price },
+        params: { id: box?.id, schedule_id: valueRoom?.schedule_id, total: movieDetail?.price + box?.price },
         token: token,
       });
     }
-    const isSelected = selectedBoxes.includes(box);
+    const isSelected = selectedBoxes?.includes(box);
     if (isSelected) {
-      const updatedBoxes = selectedBoxes.filter((selectedBox: any) => selectedBox !== box);
+      const updatedBoxes = selectedBoxes?.filter((selectedBox: any) => selectedBox !== box);
       if (selectedBoxes.length <= 5) {
         setSelectedBoxes(updatedBoxes);
       }
     } else {
       const updatedBoxes = [...selectedBoxes, box];
-      if (selectedBoxes.length < 5) {
+      if (selectedBoxes?.length < 5) {
         setSelectedBoxes(updatedBoxes);
       }else{
             toast.error('Vui lòng chỉ chọn 5 ghế', {
@@ -74,8 +74,8 @@ function BookingTicketScreen() {
   }, []);
   const totalPrice = useMemo(
     () =>
-      selectedBoxes.length > 0
-        ? selectedBoxes.reduce((amount: number, current: any) => amount + current.price, 0)
+      selectedBoxes?.length > 0
+        ? selectedBoxes.reduce((amount: number, current: any) => amount + current?.price, 0)
         : null,
     [selectedBoxes],
   );
@@ -106,7 +106,7 @@ function BookingTicketScreen() {
         <Row>
           {component && component === 1 ? (
             <Col xs={24} sm={24} md={24} lg={18} className={style.bookChair}>
-              {selectedBoxes.length > 0 ? (
+              {selectedBoxes?.length > 0 ? (
                 <div className={style.warning}>
                   <p>
                     {t('movies:regulations')} {movieDetail?.year_old} {t('movies:old')}.
@@ -162,6 +162,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -170,6 +171,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -178,6 +180,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -186,6 +189,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -194,6 +198,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -202,6 +207,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -210,6 +216,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -218,6 +225,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -226,6 +234,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                     <LineChair
                       isLoading={loading}
@@ -234,6 +243,7 @@ function BookingTicketScreen() {
                       isError={isError}
                       handleBoxClick={handleBoxClick}
                       selectedBoxes={selectedBoxes}
+                      setSelectedBoxes={setSelectedBoxes}
                     ></LineChair>
                   </div>
                 </div>
@@ -322,10 +332,10 @@ function BookingTicketScreen() {
                   <Col>
                     <span className={style.title}>{t('movies:chair')} : </span>
                   </Col>
-                  {selectedBoxes.length > 0 ? (
+                  {selectedBoxes?.length > 0 ? (
                     <Col>
                       {selectedBoxes.map((item: any) => (
-                        <span className={style.content}> {item.name} </span>
+                        <span className={style.content}> {item?.name} </span>
                       ))}
                     </Col>
                   ) : (
@@ -335,7 +345,7 @@ function BookingTicketScreen() {
                 {component === 1 ? (
                   <Row className={style.submitTicket} style={{ justifyContent: 'center' }} gutter={[10, 10]}>
                     <Col span={12}>
-                      {selectedBoxes.length > 0 && (
+                      {selectedBoxes?.length > 0 && (
                         <Button onClick={() => setComponent(2)}>{t('movies:continue')}</Button>
                       )}
                     </Col>

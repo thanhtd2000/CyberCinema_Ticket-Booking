@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { TRegister } from '@/modules';
 import { useRouter } from 'next/router';
 import { useRegister } from '@/queries/hooks';
+import { regexPwdStrong } from '@/utils/regex';
 const { Title } = Typography;
 function RegisterScreen() {
   const router = useRouter();
@@ -99,9 +100,13 @@ function RegisterScreen() {
                   </div>
                   <Form.Item
                     name='password'
-                    rules={[{ required: true, message: 'Mật khẩu của bạn phải chứa từ 4 đến 60 ký tự.' }]}
+                    rules={[{ required: true, message: 'Vui lòng nhập mật khẩu.' },                {
+                        pattern: regexPwdStrong,
+                        message:
+                          'Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt',
+                      },]}
                   >
-                    <Input.Password  className={style.input} placeholder='Password' />
+                    <Input type='password' className={style.input} placeholder='Password' />
                   </Form.Item>
 
                   <Form.Item style={{ margin: '0px' }} name='remember' valuePropName='checked'>

@@ -9,12 +9,12 @@ interface ILineChair {
   isError: any;
   refetch: any;
   isLoading: any;
+  setSelectedBoxes: any;
 }
-function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch, isLoading }: ILineChair) {
+function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch, isLoading, setSelectedBoxes }: ILineChair) {
   useEffect(() => {
-    if (isError) {
-      setIsModalOpen(true);
-    }
+refetch();
+setSelectedBoxes([])
   }, [isError]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const handleSelectChair = (item:any) =>{
@@ -29,6 +29,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
   const handleCancel = () => {
       setIsModalOpen(false);
     refetch();
+    setSelectedBoxes([])
     };
   return (
     <Row gutter={[33, 0]} style={{ flexWrap: 'nowrap', paddingBottom: '10px', justifyContent: 'center' }}>
@@ -57,7 +58,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
             } else {
               return (
                 <Col className={style.itemChair} onClick={() => handleSelectChair(item)}>
-                  {selectedBoxes.includes(item) || item?.status === 1 ? (
+                  {selectedBoxes?.includes(item) || item?.status === 1 ? (
                     <Image src='/images/chair/seat-select-normal.png' width={50} height={50} alt='empty chair' />
                   ) : (
                     <Image src='/images/NomarlChair.png' width={50} height={50} alt='empty chair' />
@@ -95,7 +96,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
             } else {
               return (
                 <Col className={style.itemChair} onClick={() => handleSelectChair(item)}>
-                  {selectedBoxes.includes(item) || item?.status === 1 ? (
+                  {selectedBoxes?.includes(item) || item?.status === 1 ? (
                     <Image src='/images/chair/seat-select-vip.png' width={50} height={50} alt='empty chair' />
                   ) : (
                         <Image src='/images/chair/ChairVip.png' width={50} height={50} alt='empty chair' />
@@ -133,7 +134,7 @@ function LineChair({ dataChair, handleBoxClick, selectedBoxes, isError, refetch,
             } else {
               return (
                 <Col className={style.itemChair} onClick={() => handleSelectChair(item)}>
-                  {selectedBoxes.includes(item) ? (
+                  {selectedBoxes?.includes(item) ? (
                     <Image src='/images/chair/seat-select-double.png' width={50} height={50} alt='Booking chair' />
                   ) : (
                     <div>
